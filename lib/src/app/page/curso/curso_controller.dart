@@ -5,6 +5,7 @@ import 'package:ss_crmeducativo_2/src/domain/entities/anio_acemico_ui.dart';
 class CursoController extends Controller{
   CursoPresenter cursoPresenter;
   List<AnioAcademicoUi> _anioAcademicoUiList = [];
+
   List<AnioAcademicoUi> get anioAcademicoUiList => _anioAcademicoUiList;
   AnioAcademicoUi? _anioAcademicoUi = null;
   AnioAcademicoUi? get anioAcademicoUi => _anioAcademicoUi;

@@ -58,7 +58,7 @@ class MoorConfiguracionRepository extends ConfiguracionRepository{
     AppDataBase SQL = AppDataBase();
     try{
       SessionUserData sessionUserData =  await SQL.selectSingle(SQL.sessionUser).getSingle();
-      return sessionUserData.userId??0;
+      return sessionUserData!=null?sessionUserData.userId:0;
     }catch(e){
       throw Exception(e);
     }
