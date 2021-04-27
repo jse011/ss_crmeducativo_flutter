@@ -733,6 +733,19 @@ class MoorConfiguracionRepository extends ConfiguracionRepository{
     return null;
   }
 
+  @override
+  Future<void> updateSessionProgramaEducativoId(int programaEducativoId) async {
+    AppDataBase SQL = AppDataBase();
+    try{
+      SessionUserData sessionUserData = await(SQL.selectSingle(SQL.sessionUser).getSingle());
+      if(sessionUserData!=null){
+        await SQL.update(SQL.sessionUser).replace(sessionUserData.copyWith(programaEducativoId: programaEducativoId));
+      }
+    }catch(e){
+      throw Exception(e);
+    }
+  }
+
 
 
 

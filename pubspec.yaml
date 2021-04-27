@@ -62,6 +62,8 @@ dependencies:
   #fancy_shimmer_image: ^1.2.0
   shimmer: ^2.0.0
   #fancy_shimmer_image: ^1.2.0
+  moor_db_viewer: ^3.0.1
+  #sized_context: ^0.2.1+1
 
 dev_dependencies:
   flutter_test:

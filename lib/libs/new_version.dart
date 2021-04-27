@@ -148,11 +148,14 @@ class NewVersion {
   /// can dismiss the alert or proceed to the app store.
   void showUpdateDialog(VersionStatus versionStatus) async {
     final title = Text(dialogTitle);
+    String? text;
+    if( this.dialogTextBuilder!=null){
+      text = this.dialogTextBuilder!(versionStatus.localVersion, versionStatus.storeVersion);
+    }else{
+      text = this.dialogText ?? 'You can now update this app from ${versionStatus.localVersion} to ${versionStatus.storeVersion}';
+    }
 
-    final content = Text(
-      this.dialogTextBuilder!(versionStatus.localVersion, versionStatus.storeVersion)?? this.dialogText ??
-          'You can now update this app from ${versionStatus.localVersion} to ${versionStatus.storeVersion}',
-    );
+    final content = Text(text,);
     final dismissText = Text(this.dismissText);
     final dismissAction = this.dismissAction ?? () => Navigator.of(context, rootNavigator: true).pop();
     final updateText = Text(this.updateText);

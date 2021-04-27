@@ -23,6 +23,7 @@ abstract class ConfiguracionRepository{
   Future<UsuarioUi> getSessionUsuario();
   Future<List<AnioAcademicoUi>> getAnioAcademicoList(int usuarioId);
   Future<void> updateSessionAnioAcademicoId(int anioAcademicoId);
+  Future<void> updateSessionProgramaEducativoId(int programaEducativoId);
   Future<List<ProgramaEducativoUi>> getListProgramaEducativo(int empleadoId, int anioAcademicoId);
   Future<List<CursosUi>> getListCursos(int empleadoId, int anioAcademicoId, int programaEducativoId);
   Future<CursosUi?> getCurso(int cargaCursoId);

@@ -15,5 +15,7 @@ class CargaAcademica extends Table
   IntColumn get idGrupo => integer().nullable()();
   IntColumn get capacidadVacante => integer().nullable()();
   IntColumn get capacidadVacanteD => integer().nullable()();
-  
+
+  @override
+  Set<Column> get primaryKey => {cargaAcademicaId};
 }

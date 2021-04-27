@@ -62,6 +62,8 @@ class GetProgramasEducativos extends UseCase<GetProgramasEducativosResponse, Get
           programaEducativoUiSelected.seleccionado = true;
         }
 
+        repository.updateSessionProgramaEducativoId(programaEducativoUiSelected?.idPrograma??0);
+
         controller.add(GetProgramasEducativosResponse(offlineServidor, errorServidor, programaEducativoUiSelected, programaEducativoUiList));
 
         controller.close();

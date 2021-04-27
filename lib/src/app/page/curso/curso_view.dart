@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:ss_crmeducativo_2/src/app/page/curso/curso_controller.dart';
+import 'package:ss_crmeducativo_2/src/app/routers.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_theme.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/hex_color.dart';
 import 'package:ss_crmeducativo_2/src/app/widgets/animation_view.dart';
@@ -124,57 +125,57 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                             right: 24,
                             top: 16 - 8.0 * topBarOpacity,
                             bottom: 12 - 8.0 * topBarOpacity),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            IconButton(
-                              icon: Icon(Ionicons.arrow_back, color: AppTheme.nearlyBlack, size: 22 + 6 - 6 * topBarOpacity,),
-                              onPressed: () {
-                                animationController.reverse().then<dynamic>((data) {
-                                  if (!mounted) {
-                                    return;
-                                  }
-                                  Navigator.of(context).pop();
-                                });
-                              },
-                            ),
-                            Expanded(
-                              flex: 4,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Hi sanskriti',
-                                      textAlign: TextAlign.left,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        fontFamily: AppTheme.fontTTNorms,
-                                        fontWeight: FontWeight.w300,
-                                        fontSize: 12 + 6 - 6 * topBarOpacity,
-                                        letterSpacing: 1.2,
-                                        color: AppTheme.darkerText,
+                        child:  ControlledWidgetBuilder<CursoController>(
+                          builder: (context, controller) => Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              IconButton(
+                                icon: Icon(Ionicons.arrow_back, color: AppTheme.nearlyBlack, size: 22 + 6 - 6 * topBarOpacity,),
+                                onPressed: () {
+                                  animationController.reverse().then<dynamic>((data) {
+                                    if (!mounted) {
+                                      return;
+                                    }
+                                    Navigator.of(context).pop();
+                                  });
+                                },
+                              ),
+                              Expanded(
+                                flex: 4,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        controller.fechaHoy??"",
+                                        textAlign: TextAlign.left,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontFamily: AppTheme.fontTTNorms,
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 12 + 6 - 6 * topBarOpacity,
+                                          letterSpacing: 1.2,
+                                          color: AppTheme.darkerText,
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      'Welcome Back!',
-                                      textAlign: TextAlign.left,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        fontFamily: AppTheme.fontTTNorms,
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 12 + 6 - 6 * topBarOpacity,
-                                        letterSpacing: 1.2,
-                                        color: AppTheme.darkerText,
-                                      ),
-                                    )
-                                  ],
+                                      Text(
+                                        controller.cursos?.nombreCurso??"",
+                                        textAlign: TextAlign.left,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontFamily: AppTheme.fontTTNorms,
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 12 + 6 - 6 * topBarOpacity,
+                                          letterSpacing: 1.2,
+                                          color: AppTheme.darkerText,
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                            ControlledWidgetBuilder<CursoController>(
-                              builder: (context, controller) =>  ClipOval(
+                              ClipOval(
                                 child: Material(
                                   color: HexColor(controller.cursos?.color1).withOpacity(0.1), // button color
                                   child: InkWell(
@@ -185,9 +186,9 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                   ),
                                 ),
                               ),
-                            ),
 
-                          ],
+                            ],
+                          ),
                         ),
                       )
                     ],
@@ -201,7 +202,6 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
     );
   }
 
-  int countView = 4;
   Widget getMainTab() {
     return Container(
         padding: EdgeInsets.only(
@@ -214,220 +214,244 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
               //print()
               return Stack(
                 children: [
-                  CustomScrollView(
-                    controller: scrollController,
-                    slivers: <Widget>[
-                      SliverList(
-                          delegate: SliverChildListDelegate(
-                            [
-                              Padding(padding: EdgeInsets.only( top: 48)),
-                              Container(
-                                height: 180,
-                                  margin: EdgeInsets.only(left: 24, right: 24),
-                                  decoration: BoxDecoration(
-                                      color: HexColor(controller.cursos?.color1),
-                                      borderRadius: BorderRadius.all(Radius.circular(28))
-                                  ),
+                  AnimatedBuilder(
+                    animation: animationController,
+                    builder: (BuildContext? context, Widget? child) {
+                      return FadeTransition(
+                        opacity: topBarAnimation,
+                        child: Transform(
+                          transform: Matrix4.translationValues(
+                              0.0, 30 * (1.0 - topBarAnimation.value), 0.0),
+                          child:  CustomScrollView(
+                            controller: scrollController,
+                            slivers: <Widget>[
+                              SliverList(
+                                  delegate: SliverChildListDelegate(
+                                    [
+                                      Padding(padding: EdgeInsets.only( top: 48)),
+                                      Container(
+                                        height: 180,
+                                        margin: EdgeInsets.only(left: 24, right: 24),
+                                        decoration: BoxDecoration(
+                                            color: HexColor(controller.cursos?.color1),
+                                            borderRadius: BorderRadius.all(Radius.circular(28))
+                                        ),
 
-                              ),
-                              Padding(padding: EdgeInsets.only( top: 24)),
-                              Container(
-                                height: 90,
-                                margin: EdgeInsets.only(top: 0,left: 24, right: 24, bottom: 20),
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: HexColor(controller.cursos?.color1).withOpacity(0.1),
-                                      width: 2
-                                    ),
-                                    borderRadius: BorderRadius.all(Radius.circular(22))
-                                ),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                          color: HexColor("#EDF8FF"),
-                                          borderRadius: BorderRadius.all(Radius.circular(16))
                                       ),
-                                      width: 65,
-                                    ),
-                                    Padding(padding: EdgeInsets.only(left: 8)),
-                                    Expanded(
-                                        child: Text("Homework", style: TextStyle(
-                                          fontFamily: AppTheme.fontTTNorms,
-                                          fontWeight: FontWeight.w800,
-                                          fontSize: 18,
-                                          letterSpacing: 0.5,
-                                          color: AppTheme.darkerText,
-                                        ),)
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 8, right: 28),
-                                      child: ClipOval(
-                                        child: Material(
-                                          color: HexColor(controller.cursos?.color1), // button color
-                                          child: InkWell(
-                                            splashColor: HexColor(controller.cursos?.color3), // inkwell color
-                                            child: SizedBox(width: 42, height: 42,
-                                                child: Icon(Ionicons.return_down_forward_outline, size: 24,color: Colors.white,)),
-                                            onTap: () {},
+                                      Padding(padding: EdgeInsets.only( top: 24)),
+                                      GestureDetector(
+                                        onTap: () =>  {
+                                          AppRouter.createRouteSesionRouter(context!)
+                                        },
+                                        child: Container(
+                                          height: 90,
+                                          margin: EdgeInsets.only(top: 0,left: 24, right: 24, bottom: 20),
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: HexColor(controller.cursos?.color1).withOpacity(0.1),
+                                                  width: 2
+                                              ),
+                                              borderRadius: BorderRadius.all(Radius.circular(22))
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                margin: EdgeInsets.all(8),
+                                                decoration: BoxDecoration(
+                                                    color: HexColor("#5056F2D0"),
+                                                    borderRadius: BorderRadius.all(Radius.circular(16))
+                                                ),
+                                                width: 65,
+                                              ),
+                                              Padding(padding: EdgeInsets.only(left: 8)),
+                                              Expanded(
+                                                  child: Text("Sesiones", style: TextStyle(
+                                                    fontFamily: AppTheme.fontTTNorms,
+                                                    fontWeight: FontWeight.w800,
+                                                    fontSize: 18,
+                                                    letterSpacing: 0.5,
+                                                    color: AppTheme.darkerText,
+                                                  ),)
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.only(left: 8, right: 28),
+                                                child: ClipOval(
+                                                  child: Material(
+                                                    color: HexColor(controller.cursos?.color1), // button color
+                                                    child: InkWell(
+                                                      splashColor: HexColor(controller.cursos?.color3), // inkwell color
+                                                      child: SizedBox(width: 42, height: 42,
+                                                          child: Icon(Ionicons.return_down_forward_outline, size: 24,color: Colors.white,)),
+                                                      onTap: () {},
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+
+                                            ],
                                           ),
                                         ),
                                       ),
-                                    ),
+                                      Container(
+                                        height: 90,
+                                        margin: EdgeInsets.only(top: 0,left: 24, right: 24, bottom: 20),
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color:  HexColor(controller.cursos?.color1).withOpacity(0.1),
+                                                width: 2
+                                            ),
+                                            borderRadius: BorderRadius.all(Radius.circular(22))
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              margin: EdgeInsets.all(8),
+                                              decoration: BoxDecoration(
+                                                  color: HexColor("#EDF8FF"),
+                                                  borderRadius: BorderRadius.all(Radius.circular(16))
+                                              ),
+                                              width: 65,
+                                            ),
+                                            Padding(padding: EdgeInsets.only(left: 8)),
+                                            Expanded(
+                                                child: Text("Tareas", style: TextStyle(
+                                                  fontFamily: AppTheme.fontTTNorms,
+                                                  fontWeight: FontWeight.w800,
+                                                  fontSize: 18,
+                                                  letterSpacing: 0.5,
+                                                  color: AppTheme.darkerText,
+                                                ),)
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.only(left: 8, right: 28),
+                                              child: ClipOval(
+                                                child: Material(
+                                                  color: HexColor(controller.cursos?.color1), // button color
+                                                  child: InkWell(
+                                                    splashColor: HexColor(controller.cursos?.color3), // inkwell color
+                                                    child: SizedBox(width: 42, height: 42,
+                                                        child: Icon(Ionicons.return_down_forward_outline, size: 24,color: Colors.white,)),
+                                                    onTap: () {},
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
 
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 90,
-                                margin: EdgeInsets.only(top: 0,left: 24, right: 24, bottom: 20),
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: HexColor("#2F3176").withOpacity(0.1),
-                                        width: 2
-                                    ),
-                                    borderRadius: BorderRadius.all(Radius.circular(22))
-                                ),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                          color: HexColor("#FFF8EE"),
-                                          borderRadius: BorderRadius.all(Radius.circular(16))
-                                      ),
-                                      width: 65,
-                                    ),
-                                    Padding(padding: EdgeInsets.only(left: 8)),
-                                    Expanded(
-                                        child: Text("Materials", style: TextStyle(
-                                          fontFamily: AppTheme.fontTTNorms,
-                                          fontWeight: FontWeight.w800,
-                                          fontSize: 18,
-                                          letterSpacing: 0.5,
-                                          color: AppTheme.darkerText,
-                                        ),)
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 8, right: 28),
-                                      child: ClipOval(
-                                        child: Material(
-                                          color: HexColor(controller.cursos?.color1), // button color
-                                          child: InkWell(
-                                            splashColor: HexColor(controller.cursos?.color3), // inkwell color
-                                            child: SizedBox(width: 42, height: 42,
-                                                child: Icon(Ionicons.return_down_forward_outline, size: 24,color: Colors.white,)),
-                                            onTap: () {},
-                                          ),
+                                          ],
                                         ),
                                       ),
-                                    ),
+                                      GestureDetector(
+                                        onTap: () =>  {
+                                          if(context!=null && controller.cursos != null){
+                                            AppRouter.createRouteRubrosRouter(context, controller.cursos!)
+                                          }
+                                        },
+                                       child: Container(
+                                         height: 90,
+                                         margin: EdgeInsets.only(top: 0,left: 24, right: 24, bottom: 20),
+                                         decoration: BoxDecoration(
+                                             border: Border.all(
+                                                 color:  HexColor(controller.cursos?.color1).withOpacity(0.1),
+                                                 width: 2
+                                             ),
+                                             borderRadius: BorderRadius.all(Radius.circular(22))
+                                         ),
+                                         child: Row(
+                                           children: [
+                                             Container(
+                                               margin: EdgeInsets.all(8),
+                                               decoration: BoxDecoration(
+                                                   color: HexColor("#FFF8EE"),
+                                                   borderRadius: BorderRadius.all(Radius.circular(16))
+                                               ),
+                                               width: 65,
+                                             ),
+                                             Padding(padding: EdgeInsets.only(left: 8)),
+                                             Expanded(
+                                                 child: Text("Rubros", style: TextStyle(
+                                                   fontFamily: AppTheme.fontTTNorms,
+                                                   fontWeight: FontWeight.w800,
+                                                   fontSize: 18,
+                                                   letterSpacing: 0.5,
+                                                   color: AppTheme.darkerText,
+                                                 ),)
+                                             ),
+                                             Padding(
+                                               padding: EdgeInsets.only(left: 8, right: 28),
+                                               child: ClipOval(
+                                                 child: Material(
+                                                   color: HexColor(controller.cursos?.color1), // button color
+                                                   child: InkWell(
+                                                     splashColor: HexColor(controller.cursos?.color3), // inkwell color
+                                                     child: SizedBox(width: 42, height: 42,
+                                                         child: Icon(Ionicons.return_down_forward_outline, size: 24,color: Colors.white,)),
+                                                     onTap: () {},
+                                                   ),
+                                                 ),
+                                               ),
+                                             ),
 
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 90,
-                                margin: EdgeInsets.only(top: 0,left: 24, right: 24, bottom: 20),
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: HexColor("#2F3176").withOpacity(0.1),
-                                        width: 2
-                                    ),
-                                    borderRadius: BorderRadius.all(Radius.circular(22))
-                                ),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                          color: HexColor("#FFECFA"),
-                                          borderRadius: BorderRadius.all(Radius.circular(16))
+                                           ],
+                                         ),
+                                       ),
                                       ),
-                                      width: 65,
-                                    ),
-                                    Padding(padding: EdgeInsets.only(left: 8)),
-                                    Expanded(
-                                        child: Text("Classes", style: TextStyle(
-                                          fontFamily: AppTheme.fontTTNorms,
-                                          fontWeight: FontWeight.w800,
-                                          fontSize: 18,
-                                          letterSpacing: 0.5,
-                                          color: AppTheme.darkerText,
-                                        ),)
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 8, right: 28),
-                                      child: ClipOval(
-                                        child: Material(
-                                          color: HexColor(controller.cursos?.color1), // button color
-                                          child: InkWell(
-                                            splashColor: HexColor(controller.cursos?.color3), // inkwell color
-                                            child: SizedBox(width: 42, height: 42,
-                                                child: Icon(Ionicons.return_down_forward_outline, size: 24,color: Colors.white,)),
-                                            onTap: () {},
-                                          ),
+                                      Container(
+                                        height: 90,
+                                        margin: EdgeInsets.only(top: 0,left: 24, right: 24, bottom: 20),
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: HexColor(controller.cursos?.color1).withOpacity(0.1),
+                                                width: 2
+                                            ),
+                                            borderRadius: BorderRadius.all(Radius.circular(22))
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              margin: EdgeInsets.all(8),
+                                              decoration: BoxDecoration(
+                                                  color: HexColor("#FFECFA"),
+                                                  borderRadius: BorderRadius.all(Radius.circular(16))
+                                              ),
+                                              width: 65,
+                                            ),
+                                            Padding(padding: EdgeInsets.only(left: 8)),
+                                            Expanded(
+                                                child: Text("Grupos", style: TextStyle(
+                                                  fontFamily: AppTheme.fontTTNorms,
+                                                  fontWeight: FontWeight.w800,
+                                                  fontSize: 18,
+                                                  letterSpacing: 0.5,
+                                                  color: AppTheme.darkerText,
+                                                ),)
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.only(left: 8, right: 28),
+                                              child: ClipOval(
+                                                child: Material(
+                                                  color: HexColor(controller.cursos?.color1), // button color
+                                                  child: InkWell(
+                                                    splashColor: HexColor(controller.cursos?.color3), // inkwell color
+                                                    child: SizedBox(width: 42, height: 42,
+                                                        child: Icon(Ionicons.return_down_forward_outline, size: 24,color: Colors.white,)),
+                                                    onTap: () {},
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+
+                                          ],
                                         ),
                                       ),
-                                    ),
-
-                                  ],
-                                ),
+                                      Padding(padding: EdgeInsets.only( top: 80)),
+                                    ],
+                                  )
                               ),
-                              Container(
-                                height: 100,
-                                margin: EdgeInsets.only(top: 0,left: 24, right: 24, bottom: 24),
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: HexColor("#2F3176").withOpacity(0.1),
-                                        width: 2
-                                    ),
-                                    borderRadius: BorderRadius.all(Radius.circular(20))
-                                ),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                          color: HexColor("#EDF8FF"),
-                                          borderRadius: BorderRadius.all(Radius.circular(15))
-                                      ),
-                                      width: 75,
-                                    ),
-                                    Padding(padding: EdgeInsets.only(left: 8)),
-                                    Expanded(
-                                        child: Text("Homework", style: TextStyle(
-                                          fontFamily: AppTheme.fontTTNorms,
-                                          fontWeight: FontWeight.w800,
-                                          fontSize: 18,
-                                          letterSpacing: 0.5,
-                                          color: AppTheme.darkerText,
-                                        ),)
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 8, right: 28),
-                                      child: ClipOval(
-                                        child: Material(
-                                          color: HexColor(controller.cursos?.color1), // button color
-                                          child: InkWell(
-                                            splashColor: HexColor(controller.cursos?.color3), // inkwell color
-                                            child: SizedBox(width: 45, height: 45,
-                                                child: Icon(Ionicons.return_down_forward_outline, size: 30,color: Colors.white,)),
-                                            onTap: () {},
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-
-                                  ],
-                                ),
-                              ),
-                              Padding(padding: EdgeInsets.only( top: 800)),
                             ],
-                          )
-                      ),
-                    ],
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ],
               );

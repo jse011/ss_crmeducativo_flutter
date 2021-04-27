@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:moor_db_viewer/moor_db_viewer.dart';
 //import 'package:sqlite_viewer/sqlite_viewer.dart';
 import 'package:ss_crmeducativo_2/libs/new_version.dart';
 import 'package:ss_crmeducativo_2/src/app/page/portal_docente/portal_docente_view.dart';
@@ -9,6 +10,7 @@ import 'package:ss_crmeducativo_2/src/app/utils/app_theme.dart';
 import 'package:ss_crmeducativo_2/src/app/widgets/barra_navegacion.dart';
 import 'package:ss_crmeducativo_2/src/app/widgets/bottom_navigation.dart';
 import 'package:ss_crmeducativo_2/src/app/widgets/splash.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/database/app_database.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_configuracion_repository.dart';
 import 'package:ss_crmeducativo_2/src/device/repositories/http/device_http_datos_repository.dart';
 import '../../routers.dart';
@@ -65,13 +67,15 @@ class _HomePageState extends ViewState<HomeView, HomeController> with TickerProv
           bottom: false,
           child: Scaffold(
             backgroundColor: AppTheme.nearlyWhite,
-           /* appBar: AppBar(
+           /*appBar: AppBar(
                 title: Text('DBDEBUG'),
                 actions: <Widget>[
                   new IconButton(
                       icon: new Icon(Icons.folder),
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (_) => DatabaseList()));
+                        final db =  AppDataBase(); //This should be a singleton
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => MoorDbViewer(db)));
+                        //Navigator.push(context, MaterialPageRoute(builder: (_) => DatabaseList()));
                       }
                   ),
                 ]
