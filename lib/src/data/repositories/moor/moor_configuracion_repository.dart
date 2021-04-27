@@ -656,6 +656,13 @@ class MoorConfiguracionRepository extends ConfiguracionRepository{
     }
 
 
+
+    return await getCurosCompletos(cargaCursosIdList, empleadoId);
+  }
+
+  Future<List<CursosUi>> getCurosCompletos(List<int> cargaCursosIdList, int empleadoId) async{
+    List<CursosUi> cursosUiList = [];
+    AppDataBase SQL = AppDataBase();
     var queryCursos = SQL.select(SQL.cargaCurso).join([
       innerJoin(SQL.planCursos, SQL.planCursos.planCursoId.equalsExp(SQL.cargaCurso.planCursoId)),
       innerJoin(SQL.cursos, SQL.planCursos.cursoId.equalsExp(SQL.cursos.cursoId)),
@@ -668,6 +675,7 @@ class MoorConfiguracionRepository extends ConfiguracionRepository{
       leftOuterJoin(SQL.parametrosDisenio, SQL.parametrosDisenio.parametroDisenioId.equalsExp(SQL.silaboEvento.parametroDisenioId))
     ]);
 
+    queryCursos.where(SQL.cargaCurso.cargaCursoId.isIn(cargaCursosIdList));
 
     ParametrosDisenioData defaultParametrosDisenioData = await (SQL.selectSingle(SQL.parametrosDisenio)..where((tbl) => tbl.nombre.equals("default"))).getSingle();
 
@@ -689,13 +697,13 @@ class MoorConfiguracionRepository extends ConfiguracionRepository{
       cursosUi.nroSalon = aula.numero;
       cursosUi.silaboEventoId = silaboEventoData!=null?silaboEventoData.silaboEventoId:0;
       cursosUi.color1 = parametrosDisenioData!=null?parametrosDisenioData.color1 :
-                        defaultParametrosDisenioData != null?defaultParametrosDisenioData.color1 : "";
+      defaultParametrosDisenioData != null?defaultParametrosDisenioData.color1 : "";
       cursosUi.color2 = parametrosDisenioData!=null?parametrosDisenioData.color2 :
-                        defaultParametrosDisenioData != null?defaultParametrosDisenioData.color2 : "";
+      defaultParametrosDisenioData != null?defaultParametrosDisenioData.color2 : "";
       cursosUi.color3 = parametrosDisenioData!=null?parametrosDisenioData.color3 :
-                        defaultParametrosDisenioData != null?defaultParametrosDisenioData.color3 : "";
+      defaultParametrosDisenioData != null?defaultParametrosDisenioData.color3 : "";
       cursosUi.banner = parametrosDisenioData!=null?parametrosDisenioData.path :
-                              defaultParametrosDisenioData != null?defaultParametrosDisenioData.path : "";
+      defaultParametrosDisenioData != null?defaultParametrosDisenioData.path : "";
 
       if(silaboEventoData!=null){
         switch(silaboEventoData.estadoId){
@@ -713,7 +721,16 @@ class MoorConfiguracionRepository extends ConfiguracionRepository{
       cursosUi.tutor = cargaAcademicaData.idEmpleadoTutor == empleadoId;
       cursosUiList.add(cursosUi);
     }
+
     return cursosUiList;
+
+  }
+
+  @override
+  Future<CursosUi?> getCurso(int cargaCursoId)async {
+    List<CursosUi> cursosList = await getCurosCompletos([cargaCursoId], 0);
+    if(cursosList.isNotEmpty)return cursosList[0];
+    return null;
   }
 
 

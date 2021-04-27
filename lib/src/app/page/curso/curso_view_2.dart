@@ -13,11 +13,8 @@ import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_configuracion_
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
 
 class CursoView extends View{
-  CursosUi cursosUi;
-  CursoView(this.cursosUi);
-
   @override
-  _CursoViewState createState() => _CursoViewState(cursosUi);
+  _CursoViewState createState() => _CursoViewState();
 
 }
 
@@ -27,8 +24,8 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
   late double topBarOpacity = 0.0;
   late AnimationController animationController;
 
-  _CursoViewState(cursosUi)
-      : super(CursoController(cursosUi,MoorConfiguracionRepository()));
+  _CursoViewState()
+      : super(CursoController(CursosUi(), MoorConfiguracionRepository()));
 
   @override
   void initState() {
@@ -173,20 +170,17 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                 ),
                               ),
                             ),
-                            ControlledWidgetBuilder<CursoController>(
-                              builder: (context, controller) =>  ClipOval(
-                                child: Material(
-                                  color: HexColor(controller.cursos?.color1).withOpacity(0.1), // button color
-                                  child: InkWell(
-                                    splashColor: HexColor(controller.cursos?.color1), // inkwell color
-                                    child: SizedBox(width: 45 + 6 - 8 * topBarOpacity, height: 45 + 6 - 8 * topBarOpacity,
-                                        child: Icon(Ionicons.mail_open_outline, size: 30,color: HexColor(controller.cursos?.color1),)),
-                                    onTap: () {},
-                                  ),
+                            ClipOval(
+                              child: Material(
+                                color: HexColor("#E7F7FE"), // button color
+                                child: InkWell(
+                                  splashColor: HexColor("#F2F2F2"), // inkwell color
+                                  child: SizedBox(width: 45 + 6 - 8 * topBarOpacity, height: 45 + 6 - 8 * topBarOpacity,
+                                      child: Icon(Ionicons.mail_open_outline, size: 30,color: HexColor("#2F3176"),)),
+                                  onTap: () {},
                                 ),
                               ),
-                            ),
-
+                            )
                           ],
                         ),
                       )
@@ -211,7 +205,6 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
         ),
         child: ControlledWidgetBuilder<CursoController>(
             builder: (context, controller) {
-              //print()
               return Stack(
                 children: [
                   CustomScrollView(
@@ -225,7 +218,7 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                 height: 180,
                                   margin: EdgeInsets.only(left: 24, right: 24),
                                   decoration: BoxDecoration(
-                                      color: HexColor(controller.cursos?.color1),
+                                      color: HexColor("#2F3176"),
                                       borderRadius: BorderRadius.all(Radius.circular(28))
                                   ),
 
@@ -236,7 +229,7 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                 margin: EdgeInsets.only(top: 0,left: 24, right: 24, bottom: 20),
                                 decoration: BoxDecoration(
                                     border: Border.all(
-                                      color: HexColor(controller.cursos?.color1).withOpacity(0.1),
+                                      color: HexColor("#2F3176").withOpacity(0.1),
                                       width: 2
                                     ),
                                     borderRadius: BorderRadius.all(Radius.circular(22))
@@ -265,9 +258,9 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                       padding: EdgeInsets.only(left: 8, right: 28),
                                       child: ClipOval(
                                         child: Material(
-                                          color: HexColor(controller.cursos?.color1), // button color
+                                          color: HexColor("#2F3176"), // button color
                                           child: InkWell(
-                                            splashColor: HexColor(controller.cursos?.color3), // inkwell color
+                                            splashColor: HexColor("#2F3176"), // inkwell color
                                             child: SizedBox(width: 42, height: 42,
                                                 child: Icon(Ionicons.return_down_forward_outline, size: 24,color: Colors.white,)),
                                             onTap: () {},
@@ -313,9 +306,9 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                       padding: EdgeInsets.only(left: 8, right: 28),
                                       child: ClipOval(
                                         child: Material(
-                                          color: HexColor(controller.cursos?.color1), // button color
+                                          color: HexColor("#2F3176"), // button color
                                           child: InkWell(
-                                            splashColor: HexColor(controller.cursos?.color3), // inkwell color
+                                            splashColor: HexColor("#2F3176"), // inkwell color
                                             child: SizedBox(width: 42, height: 42,
                                                 child: Icon(Ionicons.return_down_forward_outline, size: 24,color: Colors.white,)),
                                             onTap: () {},
@@ -361,9 +354,9 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                       padding: EdgeInsets.only(left: 8, right: 28),
                                       child: ClipOval(
                                         child: Material(
-                                          color: HexColor(controller.cursos?.color1), // button color
+                                          color: HexColor("#2F3176"), // button color
                                           child: InkWell(
-                                            splashColor: HexColor(controller.cursos?.color3), // inkwell color
+                                            splashColor: HexColor("#2F3176"), // inkwell color
                                             child: SizedBox(width: 42, height: 42,
                                                 child: Icon(Ionicons.return_down_forward_outline, size: 24,color: Colors.white,)),
                                             onTap: () {},
@@ -409,9 +402,9 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                       padding: EdgeInsets.only(left: 8, right: 28),
                                       child: ClipOval(
                                         child: Material(
-                                          color: HexColor(controller.cursos?.color1), // button color
+                                          color: HexColor("#2F3176"), // button color
                                           child: InkWell(
-                                            splashColor: HexColor(controller.cursos?.color3), // inkwell color
+                                            splashColor: HexColor("#2F3176"), // inkwell color
                                             child: SizedBox(width: 45, height: 45,
                                                 child: Icon(Ionicons.return_down_forward_outline, size: 30,color: Colors.white,)),
                                             onTap: () {},

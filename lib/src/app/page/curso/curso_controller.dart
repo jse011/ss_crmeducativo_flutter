@@ -1,31 +1,30 @@
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:ss_crmeducativo_2/src/app/page/curso/curso_presenter.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/anio_acemico_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
 
 class CursoController extends Controller{
   CursoPresenter cursoPresenter;
-  List<AnioAcademicoUi> _anioAcademicoUiList = [];
+  CursosUi? _cursosUi = null;
+  CursosUi? get cursos => _cursosUi;
 
-  List<AnioAcademicoUi> get anioAcademicoUiList => _anioAcademicoUiList;
-  AnioAcademicoUi? _anioAcademicoUi = null;
-  AnioAcademicoUi? get anioAcademicoUi => _anioAcademicoUi;
-
-  CursoController(configuracionRepo):this.cursoPresenter = CursoPresenter(configuracionRepo);
+  CursoController(cursosUi,configuracionRepo):this._cursosUi = cursosUi, this.cursoPresenter = CursoPresenter(configuracionRepo);
 
   @override
   void initListeners() {
-    cursoPresenter.getAnioAcadOnComplete = (anioAcademicoList, anioAcademicoSelected){
-       _anioAcademicoUi = anioAcademicoSelected;
-       _anioAcademicoUiList = anioAcademicoUiList;
-       refreshUI();
+    cursoPresenter.getCursoOnComplete = (CursosUi cursosUi){
+      _cursosUi = cursos;
+      refreshUI();
     };
-
-    cursoPresenter.getAnioAcadOnError = (e){
-      _anioAcademicoUi = null;
-      _anioAcademicoUiList = [];
+    cursoPresenter.getCursoOnError = (e){
+      _cursosUi = null;
+      refreshUI();
     };
+  }
 
-
+  @override
+  void onInitState() {
+    super.onInitState();
   }
 
 }

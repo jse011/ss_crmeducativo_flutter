@@ -38,6 +38,9 @@ class MyApp extends StatelessWidget {
       ),
       home: HomeView(),
       routes: AppRouter.routes,
+      onGenerateRoute: (settings) {
+        return AppRouter.generateRoute(settings);
+      },
     );
   }
 }

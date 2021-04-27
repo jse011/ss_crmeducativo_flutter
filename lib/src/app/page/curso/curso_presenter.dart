@@ -1,30 +1,32 @@
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:ss_crmeducativo_2/src/domain/repositories/configuracion_repository.dart';
 import 'package:ss_crmeducativo_2/src/domain/usecase/get_anio_academico.dart';
+import 'package:ss_crmeducativo_2/src/domain/usecase/get_curso.dart';
+import 'package:ss_crmeducativo_2/src/domain/usecase/get_cursos.dart';
 
 class CursoPresenter extends Presenter {
-  late GetAnioAcademico _getAnioAcademico;
-  late Function getAnioAcadOnComplete, getAnioAcadOnError;
+  late GetCurso _getCurso;
+  late Function getCursoOnComplete, getCursoOnError;
 
   CursoPresenter(ConfiguracionRepository configuracionRepository)
-      : _getAnioAcademico = new GetAnioAcademico(configuracionRepository);
+      : _getCurso = new GetCurso(configuracionRepository);
 
   @override
   void dispose() {
-        _getAnioAcademico.dispose();
+    _getCurso.dispose();
   }
 
-  void getAnioAcademico(){
-    _getAnioAcademico.execute(_GetSessionUsuarioCase(this), GetAnioAcademicoParams());
+  void getCursoParams(int cargaCursoId){
+    _getCurso.execute(_GetCursoCase(this), GetCursoParams(cargaCursoId));
   }
 
 }
 
 
-class _GetSessionUsuarioCase extends Observer<GetAnioAcademicoResponse>{
+class _GetCursoCase extends Observer<GetCursoResponse>{
   final CursoPresenter presenter;
 
-  _GetSessionUsuarioCase(this.presenter);
+  _GetCursoCase(this.presenter);
 
   @override
   void onComplete() {
@@ -33,14 +35,14 @@ class _GetSessionUsuarioCase extends Observer<GetAnioAcademicoResponse>{
 
   @override
   void onError(e) {
-    assert(presenter.getAnioAcadOnError != null);
-    presenter.getAnioAcadOnError(e);
+    assert(presenter.getCursoOnError != null);
+    presenter.getCursoOnError(e);
   }
 
   @override
-  void onNext(GetAnioAcademicoResponse? response) {
-    assert(presenter.getAnioAcadOnComplete != null);
-    presenter.getAnioAcadOnComplete(response?.anioAcademicoList, response?.anioAcademicoUi);
+  void onNext(GetCursoResponse? response) {
+    assert(presenter.getCursoOnComplete != null);
+    presenter.getCursoOnComplete(response?.cursoUi);
   }
 
 }

@@ -318,7 +318,7 @@ class _PortalDocenteViewState extends ViewState<PortalDocenteView, PortalDocente
   Widget getCuros(CursosUi cursoUi, ProgramaEducativoUi? programaEducativoUi){
     return GestureDetector(
       onTap: () {
-        AppRouter.createRouteCursosRouter(context);
+        AppRouter.createRouteCursosRouter(context, cursoUi);
       },
       child:  Padding(
         padding: const EdgeInsets.only(
