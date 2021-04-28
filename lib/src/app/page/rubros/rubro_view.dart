@@ -205,7 +205,8 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                       top: AppBar().preferredSize.height +
                           MediaQuery.of(context).padding.top +
                         0,
-                      left: 24
+                      left: 24,
+                      right: 10
                     ),
                     child: CustomScrollView(
                       controller: scrollController,
@@ -220,8 +221,8 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                         SliverGrid(
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: count,
-                            mainAxisSpacing: 20.0,
-                            crossAxisSpacing: 20.0,
+                            mainAxisSpacing: 16.0,
+                            crossAxisSpacing: 16.0,
 
                           ),
                           delegate: SliverChildListDelegate(
@@ -233,66 +234,64 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                                     ),
                                     child: Column(
                                       children: [
-                                        Expanded(
-                                          child: Row(
-                                            children: [
-                                                Container(
-                                                  margin: EdgeInsets.only(top: 12, bottom: 6, left: 10, right: 8),
-                                                  width: 2.5,
-                                                  decoration: BoxDecoration(
-                                                      color: HexColor("#8767EB"),
-                                                      borderRadius: BorderRadius.circular(5) // use instead of BorderRadius.all(Radius.circular(20))
+                                        Row(
+                                          children: [
+                                            Container(
+                                              margin: EdgeInsets.only(top: 0, bottom: 0, left: 12, right: 8),
+                                              width: 2.5,
+                                              height: 28,
+                                              decoration: BoxDecoration(
+                                                  color: HexColor("#8767EB"),
+                                                  borderRadius: BorderRadius.circular(5) // use instead of BorderRadius.all(Radius.circular(20))
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Padding(
+                                                    padding: EdgeInsets.only(top: 10, right: 8),
+                                                    child: Text("1. Rubrica Instrumento",
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow.ellipsis,
+                                                        style: TextStyle(
+                                                          fontFamily: AppTheme.fontTTNorms,
+                                                          fontWeight: FontWeight.w700,
+                                                          fontSize: 10,
+                                                          letterSpacing: 0.5,
+                                                          color: AppTheme.darkerText,
+                                                        )),
                                                   ),
-                                                ),
-                                              Expanded(
-                                                  child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment.start,
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: [
-                                                      Expanded(
-                                                        child: Padding(
-                                                          padding: EdgeInsets.only(top: 12, right: 8),
-                                                          child: Text("1. Rubrica Instrumento",
-                                                              maxLines: 1,
-                                                              overflow: TextOverflow.ellipsis,
-                                                              style: TextStyle(
-                                                                fontFamily: AppTheme.fontTTNorms,
-                                                                fontWeight: FontWeight.w700,
-                                                                fontSize: 10,
-                                                                letterSpacing: 0.5,
-                                                                color: AppTheme.darkerText,
-                                                              )),
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding: EdgeInsets.only(bottom: 8),
-                                                        child: Text("Jueves 22 de Abr.",
-                                                            style: TextStyle(
-                                                              fontFamily: AppTheme.fontTTNormsLigth,
-                                                              fontWeight: FontWeight.w700,
-                                                              fontSize: 8,
-                                                              letterSpacing: 0.5,
-                                                              color: AppTheme.darkerText.withOpacity(0.6),
-                                                            )
+                                                  Padding(
+                                                    padding: EdgeInsets.only(bottom: 8, top: 4),
+                                                    child: Text("Jueves 22 de Abr.",
+                                                        style: TextStyle(
+                                                          fontFamily: AppTheme.fontTTNormsLigth,
+                                                          fontWeight: FontWeight.w700,
+                                                          fontSize: 8,
+                                                          letterSpacing: 0.5,
+                                                          color: AppTheme.darkerText.withOpacity(0.6),
+                                                        )
 
-                                                        ),
-                                                      )
-                                                    ],
+                                                    ),
                                                   )
-                                              )
-                                            ],
-                                          ),
+                                                ],
+                                              ),
+                                            )
+                                          ],
                                         ),
-                                        Container(
+                                        Expanded(
+                                          child: Container(
                                             decoration: BoxDecoration(
                                                 color: Colors.white,
                                                 borderRadius: BorderRadius.circular(12) // use instead of BorderRadius.all(Radius.circular(20))
                                             ),
-                                            height: 110
+                                          ),
                                         )
                                       ],
                                     ),
-                                    height: 150.0),
+                                    ),
                                 Container(
                                     decoration: BoxDecoration(
                                         color: HexColor("#FEFAE2"),
