@@ -906,3 +906,92 @@ class WebConfigsSerial {
 
   Map<String, dynamic> toJson() => _$WebConfigsSerialToJson(this);
 }
+
+@JsonSerializable()
+class CriteriosSerial {
+  int? sesionAprendizajeId;
+  int? unidadAprendiajeId;
+  int? silaboEventoId;
+  /// <summary>
+  /// Tabla Competencias
+  /// </summary>
+  int? competenciaId;
+  String? competenciaNombre;
+  String? competenciaDescripcion;
+  int? competenciaTipoId;
+  int? superCompetenciaId;
+  String? superCompetenciaNombre;
+  String? superCompetenciaDescripcion;
+  int? superCompetenciaTipoId;
+
+
+  /// <summary>
+  /// Tabla DesempenioIcd Desempenio Icd
+  /// </summary>
+  int? desempenioIcdId;
+  String? DesempenioDescripcion;
+  int? peso;
+  String? codigo;
+  int? tipoId;
+  String? url;
+  int? desempenioId;
+  String? desempenioIcdDescripcion;
+  int? icdId;
+  String? icdTitulo;
+  String? icdDescripcion;
+  String? icdAlias;
+
+  /// <summary>
+  /// Tabla CampoTematico
+  /// </summary>
+  ///
+
+  int? campoTematicoId;
+  String? campoTematicoTitulo;
+  String? campoTematicoDescripcion;
+  int? campoTematicoEstado;
+  int? campoTematicoParentId;
+  String? campoTematicoParentTitulo;
+  String? campoTematicoParentDescripcion;
+  int? campoTematicoParentEstado;
+  int? campoTematicoParentParentId;
+
+
+  CriteriosSerial(
+      {this.sesionAprendizajeId,
+      this.unidadAprendiajeId,
+      this.silaboEventoId,
+      this.competenciaId,
+      this.competenciaNombre,
+      this.competenciaDescripcion,
+      this.competenciaTipoId,
+      this.superCompetenciaId,
+      this.superCompetenciaNombre,
+      this.superCompetenciaDescripcion,
+      this.superCompetenciaTipoId,
+      this.desempenioIcdId,
+      this.DesempenioDescripcion,
+      this.peso,
+      this.codigo,
+      this.tipoId,
+      this.url,
+      this.desempenioId,
+      this.desempenioIcdDescripcion,
+      this.icdId,
+      this.icdTitulo,
+      this.icdDescripcion,
+      this.icdAlias,
+      this.campoTematicoId,
+      this.campoTematicoTitulo,
+      this.campoTematicoDescripcion,
+      this.campoTematicoEstado,
+      this.campoTematicoParentId,
+      this.campoTematicoParentTitulo,
+      this.campoTematicoParentDescripcion,
+      this.campoTematicoParentEstado,
+      this.campoTematicoParentParentId});
+
+  factory CriteriosSerial.fromJson(Map<String, dynamic> json) => _$CriteriosSerialFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CriteriosSerialToJson(this);
+}

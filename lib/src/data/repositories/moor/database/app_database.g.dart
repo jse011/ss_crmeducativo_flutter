@@ -4595,7 +4595,7 @@ class CargaAcademicaCompanion extends UpdateCompanion<CargaAcademicaData> {
     this.capacidadVacanteD = const Value.absent(),
   });
   CargaAcademicaCompanion.insert({
-    required int cargaAcademicaId,
+    this.cargaAcademicaId = const Value.absent(),
     this.seccionId = const Value.absent(),
     this.periodoId = const Value.absent(),
     this.aulaId = const Value.absent(),
@@ -4608,7 +4608,7 @@ class CargaAcademicaCompanion extends UpdateCompanion<CargaAcademicaData> {
     this.idGrupo = const Value.absent(),
     this.capacidadVacante = const Value.absent(),
     this.capacidadVacanteD = const Value.absent(),
-  }) : cargaAcademicaId = Value(cargaAcademicaId);
+  });
   static Insertable<CargaAcademicaData> custom({
     Expression<int>? cargaAcademicaId,
     Expression<int?>? seccionId,
@@ -4930,8 +4930,6 @@ class $CargaAcademicaTable extends CargaAcademica
           _cargaAcademicaIdMeta,
           cargaAcademicaId.isAcceptableOrUnknown(
               data['carga_academica_id']!, _cargaAcademicaIdMeta));
-    } else if (isInserting) {
-      context.missing(_cargaAcademicaIdMeta);
     }
     if (data.containsKey('seccion_id')) {
       context.handle(_seccionIdMeta,
@@ -4999,7 +4997,7 @@ class $CargaAcademicaTable extends CargaAcademica
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => <GeneratedColumn>{};
+  Set<GeneratedColumn> get $primaryKey => {cargaAcademicaId};
   @override
   CargaAcademicaData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
@@ -17839,6 +17837,1741 @@ class $WebConfigsTable extends WebConfigs
   }
 }
 
+class CriterioData extends DataClass implements Insertable<CriterioData> {
+  final int sesionAprendizajeId;
+  final int unidadAprendiajeId;
+  final int silaboEventoId;
+
+  /// <summary>
+  /// Tabla Competencias
+  /// </summary>
+  final int? competenciaId;
+  final String? competenciaNombre;
+  final String? competenciaDescripcion;
+  final int? competenciaTipoId;
+  final int? superCompetenciaId;
+  final String? superCompetenciaNombre;
+  final String? superCompetenciaDescripcion;
+  final int? superCompetenciaTipoId;
+
+  /// <summary>
+  /// Tabla DesempenioIcd Desempenio Icd
+  /// </summary>
+  final int? desempenioIcdId;
+  final String? DesempenioDescripcion;
+  final int? peso;
+  final String? codigo;
+  final int? tipoId;
+  final String? url;
+  final int? desempenioId;
+  final String? desempenioIcdDescripcion;
+  final int? icdId;
+  final String? icdTitulo;
+  final String? icdDescripcion;
+  final String? icdAlias;
+
+  /// <summary>
+  /// Tabla CampoTematico
+  /// </summary>
+  ///
+  final int? campoTematicoId;
+  final String? campoTematicoTitulo;
+  final String? campoTematicoDescripcion;
+  final int? campoTematicoEstado;
+  final int? campoTematicoParentId;
+  final String? campoTematicoParentTitulo;
+  final String? campoTematicoParentDescripcion;
+  final int? campoTematicoParentEstado;
+  final int? campoTematicoParentParentId;
+  CriterioData(
+      {required this.sesionAprendizajeId,
+      required this.unidadAprendiajeId,
+      required this.silaboEventoId,
+      this.competenciaId,
+      this.competenciaNombre,
+      this.competenciaDescripcion,
+      this.competenciaTipoId,
+      this.superCompetenciaId,
+      this.superCompetenciaNombre,
+      this.superCompetenciaDescripcion,
+      this.superCompetenciaTipoId,
+      this.desempenioIcdId,
+      this.DesempenioDescripcion,
+      this.peso,
+      this.codigo,
+      this.tipoId,
+      this.url,
+      this.desempenioId,
+      this.desempenioIcdDescripcion,
+      this.icdId,
+      this.icdTitulo,
+      this.icdDescripcion,
+      this.icdAlias,
+      this.campoTematicoId,
+      this.campoTematicoTitulo,
+      this.campoTematicoDescripcion,
+      this.campoTematicoEstado,
+      this.campoTematicoParentId,
+      this.campoTematicoParentTitulo,
+      this.campoTematicoParentDescripcion,
+      this.campoTematicoParentEstado,
+      this.campoTematicoParentParentId});
+  factory CriterioData.fromData(Map<String, dynamic> data, GeneratedDatabase db,
+      {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final intType = db.typeSystem.forDartType<int>();
+    final stringType = db.typeSystem.forDartType<String>();
+    return CriterioData(
+      sesionAprendizajeId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}sesion_aprendizaje_id'])!,
+      unidadAprendiajeId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}unidad_aprendiaje_id'])!,
+      silaboEventoId: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}silabo_evento_id'])!,
+      competenciaId: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}competencia_id']),
+      competenciaNombre: stringType.mapFromDatabaseResponse(
+          data['${effectivePrefix}competencia_nombre']),
+      competenciaDescripcion: stringType.mapFromDatabaseResponse(
+          data['${effectivePrefix}competencia_descripcion']),
+      competenciaTipoId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}competencia_tipo_id']),
+      superCompetenciaId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}super_competencia_id']),
+      superCompetenciaNombre: stringType.mapFromDatabaseResponse(
+          data['${effectivePrefix}super_competencia_nombre']),
+      superCompetenciaDescripcion: stringType.mapFromDatabaseResponse(
+          data['${effectivePrefix}super_competencia_descripcion']),
+      superCompetenciaTipoId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}super_competencia_tipo_id']),
+      desempenioIcdId: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}desempenio_icd_id']),
+      DesempenioDescripcion: stringType.mapFromDatabaseResponse(
+          data['${effectivePrefix}desempenio_descripcion']),
+      peso: intType.mapFromDatabaseResponse(data['${effectivePrefix}peso']),
+      codigo:
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}codigo']),
+      tipoId:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}tipo_id']),
+      url: stringType.mapFromDatabaseResponse(data['${effectivePrefix}url']),
+      desempenioId: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}desempenio_id']),
+      desempenioIcdDescripcion: stringType.mapFromDatabaseResponse(
+          data['${effectivePrefix}desempenio_icd_descripcion']),
+      icdId: intType.mapFromDatabaseResponse(data['${effectivePrefix}icd_id']),
+      icdTitulo: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}icd_titulo']),
+      icdDescripcion: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}icd_descripcion']),
+      icdAlias: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}icd_alias']),
+      campoTematicoId: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}campo_tematico_id']),
+      campoTematicoTitulo: stringType.mapFromDatabaseResponse(
+          data['${effectivePrefix}campo_tematico_titulo']),
+      campoTematicoDescripcion: stringType.mapFromDatabaseResponse(
+          data['${effectivePrefix}campo_tematico_descripcion']),
+      campoTematicoEstado: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}campo_tematico_estado']),
+      campoTematicoParentId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}campo_tematico_parent_id']),
+      campoTematicoParentTitulo: stringType.mapFromDatabaseResponse(
+          data['${effectivePrefix}campo_tematico_parent_titulo']),
+      campoTematicoParentDescripcion: stringType.mapFromDatabaseResponse(
+          data['${effectivePrefix}campo_tematico_parent_descripcion']),
+      campoTematicoParentEstado: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}campo_tematico_parent_estado']),
+      campoTematicoParentParentId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}campo_tematico_parent_parent_id']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['sesion_aprendizaje_id'] = Variable<int>(sesionAprendizajeId);
+    map['unidad_aprendiaje_id'] = Variable<int>(unidadAprendiajeId);
+    map['silabo_evento_id'] = Variable<int>(silaboEventoId);
+    if (!nullToAbsent || competenciaId != null) {
+      map['competencia_id'] = Variable<int?>(competenciaId);
+    }
+    if (!nullToAbsent || competenciaNombre != null) {
+      map['competencia_nombre'] = Variable<String?>(competenciaNombre);
+    }
+    if (!nullToAbsent || competenciaDescripcion != null) {
+      map['competencia_descripcion'] =
+          Variable<String?>(competenciaDescripcion);
+    }
+    if (!nullToAbsent || competenciaTipoId != null) {
+      map['competencia_tipo_id'] = Variable<int?>(competenciaTipoId);
+    }
+    if (!nullToAbsent || superCompetenciaId != null) {
+      map['super_competencia_id'] = Variable<int?>(superCompetenciaId);
+    }
+    if (!nullToAbsent || superCompetenciaNombre != null) {
+      map['super_competencia_nombre'] =
+          Variable<String?>(superCompetenciaNombre);
+    }
+    if (!nullToAbsent || superCompetenciaDescripcion != null) {
+      map['super_competencia_descripcion'] =
+          Variable<String?>(superCompetenciaDescripcion);
+    }
+    if (!nullToAbsent || superCompetenciaTipoId != null) {
+      map['super_competencia_tipo_id'] = Variable<int?>(superCompetenciaTipoId);
+    }
+    if (!nullToAbsent || desempenioIcdId != null) {
+      map['desempenio_icd_id'] = Variable<int?>(desempenioIcdId);
+    }
+    if (!nullToAbsent || DesempenioDescripcion != null) {
+      map['desempenio_descripcion'] = Variable<String?>(DesempenioDescripcion);
+    }
+    if (!nullToAbsent || peso != null) {
+      map['peso'] = Variable<int?>(peso);
+    }
+    if (!nullToAbsent || codigo != null) {
+      map['codigo'] = Variable<String?>(codigo);
+    }
+    if (!nullToAbsent || tipoId != null) {
+      map['tipo_id'] = Variable<int?>(tipoId);
+    }
+    if (!nullToAbsent || url != null) {
+      map['url'] = Variable<String?>(url);
+    }
+    if (!nullToAbsent || desempenioId != null) {
+      map['desempenio_id'] = Variable<int?>(desempenioId);
+    }
+    if (!nullToAbsent || desempenioIcdDescripcion != null) {
+      map['desempenio_icd_descripcion'] =
+          Variable<String?>(desempenioIcdDescripcion);
+    }
+    if (!nullToAbsent || icdId != null) {
+      map['icd_id'] = Variable<int?>(icdId);
+    }
+    if (!nullToAbsent || icdTitulo != null) {
+      map['icd_titulo'] = Variable<String?>(icdTitulo);
+    }
+    if (!nullToAbsent || icdDescripcion != null) {
+      map['icd_descripcion'] = Variable<String?>(icdDescripcion);
+    }
+    if (!nullToAbsent || icdAlias != null) {
+      map['icd_alias'] = Variable<String?>(icdAlias);
+    }
+    if (!nullToAbsent || campoTematicoId != null) {
+      map['campo_tematico_id'] = Variable<int?>(campoTematicoId);
+    }
+    if (!nullToAbsent || campoTematicoTitulo != null) {
+      map['campo_tematico_titulo'] = Variable<String?>(campoTematicoTitulo);
+    }
+    if (!nullToAbsent || campoTematicoDescripcion != null) {
+      map['campo_tematico_descripcion'] =
+          Variable<String?>(campoTematicoDescripcion);
+    }
+    if (!nullToAbsent || campoTematicoEstado != null) {
+      map['campo_tematico_estado'] = Variable<int?>(campoTematicoEstado);
+    }
+    if (!nullToAbsent || campoTematicoParentId != null) {
+      map['campo_tematico_parent_id'] = Variable<int?>(campoTematicoParentId);
+    }
+    if (!nullToAbsent || campoTematicoParentTitulo != null) {
+      map['campo_tematico_parent_titulo'] =
+          Variable<String?>(campoTematicoParentTitulo);
+    }
+    if (!nullToAbsent || campoTematicoParentDescripcion != null) {
+      map['campo_tematico_parent_descripcion'] =
+          Variable<String?>(campoTematicoParentDescripcion);
+    }
+    if (!nullToAbsent || campoTematicoParentEstado != null) {
+      map['campo_tematico_parent_estado'] =
+          Variable<int?>(campoTematicoParentEstado);
+    }
+    if (!nullToAbsent || campoTematicoParentParentId != null) {
+      map['campo_tematico_parent_parent_id'] =
+          Variable<int?>(campoTematicoParentParentId);
+    }
+    return map;
+  }
+
+  CriterioCompanion toCompanion(bool nullToAbsent) {
+    return CriterioCompanion(
+      sesionAprendizajeId: Value(sesionAprendizajeId),
+      unidadAprendiajeId: Value(unidadAprendiajeId),
+      silaboEventoId: Value(silaboEventoId),
+      competenciaId: competenciaId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(competenciaId),
+      competenciaNombre: competenciaNombre == null && nullToAbsent
+          ? const Value.absent()
+          : Value(competenciaNombre),
+      competenciaDescripcion: competenciaDescripcion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(competenciaDescripcion),
+      competenciaTipoId: competenciaTipoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(competenciaTipoId),
+      superCompetenciaId: superCompetenciaId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(superCompetenciaId),
+      superCompetenciaNombre: superCompetenciaNombre == null && nullToAbsent
+          ? const Value.absent()
+          : Value(superCompetenciaNombre),
+      superCompetenciaDescripcion:
+          superCompetenciaDescripcion == null && nullToAbsent
+              ? const Value.absent()
+              : Value(superCompetenciaDescripcion),
+      superCompetenciaTipoId: superCompetenciaTipoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(superCompetenciaTipoId),
+      desempenioIcdId: desempenioIcdId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(desempenioIcdId),
+      DesempenioDescripcion: DesempenioDescripcion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(DesempenioDescripcion),
+      peso: peso == null && nullToAbsent ? const Value.absent() : Value(peso),
+      codigo:
+          codigo == null && nullToAbsent ? const Value.absent() : Value(codigo),
+      tipoId:
+          tipoId == null && nullToAbsent ? const Value.absent() : Value(tipoId),
+      url: url == null && nullToAbsent ? const Value.absent() : Value(url),
+      desempenioId: desempenioId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(desempenioId),
+      desempenioIcdDescripcion: desempenioIcdDescripcion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(desempenioIcdDescripcion),
+      icdId:
+          icdId == null && nullToAbsent ? const Value.absent() : Value(icdId),
+      icdTitulo: icdTitulo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(icdTitulo),
+      icdDescripcion: icdDescripcion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(icdDescripcion),
+      icdAlias: icdAlias == null && nullToAbsent
+          ? const Value.absent()
+          : Value(icdAlias),
+      campoTematicoId: campoTematicoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(campoTematicoId),
+      campoTematicoTitulo: campoTematicoTitulo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(campoTematicoTitulo),
+      campoTematicoDescripcion: campoTematicoDescripcion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(campoTematicoDescripcion),
+      campoTematicoEstado: campoTematicoEstado == null && nullToAbsent
+          ? const Value.absent()
+          : Value(campoTematicoEstado),
+      campoTematicoParentId: campoTematicoParentId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(campoTematicoParentId),
+      campoTematicoParentTitulo:
+          campoTematicoParentTitulo == null && nullToAbsent
+              ? const Value.absent()
+              : Value(campoTematicoParentTitulo),
+      campoTematicoParentDescripcion:
+          campoTematicoParentDescripcion == null && nullToAbsent
+              ? const Value.absent()
+              : Value(campoTematicoParentDescripcion),
+      campoTematicoParentEstado:
+          campoTematicoParentEstado == null && nullToAbsent
+              ? const Value.absent()
+              : Value(campoTematicoParentEstado),
+      campoTematicoParentParentId:
+          campoTematicoParentParentId == null && nullToAbsent
+              ? const Value.absent()
+              : Value(campoTematicoParentParentId),
+    );
+  }
+
+  factory CriterioData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return CriterioData(
+      sesionAprendizajeId:
+          serializer.fromJson<int>(json['sesionAprendizajeId']),
+      unidadAprendiajeId: serializer.fromJson<int>(json['unidadAprendiajeId']),
+      silaboEventoId: serializer.fromJson<int>(json['silaboEventoId']),
+      competenciaId: serializer.fromJson<int?>(json['competenciaId']),
+      competenciaNombre:
+          serializer.fromJson<String?>(json['competenciaNombre']),
+      competenciaDescripcion:
+          serializer.fromJson<String?>(json['competenciaDescripcion']),
+      competenciaTipoId: serializer.fromJson<int?>(json['competenciaTipoId']),
+      superCompetenciaId: serializer.fromJson<int?>(json['superCompetenciaId']),
+      superCompetenciaNombre:
+          serializer.fromJson<String?>(json['superCompetenciaNombre']),
+      superCompetenciaDescripcion:
+          serializer.fromJson<String?>(json['superCompetenciaDescripcion']),
+      superCompetenciaTipoId:
+          serializer.fromJson<int?>(json['superCompetenciaTipoId']),
+      desempenioIcdId: serializer.fromJson<int?>(json['desempenioIcdId']),
+      DesempenioDescripcion:
+          serializer.fromJson<String?>(json['DesempenioDescripcion']),
+      peso: serializer.fromJson<int?>(json['peso']),
+      codigo: serializer.fromJson<String?>(json['codigo']),
+      tipoId: serializer.fromJson<int?>(json['tipoId']),
+      url: serializer.fromJson<String?>(json['url']),
+      desempenioId: serializer.fromJson<int?>(json['desempenioId']),
+      desempenioIcdDescripcion:
+          serializer.fromJson<String?>(json['desempenioIcdDescripcion']),
+      icdId: serializer.fromJson<int?>(json['icdId']),
+      icdTitulo: serializer.fromJson<String?>(json['icdTitulo']),
+      icdDescripcion: serializer.fromJson<String?>(json['icdDescripcion']),
+      icdAlias: serializer.fromJson<String?>(json['icdAlias']),
+      campoTematicoId: serializer.fromJson<int?>(json['campoTematicoId']),
+      campoTematicoTitulo:
+          serializer.fromJson<String?>(json['campoTematicoTitulo']),
+      campoTematicoDescripcion:
+          serializer.fromJson<String?>(json['campoTematicoDescripcion']),
+      campoTematicoEstado:
+          serializer.fromJson<int?>(json['campoTematicoEstado']),
+      campoTematicoParentId:
+          serializer.fromJson<int?>(json['campoTematicoParentId']),
+      campoTematicoParentTitulo:
+          serializer.fromJson<String?>(json['campoTematicoParentTitulo']),
+      campoTematicoParentDescripcion:
+          serializer.fromJson<String?>(json['campoTematicoParentDescripcion']),
+      campoTematicoParentEstado:
+          serializer.fromJson<int?>(json['campoTematicoParentEstado']),
+      campoTematicoParentParentId:
+          serializer.fromJson<int?>(json['campoTematicoParentParentId']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'sesionAprendizajeId': serializer.toJson<int>(sesionAprendizajeId),
+      'unidadAprendiajeId': serializer.toJson<int>(unidadAprendiajeId),
+      'silaboEventoId': serializer.toJson<int>(silaboEventoId),
+      'competenciaId': serializer.toJson<int?>(competenciaId),
+      'competenciaNombre': serializer.toJson<String?>(competenciaNombre),
+      'competenciaDescripcion':
+          serializer.toJson<String?>(competenciaDescripcion),
+      'competenciaTipoId': serializer.toJson<int?>(competenciaTipoId),
+      'superCompetenciaId': serializer.toJson<int?>(superCompetenciaId),
+      'superCompetenciaNombre':
+          serializer.toJson<String?>(superCompetenciaNombre),
+      'superCompetenciaDescripcion':
+          serializer.toJson<String?>(superCompetenciaDescripcion),
+      'superCompetenciaTipoId': serializer.toJson<int?>(superCompetenciaTipoId),
+      'desempenioIcdId': serializer.toJson<int?>(desempenioIcdId),
+      'DesempenioDescripcion':
+          serializer.toJson<String?>(DesempenioDescripcion),
+      'peso': serializer.toJson<int?>(peso),
+      'codigo': serializer.toJson<String?>(codigo),
+      'tipoId': serializer.toJson<int?>(tipoId),
+      'url': serializer.toJson<String?>(url),
+      'desempenioId': serializer.toJson<int?>(desempenioId),
+      'desempenioIcdDescripcion':
+          serializer.toJson<String?>(desempenioIcdDescripcion),
+      'icdId': serializer.toJson<int?>(icdId),
+      'icdTitulo': serializer.toJson<String?>(icdTitulo),
+      'icdDescripcion': serializer.toJson<String?>(icdDescripcion),
+      'icdAlias': serializer.toJson<String?>(icdAlias),
+      'campoTematicoId': serializer.toJson<int?>(campoTematicoId),
+      'campoTematicoTitulo': serializer.toJson<String?>(campoTematicoTitulo),
+      'campoTematicoDescripcion':
+          serializer.toJson<String?>(campoTematicoDescripcion),
+      'campoTematicoEstado': serializer.toJson<int?>(campoTematicoEstado),
+      'campoTematicoParentId': serializer.toJson<int?>(campoTematicoParentId),
+      'campoTematicoParentTitulo':
+          serializer.toJson<String?>(campoTematicoParentTitulo),
+      'campoTematicoParentDescripcion':
+          serializer.toJson<String?>(campoTematicoParentDescripcion),
+      'campoTematicoParentEstado':
+          serializer.toJson<int?>(campoTematicoParentEstado),
+      'campoTematicoParentParentId':
+          serializer.toJson<int?>(campoTematicoParentParentId),
+    };
+  }
+
+  CriterioData copyWith(
+          {int? sesionAprendizajeId,
+          int? unidadAprendiajeId,
+          int? silaboEventoId,
+          int? competenciaId,
+          String? competenciaNombre,
+          String? competenciaDescripcion,
+          int? competenciaTipoId,
+          int? superCompetenciaId,
+          String? superCompetenciaNombre,
+          String? superCompetenciaDescripcion,
+          int? superCompetenciaTipoId,
+          int? desempenioIcdId,
+          String? DesempenioDescripcion,
+          int? peso,
+          String? codigo,
+          int? tipoId,
+          String? url,
+          int? desempenioId,
+          String? desempenioIcdDescripcion,
+          int? icdId,
+          String? icdTitulo,
+          String? icdDescripcion,
+          String? icdAlias,
+          int? campoTematicoId,
+          String? campoTematicoTitulo,
+          String? campoTematicoDescripcion,
+          int? campoTematicoEstado,
+          int? campoTematicoParentId,
+          String? campoTematicoParentTitulo,
+          String? campoTematicoParentDescripcion,
+          int? campoTematicoParentEstado,
+          int? campoTematicoParentParentId}) =>
+      CriterioData(
+        sesionAprendizajeId: sesionAprendizajeId ?? this.sesionAprendizajeId,
+        unidadAprendiajeId: unidadAprendiajeId ?? this.unidadAprendiajeId,
+        silaboEventoId: silaboEventoId ?? this.silaboEventoId,
+        competenciaId: competenciaId ?? this.competenciaId,
+        competenciaNombre: competenciaNombre ?? this.competenciaNombre,
+        competenciaDescripcion:
+            competenciaDescripcion ?? this.competenciaDescripcion,
+        competenciaTipoId: competenciaTipoId ?? this.competenciaTipoId,
+        superCompetenciaId: superCompetenciaId ?? this.superCompetenciaId,
+        superCompetenciaNombre:
+            superCompetenciaNombre ?? this.superCompetenciaNombre,
+        superCompetenciaDescripcion:
+            superCompetenciaDescripcion ?? this.superCompetenciaDescripcion,
+        superCompetenciaTipoId:
+            superCompetenciaTipoId ?? this.superCompetenciaTipoId,
+        desempenioIcdId: desempenioIcdId ?? this.desempenioIcdId,
+        DesempenioDescripcion:
+            DesempenioDescripcion ?? this.DesempenioDescripcion,
+        peso: peso ?? this.peso,
+        codigo: codigo ?? this.codigo,
+        tipoId: tipoId ?? this.tipoId,
+        url: url ?? this.url,
+        desempenioId: desempenioId ?? this.desempenioId,
+        desempenioIcdDescripcion:
+            desempenioIcdDescripcion ?? this.desempenioIcdDescripcion,
+        icdId: icdId ?? this.icdId,
+        icdTitulo: icdTitulo ?? this.icdTitulo,
+        icdDescripcion: icdDescripcion ?? this.icdDescripcion,
+        icdAlias: icdAlias ?? this.icdAlias,
+        campoTematicoId: campoTematicoId ?? this.campoTematicoId,
+        campoTematicoTitulo: campoTematicoTitulo ?? this.campoTematicoTitulo,
+        campoTematicoDescripcion:
+            campoTematicoDescripcion ?? this.campoTematicoDescripcion,
+        campoTematicoEstado: campoTematicoEstado ?? this.campoTematicoEstado,
+        campoTematicoParentId:
+            campoTematicoParentId ?? this.campoTematicoParentId,
+        campoTematicoParentTitulo:
+            campoTematicoParentTitulo ?? this.campoTematicoParentTitulo,
+        campoTematicoParentDescripcion: campoTematicoParentDescripcion ??
+            this.campoTematicoParentDescripcion,
+        campoTematicoParentEstado:
+            campoTematicoParentEstado ?? this.campoTematicoParentEstado,
+        campoTematicoParentParentId:
+            campoTematicoParentParentId ?? this.campoTematicoParentParentId,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('CriterioData(')
+          ..write('sesionAprendizajeId: $sesionAprendizajeId, ')
+          ..write('unidadAprendiajeId: $unidadAprendiajeId, ')
+          ..write('silaboEventoId: $silaboEventoId, ')
+          ..write('competenciaId: $competenciaId, ')
+          ..write('competenciaNombre: $competenciaNombre, ')
+          ..write('competenciaDescripcion: $competenciaDescripcion, ')
+          ..write('competenciaTipoId: $competenciaTipoId, ')
+          ..write('superCompetenciaId: $superCompetenciaId, ')
+          ..write('superCompetenciaNombre: $superCompetenciaNombre, ')
+          ..write('superCompetenciaDescripcion: $superCompetenciaDescripcion, ')
+          ..write('superCompetenciaTipoId: $superCompetenciaTipoId, ')
+          ..write('desempenioIcdId: $desempenioIcdId, ')
+          ..write('DesempenioDescripcion: $DesempenioDescripcion, ')
+          ..write('peso: $peso, ')
+          ..write('codigo: $codigo, ')
+          ..write('tipoId: $tipoId, ')
+          ..write('url: $url, ')
+          ..write('desempenioId: $desempenioId, ')
+          ..write('desempenioIcdDescripcion: $desempenioIcdDescripcion, ')
+          ..write('icdId: $icdId, ')
+          ..write('icdTitulo: $icdTitulo, ')
+          ..write('icdDescripcion: $icdDescripcion, ')
+          ..write('icdAlias: $icdAlias, ')
+          ..write('campoTematicoId: $campoTematicoId, ')
+          ..write('campoTematicoTitulo: $campoTematicoTitulo, ')
+          ..write('campoTematicoDescripcion: $campoTematicoDescripcion, ')
+          ..write('campoTematicoEstado: $campoTematicoEstado, ')
+          ..write('campoTematicoParentId: $campoTematicoParentId, ')
+          ..write('campoTematicoParentTitulo: $campoTematicoParentTitulo, ')
+          ..write(
+              'campoTematicoParentDescripcion: $campoTematicoParentDescripcion, ')
+          ..write('campoTematicoParentEstado: $campoTematicoParentEstado, ')
+          ..write('campoTematicoParentParentId: $campoTematicoParentParentId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      sesionAprendizajeId.hashCode,
+      $mrjc(
+          unidadAprendiajeId.hashCode,
+          $mrjc(
+              silaboEventoId.hashCode,
+              $mrjc(
+                  competenciaId.hashCode,
+                  $mrjc(
+                      competenciaNombre.hashCode,
+                      $mrjc(
+                          competenciaDescripcion.hashCode,
+                          $mrjc(
+                              competenciaTipoId.hashCode,
+                              $mrjc(
+                                  superCompetenciaId.hashCode,
+                                  $mrjc(
+                                      superCompetenciaNombre.hashCode,
+                                      $mrjc(
+                                          superCompetenciaDescripcion.hashCode,
+                                          $mrjc(
+                                              superCompetenciaTipoId.hashCode,
+                                              $mrjc(
+                                                  desempenioIcdId.hashCode,
+                                                  $mrjc(
+                                                      DesempenioDescripcion
+                                                          .hashCode,
+                                                      $mrjc(
+                                                          peso.hashCode,
+                                                          $mrjc(
+                                                              codigo.hashCode,
+                                                              $mrjc(
+                                                                  tipoId
+                                                                      .hashCode,
+                                                                  $mrjc(
+                                                                      url
+                                                                          .hashCode,
+                                                                      $mrjc(
+                                                                          desempenioId
+                                                                              .hashCode,
+                                                                          $mrjc(
+                                                                              desempenioIcdDescripcion.hashCode,
+                                                                              $mrjc(icdId.hashCode, $mrjc(icdTitulo.hashCode, $mrjc(icdDescripcion.hashCode, $mrjc(icdAlias.hashCode, $mrjc(campoTematicoId.hashCode, $mrjc(campoTematicoTitulo.hashCode, $mrjc(campoTematicoDescripcion.hashCode, $mrjc(campoTematicoEstado.hashCode, $mrjc(campoTematicoParentId.hashCode, $mrjc(campoTematicoParentTitulo.hashCode, $mrjc(campoTematicoParentDescripcion.hashCode, $mrjc(campoTematicoParentEstado.hashCode, campoTematicoParentParentId.hashCode))))))))))))))))))))))))))))))));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is CriterioData &&
+          other.sesionAprendizajeId == this.sesionAprendizajeId &&
+          other.unidadAprendiajeId == this.unidadAprendiajeId &&
+          other.silaboEventoId == this.silaboEventoId &&
+          other.competenciaId == this.competenciaId &&
+          other.competenciaNombre == this.competenciaNombre &&
+          other.competenciaDescripcion == this.competenciaDescripcion &&
+          other.competenciaTipoId == this.competenciaTipoId &&
+          other.superCompetenciaId == this.superCompetenciaId &&
+          other.superCompetenciaNombre == this.superCompetenciaNombre &&
+          other.superCompetenciaDescripcion ==
+              this.superCompetenciaDescripcion &&
+          other.superCompetenciaTipoId == this.superCompetenciaTipoId &&
+          other.desempenioIcdId == this.desempenioIcdId &&
+          other.DesempenioDescripcion == this.DesempenioDescripcion &&
+          other.peso == this.peso &&
+          other.codigo == this.codigo &&
+          other.tipoId == this.tipoId &&
+          other.url == this.url &&
+          other.desempenioId == this.desempenioId &&
+          other.desempenioIcdDescripcion == this.desempenioIcdDescripcion &&
+          other.icdId == this.icdId &&
+          other.icdTitulo == this.icdTitulo &&
+          other.icdDescripcion == this.icdDescripcion &&
+          other.icdAlias == this.icdAlias &&
+          other.campoTematicoId == this.campoTematicoId &&
+          other.campoTematicoTitulo == this.campoTematicoTitulo &&
+          other.campoTematicoDescripcion == this.campoTematicoDescripcion &&
+          other.campoTematicoEstado == this.campoTematicoEstado &&
+          other.campoTematicoParentId == this.campoTematicoParentId &&
+          other.campoTematicoParentTitulo == this.campoTematicoParentTitulo &&
+          other.campoTematicoParentDescripcion ==
+              this.campoTematicoParentDescripcion &&
+          other.campoTematicoParentEstado == this.campoTematicoParentEstado &&
+          other.campoTematicoParentParentId ==
+              this.campoTematicoParentParentId);
+}
+
+class CriterioCompanion extends UpdateCompanion<CriterioData> {
+  final Value<int> sesionAprendizajeId;
+  final Value<int> unidadAprendiajeId;
+  final Value<int> silaboEventoId;
+  final Value<int?> competenciaId;
+  final Value<String?> competenciaNombre;
+  final Value<String?> competenciaDescripcion;
+  final Value<int?> competenciaTipoId;
+  final Value<int?> superCompetenciaId;
+  final Value<String?> superCompetenciaNombre;
+  final Value<String?> superCompetenciaDescripcion;
+  final Value<int?> superCompetenciaTipoId;
+  final Value<int?> desempenioIcdId;
+  final Value<String?> DesempenioDescripcion;
+  final Value<int?> peso;
+  final Value<String?> codigo;
+  final Value<int?> tipoId;
+  final Value<String?> url;
+  final Value<int?> desempenioId;
+  final Value<String?> desempenioIcdDescripcion;
+  final Value<int?> icdId;
+  final Value<String?> icdTitulo;
+  final Value<String?> icdDescripcion;
+  final Value<String?> icdAlias;
+  final Value<int?> campoTematicoId;
+  final Value<String?> campoTematicoTitulo;
+  final Value<String?> campoTematicoDescripcion;
+  final Value<int?> campoTematicoEstado;
+  final Value<int?> campoTematicoParentId;
+  final Value<String?> campoTematicoParentTitulo;
+  final Value<String?> campoTematicoParentDescripcion;
+  final Value<int?> campoTematicoParentEstado;
+  final Value<int?> campoTematicoParentParentId;
+  const CriterioCompanion({
+    this.sesionAprendizajeId = const Value.absent(),
+    this.unidadAprendiajeId = const Value.absent(),
+    this.silaboEventoId = const Value.absent(),
+    this.competenciaId = const Value.absent(),
+    this.competenciaNombre = const Value.absent(),
+    this.competenciaDescripcion = const Value.absent(),
+    this.competenciaTipoId = const Value.absent(),
+    this.superCompetenciaId = const Value.absent(),
+    this.superCompetenciaNombre = const Value.absent(),
+    this.superCompetenciaDescripcion = const Value.absent(),
+    this.superCompetenciaTipoId = const Value.absent(),
+    this.desempenioIcdId = const Value.absent(),
+    this.DesempenioDescripcion = const Value.absent(),
+    this.peso = const Value.absent(),
+    this.codigo = const Value.absent(),
+    this.tipoId = const Value.absent(),
+    this.url = const Value.absent(),
+    this.desempenioId = const Value.absent(),
+    this.desempenioIcdDescripcion = const Value.absent(),
+    this.icdId = const Value.absent(),
+    this.icdTitulo = const Value.absent(),
+    this.icdDescripcion = const Value.absent(),
+    this.icdAlias = const Value.absent(),
+    this.campoTematicoId = const Value.absent(),
+    this.campoTematicoTitulo = const Value.absent(),
+    this.campoTematicoDescripcion = const Value.absent(),
+    this.campoTematicoEstado = const Value.absent(),
+    this.campoTematicoParentId = const Value.absent(),
+    this.campoTematicoParentTitulo = const Value.absent(),
+    this.campoTematicoParentDescripcion = const Value.absent(),
+    this.campoTematicoParentEstado = const Value.absent(),
+    this.campoTematicoParentParentId = const Value.absent(),
+  });
+  CriterioCompanion.insert({
+    required int sesionAprendizajeId,
+    required int unidadAprendiajeId,
+    required int silaboEventoId,
+    this.competenciaId = const Value.absent(),
+    this.competenciaNombre = const Value.absent(),
+    this.competenciaDescripcion = const Value.absent(),
+    this.competenciaTipoId = const Value.absent(),
+    this.superCompetenciaId = const Value.absent(),
+    this.superCompetenciaNombre = const Value.absent(),
+    this.superCompetenciaDescripcion = const Value.absent(),
+    this.superCompetenciaTipoId = const Value.absent(),
+    this.desempenioIcdId = const Value.absent(),
+    this.DesempenioDescripcion = const Value.absent(),
+    this.peso = const Value.absent(),
+    this.codigo = const Value.absent(),
+    this.tipoId = const Value.absent(),
+    this.url = const Value.absent(),
+    this.desempenioId = const Value.absent(),
+    this.desempenioIcdDescripcion = const Value.absent(),
+    this.icdId = const Value.absent(),
+    this.icdTitulo = const Value.absent(),
+    this.icdDescripcion = const Value.absent(),
+    this.icdAlias = const Value.absent(),
+    this.campoTematicoId = const Value.absent(),
+    this.campoTematicoTitulo = const Value.absent(),
+    this.campoTematicoDescripcion = const Value.absent(),
+    this.campoTematicoEstado = const Value.absent(),
+    this.campoTematicoParentId = const Value.absent(),
+    this.campoTematicoParentTitulo = const Value.absent(),
+    this.campoTematicoParentDescripcion = const Value.absent(),
+    this.campoTematicoParentEstado = const Value.absent(),
+    this.campoTematicoParentParentId = const Value.absent(),
+  })  : sesionAprendizajeId = Value(sesionAprendizajeId),
+        unidadAprendiajeId = Value(unidadAprendiajeId),
+        silaboEventoId = Value(silaboEventoId);
+  static Insertable<CriterioData> custom({
+    Expression<int>? sesionAprendizajeId,
+    Expression<int>? unidadAprendiajeId,
+    Expression<int>? silaboEventoId,
+    Expression<int?>? competenciaId,
+    Expression<String?>? competenciaNombre,
+    Expression<String?>? competenciaDescripcion,
+    Expression<int?>? competenciaTipoId,
+    Expression<int?>? superCompetenciaId,
+    Expression<String?>? superCompetenciaNombre,
+    Expression<String?>? superCompetenciaDescripcion,
+    Expression<int?>? superCompetenciaTipoId,
+    Expression<int?>? desempenioIcdId,
+    Expression<String?>? DesempenioDescripcion,
+    Expression<int?>? peso,
+    Expression<String?>? codigo,
+    Expression<int?>? tipoId,
+    Expression<String?>? url,
+    Expression<int?>? desempenioId,
+    Expression<String?>? desempenioIcdDescripcion,
+    Expression<int?>? icdId,
+    Expression<String?>? icdTitulo,
+    Expression<String?>? icdDescripcion,
+    Expression<String?>? icdAlias,
+    Expression<int?>? campoTematicoId,
+    Expression<String?>? campoTematicoTitulo,
+    Expression<String?>? campoTematicoDescripcion,
+    Expression<int?>? campoTematicoEstado,
+    Expression<int?>? campoTematicoParentId,
+    Expression<String?>? campoTematicoParentTitulo,
+    Expression<String?>? campoTematicoParentDescripcion,
+    Expression<int?>? campoTematicoParentEstado,
+    Expression<int?>? campoTematicoParentParentId,
+  }) {
+    return RawValuesInsertable({
+      if (sesionAprendizajeId != null)
+        'sesion_aprendizaje_id': sesionAprendizajeId,
+      if (unidadAprendiajeId != null)
+        'unidad_aprendiaje_id': unidadAprendiajeId,
+      if (silaboEventoId != null) 'silabo_evento_id': silaboEventoId,
+      if (competenciaId != null) 'competencia_id': competenciaId,
+      if (competenciaNombre != null) 'competencia_nombre': competenciaNombre,
+      if (competenciaDescripcion != null)
+        'competencia_descripcion': competenciaDescripcion,
+      if (competenciaTipoId != null) 'competencia_tipo_id': competenciaTipoId,
+      if (superCompetenciaId != null)
+        'super_competencia_id': superCompetenciaId,
+      if (superCompetenciaNombre != null)
+        'super_competencia_nombre': superCompetenciaNombre,
+      if (superCompetenciaDescripcion != null)
+        'super_competencia_descripcion': superCompetenciaDescripcion,
+      if (superCompetenciaTipoId != null)
+        'super_competencia_tipo_id': superCompetenciaTipoId,
+      if (desempenioIcdId != null) 'desempenio_icd_id': desempenioIcdId,
+      if (DesempenioDescripcion != null)
+        'desempenio_descripcion': DesempenioDescripcion,
+      if (peso != null) 'peso': peso,
+      if (codigo != null) 'codigo': codigo,
+      if (tipoId != null) 'tipo_id': tipoId,
+      if (url != null) 'url': url,
+      if (desempenioId != null) 'desempenio_id': desempenioId,
+      if (desempenioIcdDescripcion != null)
+        'desempenio_icd_descripcion': desempenioIcdDescripcion,
+      if (icdId != null) 'icd_id': icdId,
+      if (icdTitulo != null) 'icd_titulo': icdTitulo,
+      if (icdDescripcion != null) 'icd_descripcion': icdDescripcion,
+      if (icdAlias != null) 'icd_alias': icdAlias,
+      if (campoTematicoId != null) 'campo_tematico_id': campoTematicoId,
+      if (campoTematicoTitulo != null)
+        'campo_tematico_titulo': campoTematicoTitulo,
+      if (campoTematicoDescripcion != null)
+        'campo_tematico_descripcion': campoTematicoDescripcion,
+      if (campoTematicoEstado != null)
+        'campo_tematico_estado': campoTematicoEstado,
+      if (campoTematicoParentId != null)
+        'campo_tematico_parent_id': campoTematicoParentId,
+      if (campoTematicoParentTitulo != null)
+        'campo_tematico_parent_titulo': campoTematicoParentTitulo,
+      if (campoTematicoParentDescripcion != null)
+        'campo_tematico_parent_descripcion': campoTematicoParentDescripcion,
+      if (campoTematicoParentEstado != null)
+        'campo_tematico_parent_estado': campoTematicoParentEstado,
+      if (campoTematicoParentParentId != null)
+        'campo_tematico_parent_parent_id': campoTematicoParentParentId,
+    });
+  }
+
+  CriterioCompanion copyWith(
+      {Value<int>? sesionAprendizajeId,
+      Value<int>? unidadAprendiajeId,
+      Value<int>? silaboEventoId,
+      Value<int?>? competenciaId,
+      Value<String?>? competenciaNombre,
+      Value<String?>? competenciaDescripcion,
+      Value<int?>? competenciaTipoId,
+      Value<int?>? superCompetenciaId,
+      Value<String?>? superCompetenciaNombre,
+      Value<String?>? superCompetenciaDescripcion,
+      Value<int?>? superCompetenciaTipoId,
+      Value<int?>? desempenioIcdId,
+      Value<String?>? DesempenioDescripcion,
+      Value<int?>? peso,
+      Value<String?>? codigo,
+      Value<int?>? tipoId,
+      Value<String?>? url,
+      Value<int?>? desempenioId,
+      Value<String?>? desempenioIcdDescripcion,
+      Value<int?>? icdId,
+      Value<String?>? icdTitulo,
+      Value<String?>? icdDescripcion,
+      Value<String?>? icdAlias,
+      Value<int?>? campoTematicoId,
+      Value<String?>? campoTematicoTitulo,
+      Value<String?>? campoTematicoDescripcion,
+      Value<int?>? campoTematicoEstado,
+      Value<int?>? campoTematicoParentId,
+      Value<String?>? campoTematicoParentTitulo,
+      Value<String?>? campoTematicoParentDescripcion,
+      Value<int?>? campoTematicoParentEstado,
+      Value<int?>? campoTematicoParentParentId}) {
+    return CriterioCompanion(
+      sesionAprendizajeId: sesionAprendizajeId ?? this.sesionAprendizajeId,
+      unidadAprendiajeId: unidadAprendiajeId ?? this.unidadAprendiajeId,
+      silaboEventoId: silaboEventoId ?? this.silaboEventoId,
+      competenciaId: competenciaId ?? this.competenciaId,
+      competenciaNombre: competenciaNombre ?? this.competenciaNombre,
+      competenciaDescripcion:
+          competenciaDescripcion ?? this.competenciaDescripcion,
+      competenciaTipoId: competenciaTipoId ?? this.competenciaTipoId,
+      superCompetenciaId: superCompetenciaId ?? this.superCompetenciaId,
+      superCompetenciaNombre:
+          superCompetenciaNombre ?? this.superCompetenciaNombre,
+      superCompetenciaDescripcion:
+          superCompetenciaDescripcion ?? this.superCompetenciaDescripcion,
+      superCompetenciaTipoId:
+          superCompetenciaTipoId ?? this.superCompetenciaTipoId,
+      desempenioIcdId: desempenioIcdId ?? this.desempenioIcdId,
+      DesempenioDescripcion:
+          DesempenioDescripcion ?? this.DesempenioDescripcion,
+      peso: peso ?? this.peso,
+      codigo: codigo ?? this.codigo,
+      tipoId: tipoId ?? this.tipoId,
+      url: url ?? this.url,
+      desempenioId: desempenioId ?? this.desempenioId,
+      desempenioIcdDescripcion:
+          desempenioIcdDescripcion ?? this.desempenioIcdDescripcion,
+      icdId: icdId ?? this.icdId,
+      icdTitulo: icdTitulo ?? this.icdTitulo,
+      icdDescripcion: icdDescripcion ?? this.icdDescripcion,
+      icdAlias: icdAlias ?? this.icdAlias,
+      campoTematicoId: campoTematicoId ?? this.campoTematicoId,
+      campoTematicoTitulo: campoTematicoTitulo ?? this.campoTematicoTitulo,
+      campoTematicoDescripcion:
+          campoTematicoDescripcion ?? this.campoTematicoDescripcion,
+      campoTematicoEstado: campoTematicoEstado ?? this.campoTematicoEstado,
+      campoTematicoParentId:
+          campoTematicoParentId ?? this.campoTematicoParentId,
+      campoTematicoParentTitulo:
+          campoTematicoParentTitulo ?? this.campoTematicoParentTitulo,
+      campoTematicoParentDescripcion:
+          campoTematicoParentDescripcion ?? this.campoTematicoParentDescripcion,
+      campoTematicoParentEstado:
+          campoTematicoParentEstado ?? this.campoTematicoParentEstado,
+      campoTematicoParentParentId:
+          campoTematicoParentParentId ?? this.campoTematicoParentParentId,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (sesionAprendizajeId.present) {
+      map['sesion_aprendizaje_id'] = Variable<int>(sesionAprendizajeId.value);
+    }
+    if (unidadAprendiajeId.present) {
+      map['unidad_aprendiaje_id'] = Variable<int>(unidadAprendiajeId.value);
+    }
+    if (silaboEventoId.present) {
+      map['silabo_evento_id'] = Variable<int>(silaboEventoId.value);
+    }
+    if (competenciaId.present) {
+      map['competencia_id'] = Variable<int?>(competenciaId.value);
+    }
+    if (competenciaNombre.present) {
+      map['competencia_nombre'] = Variable<String?>(competenciaNombre.value);
+    }
+    if (competenciaDescripcion.present) {
+      map['competencia_descripcion'] =
+          Variable<String?>(competenciaDescripcion.value);
+    }
+    if (competenciaTipoId.present) {
+      map['competencia_tipo_id'] = Variable<int?>(competenciaTipoId.value);
+    }
+    if (superCompetenciaId.present) {
+      map['super_competencia_id'] = Variable<int?>(superCompetenciaId.value);
+    }
+    if (superCompetenciaNombre.present) {
+      map['super_competencia_nombre'] =
+          Variable<String?>(superCompetenciaNombre.value);
+    }
+    if (superCompetenciaDescripcion.present) {
+      map['super_competencia_descripcion'] =
+          Variable<String?>(superCompetenciaDescripcion.value);
+    }
+    if (superCompetenciaTipoId.present) {
+      map['super_competencia_tipo_id'] =
+          Variable<int?>(superCompetenciaTipoId.value);
+    }
+    if (desempenioIcdId.present) {
+      map['desempenio_icd_id'] = Variable<int?>(desempenioIcdId.value);
+    }
+    if (DesempenioDescripcion.present) {
+      map['desempenio_descripcion'] =
+          Variable<String?>(DesempenioDescripcion.value);
+    }
+    if (peso.present) {
+      map['peso'] = Variable<int?>(peso.value);
+    }
+    if (codigo.present) {
+      map['codigo'] = Variable<String?>(codigo.value);
+    }
+    if (tipoId.present) {
+      map['tipo_id'] = Variable<int?>(tipoId.value);
+    }
+    if (url.present) {
+      map['url'] = Variable<String?>(url.value);
+    }
+    if (desempenioId.present) {
+      map['desempenio_id'] = Variable<int?>(desempenioId.value);
+    }
+    if (desempenioIcdDescripcion.present) {
+      map['desempenio_icd_descripcion'] =
+          Variable<String?>(desempenioIcdDescripcion.value);
+    }
+    if (icdId.present) {
+      map['icd_id'] = Variable<int?>(icdId.value);
+    }
+    if (icdTitulo.present) {
+      map['icd_titulo'] = Variable<String?>(icdTitulo.value);
+    }
+    if (icdDescripcion.present) {
+      map['icd_descripcion'] = Variable<String?>(icdDescripcion.value);
+    }
+    if (icdAlias.present) {
+      map['icd_alias'] = Variable<String?>(icdAlias.value);
+    }
+    if (campoTematicoId.present) {
+      map['campo_tematico_id'] = Variable<int?>(campoTematicoId.value);
+    }
+    if (campoTematicoTitulo.present) {
+      map['campo_tematico_titulo'] =
+          Variable<String?>(campoTematicoTitulo.value);
+    }
+    if (campoTematicoDescripcion.present) {
+      map['campo_tematico_descripcion'] =
+          Variable<String?>(campoTematicoDescripcion.value);
+    }
+    if (campoTematicoEstado.present) {
+      map['campo_tematico_estado'] = Variable<int?>(campoTematicoEstado.value);
+    }
+    if (campoTematicoParentId.present) {
+      map['campo_tematico_parent_id'] =
+          Variable<int?>(campoTematicoParentId.value);
+    }
+    if (campoTematicoParentTitulo.present) {
+      map['campo_tematico_parent_titulo'] =
+          Variable<String?>(campoTematicoParentTitulo.value);
+    }
+    if (campoTematicoParentDescripcion.present) {
+      map['campo_tematico_parent_descripcion'] =
+          Variable<String?>(campoTematicoParentDescripcion.value);
+    }
+    if (campoTematicoParentEstado.present) {
+      map['campo_tematico_parent_estado'] =
+          Variable<int?>(campoTematicoParentEstado.value);
+    }
+    if (campoTematicoParentParentId.present) {
+      map['campo_tematico_parent_parent_id'] =
+          Variable<int?>(campoTematicoParentParentId.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CriterioCompanion(')
+          ..write('sesionAprendizajeId: $sesionAprendizajeId, ')
+          ..write('unidadAprendiajeId: $unidadAprendiajeId, ')
+          ..write('silaboEventoId: $silaboEventoId, ')
+          ..write('competenciaId: $competenciaId, ')
+          ..write('competenciaNombre: $competenciaNombre, ')
+          ..write('competenciaDescripcion: $competenciaDescripcion, ')
+          ..write('competenciaTipoId: $competenciaTipoId, ')
+          ..write('superCompetenciaId: $superCompetenciaId, ')
+          ..write('superCompetenciaNombre: $superCompetenciaNombre, ')
+          ..write('superCompetenciaDescripcion: $superCompetenciaDescripcion, ')
+          ..write('superCompetenciaTipoId: $superCompetenciaTipoId, ')
+          ..write('desempenioIcdId: $desempenioIcdId, ')
+          ..write('DesempenioDescripcion: $DesempenioDescripcion, ')
+          ..write('peso: $peso, ')
+          ..write('codigo: $codigo, ')
+          ..write('tipoId: $tipoId, ')
+          ..write('url: $url, ')
+          ..write('desempenioId: $desempenioId, ')
+          ..write('desempenioIcdDescripcion: $desempenioIcdDescripcion, ')
+          ..write('icdId: $icdId, ')
+          ..write('icdTitulo: $icdTitulo, ')
+          ..write('icdDescripcion: $icdDescripcion, ')
+          ..write('icdAlias: $icdAlias, ')
+          ..write('campoTematicoId: $campoTematicoId, ')
+          ..write('campoTematicoTitulo: $campoTematicoTitulo, ')
+          ..write('campoTematicoDescripcion: $campoTematicoDescripcion, ')
+          ..write('campoTematicoEstado: $campoTematicoEstado, ')
+          ..write('campoTematicoParentId: $campoTematicoParentId, ')
+          ..write('campoTematicoParentTitulo: $campoTematicoParentTitulo, ')
+          ..write(
+              'campoTematicoParentDescripcion: $campoTematicoParentDescripcion, ')
+          ..write('campoTematicoParentEstado: $campoTematicoParentEstado, ')
+          ..write('campoTematicoParentParentId: $campoTematicoParentParentId')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $CriterioTable extends Criterio
+    with TableInfo<$CriterioTable, CriterioData> {
+  final GeneratedDatabase _db;
+  final String? _alias;
+  $CriterioTable(this._db, [this._alias]);
+  final VerificationMeta _sesionAprendizajeIdMeta =
+      const VerificationMeta('sesionAprendizajeId');
+  @override
+  late final GeneratedIntColumn sesionAprendizajeId =
+      _constructSesionAprendizajeId();
+  GeneratedIntColumn _constructSesionAprendizajeId() {
+    return GeneratedIntColumn(
+      'sesion_aprendizaje_id',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _unidadAprendiajeIdMeta =
+      const VerificationMeta('unidadAprendiajeId');
+  @override
+  late final GeneratedIntColumn unidadAprendiajeId =
+      _constructUnidadAprendiajeId();
+  GeneratedIntColumn _constructUnidadAprendiajeId() {
+    return GeneratedIntColumn(
+      'unidad_aprendiaje_id',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _silaboEventoIdMeta =
+      const VerificationMeta('silaboEventoId');
+  @override
+  late final GeneratedIntColumn silaboEventoId = _constructSilaboEventoId();
+  GeneratedIntColumn _constructSilaboEventoId() {
+    return GeneratedIntColumn(
+      'silabo_evento_id',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _competenciaIdMeta =
+      const VerificationMeta('competenciaId');
+  @override
+  late final GeneratedIntColumn competenciaId = _constructCompetenciaId();
+  GeneratedIntColumn _constructCompetenciaId() {
+    return GeneratedIntColumn(
+      'competencia_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _competenciaNombreMeta =
+      const VerificationMeta('competenciaNombre');
+  @override
+  late final GeneratedTextColumn competenciaNombre =
+      _constructCompetenciaNombre();
+  GeneratedTextColumn _constructCompetenciaNombre() {
+    return GeneratedTextColumn(
+      'competencia_nombre',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _competenciaDescripcionMeta =
+      const VerificationMeta('competenciaDescripcion');
+  @override
+  late final GeneratedTextColumn competenciaDescripcion =
+      _constructCompetenciaDescripcion();
+  GeneratedTextColumn _constructCompetenciaDescripcion() {
+    return GeneratedTextColumn(
+      'competencia_descripcion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _competenciaTipoIdMeta =
+      const VerificationMeta('competenciaTipoId');
+  @override
+  late final GeneratedIntColumn competenciaTipoId =
+      _constructCompetenciaTipoId();
+  GeneratedIntColumn _constructCompetenciaTipoId() {
+    return GeneratedIntColumn(
+      'competencia_tipo_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _superCompetenciaIdMeta =
+      const VerificationMeta('superCompetenciaId');
+  @override
+  late final GeneratedIntColumn superCompetenciaId =
+      _constructSuperCompetenciaId();
+  GeneratedIntColumn _constructSuperCompetenciaId() {
+    return GeneratedIntColumn(
+      'super_competencia_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _superCompetenciaNombreMeta =
+      const VerificationMeta('superCompetenciaNombre');
+  @override
+  late final GeneratedTextColumn superCompetenciaNombre =
+      _constructSuperCompetenciaNombre();
+  GeneratedTextColumn _constructSuperCompetenciaNombre() {
+    return GeneratedTextColumn(
+      'super_competencia_nombre',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _superCompetenciaDescripcionMeta =
+      const VerificationMeta('superCompetenciaDescripcion');
+  @override
+  late final GeneratedTextColumn superCompetenciaDescripcion =
+      _constructSuperCompetenciaDescripcion();
+  GeneratedTextColumn _constructSuperCompetenciaDescripcion() {
+    return GeneratedTextColumn(
+      'super_competencia_descripcion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _superCompetenciaTipoIdMeta =
+      const VerificationMeta('superCompetenciaTipoId');
+  @override
+  late final GeneratedIntColumn superCompetenciaTipoId =
+      _constructSuperCompetenciaTipoId();
+  GeneratedIntColumn _constructSuperCompetenciaTipoId() {
+    return GeneratedIntColumn(
+      'super_competencia_tipo_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _desempenioIcdIdMeta =
+      const VerificationMeta('desempenioIcdId');
+  @override
+  late final GeneratedIntColumn desempenioIcdId = _constructDesempenioIcdId();
+  GeneratedIntColumn _constructDesempenioIcdId() {
+    return GeneratedIntColumn(
+      'desempenio_icd_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _DesempenioDescripcionMeta =
+      const VerificationMeta('DesempenioDescripcion');
+  @override
+  late final GeneratedTextColumn DesempenioDescripcion =
+      _constructDesempenioDescripcion();
+  GeneratedTextColumn _constructDesempenioDescripcion() {
+    return GeneratedTextColumn(
+      'desempenio_descripcion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _pesoMeta = const VerificationMeta('peso');
+  @override
+  late final GeneratedIntColumn peso = _constructPeso();
+  GeneratedIntColumn _constructPeso() {
+    return GeneratedIntColumn(
+      'peso',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _codigoMeta = const VerificationMeta('codigo');
+  @override
+  late final GeneratedTextColumn codigo = _constructCodigo();
+  GeneratedTextColumn _constructCodigo() {
+    return GeneratedTextColumn(
+      'codigo',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _tipoIdMeta = const VerificationMeta('tipoId');
+  @override
+  late final GeneratedIntColumn tipoId = _constructTipoId();
+  GeneratedIntColumn _constructTipoId() {
+    return GeneratedIntColumn(
+      'tipo_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _urlMeta = const VerificationMeta('url');
+  @override
+  late final GeneratedTextColumn url = _constructUrl();
+  GeneratedTextColumn _constructUrl() {
+    return GeneratedTextColumn(
+      'url',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _desempenioIdMeta =
+      const VerificationMeta('desempenioId');
+  @override
+  late final GeneratedIntColumn desempenioId = _constructDesempenioId();
+  GeneratedIntColumn _constructDesempenioId() {
+    return GeneratedIntColumn(
+      'desempenio_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _desempenioIcdDescripcionMeta =
+      const VerificationMeta('desempenioIcdDescripcion');
+  @override
+  late final GeneratedTextColumn desempenioIcdDescripcion =
+      _constructDesempenioIcdDescripcion();
+  GeneratedTextColumn _constructDesempenioIcdDescripcion() {
+    return GeneratedTextColumn(
+      'desempenio_icd_descripcion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _icdIdMeta = const VerificationMeta('icdId');
+  @override
+  late final GeneratedIntColumn icdId = _constructIcdId();
+  GeneratedIntColumn _constructIcdId() {
+    return GeneratedIntColumn(
+      'icd_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _icdTituloMeta = const VerificationMeta('icdTitulo');
+  @override
+  late final GeneratedTextColumn icdTitulo = _constructIcdTitulo();
+  GeneratedTextColumn _constructIcdTitulo() {
+    return GeneratedTextColumn(
+      'icd_titulo',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _icdDescripcionMeta =
+      const VerificationMeta('icdDescripcion');
+  @override
+  late final GeneratedTextColumn icdDescripcion = _constructIcdDescripcion();
+  GeneratedTextColumn _constructIcdDescripcion() {
+    return GeneratedTextColumn(
+      'icd_descripcion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _icdAliasMeta = const VerificationMeta('icdAlias');
+  @override
+  late final GeneratedTextColumn icdAlias = _constructIcdAlias();
+  GeneratedTextColumn _constructIcdAlias() {
+    return GeneratedTextColumn(
+      'icd_alias',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _campoTematicoIdMeta =
+      const VerificationMeta('campoTematicoId');
+  @override
+  late final GeneratedIntColumn campoTematicoId = _constructCampoTematicoId();
+  GeneratedIntColumn _constructCampoTematicoId() {
+    return GeneratedIntColumn(
+      'campo_tematico_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _campoTematicoTituloMeta =
+      const VerificationMeta('campoTematicoTitulo');
+  @override
+  late final GeneratedTextColumn campoTematicoTitulo =
+      _constructCampoTematicoTitulo();
+  GeneratedTextColumn _constructCampoTematicoTitulo() {
+    return GeneratedTextColumn(
+      'campo_tematico_titulo',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _campoTematicoDescripcionMeta =
+      const VerificationMeta('campoTematicoDescripcion');
+  @override
+  late final GeneratedTextColumn campoTematicoDescripcion =
+      _constructCampoTematicoDescripcion();
+  GeneratedTextColumn _constructCampoTematicoDescripcion() {
+    return GeneratedTextColumn(
+      'campo_tematico_descripcion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _campoTematicoEstadoMeta =
+      const VerificationMeta('campoTematicoEstado');
+  @override
+  late final GeneratedIntColumn campoTematicoEstado =
+      _constructCampoTematicoEstado();
+  GeneratedIntColumn _constructCampoTematicoEstado() {
+    return GeneratedIntColumn(
+      'campo_tematico_estado',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _campoTematicoParentIdMeta =
+      const VerificationMeta('campoTematicoParentId');
+  @override
+  late final GeneratedIntColumn campoTematicoParentId =
+      _constructCampoTematicoParentId();
+  GeneratedIntColumn _constructCampoTematicoParentId() {
+    return GeneratedIntColumn(
+      'campo_tematico_parent_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _campoTematicoParentTituloMeta =
+      const VerificationMeta('campoTematicoParentTitulo');
+  @override
+  late final GeneratedTextColumn campoTematicoParentTitulo =
+      _constructCampoTematicoParentTitulo();
+  GeneratedTextColumn _constructCampoTematicoParentTitulo() {
+    return GeneratedTextColumn(
+      'campo_tematico_parent_titulo',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _campoTematicoParentDescripcionMeta =
+      const VerificationMeta('campoTematicoParentDescripcion');
+  @override
+  late final GeneratedTextColumn campoTematicoParentDescripcion =
+      _constructCampoTematicoParentDescripcion();
+  GeneratedTextColumn _constructCampoTematicoParentDescripcion() {
+    return GeneratedTextColumn(
+      'campo_tematico_parent_descripcion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _campoTematicoParentEstadoMeta =
+      const VerificationMeta('campoTematicoParentEstado');
+  @override
+  late final GeneratedIntColumn campoTematicoParentEstado =
+      _constructCampoTematicoParentEstado();
+  GeneratedIntColumn _constructCampoTematicoParentEstado() {
+    return GeneratedIntColumn(
+      'campo_tematico_parent_estado',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _campoTematicoParentParentIdMeta =
+      const VerificationMeta('campoTematicoParentParentId');
+  @override
+  late final GeneratedIntColumn campoTematicoParentParentId =
+      _constructCampoTematicoParentParentId();
+  GeneratedIntColumn _constructCampoTematicoParentParentId() {
+    return GeneratedIntColumn(
+      'campo_tematico_parent_parent_id',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [
+        sesionAprendizajeId,
+        unidadAprendiajeId,
+        silaboEventoId,
+        competenciaId,
+        competenciaNombre,
+        competenciaDescripcion,
+        competenciaTipoId,
+        superCompetenciaId,
+        superCompetenciaNombre,
+        superCompetenciaDescripcion,
+        superCompetenciaTipoId,
+        desempenioIcdId,
+        DesempenioDescripcion,
+        peso,
+        codigo,
+        tipoId,
+        url,
+        desempenioId,
+        desempenioIcdDescripcion,
+        icdId,
+        icdTitulo,
+        icdDescripcion,
+        icdAlias,
+        campoTematicoId,
+        campoTematicoTitulo,
+        campoTematicoDescripcion,
+        campoTematicoEstado,
+        campoTematicoParentId,
+        campoTematicoParentTitulo,
+        campoTematicoParentDescripcion,
+        campoTematicoParentEstado,
+        campoTematicoParentParentId
+      ];
+  @override
+  $CriterioTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'criterio';
+  @override
+  final String actualTableName = 'criterio';
+  @override
+  VerificationContext validateIntegrity(Insertable<CriterioData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('sesion_aprendizaje_id')) {
+      context.handle(
+          _sesionAprendizajeIdMeta,
+          sesionAprendizajeId.isAcceptableOrUnknown(
+              data['sesion_aprendizaje_id']!, _sesionAprendizajeIdMeta));
+    } else if (isInserting) {
+      context.missing(_sesionAprendizajeIdMeta);
+    }
+    if (data.containsKey('unidad_aprendiaje_id')) {
+      context.handle(
+          _unidadAprendiajeIdMeta,
+          unidadAprendiajeId.isAcceptableOrUnknown(
+              data['unidad_aprendiaje_id']!, _unidadAprendiajeIdMeta));
+    } else if (isInserting) {
+      context.missing(_unidadAprendiajeIdMeta);
+    }
+    if (data.containsKey('silabo_evento_id')) {
+      context.handle(
+          _silaboEventoIdMeta,
+          silaboEventoId.isAcceptableOrUnknown(
+              data['silabo_evento_id']!, _silaboEventoIdMeta));
+    } else if (isInserting) {
+      context.missing(_silaboEventoIdMeta);
+    }
+    if (data.containsKey('competencia_id')) {
+      context.handle(
+          _competenciaIdMeta,
+          competenciaId.isAcceptableOrUnknown(
+              data['competencia_id']!, _competenciaIdMeta));
+    }
+    if (data.containsKey('competencia_nombre')) {
+      context.handle(
+          _competenciaNombreMeta,
+          competenciaNombre.isAcceptableOrUnknown(
+              data['competencia_nombre']!, _competenciaNombreMeta));
+    }
+    if (data.containsKey('competencia_descripcion')) {
+      context.handle(
+          _competenciaDescripcionMeta,
+          competenciaDescripcion.isAcceptableOrUnknown(
+              data['competencia_descripcion']!, _competenciaDescripcionMeta));
+    }
+    if (data.containsKey('competencia_tipo_id')) {
+      context.handle(
+          _competenciaTipoIdMeta,
+          competenciaTipoId.isAcceptableOrUnknown(
+              data['competencia_tipo_id']!, _competenciaTipoIdMeta));
+    }
+    if (data.containsKey('super_competencia_id')) {
+      context.handle(
+          _superCompetenciaIdMeta,
+          superCompetenciaId.isAcceptableOrUnknown(
+              data['super_competencia_id']!, _superCompetenciaIdMeta));
+    }
+    if (data.containsKey('super_competencia_nombre')) {
+      context.handle(
+          _superCompetenciaNombreMeta,
+          superCompetenciaNombre.isAcceptableOrUnknown(
+              data['super_competencia_nombre']!, _superCompetenciaNombreMeta));
+    }
+    if (data.containsKey('super_competencia_descripcion')) {
+      context.handle(
+          _superCompetenciaDescripcionMeta,
+          superCompetenciaDescripcion.isAcceptableOrUnknown(
+              data['super_competencia_descripcion']!,
+              _superCompetenciaDescripcionMeta));
+    }
+    if (data.containsKey('super_competencia_tipo_id')) {
+      context.handle(
+          _superCompetenciaTipoIdMeta,
+          superCompetenciaTipoId.isAcceptableOrUnknown(
+              data['super_competencia_tipo_id']!, _superCompetenciaTipoIdMeta));
+    }
+    if (data.containsKey('desempenio_icd_id')) {
+      context.handle(
+          _desempenioIcdIdMeta,
+          desempenioIcdId.isAcceptableOrUnknown(
+              data['desempenio_icd_id']!, _desempenioIcdIdMeta));
+    }
+    if (data.containsKey('desempenio_descripcion')) {
+      context.handle(
+          _DesempenioDescripcionMeta,
+          DesempenioDescripcion.isAcceptableOrUnknown(
+              data['desempenio_descripcion']!, _DesempenioDescripcionMeta));
+    }
+    if (data.containsKey('peso')) {
+      context.handle(
+          _pesoMeta, peso.isAcceptableOrUnknown(data['peso']!, _pesoMeta));
+    }
+    if (data.containsKey('codigo')) {
+      context.handle(_codigoMeta,
+          codigo.isAcceptableOrUnknown(data['codigo']!, _codigoMeta));
+    }
+    if (data.containsKey('tipo_id')) {
+      context.handle(_tipoIdMeta,
+          tipoId.isAcceptableOrUnknown(data['tipo_id']!, _tipoIdMeta));
+    }
+    if (data.containsKey('url')) {
+      context.handle(
+          _urlMeta, url.isAcceptableOrUnknown(data['url']!, _urlMeta));
+    }
+    if (data.containsKey('desempenio_id')) {
+      context.handle(
+          _desempenioIdMeta,
+          desempenioId.isAcceptableOrUnknown(
+              data['desempenio_id']!, _desempenioIdMeta));
+    }
+    if (data.containsKey('desempenio_icd_descripcion')) {
+      context.handle(
+          _desempenioIcdDescripcionMeta,
+          desempenioIcdDescripcion.isAcceptableOrUnknown(
+              data['desempenio_icd_descripcion']!,
+              _desempenioIcdDescripcionMeta));
+    }
+    if (data.containsKey('icd_id')) {
+      context.handle(
+          _icdIdMeta, icdId.isAcceptableOrUnknown(data['icd_id']!, _icdIdMeta));
+    }
+    if (data.containsKey('icd_titulo')) {
+      context.handle(_icdTituloMeta,
+          icdTitulo.isAcceptableOrUnknown(data['icd_titulo']!, _icdTituloMeta));
+    }
+    if (data.containsKey('icd_descripcion')) {
+      context.handle(
+          _icdDescripcionMeta,
+          icdDescripcion.isAcceptableOrUnknown(
+              data['icd_descripcion']!, _icdDescripcionMeta));
+    }
+    if (data.containsKey('icd_alias')) {
+      context.handle(_icdAliasMeta,
+          icdAlias.isAcceptableOrUnknown(data['icd_alias']!, _icdAliasMeta));
+    }
+    if (data.containsKey('campo_tematico_id')) {
+      context.handle(
+          _campoTematicoIdMeta,
+          campoTematicoId.isAcceptableOrUnknown(
+              data['campo_tematico_id']!, _campoTematicoIdMeta));
+    }
+    if (data.containsKey('campo_tematico_titulo')) {
+      context.handle(
+          _campoTematicoTituloMeta,
+          campoTematicoTitulo.isAcceptableOrUnknown(
+              data['campo_tematico_titulo']!, _campoTematicoTituloMeta));
+    }
+    if (data.containsKey('campo_tematico_descripcion')) {
+      context.handle(
+          _campoTematicoDescripcionMeta,
+          campoTematicoDescripcion.isAcceptableOrUnknown(
+              data['campo_tematico_descripcion']!,
+              _campoTematicoDescripcionMeta));
+    }
+    if (data.containsKey('campo_tematico_estado')) {
+      context.handle(
+          _campoTematicoEstadoMeta,
+          campoTematicoEstado.isAcceptableOrUnknown(
+              data['campo_tematico_estado']!, _campoTematicoEstadoMeta));
+    }
+    if (data.containsKey('campo_tematico_parent_id')) {
+      context.handle(
+          _campoTematicoParentIdMeta,
+          campoTematicoParentId.isAcceptableOrUnknown(
+              data['campo_tematico_parent_id']!, _campoTematicoParentIdMeta));
+    }
+    if (data.containsKey('campo_tematico_parent_titulo')) {
+      context.handle(
+          _campoTematicoParentTituloMeta,
+          campoTematicoParentTitulo.isAcceptableOrUnknown(
+              data['campo_tematico_parent_titulo']!,
+              _campoTematicoParentTituloMeta));
+    }
+    if (data.containsKey('campo_tematico_parent_descripcion')) {
+      context.handle(
+          _campoTematicoParentDescripcionMeta,
+          campoTematicoParentDescripcion.isAcceptableOrUnknown(
+              data['campo_tematico_parent_descripcion']!,
+              _campoTematicoParentDescripcionMeta));
+    }
+    if (data.containsKey('campo_tematico_parent_estado')) {
+      context.handle(
+          _campoTematicoParentEstadoMeta,
+          campoTematicoParentEstado.isAcceptableOrUnknown(
+              data['campo_tematico_parent_estado']!,
+              _campoTematicoParentEstadoMeta));
+    }
+    if (data.containsKey('campo_tematico_parent_parent_id')) {
+      context.handle(
+          _campoTematicoParentParentIdMeta,
+          campoTematicoParentParentId.isAcceptableOrUnknown(
+              data['campo_tematico_parent_parent_id']!,
+              _campoTematicoParentParentIdMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {silaboEventoId, unidadAprendiajeId};
+  @override
+  CriterioData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return CriterioData.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $CriterioTable createAlias(String alias) {
+    return $CriterioTable(_db, alias);
+  }
+}
+
 abstract class _$AppDataBase extends GeneratedDatabase {
   _$AppDataBase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
   late final $SessionUserTable sessionUser = $SessionUserTable(this);
@@ -17891,6 +19624,7 @@ abstract class _$AppDataBase extends GeneratedDatabase {
       $CalendarioAcademicoTable(this);
   late final $UsuarioTable usuario = $UsuarioTable(this);
   late final $WebConfigsTable webConfigs = $WebConfigsTable(this);
+  late final $CriterioTable criterio = $CriterioTable(this);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
@@ -17932,6 +19666,7 @@ abstract class _$AppDataBase extends GeneratedDatabase {
         horario,
         calendarioAcademico,
         usuario,
-        webConfigs
+        webConfigs,
+        criterio
       ];
 }

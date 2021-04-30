@@ -787,7 +787,52 @@ class SerializableConvert{
     }
     return items;
   }
+  static CriterioData converSerializeCriterio(Map<String,dynamic> model){
+    CriteriosSerial serial = CriteriosSerial.fromJson(model);
+    return CriterioData(
+        sesionAprendizajeId: serial.sesionAprendizajeId??0,
+        unidadAprendiajeId: serial.unidadAprendiajeId??0,
+        silaboEventoId: serial.silaboEventoId??0,
+        competenciaId: serial.competenciaId,
+        competenciaNombre: serial.competenciaNombre,
+        competenciaDescripcion: serial.competenciaDescripcion,
+        competenciaTipoId: serial.competenciaTipoId,
+        superCompetenciaId: serial.superCompetenciaId,
+        superCompetenciaNombre: serial.superCompetenciaNombre,
+        superCompetenciaDescripcion: serial.superCompetenciaDescripcion,
+        superCompetenciaTipoId: serial.superCompetenciaTipoId,
+        desempenioIcdId: serial.desempenioIcdId,
+        DesempenioDescripcion: serial.desempenioIcdDescripcion,
+        peso: serial.peso,
+        codigo: serial.codigo,
+        tipoId: serial.tipoId,
+        url: serial.url,
+        desempenioId: serial.desempenioId,
+        desempenioIcdDescripcion: serial.desempenioIcdDescripcion,
+        icdId: serial.icdId,
+        icdTitulo: serial.icdTitulo,
+        icdDescripcion: serial.icdDescripcion,
+        icdAlias: serial.icdAlias,
+        campoTematicoId: serial.campoTematicoId,
+        campoTematicoTitulo: serial.campoTematicoTitulo,
+        campoTematicoDescripcion: serial.campoTematicoDescripcion,
+        campoTematicoEstado: serial.campoTematicoEstado,
+        campoTematicoParentId: serial.campoTematicoParentParentId,
+        campoTematicoParentTitulo: serial.campoTematicoParentTitulo,
+        campoTematicoParentDescripcion: serial.campoTematicoParentDescripcion,
+        campoTematicoParentEstado: serial.campoTematicoParentEstado,
+        campoTematicoParentParentId: serial.campoTematicoParentParentId
+    );
+  }
 
+  static List<CriterioData> converListSerializeCriterio(dynamic model){
+    List<CriterioData> items = [];
+    Iterable l = model;
+    for(var item in l){
+      items.add(converSerializeCriterio(item));
+    }
+    return items;
+  }
 
 
 }

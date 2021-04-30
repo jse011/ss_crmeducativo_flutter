@@ -181,7 +181,7 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                   child: InkWell(
                                     splashColor: HexColor(controller.cursos?.color1), // inkwell color
                                     child: SizedBox(width: 45 + 6 - 8 * topBarOpacity, height: 45 + 6 - 8 * topBarOpacity,
-                                        child: Icon(Ionicons.mail_open_outline, size: 30,color: HexColor(controller.cursos?.color1),)),
+                                        child: Icon(Ionicons.mail_open_outline, size: 26 + 6 - 6 * topBarOpacity,color: HexColor(controller.cursos?.color1),)),
                                     onTap: () {},
                                   ),
                                 ),

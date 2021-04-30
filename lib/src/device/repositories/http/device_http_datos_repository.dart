@@ -117,4 +117,57 @@ class DeviceHttpDatosRepositorio extends HttpDatosRepository{
     }
   }
 
+  int? _total = 0, _received = 0;
+  http.StreamedResponse? _response;
+  String? _image;
+  List<int> _bytes = [];
+  @override
+  Future<Map<String, dynamic>?> getDatosParaCrearRubro(String urlServidorLocal, int anioAcademicoId, int programaEducativoId, int calendarioPeriodoId, int cargaCursoId, int empleadoId) async {
+    Map<String, dynamic> parameters = Map<String, dynamic>();
+    parameters["vint_AnioAcademicoId"] = anioAcademicoId;
+    parameters["vint_ProgramaEducativoId"] = programaEducativoId;
+    parameters["vint_CalendarioPeriodoId"] = calendarioPeriodoId;
+    parameters["vint_CargaCursoId"] = cargaCursoId;
+    parameters["vint_EmpleadoId"] = empleadoId;
+    //Uri.parse(urlServidorLocal), body: getBody("getDatosParaCrearRubro",parameters)
+     var request = http.Request('POST', Uri.parse(urlServidorLocal));
+    request.body = getBody("getDatosParaCrearRubro",parameters);
+    final response = await http.Client().send(request);
+    _total = _response?.contentLength;
+    var listen = _response?.stream.listen((value) {
+     /* setState(() {
+        _bytes.addAll(value);
+        _received += value.length;
+      });*/
+    });
+
+    listen?.onDone(() {
+      _image = utf8.decode(_bytes);
+      /*setState(() {
+        _image = file;
+      });*/
+    });
+
+    listen?.onError((){
+
+    });
+    //listen?.cancel();
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      Map<String,dynamic> body = json.decode(response.body);
+      if(body.containsKey("Successful")&&body.containsKey("Value")){
+        return body["Value"];
+      }else{
+        throw Exception('Failed to load usuario 1');
+      }
+
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load usuario 0');
+    }
+  }
+
 }

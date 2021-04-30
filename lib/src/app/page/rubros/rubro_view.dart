@@ -3,8 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:lottie/lottie.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubros/rubro_controller.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_theme.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/hex_color.dart';
@@ -129,42 +131,78 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                       Padding(
                         padding: EdgeInsets.only(
                             left: 8,
-                            right: 16,
+                            right: 8,
                             top: 16 - 8.0 * topBarOpacity,
                             bottom: 12 - 8.0 * topBarOpacity),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        child: Stack(
                           children: <Widget>[
-                            IconButton(
-                              icon: Icon(Ionicons.arrow_back, color: AppTheme.nearlyBlack, size: 22 + 6 - 6 * topBarOpacity,),
-                              onPressed: () {
-                                animationController.reverse().then<dynamic>((data) {
-                                  if (!mounted) {
-                                    return;
-                                  }
-                                  Navigator.of(context).pop();
-                                });
-                              },
+                            Positioned(
+                              child:  IconButton(
+                                icon: Icon(Ionicons.arrow_back, color: AppTheme.nearlyBlack, size: 22 + 6 - 6 * topBarOpacity,),
+                                onPressed: () {
+                                  animationController.reverse().then<dynamic>((data) {
+                                    if (!mounted) {
+                                      return;
+                                    }
+                                    Navigator.of(context).pop();
+                                  });
+                                },
+                              )
                             ),
-                            Expanded(
-                              flex: 4,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Mis Evaluaciones',
-                                  textAlign: TextAlign.left,
+                            Center(
+                              child: Container(
+                                margin: const EdgeInsets.only(top: 8, bottom: 8, left: 8, right: 32),
+                                child: topBarOpacity >= 1 ? Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text("Mostrar Todos",
+                                        textAlign: TextAlign.left,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        style: TextStyle(
+                                          fontFamily: AppTheme.fontTTNorms,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16 + 6 - 1 * topBarOpacity,
+                                          color: HexColor("#35377A"),
+                                        )
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(right: 8),
+                                    ),
+                                    Icon(Icons.keyboard_arrow_down_rounded,
+                                      color: HexColor("#35377A"),
+                                      size: 18 + 4 - 1 * topBarOpacity,)
+                                  ],
+                                ) :Text(
+                                  'Mis evaluaciones',
+                                  textAlign: TextAlign.center,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                    fontFamily: AppTheme.fontTTNorms,
+                                    fontFamily: AppTheme.fontTTNormsMedium,
                                     fontWeight: FontWeight.w700,
-                                    fontSize: 22 + 6 - 6 * topBarOpacity,
+                                    fontSize: 20 + 6 - 6 * topBarOpacity,
                                     letterSpacing: 1.2,
                                     color: AppTheme.darkerText,
                                   ),
                                 ),
                               ),
                             ),
-
+                            Positioned(
+                              right: 10,
+                              child: ClipOval(
+                                child: Material(
+                                  color: AppTheme.colorPrimary.withOpacity(0.1), // button color
+                                  child: InkWell(
+                                    splashColor: AppTheme.colorPrimary, // inkwell color
+                                    child: SizedBox(width: 43 + 6 - 8 * topBarOpacity, height: 43 + 6 - 8 * topBarOpacity,
+                                      child: Icon(Ionicons.sync, size: 24 + 6 - 8 * topBarOpacity,color: AppTheme.colorPrimary, ),
+                                    ),
+                                    onTap: () {},
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       )
@@ -202,11 +240,11 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                   Expanded(child:
                   Container(
                     padding: EdgeInsets.only(
-                      top: AppBar().preferredSize.height +
-                          MediaQuery.of(context).padding.top +
-                        0,
-                      left: 24,
-                      right: 10
+                        top: AppBar().preferredSize.height +
+                            MediaQuery.of(context).padding.top +
+                            0,
+                        left: 24,
+                        right: 16
                     ),
                     child: CustomScrollView(
                       controller: scrollController,
@@ -215,6 +253,114 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                             delegate: SliverChildListDelegate(
                               [
                                 Padding(padding: EdgeInsets.only( top: 32)),
+                                false?
+                                Container(
+                                  margin: EdgeInsets.only(bottom: 32),
+                                  height: 140,
+                                  decoration: BoxDecoration(
+                                      color: HexColor("#4987F3"),
+                                      borderRadius: BorderRadius.circular(24) // use instead of BorderRadius.all(Radius.circular(20))
+                                  ),
+                                  child: Stack(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 24, right: 36, top: 16, bottom: 16),
+                                        child:   Row(
+                                          children: [
+                                            Expanded(
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text("Actualizando sus evaluaciones",
+                                                    style: TextStyle(
+                                                      fontFamily: AppTheme.fontTTNormsMedium,
+                                                      fontWeight: FontWeight.w700,
+                                                      fontSize: 18,
+                                                      letterSpacing: 0.5,
+                                                      color: AppTheme.white,
+                                                    ),
+                                                  ),
+                                                  Padding(padding: EdgeInsets.only(top: 8)),
+                                                  Text("Congrats! Your progress are growing up",
+                                                    style: TextStyle(
+                                                      fontFamily: AppTheme.fontTTNormsLigth,
+                                                      fontWeight: FontWeight.w700,
+                                                      fontSize: 12,
+                                                      letterSpacing: 0.5,
+                                                      color: AppTheme.white,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            Padding(padding: EdgeInsets.only(left: 8)),
+                                            Container(
+                                              width: 72,
+                                              height: 72,
+                                              padding: EdgeInsets.all(16),
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: HexColor("#3C7BE9")),
+                                              child:Container(
+                                                child: Center(
+                                                  child: Text("62%",
+                                                    style: TextStyle(
+                                                      fontFamily: AppTheme.fontTTNormsMedium,
+                                                      fontWeight: FontWeight.w700,
+                                                      fontSize: 11,
+                                                      letterSpacing: 0.5,
+                                                      color: AppTheme.white,
+                                                    ),
+                                                  ),
+                                                ),
+                                                decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: HexColor("#4987F3")),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: 8,
+                                        right: -88,
+                                        child: Container(
+                                          width: 280,
+                                          child: Lottie.asset('assets/lottie/progress_portal_alumno.json',
+                                              fit: BoxFit.fill
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ):
+                                Padding(
+                                  padding: EdgeInsets.only(bottom: 32),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text("Mostrar Todos",
+                                          textAlign: TextAlign.left,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                          style: TextStyle(
+                                            fontFamily: AppTheme.fontTTNorms,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 10 + 6 - 3 * topBarOpacity,
+                                            color: HexColor("#35377A"),
+                                          )
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(right: 8),
+                                      ),
+                                      Icon(Icons.keyboard_arrow_down_rounded,
+                                        color: HexColor("#35377A"),
+                                        size: 14 + 4 - 4 * topBarOpacity,)
+                                    ],
+                                  ),
+                                ),
                               ],
                             )
                         ),
@@ -228,70 +374,122 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                           delegate: SliverChildListDelegate(
                               [
                                 Container(
-                                    decoration: BoxDecoration(
-                                        color: HexColor("#FEFAE2"),
-                                        borderRadius: BorderRadius.circular(16) // use instead of BorderRadius.all(Radius.circular(20))
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Row(
+                                  decoration: BoxDecoration(
+                                      color: HexColor("#FEFAE2"),
+                                      borderRadius: BorderRadius.circular(16) // use instead of BorderRadius.all(Radius.circular(20))
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Container(
+                                            margin: EdgeInsets.only(top: 5, bottom: 0, left: 12, right: 8),
+                                            width: 2.5,
+                                            height: 25,
+                                            decoration: BoxDecoration(
+                                                color: HexColor("#8767EB"),
+                                                borderRadius: BorderRadius.circular(5) // use instead of BorderRadius.all(Radius.circular(20))
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsets.only(top: 10, right: 8),
+                                                  child: Text("1. Instrumento",
+                                                      maxLines: 1,
+                                                      overflow: TextOverflow.ellipsis,
+                                                      style: TextStyle(
+                                                        fontFamily: AppTheme.fontTTNorms,
+                                                        fontWeight: FontWeight.w700,
+                                                        fontSize: 10,
+                                                        letterSpacing: 0.5,
+                                                        color: AppTheme.darkerText,
+                                                      )),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsets.only(bottom: 8, top: 4),
+                                                  child: Text("Media: 3.18 (0.92)",
+                                                      style: TextStyle(
+                                                        fontFamily: AppTheme.fontTTNormsLigth,
+                                                        fontWeight: FontWeight.w700,
+                                                        fontSize: 9,
+                                                        letterSpacing: 0.5,
+                                                        color: AppTheme.darkerText.withOpacity(0.6),
+                                                      )
+
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(top: 4, right: 14, left: 4),
+                                            child: Icon(Ionicons.ellipsis_vertical_outline, color: AppTheme.darkerText, size: 14,),
+                                          )
+                                        ],
+                                      ),
+                                      Expanded(
+                                        child: Stack(
                                           children: [
                                             Container(
-                                              margin: EdgeInsets.only(top: 0, bottom: 0, left: 12, right: 8),
-                                              width: 2.5,
-                                              height: 28,
                                               decoration: BoxDecoration(
-                                                  color: HexColor("#8767EB"),
-                                                  borderRadius: BorderRadius.circular(5) // use instead of BorderRadius.all(Radius.circular(20))
+                                                  color: Colors.white,
+                                                  borderRadius: BorderRadius.all(Radius.circular(12)) // use instead of BorderRadius.all(Radius.circular(20))
                                               ),
                                             ),
-                                            Expanded(
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Padding(
-                                                    padding: EdgeInsets.only(top: 10, right: 8),
-                                                    child: Text("1. Rubrica Instrumento",
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow.ellipsis,
-                                                        style: TextStyle(
-                                                          fontFamily: AppTheme.fontTTNorms,
-                                                          fontWeight: FontWeight.w700,
-                                                          fontSize: 10,
-                                                          letterSpacing: 0.5,
-                                                          color: AppTheme.darkerText,
-                                                        )),
+                                            Column(
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsets.only(left: 14, top: 10, right: 14),
+                                                  child: Row(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    children: [
+                                                      Icon(Ionicons.time, color: HexColor("#45D8B8"), size: 12,),
+                                                      Padding(padding: EdgeInsets.only(left: 4)),
+                                                      Expanded(
+                                                        child:  Text("Viernes 21 Abr.",
+                                                            style: TextStyle(
+                                                              fontFamily: AppTheme.fontTTNormsLigth,
+                                                              fontWeight: FontWeight.w700,
+                                                              fontSize: 9,
+                                                              letterSpacing: 0.5,
+                                                              color: AppTheme.darkerText.withOpacity(0.6),
+                                                            )
+                                                        ),
+                                                      ),
+                                                      Icon(Ionicons.people, color: HexColor("#8767EB"), size: 14,),
+                                                      Padding(padding: EdgeInsets.only(left: 4)),
+                                                      Icon(Ionicons.earth, color: HexColor("#8767EB"), size: 14,)
+                                                    ],
                                                   ),
-                                                  Padding(
-                                                    padding: EdgeInsets.only(bottom: 8, top: 4),
-                                                    child: Text("Jueves 22 de Abr.",
-                                                        style: TextStyle(
-                                                          fontFamily: AppTheme.fontTTNormsLigth,
-                                                          fontWeight: FontWeight.w700,
-                                                          fontSize: 8,
-                                                          letterSpacing: 0.5,
-                                                          color: AppTheme.darkerText.withOpacity(0.6),
-                                                        )
-
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsets.only(left: 14, top: 8, right: 14),
+                                                  child: Text("Examen parcial bimestre I",
+                                                      maxLines: 4,
+                                                      overflow: TextOverflow.ellipsis,
+                                                      style: TextStyle(
+                                                        fontFamily: AppTheme.fontTTNormsMedium,
+                                                        fontWeight: FontWeight.w700,
+                                                        fontSize: 10,
+                                                        letterSpacing: 0.5,
+                                                        color: AppTheme.darkerText.withOpacity(0.8),
+                                                      )
+                                                  ),
+                                                )
+                                              ],
                                             )
+
                                           ],
                                         ),
-                                        Expanded(
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius: BorderRadius.circular(12) // use instead of BorderRadius.all(Radius.circular(20))
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    ),
+                                      )
+                                    ],
+                                  ),
+                                ),
                                 Container(
                                     decoration: BoxDecoration(
                                         color: HexColor("#FEFAE2"),
@@ -318,7 +516,7 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                                                       Expanded(
                                                         child: Padding(
                                                           padding: EdgeInsets.only(top: 12, right: 8),
-                                                          child: Text("2. Rubrica Sesion",
+                                                          child: Text("2. Area",
                                                               maxLines: 1,
                                                               overflow: TextOverflow.ellipsis,
                                                               style: TextStyle(
@@ -385,7 +583,7 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                                                       Expanded(
                                                         child: Padding(
                                                           padding: EdgeInsets.only(top: 12, right: 8),
-                                                          child: Text("3. Rubrica Tarea",
+                                                          child: Text("3. Tarea",
                                                               maxLines: 1,
                                                               overflow: TextOverflow.ellipsis,
                                                               style: TextStyle(
@@ -452,7 +650,7 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                                                       Expanded(
                                                         child: Padding(
                                                           padding: EdgeInsets.only(top: 12, right: 8),
-                                                          child: Text("4. Rubrica Pregunta",
+                                                          child: Text("4. Pregunta",
                                                               maxLines: 1,
                                                               overflow: TextOverflow.ellipsis,
                                                               style: TextStyle(
@@ -699,6 +897,19 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                   ),
                 ],
               ),
+              Positioned(
+                bottom: 16,
+                right: 24,
+                child:  FloatingActionButton(
+                  backgroundColor: AppTheme.colorAccent,
+                  foregroundColor: Colors.white,
+                  onPressed: () {
+                    // Respond to button press
+                  },
+                  child: Icon(Ionicons.add),
+                ),
+              )
+
               /*Center(
                   child: Text(
                     "${context.isLandscape}, \n"
