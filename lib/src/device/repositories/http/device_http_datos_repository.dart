@@ -117,12 +117,8 @@ class DeviceHttpDatosRepositorio extends HttpDatosRepository{
     }
   }
 
-  int? _total = 0, _received = 0;
-  http.StreamedResponse? _response;
-  String? _image;
-  List<int> _bytes = [];
   @override
-  Future<Map<String, dynamic>?> getDatosParaCrearRubro(String urlServidorLocal, int anioAcademicoId, int programaEducativoId, int calendarioPeriodoId, int cargaCursoId, int empleadoId) async {
+  Future<HttpStream> getDatosParaCrearRubro(String urlServidorLocal, int anioAcademicoId, int programaEducativoId, int calendarioPeriodoId, int cargaCursoId, int empleadoId, {required HttpStreamListen onListen, onSucces = Function, onError = Function})  async{
     Map<String, dynamic> parameters = Map<String, dynamic>();
     parameters["vint_AnioAcademicoId"] = anioAcademicoId;
     parameters["vint_ProgramaEducativoId"] = programaEducativoId;
@@ -130,44 +126,47 @@ class DeviceHttpDatosRepositorio extends HttpDatosRepository{
     parameters["vint_CargaCursoId"] = cargaCursoId;
     parameters["vint_EmpleadoId"] = empleadoId;
     //Uri.parse(urlServidorLocal), body: getBody("getDatosParaCrearRubro",parameters)
-     var request = http.Request('POST', Uri.parse(urlServidorLocal));
+    var request = http.Request('POST', Uri.parse(urlServidorLocal));
     request.body = getBody("getDatosParaCrearRubro",parameters);
-    final response = await http.Client().send(request);
-    _total = _response?.contentLength;
-    var listen = _response?.stream.listen((value) {
-     /* setState(() {
+    var response = await http.Client().send(request);
+    int? _total = response.contentLength;
+
+    var listen = response.stream.listen((value) {
+      /* setState(() {
         _bytes.addAll(value);
         _received += value.length;
       });*/
+      onListen(value, _total);
     });
 
-    listen?.onDone(() {
-      _image = utf8.decode(_bytes);
+    listen.onDone(() {
+      //_image = utf8.decode(_bytes);
+
       /*setState(() {
         _image = file;
       });*/
+      onSucces();
     });
 
-    listen?.onError((){
-
+    listen.onError((Object error){
+      print(error.toString());
+      onError();
     });
     //listen?.cancel();
+    return _DeviceHttpStream(listen);
+  }
 
-    if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      Map<String,dynamic> body = json.decode(response.body);
-      if(body.containsKey("Successful")&&body.containsKey("Value")){
-        return body["Value"];
-      }else{
-        throw Exception('Failed to load usuario 1');
-      }
 
-    } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
-      throw Exception('Failed to load usuario 0');
-    }
+}
+
+class _DeviceHttpStream extends HttpStream{
+  var listen;
+
+  _DeviceHttpStream(this.listen);
+
+  @override
+  void cancel() {
+   listen?.cancel();
   }
 
 }

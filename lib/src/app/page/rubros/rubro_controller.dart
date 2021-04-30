@@ -6,13 +6,17 @@ import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
 class RubroController extends Controller{
   CursosUi cursosUi;
   List<CalendarioPeriodoUI> _calendarioPeriodoList = [];
+  bool _contenedorSyncronizar = false;
+  bool get contenedorSyncronizar => _contenedorSyncronizar;
   List<CalendarioPeriodoUI> get calendarioPeriodoList => _calendarioPeriodoList;
   CalendarioPeriodoUI? _calendarioPeriodoUI = null;
   CalendarioPeriodoUI? get calendarioPeriodoUI => _calendarioPeriodoUI;
   RubroPresenter presenter;
+  int _progresoSyncronizar = 0;
+  int get progresoSyncronizar => _progresoSyncronizar;
 
-  RubroController(this.cursosUi, calendarioPeriodoRepo, configuracionRepo)
-      :this.presenter = RubroPresenter(calendarioPeriodoRepo, configuracionRepo)
+  RubroController(this.cursosUi, calendarioPeriodoRepo, configuracionRepo, httpDatosRepo, rubroRepo)
+      :this.presenter = RubroPresenter(calendarioPeriodoRepo, configuracionRepo, httpDatosRepo, rubroRepo)
         , super();
 
   @override
@@ -28,6 +32,24 @@ class RubroController extends Controller{
         _calendarioPeriodoList = [];
         _calendarioPeriodoUI = null;
         refreshUI();
+      };
+
+      presenter.getDatosCrearRubroOnNext = (bool? errorConexion, bool? errorServidor, bool? stream, int? total, int? recibido){
+        _contenedorSyncronizar = (stream??false);
+        int progreso = (((recibido??0)/(total??1))*100).toInt();
+        _progresoSyncronizar = progreso>100?100:progreso;
+
+        if(stream??false){
+
+          }else{
+
+          }
+
+        refreshUI();
+      };
+
+      presenter.getDatosCrearRubroOnError = (e){
+
       };
   }
 
@@ -47,6 +69,15 @@ class RubroController extends Controller{
     //showProgress();
     //presenter.getEvaluacion(calendarioPeriodoUi);
     refreshUI();
+  }
+
+  void onSyncronizarCurso() {
+    if(!_contenedorSyncronizar){
+      _contenedorSyncronizar = true;
+      presenter.onActualizarCurso(calendarioPeriodoUI, cursosUi);
+      refreshUI();
+    }
+
   }
 
 }

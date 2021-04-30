@@ -13,6 +13,8 @@ import 'package:ss_crmeducativo_2/src/app/utils/hex_color.dart';
 import 'package:ss_crmeducativo_2/src/app/widgets/animation_view.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_calendario_periodo_repository.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_configuracion_repository.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_rubro_repository.dart';
+import 'package:ss_crmeducativo_2/src/device/repositories/http/device_http_datos_repository.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
 import 'package:ss_crmeducativo_2/libs/flutter-sized-context/sized_context.dart';
 
@@ -28,7 +30,7 @@ class RubroView extends View {
 
 class RubroViewState extends ViewState<RubroView, RubroController> with TickerProviderStateMixin{
 
-  RubroViewState(cursosUi) : super(RubroController(cursosUi, MoorCalendarioPeriodoRepository(), MoorConfiguracionRepository()));
+  RubroViewState(cursosUi) : super(RubroController(cursosUi, MoorCalendarioPeriodoRepository(), MoorConfiguracionRepository(), DeviceHttpDatosRepositorio(), MoorRubroRepository()));
 
   late Animation<double> topBarAnimation;
   late final ScrollController scrollController = ScrollController();
@@ -188,20 +190,26 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                                 ),
                               ),
                             ),
-                            Positioned(
-                              right: 10,
-                              child: ClipOval(
-                                child: Material(
-                                  color: AppTheme.colorPrimary.withOpacity(0.1), // button color
-                                  child: InkWell(
-                                    splashColor: AppTheme.colorPrimary, // inkwell color
-                                    child: SizedBox(width: 43 + 6 - 8 * topBarOpacity, height: 43 + 6 - 8 * topBarOpacity,
-                                      child: Icon(Ionicons.sync, size: 24 + 6 - 8 * topBarOpacity,color: AppTheme.colorPrimary, ),
+                            ControlledWidgetBuilder<RubroController>(
+                                builder: (context, controller) {
+                                  return Positioned(
+                                    right: 10,
+                                    child: ClipOval(
+                                      child: Material(
+                                        color: AppTheme.colorPrimary.withOpacity(0.1), // button color
+                                        child: InkWell(
+                                          splashColor: AppTheme.colorPrimary, // inkwell color
+                                          child: SizedBox(width: 43 + 6 - 8 * topBarOpacity, height: 43 + 6 - 8 * topBarOpacity,
+                                            child: Icon(Ionicons.sync, size: 24 + 6 - 8 * topBarOpacity,color: AppTheme.colorPrimary, ),
+                                          ),
+                                          onTap: () {
+                                            controller.onSyncronizarCurso();
+                                          },
+                                        ),
+                                      ),
                                     ),
-                                    onTap: () {},
-                                  ),
-                                ),
-                              ),
+                                  );
+                                },
                             ),
                           ],
                         ),
@@ -253,7 +261,7 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                             delegate: SliverChildListDelegate(
                               [
                                 Padding(padding: EdgeInsets.only( top: 32)),
-                                false?
+                                controller.contenedorSyncronizar?
                                 Container(
                                   margin: EdgeInsets.only(bottom: 32),
                                   height: 140,
@@ -304,7 +312,7 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                                                   color: HexColor("#3C7BE9")),
                                               child:Container(
                                                 child: Center(
-                                                  child: Text("62%",
+                                                  child: Text(controller.progresoSyncronizar.toString() + "%",
                                                     style: TextStyle(
                                                       fontFamily: AppTheme.fontTTNormsMedium,
                                                       fontWeight: FontWeight.w700,

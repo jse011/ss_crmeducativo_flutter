@@ -17845,7 +17845,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
   /// <summary>
   /// Tabla Competencias
   /// </summary>
-  final int? competenciaId;
+  final int competenciaId;
   final String? competenciaNombre;
   final String? competenciaDescripcion;
   final int? competenciaTipoId;
@@ -17857,7 +17857,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
   /// <summary>
   /// Tabla DesempenioIcd Desempenio Icd
   /// </summary>
-  final int? desempenioIcdId;
+  final int desempenioIcdId;
   final String? DesempenioDescripcion;
   final int? peso;
   final String? codigo;
@@ -17874,7 +17874,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
   /// Tabla CampoTematico
   /// </summary>
   ///
-  final int? campoTematicoId;
+  final int campoTematicoId;
   final String? campoTematicoTitulo;
   final String? campoTematicoDescripcion;
   final int? campoTematicoEstado;
@@ -17887,7 +17887,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
       {required this.sesionAprendizajeId,
       required this.unidadAprendiajeId,
       required this.silaboEventoId,
-      this.competenciaId,
+      required this.competenciaId,
       this.competenciaNombre,
       this.competenciaDescripcion,
       this.competenciaTipoId,
@@ -17895,7 +17895,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
       this.superCompetenciaNombre,
       this.superCompetenciaDescripcion,
       this.superCompetenciaTipoId,
-      this.desempenioIcdId,
+      required this.desempenioIcdId,
       this.DesempenioDescripcion,
       this.peso,
       this.codigo,
@@ -17907,7 +17907,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
       this.icdTitulo,
       this.icdDescripcion,
       this.icdAlias,
-      this.campoTematicoId,
+      required this.campoTematicoId,
       this.campoTematicoTitulo,
       this.campoTematicoDescripcion,
       this.campoTematicoEstado,
@@ -17929,7 +17929,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
       silaboEventoId: intType
           .mapFromDatabaseResponse(data['${effectivePrefix}silabo_evento_id'])!,
       competenciaId: intType
-          .mapFromDatabaseResponse(data['${effectivePrefix}competencia_id']),
+          .mapFromDatabaseResponse(data['${effectivePrefix}competencia_id'])!,
       competenciaNombre: stringType.mapFromDatabaseResponse(
           data['${effectivePrefix}competencia_nombre']),
       competenciaDescripcion: stringType.mapFromDatabaseResponse(
@@ -17944,8 +17944,8 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
           data['${effectivePrefix}super_competencia_descripcion']),
       superCompetenciaTipoId: intType.mapFromDatabaseResponse(
           data['${effectivePrefix}super_competencia_tipo_id']),
-      desempenioIcdId: intType
-          .mapFromDatabaseResponse(data['${effectivePrefix}desempenio_icd_id']),
+      desempenioIcdId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}desempenio_icd_id'])!,
       DesempenioDescripcion: stringType.mapFromDatabaseResponse(
           data['${effectivePrefix}desempenio_descripcion']),
       peso: intType.mapFromDatabaseResponse(data['${effectivePrefix}peso']),
@@ -17965,8 +17965,8 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
           .mapFromDatabaseResponse(data['${effectivePrefix}icd_descripcion']),
       icdAlias: stringType
           .mapFromDatabaseResponse(data['${effectivePrefix}icd_alias']),
-      campoTematicoId: intType
-          .mapFromDatabaseResponse(data['${effectivePrefix}campo_tematico_id']),
+      campoTematicoId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}campo_tematico_id'])!,
       campoTematicoTitulo: stringType.mapFromDatabaseResponse(
           data['${effectivePrefix}campo_tematico_titulo']),
       campoTematicoDescripcion: stringType.mapFromDatabaseResponse(
@@ -17991,9 +17991,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
     map['sesion_aprendizaje_id'] = Variable<int>(sesionAprendizajeId);
     map['unidad_aprendiaje_id'] = Variable<int>(unidadAprendiajeId);
     map['silabo_evento_id'] = Variable<int>(silaboEventoId);
-    if (!nullToAbsent || competenciaId != null) {
-      map['competencia_id'] = Variable<int?>(competenciaId);
-    }
+    map['competencia_id'] = Variable<int>(competenciaId);
     if (!nullToAbsent || competenciaNombre != null) {
       map['competencia_nombre'] = Variable<String?>(competenciaNombre);
     }
@@ -18018,9 +18016,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
     if (!nullToAbsent || superCompetenciaTipoId != null) {
       map['super_competencia_tipo_id'] = Variable<int?>(superCompetenciaTipoId);
     }
-    if (!nullToAbsent || desempenioIcdId != null) {
-      map['desempenio_icd_id'] = Variable<int?>(desempenioIcdId);
-    }
+    map['desempenio_icd_id'] = Variable<int>(desempenioIcdId);
     if (!nullToAbsent || DesempenioDescripcion != null) {
       map['desempenio_descripcion'] = Variable<String?>(DesempenioDescripcion);
     }
@@ -18055,9 +18051,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
     if (!nullToAbsent || icdAlias != null) {
       map['icd_alias'] = Variable<String?>(icdAlias);
     }
-    if (!nullToAbsent || campoTematicoId != null) {
-      map['campo_tematico_id'] = Variable<int?>(campoTematicoId);
-    }
+    map['campo_tematico_id'] = Variable<int>(campoTematicoId);
     if (!nullToAbsent || campoTematicoTitulo != null) {
       map['campo_tematico_titulo'] = Variable<String?>(campoTematicoTitulo);
     }
@@ -18095,9 +18089,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
       sesionAprendizajeId: Value(sesionAprendizajeId),
       unidadAprendiajeId: Value(unidadAprendiajeId),
       silaboEventoId: Value(silaboEventoId),
-      competenciaId: competenciaId == null && nullToAbsent
-          ? const Value.absent()
-          : Value(competenciaId),
+      competenciaId: Value(competenciaId),
       competenciaNombre: competenciaNombre == null && nullToAbsent
           ? const Value.absent()
           : Value(competenciaNombre),
@@ -18120,9 +18112,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
       superCompetenciaTipoId: superCompetenciaTipoId == null && nullToAbsent
           ? const Value.absent()
           : Value(superCompetenciaTipoId),
-      desempenioIcdId: desempenioIcdId == null && nullToAbsent
-          ? const Value.absent()
-          : Value(desempenioIcdId),
+      desempenioIcdId: Value(desempenioIcdId),
       DesempenioDescripcion: DesempenioDescripcion == null && nullToAbsent
           ? const Value.absent()
           : Value(DesempenioDescripcion),
@@ -18149,9 +18139,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
       icdAlias: icdAlias == null && nullToAbsent
           ? const Value.absent()
           : Value(icdAlias),
-      campoTematicoId: campoTematicoId == null && nullToAbsent
-          ? const Value.absent()
-          : Value(campoTematicoId),
+      campoTematicoId: Value(campoTematicoId),
       campoTematicoTitulo: campoTematicoTitulo == null && nullToAbsent
           ? const Value.absent()
           : Value(campoTematicoTitulo),
@@ -18191,7 +18179,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
           serializer.fromJson<int>(json['sesionAprendizajeId']),
       unidadAprendiajeId: serializer.fromJson<int>(json['unidadAprendiajeId']),
       silaboEventoId: serializer.fromJson<int>(json['silaboEventoId']),
-      competenciaId: serializer.fromJson<int?>(json['competenciaId']),
+      competenciaId: serializer.fromJson<int>(json['competenciaId']),
       competenciaNombre:
           serializer.fromJson<String?>(json['competenciaNombre']),
       competenciaDescripcion:
@@ -18204,7 +18192,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
           serializer.fromJson<String?>(json['superCompetenciaDescripcion']),
       superCompetenciaTipoId:
           serializer.fromJson<int?>(json['superCompetenciaTipoId']),
-      desempenioIcdId: serializer.fromJson<int?>(json['desempenioIcdId']),
+      desempenioIcdId: serializer.fromJson<int>(json['desempenioIcdId']),
       DesempenioDescripcion:
           serializer.fromJson<String?>(json['DesempenioDescripcion']),
       peso: serializer.fromJson<int?>(json['peso']),
@@ -18218,7 +18206,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
       icdTitulo: serializer.fromJson<String?>(json['icdTitulo']),
       icdDescripcion: serializer.fromJson<String?>(json['icdDescripcion']),
       icdAlias: serializer.fromJson<String?>(json['icdAlias']),
-      campoTematicoId: serializer.fromJson<int?>(json['campoTematicoId']),
+      campoTematicoId: serializer.fromJson<int>(json['campoTematicoId']),
       campoTematicoTitulo:
           serializer.fromJson<String?>(json['campoTematicoTitulo']),
       campoTematicoDescripcion:
@@ -18244,7 +18232,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
       'sesionAprendizajeId': serializer.toJson<int>(sesionAprendizajeId),
       'unidadAprendiajeId': serializer.toJson<int>(unidadAprendiajeId),
       'silaboEventoId': serializer.toJson<int>(silaboEventoId),
-      'competenciaId': serializer.toJson<int?>(competenciaId),
+      'competenciaId': serializer.toJson<int>(competenciaId),
       'competenciaNombre': serializer.toJson<String?>(competenciaNombre),
       'competenciaDescripcion':
           serializer.toJson<String?>(competenciaDescripcion),
@@ -18255,7 +18243,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
       'superCompetenciaDescripcion':
           serializer.toJson<String?>(superCompetenciaDescripcion),
       'superCompetenciaTipoId': serializer.toJson<int?>(superCompetenciaTipoId),
-      'desempenioIcdId': serializer.toJson<int?>(desempenioIcdId),
+      'desempenioIcdId': serializer.toJson<int>(desempenioIcdId),
       'DesempenioDescripcion':
           serializer.toJson<String?>(DesempenioDescripcion),
       'peso': serializer.toJson<int?>(peso),
@@ -18269,7 +18257,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
       'icdTitulo': serializer.toJson<String?>(icdTitulo),
       'icdDescripcion': serializer.toJson<String?>(icdDescripcion),
       'icdAlias': serializer.toJson<String?>(icdAlias),
-      'campoTematicoId': serializer.toJson<int?>(campoTematicoId),
+      'campoTematicoId': serializer.toJson<int>(campoTematicoId),
       'campoTematicoTitulo': serializer.toJson<String?>(campoTematicoTitulo),
       'campoTematicoDescripcion':
           serializer.toJson<String?>(campoTematicoDescripcion),
@@ -18494,7 +18482,7 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
   final Value<int> sesionAprendizajeId;
   final Value<int> unidadAprendiajeId;
   final Value<int> silaboEventoId;
-  final Value<int?> competenciaId;
+  final Value<int> competenciaId;
   final Value<String?> competenciaNombre;
   final Value<String?> competenciaDescripcion;
   final Value<int?> competenciaTipoId;
@@ -18502,7 +18490,7 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
   final Value<String?> superCompetenciaNombre;
   final Value<String?> superCompetenciaDescripcion;
   final Value<int?> superCompetenciaTipoId;
-  final Value<int?> desempenioIcdId;
+  final Value<int> desempenioIcdId;
   final Value<String?> DesempenioDescripcion;
   final Value<int?> peso;
   final Value<String?> codigo;
@@ -18514,7 +18502,7 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
   final Value<String?> icdTitulo;
   final Value<String?> icdDescripcion;
   final Value<String?> icdAlias;
-  final Value<int?> campoTematicoId;
+  final Value<int> campoTematicoId;
   final Value<String?> campoTematicoTitulo;
   final Value<String?> campoTematicoDescripcion;
   final Value<int?> campoTematicoEstado;
@@ -18561,7 +18549,7 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
     required int sesionAprendizajeId,
     required int unidadAprendiajeId,
     required int silaboEventoId,
-    this.competenciaId = const Value.absent(),
+    required int competenciaId,
     this.competenciaNombre = const Value.absent(),
     this.competenciaDescripcion = const Value.absent(),
     this.competenciaTipoId = const Value.absent(),
@@ -18569,7 +18557,7 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
     this.superCompetenciaNombre = const Value.absent(),
     this.superCompetenciaDescripcion = const Value.absent(),
     this.superCompetenciaTipoId = const Value.absent(),
-    this.desempenioIcdId = const Value.absent(),
+    required int desempenioIcdId,
     this.DesempenioDescripcion = const Value.absent(),
     this.peso = const Value.absent(),
     this.codigo = const Value.absent(),
@@ -18581,7 +18569,7 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
     this.icdTitulo = const Value.absent(),
     this.icdDescripcion = const Value.absent(),
     this.icdAlias = const Value.absent(),
-    this.campoTematicoId = const Value.absent(),
+    required int campoTematicoId,
     this.campoTematicoTitulo = const Value.absent(),
     this.campoTematicoDescripcion = const Value.absent(),
     this.campoTematicoEstado = const Value.absent(),
@@ -18592,12 +18580,15 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
     this.campoTematicoParentParentId = const Value.absent(),
   })  : sesionAprendizajeId = Value(sesionAprendizajeId),
         unidadAprendiajeId = Value(unidadAprendiajeId),
-        silaboEventoId = Value(silaboEventoId);
+        silaboEventoId = Value(silaboEventoId),
+        competenciaId = Value(competenciaId),
+        desempenioIcdId = Value(desempenioIcdId),
+        campoTematicoId = Value(campoTematicoId);
   static Insertable<CriterioData> custom({
     Expression<int>? sesionAprendizajeId,
     Expression<int>? unidadAprendiajeId,
     Expression<int>? silaboEventoId,
-    Expression<int?>? competenciaId,
+    Expression<int>? competenciaId,
     Expression<String?>? competenciaNombre,
     Expression<String?>? competenciaDescripcion,
     Expression<int?>? competenciaTipoId,
@@ -18605,7 +18596,7 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
     Expression<String?>? superCompetenciaNombre,
     Expression<String?>? superCompetenciaDescripcion,
     Expression<int?>? superCompetenciaTipoId,
-    Expression<int?>? desempenioIcdId,
+    Expression<int>? desempenioIcdId,
     Expression<String?>? DesempenioDescripcion,
     Expression<int?>? peso,
     Expression<String?>? codigo,
@@ -18617,7 +18608,7 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
     Expression<String?>? icdTitulo,
     Expression<String?>? icdDescripcion,
     Expression<String?>? icdAlias,
-    Expression<int?>? campoTematicoId,
+    Expression<int>? campoTematicoId,
     Expression<String?>? campoTematicoTitulo,
     Expression<String?>? campoTematicoDescripcion,
     Expression<int?>? campoTematicoEstado,
@@ -18684,7 +18675,7 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
       {Value<int>? sesionAprendizajeId,
       Value<int>? unidadAprendiajeId,
       Value<int>? silaboEventoId,
-      Value<int?>? competenciaId,
+      Value<int>? competenciaId,
       Value<String?>? competenciaNombre,
       Value<String?>? competenciaDescripcion,
       Value<int?>? competenciaTipoId,
@@ -18692,7 +18683,7 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
       Value<String?>? superCompetenciaNombre,
       Value<String?>? superCompetenciaDescripcion,
       Value<int?>? superCompetenciaTipoId,
-      Value<int?>? desempenioIcdId,
+      Value<int>? desempenioIcdId,
       Value<String?>? DesempenioDescripcion,
       Value<int?>? peso,
       Value<String?>? codigo,
@@ -18704,7 +18695,7 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
       Value<String?>? icdTitulo,
       Value<String?>? icdDescripcion,
       Value<String?>? icdAlias,
-      Value<int?>? campoTematicoId,
+      Value<int>? campoTematicoId,
       Value<String?>? campoTematicoTitulo,
       Value<String?>? campoTematicoDescripcion,
       Value<int?>? campoTematicoEstado,
@@ -18774,7 +18765,7 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
       map['silabo_evento_id'] = Variable<int>(silaboEventoId.value);
     }
     if (competenciaId.present) {
-      map['competencia_id'] = Variable<int?>(competenciaId.value);
+      map['competencia_id'] = Variable<int>(competenciaId.value);
     }
     if (competenciaNombre.present) {
       map['competencia_nombre'] = Variable<String?>(competenciaNombre.value);
@@ -18802,7 +18793,7 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
           Variable<int?>(superCompetenciaTipoId.value);
     }
     if (desempenioIcdId.present) {
-      map['desempenio_icd_id'] = Variable<int?>(desempenioIcdId.value);
+      map['desempenio_icd_id'] = Variable<int>(desempenioIcdId.value);
     }
     if (DesempenioDescripcion.present) {
       map['desempenio_descripcion'] =
@@ -18840,7 +18831,7 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
       map['icd_alias'] = Variable<String?>(icdAlias.value);
     }
     if (campoTematicoId.present) {
-      map['campo_tematico_id'] = Variable<int?>(campoTematicoId.value);
+      map['campo_tematico_id'] = Variable<int>(campoTematicoId.value);
     }
     if (campoTematicoTitulo.present) {
       map['campo_tematico_titulo'] =
@@ -18968,7 +18959,7 @@ class $CriterioTable extends Criterio
     return GeneratedIntColumn(
       'competencia_id',
       $tableName,
-      true,
+      false,
     );
   }
 
@@ -19071,7 +19062,7 @@ class $CriterioTable extends Criterio
     return GeneratedIntColumn(
       'desempenio_icd_id',
       $tableName,
-      true,
+      false,
     );
   }
 
@@ -19210,7 +19201,7 @@ class $CriterioTable extends Criterio
     return GeneratedIntColumn(
       'campo_tematico_id',
       $tableName,
-      true,
+      false,
     );
   }
 
@@ -19393,6 +19384,8 @@ class $CriterioTable extends Criterio
           _competenciaIdMeta,
           competenciaId.isAcceptableOrUnknown(
               data['competencia_id']!, _competenciaIdMeta));
+    } else if (isInserting) {
+      context.missing(_competenciaIdMeta);
     }
     if (data.containsKey('competencia_nombre')) {
       context.handle(
@@ -19442,6 +19435,8 @@ class $CriterioTable extends Criterio
           _desempenioIcdIdMeta,
           desempenioIcdId.isAcceptableOrUnknown(
               data['desempenio_icd_id']!, _desempenioIcdIdMeta));
+    } else if (isInserting) {
+      context.missing(_desempenioIcdIdMeta);
     }
     if (data.containsKey('desempenio_descripcion')) {
       context.handle(
@@ -19501,6 +19496,8 @@ class $CriterioTable extends Criterio
           _campoTematicoIdMeta,
           campoTematicoId.isAcceptableOrUnknown(
               data['campo_tematico_id']!, _campoTematicoIdMeta));
+    } else if (isInserting) {
+      context.missing(_campoTematicoIdMeta);
     }
     if (data.containsKey('campo_tematico_titulo')) {
       context.handle(
@@ -19559,7 +19556,14 @@ class $CriterioTable extends Criterio
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {silaboEventoId, unidadAprendiajeId};
+  Set<GeneratedColumn> get $primaryKey => {
+        silaboEventoId,
+        unidadAprendiajeId,
+        sesionAprendizajeId,
+        competenciaId,
+        desempenioIcdId,
+        campoTematicoId
+      };
   @override
   CriterioData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;

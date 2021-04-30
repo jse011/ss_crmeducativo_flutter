@@ -8,7 +8,7 @@ IntColumn get silaboEventoId => integer()();
 /// <summary>
 /// Tabla Competencias
 /// </summary>
-IntColumn get competenciaId => integer().nullable()();
+IntColumn get competenciaId => integer()();
 TextColumn get competenciaNombre => text().nullable()();
 TextColumn get competenciaDescripcion => text().nullable()();
 IntColumn get competenciaTipoId => integer().nullable()();
@@ -21,7 +21,7 @@ IntColumn get superCompetenciaTipoId => integer().nullable()();
 /// <summary>
 /// Tabla DesempenioIcd Desempenio Icd
 /// </summary>
-IntColumn get desempenioIcdId => integer().nullable()();
+IntColumn get desempenioIcdId => integer()();
 TextColumn get DesempenioDescripcion => text().nullable()();
 IntColumn get peso => integer().nullable()();
 TextColumn get codigo => text().nullable()();
@@ -39,7 +39,7 @@ TextColumn get icdAlias => text().nullable()();
 /// </summary>
 /// 
 
-IntColumn get campoTematicoId => integer().nullable()();
+IntColumn get campoTematicoId => integer()();
 TextColumn get campoTematicoTitulo => text().nullable()();
 TextColumn get campoTematicoDescripcion => text().nullable()();
 IntColumn get campoTematicoEstado => integer().nullable()();
@@ -50,5 +50,5 @@ IntColumn get campoTematicoParentEstado => integer().nullable()();
 IntColumn get campoTematicoParentParentId => integer().nullable()();
 
 @override
-  Set<Column> get primaryKey => { silaboEventoId, unidadAprendiajeId, silaboEventoId};
+  Set<Column> get primaryKey => { silaboEventoId, unidadAprendiajeId, sesionAprendizajeId, competenciaId, desempenioIcdId, campoTematicoId};
 }
