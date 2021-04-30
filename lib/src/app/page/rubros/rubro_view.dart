@@ -8,6 +8,7 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:lottie/lottie.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubros/rubro_controller.dart';
+import 'package:ss_crmeducativo_2/src/app/routers.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_theme.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/hex_color.dart';
 import 'package:ss_crmeducativo_2/src/app/widgets/animation_view.dart';
@@ -912,7 +913,7 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                   backgroundColor: AppTheme.colorAccent,
                   foregroundColor: Colors.white,
                   onPressed: () {
-                    // Respond to button press
+                    AppRouter.createRouteRubroCrearRouter(context, controller.cursosUi, null);
                   },
                   child: Icon(Ionicons.add),
                 ),
