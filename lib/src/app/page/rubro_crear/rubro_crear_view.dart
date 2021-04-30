@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubro_crear/rubro_crear_controller.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_theme.dart';
 import 'package:ss_crmeducativo_2/src/app/widgets/ars_progress.dart';
+import 'package:ss_crmeducativo_2/src/app/widgets/dropdown_formfield.dart';
+import 'package:ss_crmeducativo_2/src/app/widgets/dropdown_formfield_2.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/rubro_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/tipos_ui.dart';
 
 class RubroCrearView extends View{
   CursosUi cursosUi;
@@ -23,11 +27,16 @@ class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController
   late double topBarOpacity = 0.0;
   late AnimationController animationController;
 
+  late WhyFarther _selection;
+
+  String? _myActivity = null;
   RubroCrearViewState(cursosUi, rubroUi) : super(RubroCrearController(cursosUi, rubroUi));
-
-
+  var _tiuloRubricacontroller = TextEditingController();
+  var _formaEvaluacioncontroller = TextEditingController(text: "Grupal");
+  var _formaEvaluacionfocusNode = FocusNode();
   @override
   void initState() {
+
     animationController = AnimationController(
         duration: const Duration(milliseconds: 600), vsync: this);
     topBarAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
@@ -68,6 +77,7 @@ class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController
     );
 
   }
+
 
   @override
   Widget get view =>
@@ -195,10 +205,10 @@ class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController
                                           children: [
                                             Text("Guardar",
                                               style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: AppTheme.colorAccent,
-                                                  fontWeight: FontWeight.w700,
-                                                  fontFamily: AppTheme.fontTTNormsMedium,
+                                                fontSize: 16,
+                                                color: AppTheme.colorAccent,
+                                                fontWeight: FontWeight.w700,
+                                                fontFamily: AppTheme.fontTTNormsMedium,
                                               ),),
                                           ],
                                         )
@@ -235,7 +245,7 @@ class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController
                     MediaQuery.of(context).padding.top +
                     0,
               ),
-              child:         AnimatedBuilder(
+              child:  AnimatedBuilder(
                 animation: animationController,
                 builder: (BuildContext? context, Widget? child) {
                   return FadeTransition(
@@ -243,97 +253,215 @@ class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController
                     child: Transform(
                       transform: Matrix4.translationValues(
                           0.0, 30 * (1.0 - topBarAnimation.value), 0.0),
-                      child: CustomScrollView(
-                          controller: scrollController,
-                          slivers: <Widget>[
+                      child:  Form(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        child: CustomScrollView(
+                            controller: scrollController,
+                            slivers: <Widget>[
                               SliverList(
                                   delegate: SliverChildListDelegate([
                                     Padding(
                                       padding: const EdgeInsets.only(left: 24, right: 24, top: 32),
-                                      child:  TextFormField(
+                                      child:  InkWell(
+                                        onTap: (){
+                                        },
+                                        child: TextFormField(
+                                          controller: _tiuloRubricacontroller,
+                                          textAlign: TextAlign.start,
+                                          style: Theme.of(context!).textTheme.caption?.copyWith(
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: AppTheme.fontTTNormsMedium,
+                                            fontSize: 14,
+                                            color: Colors.black,
 
-                                        maxLength: 50,
-                                        textAlign: TextAlign.start,
-                                        style: Theme.of(context!).textTheme.caption?.copyWith(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 16,
-                                          color: Colors.black,
+                                          ),
+                                          decoration: InputDecoration(
+                                            labelText: "Título de la rubica *",
+                                            labelStyle: TextStyle(
+                                                color:  AppTheme.colorPrimary,
+                                                fontFamily: AppTheme.fontTTNormsMedium
+                                            ),
+                                            helperText: " ",
+                                            contentPadding: EdgeInsets.all(15.0),
+                                            prefixIcon: Icon(
+                                              Ionicons.apps_outline,
+                                              color: AppTheme.colorPrimary,
+                                            ),
 
+                                            suffixIcon:(controller.tituloRubrica?.isNotEmpty??false) ?
+                                            IconButton(
+                                              onPressed: (){
+                                                controller.clearTitulo();
+                                                _tiuloRubricacontroller.clear();
+                                              },
+                                              icon: Icon(
+                                                Ionicons.close_circle,
+                                                color: AppTheme.colorPrimary,
+                                              ),
+                                            ):null,
+                                            errorStyle: Theme.of(context).textTheme.caption?.copyWith(
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                            disabledBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(8.0),
+                                              borderSide: BorderSide(
+                                                color: AppTheme.colorPrimary,
+                                              ),
+                                            ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(8.0),
+                                              borderSide: BorderSide(
+                                                color: AppTheme.colorPrimary.withOpacity(0.5),
+                                              ),
+                                            ),
+                                            focusedErrorBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(8.0),
+                                              borderSide: BorderSide(
+                                                color: AppTheme.colorPrimary,
+                                              ),
+                                            ),
+                                            errorBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(8.0),
+                                              borderSide: BorderSide(
+                                                color: AppTheme.colorPrimary,
+                                              ),
+                                            ),
+                                            hintText: "Ingrese un título",
+                                            hintStyle: Theme.of(context).textTheme.caption?.copyWith(
+                                              fontWeight: FontWeight.w500,
+                                              fontFamily: AppTheme.fontTTNormsMedium,
+                                              fontSize: 14,
+                                              color: AppTheme.colorPrimary.withOpacity(0.5),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(8.0),
+                                              borderSide: BorderSide(
+                                                color: AppTheme.colorPrimary,
+                                              ),
+                                            ),
+                                            focusColor: AppTheme.colorAccent,
+                                          ),
+                                          onChanged: (str) {
+                                            controller.changeTituloRubrica(str);
+                                          },
+                                          onSaved: (str) {
+                                            //  To do
+                                          },
                                         ),
-                                        initialValue: '',
-                                        //controller: accountController,
-                                        keyboardType: TextInputType.text,
-                                        textInputAction: TextInputAction.next,
-                                        decoration: InputDecoration(
-                                          labelText: "Título de la rubica *",
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 24, right: 24, top: 8),
+                                      child: DropDownFormField2<TiposUi>(
+                                        inputDecoration: InputDecoration(
+                                          labelText: "Forma de evaluación",
                                           labelStyle: TextStyle(
-                                            color:  AppTheme.colorPrimary,
-                                            fontFamily: AppTheme.fontTTNormsMedium
+                                              color:  AppTheme.colorPrimary,
+                                              fontFamily: AppTheme.fontTTNormsMedium
                                           ),
                                           helperText: " ",
                                           contentPadding: EdgeInsets.all(15.0),
                                           prefixIcon: Icon(
-                                            Icons.account_circle,
+                                            Icons.people_alt_outlined,
                                             color: AppTheme.colorPrimary,
                                           ),
-                                          suffixIcon: Icon(
-                                            Icons.account_box,
-                                            color: AppTheme.colorPrimary,
-                                          ),
-                                          errorStyle: Theme.of(context).textTheme.caption?.copyWith(
-                                            color: Colors.red,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                          disabledBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(8.0),
-                                            borderSide: BorderSide(
+
+                                          suffixIcon:  IconButton(
+                                            onPressed: (){
+                                              controller.clearTitulo();
+                                              _tiuloRubricacontroller.clear();
+                                            },
+                                            icon: Icon(
+                                              Ionicons.caret_down,
                                               color: AppTheme.colorPrimary,
                                             ),
+                                            iconSize: 15,
                                           ),
                                           enabledBorder: OutlineInputBorder(
                                             borderRadius: BorderRadius.circular(8.0),
                                             borderSide: BorderSide(
-                                              color: AppTheme.colorPrimary,
+                                              color: AppTheme.colorPrimary.withOpacity(0.5),
                                             ),
                                           ),
-                                          focusedErrorBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(8.0),
-                                            borderSide: BorderSide(
-                                              color: AppTheme.colorPrimary,
-                                            ),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(8.0),
-                                            borderSide: BorderSide(
-                                              color: AppTheme.colorPrimary,
-                                            ),
-                                          ),
-                                          hintText: "Ingrese un título",
                                           hintStyle: Theme.of(context).textTheme.caption?.copyWith(
                                             fontWeight: FontWeight.w500,
-                                            fontSize: 16,
-                                            color: Colors.grey,
+                                            fontFamily: AppTheme.fontTTNormsMedium,
+                                            fontSize: 14,
+                                            color: AppTheme.colorPrimary.withOpacity(0.5),
                                           ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(8.0),
-                                            borderSide: BorderSide(
-                                              color: AppTheme.colorPrimary,
-                                            ),
-                                          ),
-                                          focusColor: AppTheme.colorAccent,
                                         ),
-                                        onChanged: (str) {
+                                        onChanged: (item){
 
                                         },
-                                        onSaved: (str) {
-                                          //  To do
+                                        menuItems: controller.formaEvaluacionUiList.map<DropdownMenuItem<TiposUi>>((e) {
+                                          return DropdownMenuItem<TiposUi>(child:
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 32),
+                                            child: Text(e.nombre??""),
+                                          )
+                                            , value: e,);
+                                        }).toList(),
+                                        value: controller.formaEvaluacionUi,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 24, right: 24, top: 8),
+                                      child: DropDownFormField2<TiposUi>(
+                                        inputDecoration: InputDecoration(
+                                          labelText: "Tipo de evaluación",
+                                          labelStyle: TextStyle(
+                                              color:  AppTheme.colorPrimary,
+                                              fontFamily: AppTheme.fontTTNormsMedium
+                                          ),
+                                          helperText: " ",
+                                          contentPadding: EdgeInsets.all(15.0),
+                                          prefixIcon: Icon(
+                                            Ionicons.apps_outline,
+                                            color: AppTheme.colorPrimary,
+                                          ),
+
+                                          suffixIcon:  IconButton(
+                                            onPressed: (){
+                                              controller.clearTitulo();
+                                              _tiuloRubricacontroller.clear();
+                                            },
+                                            icon: Icon(
+                                              Ionicons.caret_down,
+                                              color: AppTheme.colorPrimary,
+                                            ),
+                                            iconSize: 15,
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(8.0),
+                                            borderSide: BorderSide(
+                                              color: AppTheme.colorPrimary.withOpacity(0.5),
+                                            ),
+                                          ),
+                                          hintStyle: Theme.of(context).textTheme.caption?.copyWith(
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: AppTheme.fontTTNormsMedium,
+                                            fontSize: 14,
+                                            color: AppTheme.colorPrimary.withOpacity(0.5),
+                                          ),
+                                        ),
+                                        onChanged: (item){
+
                                         },
+                                        menuItems: controller.formaEvaluacionUiList.map<DropdownMenuItem<TiposUi>>((e) {
+                                          return DropdownMenuItem<TiposUi>(child:
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 32),
+                                            child: Text(e.nombre??""),
+                                          )
+                                            , value: e,);
+                                        }).toList(),
+                                        value: controller.formaEvaluacionUi,
                                       ),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(left: 24, right: 24, top: 8),
                                       child:  TextFormField(
-                                        maxLength: 50,
                                         textAlign: TextAlign.start,
                                         style: Theme.of(context).textTheme.caption?.copyWith(
                                           fontWeight: FontWeight.w600,
@@ -572,14 +700,15 @@ class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController
                                     ),
                                   ])
                               ),
-                            SliverList(
-                                delegate: SliverChildListDelegate([
-                                  Container(
-                                    height: 100,
-                                  )
-                                ])
-                            ),
-                          ]
+                              SliverList(
+                                  delegate: SliverChildListDelegate([
+                                    Container(
+                                      height: 100,
+                                    )
+                                  ])
+                              ),
+                            ]
+                        ),
                       ),
                     ),
                   );
@@ -589,4 +718,11 @@ class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController
         });
   }
 
+  @override
+  void dispose() {
+    _tiuloRubricacontroller.dispose();
+  }
+
 }
+
+enum WhyFarther { harder, smarter, selfStarter, tradingCharter }
