@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:ss_crmeducativo_2/libs/sticky-headers-table/example/main.dart';
+import 'package:ss_crmeducativo_2/libs/sticky-headers-table/table_sticky_headers_not_expanded_custom.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubro_crear/rubro_crear_controller.dart';
+import 'package:ss_crmeducativo_2/src/app/utils/app_icon.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_theme.dart';
 import 'package:ss_crmeducativo_2/src/app/widgets/ars_progress.dart';
 import 'package:ss_crmeducativo_2/src/app/widgets/dropdown_formfield.dart';
@@ -24,6 +28,8 @@ class RubroCrearView extends View{
 class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController> with TickerProviderStateMixin{
   late Animation<double> topBarAnimation;
   late final ScrollController scrollController = ScrollController();
+  late final ScrollController verticalscrollController = ScrollController();
+  late final ScrollControllers crollControllers = ScrollControllers();
   late double topBarOpacity = 0.0;
   late AnimationController animationController;
 
@@ -32,8 +38,25 @@ class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController
   String? _myActivity = null;
   RubroCrearViewState(cursosUi, rubroUi) : super(RubroCrearController(cursosUi, rubroUi));
   var _tiuloRubricacontroller = TextEditingController();
-  var _formaEvaluacioncontroller = TextEditingController(text: "Grupal");
-  var _formaEvaluacionfocusNode = FocusNode();
+
+  int? selectedRow;
+  int? selectedColumn;
+
+  Color getContentColor(int i, int j) {
+    if (i == selectedRow && j == selectedColumn) {
+      return Colors.amber;
+    } else if (i == selectedRow || j == selectedColumn) {
+      return Colors.amberAccent;
+    } else {
+      return Colors.transparent;
+    }
+  }
+
+  void clearState() => setState(() {
+    selectedRow = null;
+    selectedColumn = null;
+  });
+
   @override
   void initState() {
 
@@ -75,6 +98,8 @@ class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController
       });}
 
     );
+
+
 
   }
 
@@ -269,11 +294,9 @@ class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController
                                           controller: _tiuloRubricacontroller,
                                           textAlign: TextAlign.start,
                                           style: Theme.of(context!).textTheme.caption?.copyWith(
-                                            fontWeight: FontWeight.w600,
-                                            fontFamily: AppTheme.fontTTNormsMedium,
+                                            fontFamily: AppTheme.fontName,
                                             fontSize: 14,
                                             color: Colors.black,
-
                                           ),
                                           decoration: InputDecoration(
                                             labelText: "Título de la rubica *",
@@ -358,7 +381,8 @@ class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController
                                           labelText: "Forma de evaluación",
                                           labelStyle: TextStyle(
                                               color:  AppTheme.colorPrimary,
-                                              fontFamily: AppTheme.fontTTNormsMedium
+                                              fontFamily: AppTheme.fontTTNormsMedium,
+                                              fontSize: 14,
                                           ),
                                           helperText: " ",
                                           contentPadding: EdgeInsets.all(15.0),
@@ -398,7 +422,10 @@ class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController
                                           return DropdownMenuItem<TiposUi>(child:
                                           Padding(
                                             padding: EdgeInsets.only(left: 32),
-                                            child: Text(e.nombre??""),
+                                            child: Text(e.nombre??"", style: TextStyle(
+                                              fontFamily: AppTheme.fontName,
+                                              fontSize: 15,
+                                              color: Colors.black,),),
                                           )
                                             , value: e,);
                                         }).toList(),
@@ -412,7 +439,8 @@ class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController
                                           labelText: "Tipo de evaluación",
                                           labelStyle: TextStyle(
                                               color:  AppTheme.colorPrimary,
-                                              fontFamily: AppTheme.fontTTNormsMedium
+                                              fontFamily: AppTheme.fontTTNormsMedium,
+                                              fontSize: 14,
                                           ),
                                           helperText: " ",
                                           contentPadding: EdgeInsets.all(15.0),
@@ -452,253 +480,163 @@ class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController
                                           return DropdownMenuItem<TiposUi>(child:
                                           Padding(
                                             padding: EdgeInsets.only(left: 32),
-                                            child: Text(e.nombre??""),
+                                            child: Text(e.nombre??"", style: TextStyle(
+                                              fontFamily: AppTheme.fontName,
+                                              fontSize: 15,
+                                              color: Colors.black,
+                                            ),),
                                           )
                                             , value: e,);
                                         }).toList(),
                                         value: controller.formaEvaluacionUi,
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 24, right: 24, top: 8),
-                                      child:  TextFormField(
-                                        textAlign: TextAlign.start,
-                                        style: Theme.of(context).textTheme.caption?.copyWith(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 16,
-                                          color: Colors.black,
-                                        ),
-                                        initialValue: '',
-                                        //controller: accountController,
-                                        keyboardType: TextInputType.text,
-                                        textInputAction: TextInputAction.next,
-                                        decoration: InputDecoration(
-                                          labelText: "Fecha de nacimiento",
-                                          labelStyle: TextStyle(
-                                            color:  AppTheme.colorPrimary,
-                                          ),
-                                          helperText: "Desabiliado",
-                                          contentPadding: EdgeInsets.all(15.0),
-                                          prefixIcon: Icon(
-                                            Icons.account_circle,
+                                    Row(
+                                      children: [
+                                        Expanded(child: Container(),),
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 8, top: 4,right: 24),
+                                          child: Icon(
+                                            Ionicons.help_circle_outline,
                                             color: AppTheme.colorPrimary,
                                           ),
-                                          suffixIcon: Icon(
-                                            Icons.today_outlined,
-                                            color: AppTheme.colorPrimary,
-                                          ),
-                                          errorStyle: Theme.of(context).textTheme.caption?.copyWith(
-                                            color: Colors.red,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                          disabledBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(28.0),
-                                            borderSide: BorderSide(
-                                              color: AppTheme.colorPrimary,
-                                            ),
-                                          ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(28.0),
-                                            borderSide: BorderSide(
-                                              color: AppTheme.colorPrimary,
-                                            ),
-                                          ),
-                                          focusedErrorBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(28.0),
-                                            borderSide: BorderSide(
-                                              color: AppTheme.colorPrimary,
-                                            ),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(28.0),
-                                            borderSide: BorderSide(
-                                              color: AppTheme.colorPrimary,
-                                            ),
-                                          ),
-                                          hintText: "Ingrese su fecha de nacimiento",
-                                          hintStyle: Theme.of(context).textTheme.caption?.copyWith(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 16,
-                                            color: Colors.grey,
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(28.0),
-                                            borderSide: BorderSide(
-                                              color: AppTheme.colorPrimary,
-                                            ),
-                                          ),
-                                          focusColor: AppTheme.colorAccent,
-                                        ),
-                                        onChanged: (str) {
-                                          // To do
-                                        },
-                                        onSaved: (str) {
-                                          //  To do
-                                        },
-                                      ),
+                                        )
+
+                                      ],
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(left: 24, right: 24, top: 8),
-                                      child:  TextFormField(
-                                        enabled: true,
-                                        maxLength: 50,
-                                        autofocus: false,
+                                      padding: const EdgeInsets.only(left: 24, right: 24, top: 4),
+                                      child:  InputDecorator(
                                         textAlign: TextAlign.start,
-                                        style: Theme.of(context).textTheme.caption?.copyWith(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 16,
-                                          color: Colors.black,
-                                        ),
-                                        initialValue: '',
-                                        //controller: accountController,
-                                        keyboardType: TextInputType.text,
-                                        textInputAction: TextInputAction.next,
-                                        decoration: InputDecoration(
-                                          labelText: "Número de telefono",
+                                        decoration:  InputDecoration(
+                                          labelText: "Promedio de logro",
                                           labelStyle: TextStyle(
-                                            color:  AppTheme.colorPrimary,
+                                              color:  AppTheme.colorPrimary,
+                                              fontFamily: AppTheme.fontTTNormsMedium,
+                                              fontSize: 14,
                                           ),
-                                          helperText: "Actualice su telefono",
+                                          helperText: "Opcional, puede dar clic en la interrogación para conocer más del promedio de logro seleccionado.",
+                                          helperMaxLines: 3,
+                                          helperStyle: TextStyle(
+                                            fontFamily: AppTheme.fontName,
+                                            fontSize: 10,
+                                          ),
                                           contentPadding: EdgeInsets.all(15.0),
-                                          prefixIcon: Icon(
-                                            Icons.account_circle,
-                                            color: AppTheme.colorPrimary,
-                                          ),
-                                          suffixIcon: Icon(
-                                            Icons.call_end_outlined,
-                                            color: AppTheme.colorPrimary,
-                                          ),
-                                          errorStyle: Theme.of(context).textTheme.caption?.copyWith(
-                                            color: Colors.red,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                          disabledBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(28.0),
-                                            borderSide: BorderSide(
+                                          prefixIcon: Container(padding: EdgeInsets.all(12), height: 15, width:15, child: SvgPicture.asset(AppIcon.ic_evaluar, color: AppTheme.colorPrimary),),
+                                          suffixIcon:  IconButton(
+                                            onPressed: (){
+                                              controller.clearTitulo();
+                                              _tiuloRubricacontroller.clear();
+                                            },
+                                            icon: Icon(
+                                              Ionicons.ellipsis_vertical,
                                               color: AppTheme.colorPrimary,
                                             ),
+                                            iconSize: 15,
                                           ),
                                           enabledBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(28.0),
+                                            borderRadius: BorderRadius.circular(8.0),
                                             borderSide: BorderSide(
-                                              color: AppTheme.colorPrimary,
+                                              color: AppTheme.colorPrimary.withOpacity(0.5),
                                             ),
                                           ),
-                                          focusedErrorBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(28.0),
-                                            borderSide: BorderSide(
-                                              color: AppTheme.colorPrimary,
-                                            ),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(28.0),
-                                            borderSide: BorderSide(
-                                              color: AppTheme.colorPrimary,
-                                            ),
-                                          ),
-                                          hintText: "Ingrese su número de telefono",
                                           hintStyle: Theme.of(context).textTheme.caption?.copyWith(
                                             fontWeight: FontWeight.w500,
-                                            fontSize: 16,
-                                            color: Colors.grey,
+                                            fontFamily: AppTheme.fontTTNormsMedium,
+                                            fontSize: 14,
+                                            color: AppTheme.colorPrimary.withOpacity(0.5),
                                           ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(28.0),
-                                            borderSide: BorderSide(
-                                              color: AppTheme.colorPrimary,
-                                            ),
-                                          ),
-                                          focusColor: AppTheme.colorAccent,
                                         ),
-                                        onChanged: (str) {
-
-
-                                        },
-                                        onSaved: (str) {
-                                          //  To do
-                                        },
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 24, right: 24, top: 16),
-                                      child:  TextFormField(
-                                        maxLength: 50,
-                                        textAlign: TextAlign.start,
-                                        style: Theme.of(context).textTheme.caption?.copyWith(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 16,
+                                        child: Text("Selector de Caritas", style: TextStyle(
+                                          fontFamily: AppTheme.fontName,
+                                          fontSize: 15,
                                           color: Colors.black,
-                                        ),
-                                        initialValue: '',
-                                        //controller: accountController,
-                                        keyboardType: TextInputType.text,
-                                        textInputAction: TextInputAction.next,
-                                        decoration: InputDecoration(
-                                          labelText: "Correo",
-                                          labelStyle: TextStyle(
-                                            color:  AppTheme.colorPrimary,
-                                          ),
-                                          helperText: "Actualice su correo",
-                                          contentPadding: EdgeInsets.all(15.0),
-                                          prefixIcon: Icon(
-                                            Icons.account_circle,
-                                            color: AppTheme.colorPrimary,
-                                          ),
-                                          suffixIcon: Icon(
-                                            Icons.email_outlined,
-                                            color: AppTheme.colorPrimary,
-                                          ),
-                                          errorStyle: Theme.of(context).textTheme.caption?.copyWith(
-                                            color: Colors.red,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                          disabledBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(28.0),
-                                            borderSide: BorderSide(
-                                              color: AppTheme.colorPrimary,
-                                            ),
-                                          ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(28.0),
-                                            borderSide: BorderSide(
-                                              color: AppTheme.colorPrimary,
-                                            ),
-                                          ),
-                                          focusedErrorBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(28.0),
-                                            borderSide: BorderSide(
-                                              color: AppTheme.colorPrimary,
-                                            ),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(28.0),
-                                            borderSide: BorderSide(
-                                              color: AppTheme.colorPrimary,
-                                            ),
-                                          ),
-                                          hintText: "Ingrese su correo",
-                                          hintStyle: Theme.of(context).textTheme.caption?.copyWith(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 16,
-                                            color: Colors.grey,
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(28.0),
-                                            borderSide: BorderSide(
-                                              color: AppTheme.colorPrimary,
-                                            ),
-                                          ),
-                                          focusColor: AppTheme.colorAccent,
-                                        ),
-                                        onChanged: (str) {
-
-                                        },
-                                        onSaved: (str) {
-                                          //  To do
-                                        },
+                                        ),),
                                       ),
                                     ),
+                                    Row(
+                                      children: [
+                                        Padding(padding: EdgeInsets.only(left: 24, top: 16),
+                                          child:  ElevatedButton.icon(
+                                            style: ElevatedButton.styleFrom(
+                                              primary: AppTheme.colorPrimary, // background
+                                              onPrimary: Colors.white, // foreground
+                                            ),
+                                            onPressed: () {
+                                              // Respond to button press
+                                            },
+                                            icon: SvgPicture.asset(AppIcon.ic_velocimetro, color: AppTheme.white, width: 18, height: 18,),
+                                            label: Text("AGREGAR CRITERIO"),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+
                                   ])
+                              ),
+                              SliverToBoxAdapter(
+                                child:      Padding(
+                              padding: const EdgeInsets.only(left: 24, right: 24, top: 16),
+                                  child: SingleChildScrollView(
+                                    child: StickyHeadersTableNotExpandedCustom(
+                                        cellDimensions: CellDimensions.variableColumnWidth(
+                                            stickyLegendHeight:45,
+                                            stickyLegendWidth: 20,
+                                            contentCellHeight: 45,
+                                            columnWidths: [50, 45, 93, 70, 70,70, 45, 93, 70, 70,]
+                                        ),
+                                        //cellAlignments: CellAlignments.,
+                                        scrollControllers: crollControllers,
+                                        columnsLength: LandingPage.makeTitleColumn().length,
+                                        rowsLength: LandingPage.makeTitleRow().length,
+                                        columnsTitleBuilder: (i) => Container(
+                                          child: Center(
+                                            child:  Text(LandingPage.makeTitleColumn()[i]),
+                                          ),
+                                            decoration: BoxDecoration(
+                                              border: Border(
+                                                  right: BorderSide(color: AppTheme.colorPrimary)
+                                              ),
+                                            )
+                                        ),
+                                        rowsTitleBuilder: (i) => Container(
+                                            child: Center(
+                                              child:  Text(LandingPage.makeTitleRow()[i]),
+                                            ),
+                                            decoration: BoxDecoration(
+                                              border: Border(
+                                                  top: BorderSide(color: AppTheme.colorPrimary),
+                                                  right: BorderSide(color: AppTheme.colorPrimary),
+                                              ),
+                                            )
+                                        ),
+                                        contentCellBuilder: (i, j) => Container(
+                                          child: Center(
+                                            child: Text(LandingPage.makeData()[i][j]),
+                                          ),
+                                            decoration: BoxDecoration(
+                                              border: Border(
+                                                top: BorderSide(color: AppTheme.colorPrimary),
+                                                right: BorderSide(color: AppTheme.colorPrimary),
+                                              ),
+                                            )
+                                        ),
+                                        legendCell: Expanded(
+                                          child: Container(
+                                              child: Center(
+                                                child: Text('N°'),
+                                              ),
+                                              decoration: BoxDecoration(
+                                                border: Border(
+                                                  right: BorderSide(color: AppTheme.colorPrimary),
+                                                ),
+                                              )
+                                          ),
+                                        )
+                                    ),
+                                  ),
+
+                                ),
                               ),
                               SliverList(
                                   delegate: SliverChildListDelegate([
@@ -720,9 +658,119 @@ class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController
 
   @override
   void dispose() {
-    _tiuloRubricacontroller.dispose();
+    super.dispose();
   }
 
 }
 
 enum WhyFarther { harder, smarter, selfStarter, tradingCharter }
+
+class TableCell extends StatelessWidget {
+  TableCell.content(
+      this.text, {
+        this.textStyle,
+        this.cellDimensions = CellDimensions.base,
+        this.colorBg = Colors.white,
+        this.onTap,
+      })  : cellWidth = cellDimensions.contentCellWidth,
+        cellHeight = cellDimensions.contentCellHeight,
+        _colorHorizontalBorder = Colors.amber,
+        _colorVerticalBorder = Colors.black38,
+        _textAlign = TextAlign.center,
+        _padding = EdgeInsets.zero;
+
+  TableCell.legend(
+      this.text, {
+        this.textStyle,
+        this.cellDimensions = CellDimensions.base,
+        this.colorBg = Colors.amber,
+        this.onTap,
+      })  : cellWidth = cellDimensions.stickyLegendWidth,
+        cellHeight = cellDimensions.stickyLegendHeight,
+        _colorHorizontalBorder = Colors.white,
+        _colorVerticalBorder = Colors.amber,
+        _textAlign = TextAlign.start,
+        _padding = EdgeInsets.only(left: 24.0);
+
+  TableCell.stickyRow(
+      this.text, {
+        this.textStyle,
+        this.cellDimensions = CellDimensions.base,
+        this.colorBg = Colors.amber,
+        this.onTap,
+      })  : cellWidth = cellDimensions.contentCellWidth,
+        cellHeight = cellDimensions.stickyLegendHeight,
+        _colorHorizontalBorder = Colors.white,
+        _colorVerticalBorder = Colors.amber,
+        _textAlign = TextAlign.center,
+        _padding = EdgeInsets.zero;
+
+  TableCell.stickyColumn(
+      this.text, {
+        this.textStyle,
+        this.cellDimensions = CellDimensions.base,
+        this.colorBg = Colors.white,
+        this.onTap,
+      })  : cellWidth = cellDimensions.stickyLegendWidth,
+        cellHeight = cellDimensions.contentCellHeight,
+        _colorHorizontalBorder = Colors.amber,
+        _colorVerticalBorder = Colors.black38,
+        _textAlign = TextAlign.start,
+        _padding = EdgeInsets.only(left: 24.0);
+
+  final CellDimensions cellDimensions;
+
+  final String text;
+  final Function()? onTap;
+
+  final double? cellWidth;
+  final double? cellHeight;
+
+  final Color colorBg;
+  final Color _colorHorizontalBorder;
+  final Color _colorVerticalBorder;
+
+  final TextAlign _textAlign;
+  final EdgeInsets _padding;
+
+  final TextStyle? textStyle;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: cellWidth,
+        height: cellHeight,
+        padding: _padding,
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(horizontal: 2.0),
+                child: Text(
+                  text,
+                  style: textStyle,
+                  maxLines: 2,
+                  textAlign: _textAlign,
+                ),
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              height: 1.1,
+              color: _colorVerticalBorder,
+            ),
+          ],
+        ),
+        decoration: BoxDecoration(
+            border: Border(
+              left: BorderSide(color: _colorHorizontalBorder),
+              right: BorderSide(color: _colorHorizontalBorder),
+            ),
+            color: colorBg),
+      ),
+    );
+  }
+}

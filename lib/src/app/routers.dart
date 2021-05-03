@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ss_crmeducativo_2/libs/sticky-headers-table/example/main.dart';
 import 'package:ss_crmeducativo_2/src/app/page/curso/curso_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/home/home_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/login/login_view.dart';
@@ -22,8 +23,7 @@ class AppRouter {
     LOGIN: (BuildContext context) => LoginView(),
     HOME: (BuildContext context) => HomeView(),
     //CURSO:(BuildContext context) => CursoView(),
-    SESION: (BuildContext context) => WrapWidgetDemo(),
-    SESION: (BuildContext context) => WrapWidgetDemo(),
+    SESION: (BuildContext context) => LandingPage(),
   };
 
   static dynamic? generateRoute(RouteSettings settings) {

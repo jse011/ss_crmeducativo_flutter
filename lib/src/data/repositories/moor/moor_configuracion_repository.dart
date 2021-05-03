@@ -687,8 +687,8 @@ class MoorConfiguracionRepository extends ConfiguracionRepository{
       Periodo periodo = row.readTable(SQL.periodos);
       SeccionData seccionData = row.readTable(SQL.seccion);
       AulaData aula = row.readTable(SQL.aula);
-      SilaboEventoData silaboEventoData = row.readTable(SQL.silaboEvento);
-      ParametrosDisenioData parametrosDisenioData = row.readTable(SQL.parametrosDisenio);
+      SilaboEventoData? silaboEventoData = row.readTableOrNull(SQL.silaboEvento);
+      ParametrosDisenioData? parametrosDisenioData = row.readTableOrNull(SQL.parametrosDisenio);
 
       cursosUi.cargaCursoId = cargaCursoData.cargaCursoId;
       cursosUi.cargaAcademicaId = cargaAcademicaData.cargaAcademicaId;
