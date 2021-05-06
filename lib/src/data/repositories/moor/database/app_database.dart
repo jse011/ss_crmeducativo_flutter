@@ -34,9 +34,13 @@ import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/rol.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/seccion.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/session_user.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/silabo_evento.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/tipo_evaluacion_rubro.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/tipo_nota_rubro.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/tipos.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/tipos_rubro.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/usuario.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/usuario_rol_georeferencia.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/valor_tipo_nota_rubro.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/web_configs.dart';
 
 part 'app_database.g.dart';
@@ -44,7 +48,7 @@ part 'app_database.g.dart';
 @UseMoor(tables:[SessionUser, UsuarioRolGeoreferencia, Rol, Georeferencia, Entidad, Persona, Empleado, AnioAcademico, ParametroConfiguracion, Aula, CargaAcademica,
   CargaCursoDocente, CargaCursoDocenteDet, CargaCurso, Cursos, ParametrosDisenio, NivelAcademico, Periodos, PlanCursos, PlanEstudio, ProgramasEducativo, Seccion, SilaboEvento,
   CalendarioPeriodo, CalendarioPeriodoDetalle, CargaCursoCalendarioPeriodo, Tipos, Hora, HorarioPrograma, HorarioHora, DetalleHorario, Dia, HorarioDia, CursosDetHorario, Horario,
-  CalendarioAcademico, Usuario, WebConfigs, Criterio])
+  CalendarioAcademico, Usuario, WebConfigs, Criterio, TipoEvaluacionRubro, TiposRubro, TipoNotaRubro, ValorTipoNotaRubro])
 class AppDataBase extends _$AppDataBase {
   @override
   int get schemaVersion => 1;

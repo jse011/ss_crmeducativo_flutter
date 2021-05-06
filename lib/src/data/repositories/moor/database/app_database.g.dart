@@ -17883,6 +17883,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
   final String? campoTematicoParentDescripcion;
   final int? campoTematicoParentEstado;
   final int? campoTematicoParentParentId;
+  final int? calendarioPeriodoId;
   CriterioData(
       {required this.sesionAprendizajeId,
       required this.unidadAprendiajeId,
@@ -17915,7 +17916,8 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
       this.campoTematicoParentTitulo,
       this.campoTematicoParentDescripcion,
       this.campoTematicoParentEstado,
-      this.campoTematicoParentParentId});
+      this.campoTematicoParentParentId,
+      this.calendarioPeriodoId});
   factory CriterioData.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
@@ -17983,6 +17985,8 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
           data['${effectivePrefix}campo_tematico_parent_estado']),
       campoTematicoParentParentId: intType.mapFromDatabaseResponse(
           data['${effectivePrefix}campo_tematico_parent_parent_id']),
+      calendarioPeriodoId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}calendario_periodo_id']),
     );
   }
   @override
@@ -18081,6 +18085,9 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
       map['campo_tematico_parent_parent_id'] =
           Variable<int?>(campoTematicoParentParentId);
     }
+    if (!nullToAbsent || calendarioPeriodoId != null) {
+      map['calendario_periodo_id'] = Variable<int?>(calendarioPeriodoId);
+    }
     return map;
   }
 
@@ -18168,6 +18175,9 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
           campoTematicoParentParentId == null && nullToAbsent
               ? const Value.absent()
               : Value(campoTematicoParentParentId),
+      calendarioPeriodoId: calendarioPeriodoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(calendarioPeriodoId),
     );
   }
 
@@ -18223,6 +18233,8 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
           serializer.fromJson<int?>(json['campoTematicoParentEstado']),
       campoTematicoParentParentId:
           serializer.fromJson<int?>(json['campoTematicoParentParentId']),
+      calendarioPeriodoId:
+          serializer.fromJson<int?>(json['calendarioPeriodoId']),
     );
   }
   @override
@@ -18271,6 +18283,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
           serializer.toJson<int?>(campoTematicoParentEstado),
       'campoTematicoParentParentId':
           serializer.toJson<int?>(campoTematicoParentParentId),
+      'calendarioPeriodoId': serializer.toJson<int?>(calendarioPeriodoId),
     };
   }
 
@@ -18306,7 +18319,8 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
           String? campoTematicoParentTitulo,
           String? campoTematicoParentDescripcion,
           int? campoTematicoParentEstado,
-          int? campoTematicoParentParentId}) =>
+          int? campoTematicoParentParentId,
+          int? calendarioPeriodoId}) =>
       CriterioData(
         sesionAprendizajeId: sesionAprendizajeId ?? this.sesionAprendizajeId,
         unidadAprendiajeId: unidadAprendiajeId ?? this.unidadAprendiajeId,
@@ -18352,6 +18366,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
             campoTematicoParentEstado ?? this.campoTematicoParentEstado,
         campoTematicoParentParentId:
             campoTematicoParentParentId ?? this.campoTematicoParentParentId,
+        calendarioPeriodoId: calendarioPeriodoId ?? this.calendarioPeriodoId,
       );
   @override
   String toString() {
@@ -18388,7 +18403,8 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
           ..write(
               'campoTematicoParentDescripcion: $campoTematicoParentDescripcion, ')
           ..write('campoTematicoParentEstado: $campoTematicoParentEstado, ')
-          ..write('campoTematicoParentParentId: $campoTematicoParentParentId')
+          ..write('campoTematicoParentParentId: $campoTematicoParentParentId, ')
+          ..write('calendarioPeriodoId: $calendarioPeriodoId')
           ..write(')'))
         .toString();
   }
@@ -18436,7 +18452,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
                                                                               .hashCode,
                                                                           $mrjc(
                                                                               desempenioIcdDescripcion.hashCode,
-                                                                              $mrjc(icdId.hashCode, $mrjc(icdTitulo.hashCode, $mrjc(icdDescripcion.hashCode, $mrjc(icdAlias.hashCode, $mrjc(campoTematicoId.hashCode, $mrjc(campoTematicoTitulo.hashCode, $mrjc(campoTematicoDescripcion.hashCode, $mrjc(campoTematicoEstado.hashCode, $mrjc(campoTematicoParentId.hashCode, $mrjc(campoTematicoParentTitulo.hashCode, $mrjc(campoTematicoParentDescripcion.hashCode, $mrjc(campoTematicoParentEstado.hashCode, campoTematicoParentParentId.hashCode))))))))))))))))))))))))))))))));
+                                                                              $mrjc(icdId.hashCode, $mrjc(icdTitulo.hashCode, $mrjc(icdDescripcion.hashCode, $mrjc(icdAlias.hashCode, $mrjc(campoTematicoId.hashCode, $mrjc(campoTematicoTitulo.hashCode, $mrjc(campoTematicoDescripcion.hashCode, $mrjc(campoTematicoEstado.hashCode, $mrjc(campoTematicoParentId.hashCode, $mrjc(campoTematicoParentTitulo.hashCode, $mrjc(campoTematicoParentDescripcion.hashCode, $mrjc(campoTematicoParentEstado.hashCode, $mrjc(campoTematicoParentParentId.hashCode, calendarioPeriodoId.hashCode)))))))))))))))))))))))))))))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
@@ -18475,7 +18491,8 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
               this.campoTematicoParentDescripcion &&
           other.campoTematicoParentEstado == this.campoTematicoParentEstado &&
           other.campoTematicoParentParentId ==
-              this.campoTematicoParentParentId);
+              this.campoTematicoParentParentId &&
+          other.calendarioPeriodoId == this.calendarioPeriodoId);
 }
 
 class CriterioCompanion extends UpdateCompanion<CriterioData> {
@@ -18511,6 +18528,7 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
   final Value<String?> campoTematicoParentDescripcion;
   final Value<int?> campoTematicoParentEstado;
   final Value<int?> campoTematicoParentParentId;
+  final Value<int?> calendarioPeriodoId;
   const CriterioCompanion({
     this.sesionAprendizajeId = const Value.absent(),
     this.unidadAprendiajeId = const Value.absent(),
@@ -18544,6 +18562,7 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
     this.campoTematicoParentDescripcion = const Value.absent(),
     this.campoTematicoParentEstado = const Value.absent(),
     this.campoTematicoParentParentId = const Value.absent(),
+    this.calendarioPeriodoId = const Value.absent(),
   });
   CriterioCompanion.insert({
     required int sesionAprendizajeId,
@@ -18578,6 +18597,7 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
     this.campoTematicoParentDescripcion = const Value.absent(),
     this.campoTematicoParentEstado = const Value.absent(),
     this.campoTematicoParentParentId = const Value.absent(),
+    this.calendarioPeriodoId = const Value.absent(),
   })  : sesionAprendizajeId = Value(sesionAprendizajeId),
         unidadAprendiajeId = Value(unidadAprendiajeId),
         silaboEventoId = Value(silaboEventoId),
@@ -18617,6 +18637,7 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
     Expression<String?>? campoTematicoParentDescripcion,
     Expression<int?>? campoTematicoParentEstado,
     Expression<int?>? campoTematicoParentParentId,
+    Expression<int?>? calendarioPeriodoId,
   }) {
     return RawValuesInsertable({
       if (sesionAprendizajeId != null)
@@ -18668,6 +18689,8 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
         'campo_tematico_parent_estado': campoTematicoParentEstado,
       if (campoTematicoParentParentId != null)
         'campo_tematico_parent_parent_id': campoTematicoParentParentId,
+      if (calendarioPeriodoId != null)
+        'calendario_periodo_id': calendarioPeriodoId,
     });
   }
 
@@ -18703,7 +18726,8 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
       Value<String?>? campoTematicoParentTitulo,
       Value<String?>? campoTematicoParentDescripcion,
       Value<int?>? campoTematicoParentEstado,
-      Value<int?>? campoTematicoParentParentId}) {
+      Value<int?>? campoTematicoParentParentId,
+      Value<int?>? calendarioPeriodoId}) {
     return CriterioCompanion(
       sesionAprendizajeId: sesionAprendizajeId ?? this.sesionAprendizajeId,
       unidadAprendiajeId: unidadAprendiajeId ?? this.unidadAprendiajeId,
@@ -18749,6 +18773,7 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
           campoTematicoParentEstado ?? this.campoTematicoParentEstado,
       campoTematicoParentParentId:
           campoTematicoParentParentId ?? this.campoTematicoParentParentId,
+      calendarioPeriodoId: calendarioPeriodoId ?? this.calendarioPeriodoId,
     );
   }
 
@@ -18864,6 +18889,9 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
       map['campo_tematico_parent_parent_id'] =
           Variable<int?>(campoTematicoParentParentId.value);
     }
+    if (calendarioPeriodoId.present) {
+      map['calendario_periodo_id'] = Variable<int?>(calendarioPeriodoId.value);
+    }
     return map;
   }
 
@@ -18902,7 +18930,8 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
           ..write(
               'campoTematicoParentDescripcion: $campoTematicoParentDescripcion, ')
           ..write('campoTematicoParentEstado: $campoTematicoParentEstado, ')
-          ..write('campoTematicoParentParentId: $campoTematicoParentParentId')
+          ..write('campoTematicoParentParentId: $campoTematicoParentParentId, ')
+          ..write('calendarioPeriodoId: $calendarioPeriodoId')
           ..write(')'))
         .toString();
   }
@@ -19309,6 +19338,19 @@ class $CriterioTable extends Criterio
     );
   }
 
+  final VerificationMeta _calendarioPeriodoIdMeta =
+      const VerificationMeta('calendarioPeriodoId');
+  @override
+  late final GeneratedIntColumn calendarioPeriodoId =
+      _constructCalendarioPeriodoId();
+  GeneratedIntColumn _constructCalendarioPeriodoId() {
+    return GeneratedIntColumn(
+      'calendario_periodo_id',
+      $tableName,
+      true,
+    );
+  }
+
   @override
   List<GeneratedColumn> get $columns => [
         sesionAprendizajeId,
@@ -19342,7 +19384,8 @@ class $CriterioTable extends Criterio
         campoTematicoParentTitulo,
         campoTematicoParentDescripcion,
         campoTematicoParentEstado,
-        campoTematicoParentParentId
+        campoTematicoParentParentId,
+        calendarioPeriodoId
       ];
   @override
   $CriterioTable get asDslTable => this;
@@ -19552,6 +19595,12 @@ class $CriterioTable extends Criterio
               data['campo_tematico_parent_parent_id']!,
               _campoTematicoParentParentIdMeta));
     }
+    if (data.containsKey('calendario_periodo_id')) {
+      context.handle(
+          _calendarioPeriodoIdMeta,
+          calendarioPeriodoId.isAcceptableOrUnknown(
+              data['calendario_periodo_id']!, _calendarioPeriodoIdMeta));
+    }
     return context;
   }
 
@@ -19573,6 +19622,3110 @@ class $CriterioTable extends Criterio
   @override
   $CriterioTable createAlias(String alias) {
     return $CriterioTable(_db, alias);
+  }
+}
+
+class TipoEvaluacionRubroData extends DataClass
+    implements Insertable<TipoEvaluacionRubroData> {
+  final int tipoEvaluacionId;
+  final String? nombre;
+  final bool? estado;
+  TipoEvaluacionRubroData(
+      {required this.tipoEvaluacionId, this.nombre, this.estado});
+  factory TipoEvaluacionRubroData.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
+      {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final intType = db.typeSystem.forDartType<int>();
+    final stringType = db.typeSystem.forDartType<String>();
+    final boolType = db.typeSystem.forDartType<bool>();
+    return TipoEvaluacionRubroData(
+      tipoEvaluacionId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}tipo_evaluacion_id'])!,
+      nombre:
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
+      estado:
+          boolType.mapFromDatabaseResponse(data['${effectivePrefix}estado']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['tipo_evaluacion_id'] = Variable<int>(tipoEvaluacionId);
+    if (!nullToAbsent || nombre != null) {
+      map['nombre'] = Variable<String?>(nombre);
+    }
+    if (!nullToAbsent || estado != null) {
+      map['estado'] = Variable<bool?>(estado);
+    }
+    return map;
+  }
+
+  TipoEvaluacionRubroCompanion toCompanion(bool nullToAbsent) {
+    return TipoEvaluacionRubroCompanion(
+      tipoEvaluacionId: Value(tipoEvaluacionId),
+      nombre:
+          nombre == null && nullToAbsent ? const Value.absent() : Value(nombre),
+      estado:
+          estado == null && nullToAbsent ? const Value.absent() : Value(estado),
+    );
+  }
+
+  factory TipoEvaluacionRubroData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return TipoEvaluacionRubroData(
+      tipoEvaluacionId: serializer.fromJson<int>(json['tipoEvaluacionId']),
+      nombre: serializer.fromJson<String?>(json['nombre']),
+      estado: serializer.fromJson<bool?>(json['estado']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'tipoEvaluacionId': serializer.toJson<int>(tipoEvaluacionId),
+      'nombre': serializer.toJson<String?>(nombre),
+      'estado': serializer.toJson<bool?>(estado),
+    };
+  }
+
+  TipoEvaluacionRubroData copyWith(
+          {int? tipoEvaluacionId, String? nombre, bool? estado}) =>
+      TipoEvaluacionRubroData(
+        tipoEvaluacionId: tipoEvaluacionId ?? this.tipoEvaluacionId,
+        nombre: nombre ?? this.nombre,
+        estado: estado ?? this.estado,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('TipoEvaluacionRubroData(')
+          ..write('tipoEvaluacionId: $tipoEvaluacionId, ')
+          ..write('nombre: $nombre, ')
+          ..write('estado: $estado')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      tipoEvaluacionId.hashCode, $mrjc(nombre.hashCode, estado.hashCode)));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is TipoEvaluacionRubroData &&
+          other.tipoEvaluacionId == this.tipoEvaluacionId &&
+          other.nombre == this.nombre &&
+          other.estado == this.estado);
+}
+
+class TipoEvaluacionRubroCompanion
+    extends UpdateCompanion<TipoEvaluacionRubroData> {
+  final Value<int> tipoEvaluacionId;
+  final Value<String?> nombre;
+  final Value<bool?> estado;
+  const TipoEvaluacionRubroCompanion({
+    this.tipoEvaluacionId = const Value.absent(),
+    this.nombre = const Value.absent(),
+    this.estado = const Value.absent(),
+  });
+  TipoEvaluacionRubroCompanion.insert({
+    this.tipoEvaluacionId = const Value.absent(),
+    this.nombre = const Value.absent(),
+    this.estado = const Value.absent(),
+  });
+  static Insertable<TipoEvaluacionRubroData> custom({
+    Expression<int>? tipoEvaluacionId,
+    Expression<String?>? nombre,
+    Expression<bool?>? estado,
+  }) {
+    return RawValuesInsertable({
+      if (tipoEvaluacionId != null) 'tipo_evaluacion_id': tipoEvaluacionId,
+      if (nombre != null) 'nombre': nombre,
+      if (estado != null) 'estado': estado,
+    });
+  }
+
+  TipoEvaluacionRubroCompanion copyWith(
+      {Value<int>? tipoEvaluacionId,
+      Value<String?>? nombre,
+      Value<bool?>? estado}) {
+    return TipoEvaluacionRubroCompanion(
+      tipoEvaluacionId: tipoEvaluacionId ?? this.tipoEvaluacionId,
+      nombre: nombre ?? this.nombre,
+      estado: estado ?? this.estado,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (tipoEvaluacionId.present) {
+      map['tipo_evaluacion_id'] = Variable<int>(tipoEvaluacionId.value);
+    }
+    if (nombre.present) {
+      map['nombre'] = Variable<String?>(nombre.value);
+    }
+    if (estado.present) {
+      map['estado'] = Variable<bool?>(estado.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TipoEvaluacionRubroCompanion(')
+          ..write('tipoEvaluacionId: $tipoEvaluacionId, ')
+          ..write('nombre: $nombre, ')
+          ..write('estado: $estado')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $TipoEvaluacionRubroTable extends TipoEvaluacionRubro
+    with TableInfo<$TipoEvaluacionRubroTable, TipoEvaluacionRubroData> {
+  final GeneratedDatabase _db;
+  final String? _alias;
+  $TipoEvaluacionRubroTable(this._db, [this._alias]);
+  final VerificationMeta _tipoEvaluacionIdMeta =
+      const VerificationMeta('tipoEvaluacionId');
+  @override
+  late final GeneratedIntColumn tipoEvaluacionId = _constructTipoEvaluacionId();
+  GeneratedIntColumn _constructTipoEvaluacionId() {
+    return GeneratedIntColumn(
+      'tipo_evaluacion_id',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _nombreMeta = const VerificationMeta('nombre');
+  @override
+  late final GeneratedTextColumn nombre = _constructNombre();
+  GeneratedTextColumn _constructNombre() {
+    return GeneratedTextColumn(
+      'nombre',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _estadoMeta = const VerificationMeta('estado');
+  @override
+  late final GeneratedBoolColumn estado = _constructEstado();
+  GeneratedBoolColumn _constructEstado() {
+    return GeneratedBoolColumn(
+      'estado',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [tipoEvaluacionId, nombre, estado];
+  @override
+  $TipoEvaluacionRubroTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'tipo_evaluacion_rubro';
+  @override
+  final String actualTableName = 'tipo_evaluacion_rubro';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<TipoEvaluacionRubroData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('tipo_evaluacion_id')) {
+      context.handle(
+          _tipoEvaluacionIdMeta,
+          tipoEvaluacionId.isAcceptableOrUnknown(
+              data['tipo_evaluacion_id']!, _tipoEvaluacionIdMeta));
+    }
+    if (data.containsKey('nombre')) {
+      context.handle(_nombreMeta,
+          nombre.isAcceptableOrUnknown(data['nombre']!, _nombreMeta));
+    }
+    if (data.containsKey('estado')) {
+      context.handle(_estadoMeta,
+          estado.isAcceptableOrUnknown(data['estado']!, _estadoMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {tipoEvaluacionId};
+  @override
+  TipoEvaluacionRubroData map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return TipoEvaluacionRubroData.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $TipoEvaluacionRubroTable createAlias(String alias) {
+    return $TipoEvaluacionRubroTable(_db, alias);
+  }
+}
+
+class TiposRubroData extends DataClass implements Insertable<TiposRubroData> {
+  final int tipoId;
+  final String? objeto;
+  final String? concepto;
+  final String? nombre;
+  final String? codigo;
+  final int? parentId;
+  TiposRubroData(
+      {required this.tipoId,
+      this.objeto,
+      this.concepto,
+      this.nombre,
+      this.codigo,
+      this.parentId});
+  factory TiposRubroData.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
+      {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final intType = db.typeSystem.forDartType<int>();
+    final stringType = db.typeSystem.forDartType<String>();
+    return TiposRubroData(
+      tipoId:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}tipo_id'])!,
+      objeto:
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}objeto']),
+      concepto: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}concepto']),
+      nombre:
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
+      codigo:
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}codigo']),
+      parentId:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}parent_id']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['tipo_id'] = Variable<int>(tipoId);
+    if (!nullToAbsent || objeto != null) {
+      map['objeto'] = Variable<String?>(objeto);
+    }
+    if (!nullToAbsent || concepto != null) {
+      map['concepto'] = Variable<String?>(concepto);
+    }
+    if (!nullToAbsent || nombre != null) {
+      map['nombre'] = Variable<String?>(nombre);
+    }
+    if (!nullToAbsent || codigo != null) {
+      map['codigo'] = Variable<String?>(codigo);
+    }
+    if (!nullToAbsent || parentId != null) {
+      map['parent_id'] = Variable<int?>(parentId);
+    }
+    return map;
+  }
+
+  TiposRubroCompanion toCompanion(bool nullToAbsent) {
+    return TiposRubroCompanion(
+      tipoId: Value(tipoId),
+      objeto:
+          objeto == null && nullToAbsent ? const Value.absent() : Value(objeto),
+      concepto: concepto == null && nullToAbsent
+          ? const Value.absent()
+          : Value(concepto),
+      nombre:
+          nombre == null && nullToAbsent ? const Value.absent() : Value(nombre),
+      codigo:
+          codigo == null && nullToAbsent ? const Value.absent() : Value(codigo),
+      parentId: parentId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(parentId),
+    );
+  }
+
+  factory TiposRubroData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return TiposRubroData(
+      tipoId: serializer.fromJson<int>(json['tipoId']),
+      objeto: serializer.fromJson<String?>(json['objeto']),
+      concepto: serializer.fromJson<String?>(json['concepto']),
+      nombre: serializer.fromJson<String?>(json['nombre']),
+      codigo: serializer.fromJson<String?>(json['codigo']),
+      parentId: serializer.fromJson<int?>(json['parentId']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'tipoId': serializer.toJson<int>(tipoId),
+      'objeto': serializer.toJson<String?>(objeto),
+      'concepto': serializer.toJson<String?>(concepto),
+      'nombre': serializer.toJson<String?>(nombre),
+      'codigo': serializer.toJson<String?>(codigo),
+      'parentId': serializer.toJson<int?>(parentId),
+    };
+  }
+
+  TiposRubroData copyWith(
+          {int? tipoId,
+          String? objeto,
+          String? concepto,
+          String? nombre,
+          String? codigo,
+          int? parentId}) =>
+      TiposRubroData(
+        tipoId: tipoId ?? this.tipoId,
+        objeto: objeto ?? this.objeto,
+        concepto: concepto ?? this.concepto,
+        nombre: nombre ?? this.nombre,
+        codigo: codigo ?? this.codigo,
+        parentId: parentId ?? this.parentId,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('TiposRubroData(')
+          ..write('tipoId: $tipoId, ')
+          ..write('objeto: $objeto, ')
+          ..write('concepto: $concepto, ')
+          ..write('nombre: $nombre, ')
+          ..write('codigo: $codigo, ')
+          ..write('parentId: $parentId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      tipoId.hashCode,
+      $mrjc(
+          objeto.hashCode,
+          $mrjc(
+              concepto.hashCode,
+              $mrjc(nombre.hashCode,
+                  $mrjc(codigo.hashCode, parentId.hashCode))))));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is TiposRubroData &&
+          other.tipoId == this.tipoId &&
+          other.objeto == this.objeto &&
+          other.concepto == this.concepto &&
+          other.nombre == this.nombre &&
+          other.codigo == this.codigo &&
+          other.parentId == this.parentId);
+}
+
+class TiposRubroCompanion extends UpdateCompanion<TiposRubroData> {
+  final Value<int> tipoId;
+  final Value<String?> objeto;
+  final Value<String?> concepto;
+  final Value<String?> nombre;
+  final Value<String?> codigo;
+  final Value<int?> parentId;
+  const TiposRubroCompanion({
+    this.tipoId = const Value.absent(),
+    this.objeto = const Value.absent(),
+    this.concepto = const Value.absent(),
+    this.nombre = const Value.absent(),
+    this.codigo = const Value.absent(),
+    this.parentId = const Value.absent(),
+  });
+  TiposRubroCompanion.insert({
+    this.tipoId = const Value.absent(),
+    this.objeto = const Value.absent(),
+    this.concepto = const Value.absent(),
+    this.nombre = const Value.absent(),
+    this.codigo = const Value.absent(),
+    this.parentId = const Value.absent(),
+  });
+  static Insertable<TiposRubroData> custom({
+    Expression<int>? tipoId,
+    Expression<String?>? objeto,
+    Expression<String?>? concepto,
+    Expression<String?>? nombre,
+    Expression<String?>? codigo,
+    Expression<int?>? parentId,
+  }) {
+    return RawValuesInsertable({
+      if (tipoId != null) 'tipo_id': tipoId,
+      if (objeto != null) 'objeto': objeto,
+      if (concepto != null) 'concepto': concepto,
+      if (nombre != null) 'nombre': nombre,
+      if (codigo != null) 'codigo': codigo,
+      if (parentId != null) 'parent_id': parentId,
+    });
+  }
+
+  TiposRubroCompanion copyWith(
+      {Value<int>? tipoId,
+      Value<String?>? objeto,
+      Value<String?>? concepto,
+      Value<String?>? nombre,
+      Value<String?>? codigo,
+      Value<int?>? parentId}) {
+    return TiposRubroCompanion(
+      tipoId: tipoId ?? this.tipoId,
+      objeto: objeto ?? this.objeto,
+      concepto: concepto ?? this.concepto,
+      nombre: nombre ?? this.nombre,
+      codigo: codigo ?? this.codigo,
+      parentId: parentId ?? this.parentId,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (tipoId.present) {
+      map['tipo_id'] = Variable<int>(tipoId.value);
+    }
+    if (objeto.present) {
+      map['objeto'] = Variable<String?>(objeto.value);
+    }
+    if (concepto.present) {
+      map['concepto'] = Variable<String?>(concepto.value);
+    }
+    if (nombre.present) {
+      map['nombre'] = Variable<String?>(nombre.value);
+    }
+    if (codigo.present) {
+      map['codigo'] = Variable<String?>(codigo.value);
+    }
+    if (parentId.present) {
+      map['parent_id'] = Variable<int?>(parentId.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TiposRubroCompanion(')
+          ..write('tipoId: $tipoId, ')
+          ..write('objeto: $objeto, ')
+          ..write('concepto: $concepto, ')
+          ..write('nombre: $nombre, ')
+          ..write('codigo: $codigo, ')
+          ..write('parentId: $parentId')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $TiposRubroTable extends TiposRubro
+    with TableInfo<$TiposRubroTable, TiposRubroData> {
+  final GeneratedDatabase _db;
+  final String? _alias;
+  $TiposRubroTable(this._db, [this._alias]);
+  final VerificationMeta _tipoIdMeta = const VerificationMeta('tipoId');
+  @override
+  late final GeneratedIntColumn tipoId = _constructTipoId();
+  GeneratedIntColumn _constructTipoId() {
+    return GeneratedIntColumn(
+      'tipo_id',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _objetoMeta = const VerificationMeta('objeto');
+  @override
+  late final GeneratedTextColumn objeto = _constructObjeto();
+  GeneratedTextColumn _constructObjeto() {
+    return GeneratedTextColumn(
+      'objeto',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _conceptoMeta = const VerificationMeta('concepto');
+  @override
+  late final GeneratedTextColumn concepto = _constructConcepto();
+  GeneratedTextColumn _constructConcepto() {
+    return GeneratedTextColumn(
+      'concepto',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _nombreMeta = const VerificationMeta('nombre');
+  @override
+  late final GeneratedTextColumn nombre = _constructNombre();
+  GeneratedTextColumn _constructNombre() {
+    return GeneratedTextColumn(
+      'nombre',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _codigoMeta = const VerificationMeta('codigo');
+  @override
+  late final GeneratedTextColumn codigo = _constructCodigo();
+  GeneratedTextColumn _constructCodigo() {
+    return GeneratedTextColumn(
+      'codigo',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _parentIdMeta = const VerificationMeta('parentId');
+  @override
+  late final GeneratedIntColumn parentId = _constructParentId();
+  GeneratedIntColumn _constructParentId() {
+    return GeneratedIntColumn(
+      'parent_id',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns =>
+      [tipoId, objeto, concepto, nombre, codigo, parentId];
+  @override
+  $TiposRubroTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'tipos_rubro';
+  @override
+  final String actualTableName = 'tipos_rubro';
+  @override
+  VerificationContext validateIntegrity(Insertable<TiposRubroData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('tipo_id')) {
+      context.handle(_tipoIdMeta,
+          tipoId.isAcceptableOrUnknown(data['tipo_id']!, _tipoIdMeta));
+    }
+    if (data.containsKey('objeto')) {
+      context.handle(_objetoMeta,
+          objeto.isAcceptableOrUnknown(data['objeto']!, _objetoMeta));
+    }
+    if (data.containsKey('concepto')) {
+      context.handle(_conceptoMeta,
+          concepto.isAcceptableOrUnknown(data['concepto']!, _conceptoMeta));
+    }
+    if (data.containsKey('nombre')) {
+      context.handle(_nombreMeta,
+          nombre.isAcceptableOrUnknown(data['nombre']!, _nombreMeta));
+    }
+    if (data.containsKey('codigo')) {
+      context.handle(_codigoMeta,
+          codigo.isAcceptableOrUnknown(data['codigo']!, _codigoMeta));
+    }
+    if (data.containsKey('parent_id')) {
+      context.handle(_parentIdMeta,
+          parentId.isAcceptableOrUnknown(data['parent_id']!, _parentIdMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {tipoId};
+  @override
+  TiposRubroData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return TiposRubroData.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $TiposRubroTable createAlias(String alias) {
+    return $TiposRubroTable(_db, alias);
+  }
+}
+
+class TipoNotaRubroData extends DataClass
+    implements Insertable<TipoNotaRubroData> {
+  final String key;
+  final String? tipoNotaId;
+  final String? nombre;
+  final int? tipoId;
+  final String? tiponombre;
+  final String? valorDefecto;
+  final double? longitudPaso;
+  final bool? intervalo;
+  final bool? estatico;
+  final int? entidadId;
+  final int? georeferenciaId;
+  final int? organigramaId;
+  final int? estadoId;
+  final int? tipoFuenteId;
+  final int? valorMinimo;
+  final int? valorMaximo;
+  final int? escalaEvaluacionId;
+  final String? escalanombre;
+  final int? escalavalorMinimo;
+  final int? escalavalorMaximo;
+  final int? escalaestado;
+  final bool? escaladefecto;
+  final int? escalaentidadId;
+  final int? programaEducativoId;
+  TipoNotaRubroData(
+      {required this.key,
+      this.tipoNotaId,
+      this.nombre,
+      this.tipoId,
+      this.tiponombre,
+      this.valorDefecto,
+      this.longitudPaso,
+      this.intervalo,
+      this.estatico,
+      this.entidadId,
+      this.georeferenciaId,
+      this.organigramaId,
+      this.estadoId,
+      this.tipoFuenteId,
+      this.valorMinimo,
+      this.valorMaximo,
+      this.escalaEvaluacionId,
+      this.escalanombre,
+      this.escalavalorMinimo,
+      this.escalavalorMaximo,
+      this.escalaestado,
+      this.escaladefecto,
+      this.escalaentidadId,
+      this.programaEducativoId});
+  factory TipoNotaRubroData.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
+      {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final stringType = db.typeSystem.forDartType<String>();
+    final intType = db.typeSystem.forDartType<int>();
+    final doubleType = db.typeSystem.forDartType<double>();
+    final boolType = db.typeSystem.forDartType<bool>();
+    return TipoNotaRubroData(
+      key: stringType.mapFromDatabaseResponse(data['${effectivePrefix}key'])!,
+      tipoNotaId: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}tipo_nota_id']),
+      nombre:
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
+      tipoId:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}tipo_id']),
+      tiponombre: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}tiponombre']),
+      valorDefecto: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}valor_defecto']),
+      longitudPaso: doubleType
+          .mapFromDatabaseResponse(data['${effectivePrefix}longitud_paso']),
+      intervalo:
+          boolType.mapFromDatabaseResponse(data['${effectivePrefix}intervalo']),
+      estatico:
+          boolType.mapFromDatabaseResponse(data['${effectivePrefix}estatico']),
+      entidadId:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}entidad_id']),
+      georeferenciaId: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}georeferencia_id']),
+      organigramaId: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}organigrama_id']),
+      estadoId:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
+      tipoFuenteId: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}tipo_fuente_id']),
+      valorMinimo: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}valor_minimo']),
+      valorMaximo: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}valor_maximo']),
+      escalaEvaluacionId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}escala_evaluacion_id']),
+      escalanombre: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}escalanombre']),
+      escalavalorMinimo: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}escalavalor_minimo']),
+      escalavalorMaximo: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}escalavalor_maximo']),
+      escalaestado: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}escalaestado']),
+      escaladefecto: boolType
+          .mapFromDatabaseResponse(data['${effectivePrefix}escaladefecto']),
+      escalaentidadId: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}escalaentidad_id']),
+      programaEducativoId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}programa_educativo_id']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['key'] = Variable<String>(key);
+    if (!nullToAbsent || tipoNotaId != null) {
+      map['tipo_nota_id'] = Variable<String?>(tipoNotaId);
+    }
+    if (!nullToAbsent || nombre != null) {
+      map['nombre'] = Variable<String?>(nombre);
+    }
+    if (!nullToAbsent || tipoId != null) {
+      map['tipo_id'] = Variable<int?>(tipoId);
+    }
+    if (!nullToAbsent || tiponombre != null) {
+      map['tiponombre'] = Variable<String?>(tiponombre);
+    }
+    if (!nullToAbsent || valorDefecto != null) {
+      map['valor_defecto'] = Variable<String?>(valorDefecto);
+    }
+    if (!nullToAbsent || longitudPaso != null) {
+      map['longitud_paso'] = Variable<double?>(longitudPaso);
+    }
+    if (!nullToAbsent || intervalo != null) {
+      map['intervalo'] = Variable<bool?>(intervalo);
+    }
+    if (!nullToAbsent || estatico != null) {
+      map['estatico'] = Variable<bool?>(estatico);
+    }
+    if (!nullToAbsent || entidadId != null) {
+      map['entidad_id'] = Variable<int?>(entidadId);
+    }
+    if (!nullToAbsent || georeferenciaId != null) {
+      map['georeferencia_id'] = Variable<int?>(georeferenciaId);
+    }
+    if (!nullToAbsent || organigramaId != null) {
+      map['organigrama_id'] = Variable<int?>(organigramaId);
+    }
+    if (!nullToAbsent || estadoId != null) {
+      map['estado_id'] = Variable<int?>(estadoId);
+    }
+    if (!nullToAbsent || tipoFuenteId != null) {
+      map['tipo_fuente_id'] = Variable<int?>(tipoFuenteId);
+    }
+    if (!nullToAbsent || valorMinimo != null) {
+      map['valor_minimo'] = Variable<int?>(valorMinimo);
+    }
+    if (!nullToAbsent || valorMaximo != null) {
+      map['valor_maximo'] = Variable<int?>(valorMaximo);
+    }
+    if (!nullToAbsent || escalaEvaluacionId != null) {
+      map['escala_evaluacion_id'] = Variable<int?>(escalaEvaluacionId);
+    }
+    if (!nullToAbsent || escalanombre != null) {
+      map['escalanombre'] = Variable<String?>(escalanombre);
+    }
+    if (!nullToAbsent || escalavalorMinimo != null) {
+      map['escalavalor_minimo'] = Variable<int?>(escalavalorMinimo);
+    }
+    if (!nullToAbsent || escalavalorMaximo != null) {
+      map['escalavalor_maximo'] = Variable<int?>(escalavalorMaximo);
+    }
+    if (!nullToAbsent || escalaestado != null) {
+      map['escalaestado'] = Variable<int?>(escalaestado);
+    }
+    if (!nullToAbsent || escaladefecto != null) {
+      map['escaladefecto'] = Variable<bool?>(escaladefecto);
+    }
+    if (!nullToAbsent || escalaentidadId != null) {
+      map['escalaentidad_id'] = Variable<int?>(escalaentidadId);
+    }
+    if (!nullToAbsent || programaEducativoId != null) {
+      map['programa_educativo_id'] = Variable<int?>(programaEducativoId);
+    }
+    return map;
+  }
+
+  TipoNotaRubroCompanion toCompanion(bool nullToAbsent) {
+    return TipoNotaRubroCompanion(
+      key: Value(key),
+      tipoNotaId: tipoNotaId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(tipoNotaId),
+      nombre:
+          nombre == null && nullToAbsent ? const Value.absent() : Value(nombre),
+      tipoId:
+          tipoId == null && nullToAbsent ? const Value.absent() : Value(tipoId),
+      tiponombre: tiponombre == null && nullToAbsent
+          ? const Value.absent()
+          : Value(tiponombre),
+      valorDefecto: valorDefecto == null && nullToAbsent
+          ? const Value.absent()
+          : Value(valorDefecto),
+      longitudPaso: longitudPaso == null && nullToAbsent
+          ? const Value.absent()
+          : Value(longitudPaso),
+      intervalo: intervalo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(intervalo),
+      estatico: estatico == null && nullToAbsent
+          ? const Value.absent()
+          : Value(estatico),
+      entidadId: entidadId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(entidadId),
+      georeferenciaId: georeferenciaId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(georeferenciaId),
+      organigramaId: organigramaId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(organigramaId),
+      estadoId: estadoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(estadoId),
+      tipoFuenteId: tipoFuenteId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(tipoFuenteId),
+      valorMinimo: valorMinimo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(valorMinimo),
+      valorMaximo: valorMaximo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(valorMaximo),
+      escalaEvaluacionId: escalaEvaluacionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(escalaEvaluacionId),
+      escalanombre: escalanombre == null && nullToAbsent
+          ? const Value.absent()
+          : Value(escalanombre),
+      escalavalorMinimo: escalavalorMinimo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(escalavalorMinimo),
+      escalavalorMaximo: escalavalorMaximo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(escalavalorMaximo),
+      escalaestado: escalaestado == null && nullToAbsent
+          ? const Value.absent()
+          : Value(escalaestado),
+      escaladefecto: escaladefecto == null && nullToAbsent
+          ? const Value.absent()
+          : Value(escaladefecto),
+      escalaentidadId: escalaentidadId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(escalaentidadId),
+      programaEducativoId: programaEducativoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(programaEducativoId),
+    );
+  }
+
+  factory TipoNotaRubroData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return TipoNotaRubroData(
+      key: serializer.fromJson<String>(json['key']),
+      tipoNotaId: serializer.fromJson<String?>(json['tipoNotaId']),
+      nombre: serializer.fromJson<String?>(json['nombre']),
+      tipoId: serializer.fromJson<int?>(json['tipoId']),
+      tiponombre: serializer.fromJson<String?>(json['tiponombre']),
+      valorDefecto: serializer.fromJson<String?>(json['valorDefecto']),
+      longitudPaso: serializer.fromJson<double?>(json['longitudPaso']),
+      intervalo: serializer.fromJson<bool?>(json['intervalo']),
+      estatico: serializer.fromJson<bool?>(json['estatico']),
+      entidadId: serializer.fromJson<int?>(json['entidadId']),
+      georeferenciaId: serializer.fromJson<int?>(json['georeferenciaId']),
+      organigramaId: serializer.fromJson<int?>(json['organigramaId']),
+      estadoId: serializer.fromJson<int?>(json['estadoId']),
+      tipoFuenteId: serializer.fromJson<int?>(json['tipoFuenteId']),
+      valorMinimo: serializer.fromJson<int?>(json['valorMinimo']),
+      valorMaximo: serializer.fromJson<int?>(json['valorMaximo']),
+      escalaEvaluacionId: serializer.fromJson<int?>(json['escalaEvaluacionId']),
+      escalanombre: serializer.fromJson<String?>(json['escalanombre']),
+      escalavalorMinimo: serializer.fromJson<int?>(json['escalavalorMinimo']),
+      escalavalorMaximo: serializer.fromJson<int?>(json['escalavalorMaximo']),
+      escalaestado: serializer.fromJson<int?>(json['escalaestado']),
+      escaladefecto: serializer.fromJson<bool?>(json['escaladefecto']),
+      escalaentidadId: serializer.fromJson<int?>(json['escalaentidadId']),
+      programaEducativoId:
+          serializer.fromJson<int?>(json['programaEducativoId']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'key': serializer.toJson<String>(key),
+      'tipoNotaId': serializer.toJson<String?>(tipoNotaId),
+      'nombre': serializer.toJson<String?>(nombre),
+      'tipoId': serializer.toJson<int?>(tipoId),
+      'tiponombre': serializer.toJson<String?>(tiponombre),
+      'valorDefecto': serializer.toJson<String?>(valorDefecto),
+      'longitudPaso': serializer.toJson<double?>(longitudPaso),
+      'intervalo': serializer.toJson<bool?>(intervalo),
+      'estatico': serializer.toJson<bool?>(estatico),
+      'entidadId': serializer.toJson<int?>(entidadId),
+      'georeferenciaId': serializer.toJson<int?>(georeferenciaId),
+      'organigramaId': serializer.toJson<int?>(organigramaId),
+      'estadoId': serializer.toJson<int?>(estadoId),
+      'tipoFuenteId': serializer.toJson<int?>(tipoFuenteId),
+      'valorMinimo': serializer.toJson<int?>(valorMinimo),
+      'valorMaximo': serializer.toJson<int?>(valorMaximo),
+      'escalaEvaluacionId': serializer.toJson<int?>(escalaEvaluacionId),
+      'escalanombre': serializer.toJson<String?>(escalanombre),
+      'escalavalorMinimo': serializer.toJson<int?>(escalavalorMinimo),
+      'escalavalorMaximo': serializer.toJson<int?>(escalavalorMaximo),
+      'escalaestado': serializer.toJson<int?>(escalaestado),
+      'escaladefecto': serializer.toJson<bool?>(escaladefecto),
+      'escalaentidadId': serializer.toJson<int?>(escalaentidadId),
+      'programaEducativoId': serializer.toJson<int?>(programaEducativoId),
+    };
+  }
+
+  TipoNotaRubroData copyWith(
+          {String? key,
+          String? tipoNotaId,
+          String? nombre,
+          int? tipoId,
+          String? tiponombre,
+          String? valorDefecto,
+          double? longitudPaso,
+          bool? intervalo,
+          bool? estatico,
+          int? entidadId,
+          int? georeferenciaId,
+          int? organigramaId,
+          int? estadoId,
+          int? tipoFuenteId,
+          int? valorMinimo,
+          int? valorMaximo,
+          int? escalaEvaluacionId,
+          String? escalanombre,
+          int? escalavalorMinimo,
+          int? escalavalorMaximo,
+          int? escalaestado,
+          bool? escaladefecto,
+          int? escalaentidadId,
+          int? programaEducativoId}) =>
+      TipoNotaRubroData(
+        key: key ?? this.key,
+        tipoNotaId: tipoNotaId ?? this.tipoNotaId,
+        nombre: nombre ?? this.nombre,
+        tipoId: tipoId ?? this.tipoId,
+        tiponombre: tiponombre ?? this.tiponombre,
+        valorDefecto: valorDefecto ?? this.valorDefecto,
+        longitudPaso: longitudPaso ?? this.longitudPaso,
+        intervalo: intervalo ?? this.intervalo,
+        estatico: estatico ?? this.estatico,
+        entidadId: entidadId ?? this.entidadId,
+        georeferenciaId: georeferenciaId ?? this.georeferenciaId,
+        organigramaId: organigramaId ?? this.organigramaId,
+        estadoId: estadoId ?? this.estadoId,
+        tipoFuenteId: tipoFuenteId ?? this.tipoFuenteId,
+        valorMinimo: valorMinimo ?? this.valorMinimo,
+        valorMaximo: valorMaximo ?? this.valorMaximo,
+        escalaEvaluacionId: escalaEvaluacionId ?? this.escalaEvaluacionId,
+        escalanombre: escalanombre ?? this.escalanombre,
+        escalavalorMinimo: escalavalorMinimo ?? this.escalavalorMinimo,
+        escalavalorMaximo: escalavalorMaximo ?? this.escalavalorMaximo,
+        escalaestado: escalaestado ?? this.escalaestado,
+        escaladefecto: escaladefecto ?? this.escaladefecto,
+        escalaentidadId: escalaentidadId ?? this.escalaentidadId,
+        programaEducativoId: programaEducativoId ?? this.programaEducativoId,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('TipoNotaRubroData(')
+          ..write('key: $key, ')
+          ..write('tipoNotaId: $tipoNotaId, ')
+          ..write('nombre: $nombre, ')
+          ..write('tipoId: $tipoId, ')
+          ..write('tiponombre: $tiponombre, ')
+          ..write('valorDefecto: $valorDefecto, ')
+          ..write('longitudPaso: $longitudPaso, ')
+          ..write('intervalo: $intervalo, ')
+          ..write('estatico: $estatico, ')
+          ..write('entidadId: $entidadId, ')
+          ..write('georeferenciaId: $georeferenciaId, ')
+          ..write('organigramaId: $organigramaId, ')
+          ..write('estadoId: $estadoId, ')
+          ..write('tipoFuenteId: $tipoFuenteId, ')
+          ..write('valorMinimo: $valorMinimo, ')
+          ..write('valorMaximo: $valorMaximo, ')
+          ..write('escalaEvaluacionId: $escalaEvaluacionId, ')
+          ..write('escalanombre: $escalanombre, ')
+          ..write('escalavalorMinimo: $escalavalorMinimo, ')
+          ..write('escalavalorMaximo: $escalavalorMaximo, ')
+          ..write('escalaestado: $escalaestado, ')
+          ..write('escaladefecto: $escaladefecto, ')
+          ..write('escalaentidadId: $escalaentidadId, ')
+          ..write('programaEducativoId: $programaEducativoId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      key.hashCode,
+      $mrjc(
+          tipoNotaId.hashCode,
+          $mrjc(
+              nombre.hashCode,
+              $mrjc(
+                  tipoId.hashCode,
+                  $mrjc(
+                      tiponombre.hashCode,
+                      $mrjc(
+                          valorDefecto.hashCode,
+                          $mrjc(
+                              longitudPaso.hashCode,
+                              $mrjc(
+                                  intervalo.hashCode,
+                                  $mrjc(
+                                      estatico.hashCode,
+                                      $mrjc(
+                                          entidadId.hashCode,
+                                          $mrjc(
+                                              georeferenciaId.hashCode,
+                                              $mrjc(
+                                                  organigramaId.hashCode,
+                                                  $mrjc(
+                                                      estadoId.hashCode,
+                                                      $mrjc(
+                                                          tipoFuenteId.hashCode,
+                                                          $mrjc(
+                                                              valorMinimo
+                                                                  .hashCode,
+                                                              $mrjc(
+                                                                  valorMaximo
+                                                                      .hashCode,
+                                                                  $mrjc(
+                                                                      escalaEvaluacionId
+                                                                          .hashCode,
+                                                                      $mrjc(
+                                                                          escalanombre
+                                                                              .hashCode,
+                                                                          $mrjc(
+                                                                              escalavalorMinimo.hashCode,
+                                                                              $mrjc(escalavalorMaximo.hashCode, $mrjc(escalaestado.hashCode, $mrjc(escaladefecto.hashCode, $mrjc(escalaentidadId.hashCode, programaEducativoId.hashCode))))))))))))))))))))))));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is TipoNotaRubroData &&
+          other.key == this.key &&
+          other.tipoNotaId == this.tipoNotaId &&
+          other.nombre == this.nombre &&
+          other.tipoId == this.tipoId &&
+          other.tiponombre == this.tiponombre &&
+          other.valorDefecto == this.valorDefecto &&
+          other.longitudPaso == this.longitudPaso &&
+          other.intervalo == this.intervalo &&
+          other.estatico == this.estatico &&
+          other.entidadId == this.entidadId &&
+          other.georeferenciaId == this.georeferenciaId &&
+          other.organigramaId == this.organigramaId &&
+          other.estadoId == this.estadoId &&
+          other.tipoFuenteId == this.tipoFuenteId &&
+          other.valorMinimo == this.valorMinimo &&
+          other.valorMaximo == this.valorMaximo &&
+          other.escalaEvaluacionId == this.escalaEvaluacionId &&
+          other.escalanombre == this.escalanombre &&
+          other.escalavalorMinimo == this.escalavalorMinimo &&
+          other.escalavalorMaximo == this.escalavalorMaximo &&
+          other.escalaestado == this.escalaestado &&
+          other.escaladefecto == this.escaladefecto &&
+          other.escalaentidadId == this.escalaentidadId &&
+          other.programaEducativoId == this.programaEducativoId);
+}
+
+class TipoNotaRubroCompanion extends UpdateCompanion<TipoNotaRubroData> {
+  final Value<String> key;
+  final Value<String?> tipoNotaId;
+  final Value<String?> nombre;
+  final Value<int?> tipoId;
+  final Value<String?> tiponombre;
+  final Value<String?> valorDefecto;
+  final Value<double?> longitudPaso;
+  final Value<bool?> intervalo;
+  final Value<bool?> estatico;
+  final Value<int?> entidadId;
+  final Value<int?> georeferenciaId;
+  final Value<int?> organigramaId;
+  final Value<int?> estadoId;
+  final Value<int?> tipoFuenteId;
+  final Value<int?> valorMinimo;
+  final Value<int?> valorMaximo;
+  final Value<int?> escalaEvaluacionId;
+  final Value<String?> escalanombre;
+  final Value<int?> escalavalorMinimo;
+  final Value<int?> escalavalorMaximo;
+  final Value<int?> escalaestado;
+  final Value<bool?> escaladefecto;
+  final Value<int?> escalaentidadId;
+  final Value<int?> programaEducativoId;
+  const TipoNotaRubroCompanion({
+    this.key = const Value.absent(),
+    this.tipoNotaId = const Value.absent(),
+    this.nombre = const Value.absent(),
+    this.tipoId = const Value.absent(),
+    this.tiponombre = const Value.absent(),
+    this.valorDefecto = const Value.absent(),
+    this.longitudPaso = const Value.absent(),
+    this.intervalo = const Value.absent(),
+    this.estatico = const Value.absent(),
+    this.entidadId = const Value.absent(),
+    this.georeferenciaId = const Value.absent(),
+    this.organigramaId = const Value.absent(),
+    this.estadoId = const Value.absent(),
+    this.tipoFuenteId = const Value.absent(),
+    this.valorMinimo = const Value.absent(),
+    this.valorMaximo = const Value.absent(),
+    this.escalaEvaluacionId = const Value.absent(),
+    this.escalanombre = const Value.absent(),
+    this.escalavalorMinimo = const Value.absent(),
+    this.escalavalorMaximo = const Value.absent(),
+    this.escalaestado = const Value.absent(),
+    this.escaladefecto = const Value.absent(),
+    this.escalaentidadId = const Value.absent(),
+    this.programaEducativoId = const Value.absent(),
+  });
+  TipoNotaRubroCompanion.insert({
+    required String key,
+    this.tipoNotaId = const Value.absent(),
+    this.nombre = const Value.absent(),
+    this.tipoId = const Value.absent(),
+    this.tiponombre = const Value.absent(),
+    this.valorDefecto = const Value.absent(),
+    this.longitudPaso = const Value.absent(),
+    this.intervalo = const Value.absent(),
+    this.estatico = const Value.absent(),
+    this.entidadId = const Value.absent(),
+    this.georeferenciaId = const Value.absent(),
+    this.organigramaId = const Value.absent(),
+    this.estadoId = const Value.absent(),
+    this.tipoFuenteId = const Value.absent(),
+    this.valorMinimo = const Value.absent(),
+    this.valorMaximo = const Value.absent(),
+    this.escalaEvaluacionId = const Value.absent(),
+    this.escalanombre = const Value.absent(),
+    this.escalavalorMinimo = const Value.absent(),
+    this.escalavalorMaximo = const Value.absent(),
+    this.escalaestado = const Value.absent(),
+    this.escaladefecto = const Value.absent(),
+    this.escalaentidadId = const Value.absent(),
+    this.programaEducativoId = const Value.absent(),
+  }) : key = Value(key);
+  static Insertable<TipoNotaRubroData> custom({
+    Expression<String>? key,
+    Expression<String?>? tipoNotaId,
+    Expression<String?>? nombre,
+    Expression<int?>? tipoId,
+    Expression<String?>? tiponombre,
+    Expression<String?>? valorDefecto,
+    Expression<double?>? longitudPaso,
+    Expression<bool?>? intervalo,
+    Expression<bool?>? estatico,
+    Expression<int?>? entidadId,
+    Expression<int?>? georeferenciaId,
+    Expression<int?>? organigramaId,
+    Expression<int?>? estadoId,
+    Expression<int?>? tipoFuenteId,
+    Expression<int?>? valorMinimo,
+    Expression<int?>? valorMaximo,
+    Expression<int?>? escalaEvaluacionId,
+    Expression<String?>? escalanombre,
+    Expression<int?>? escalavalorMinimo,
+    Expression<int?>? escalavalorMaximo,
+    Expression<int?>? escalaestado,
+    Expression<bool?>? escaladefecto,
+    Expression<int?>? escalaentidadId,
+    Expression<int?>? programaEducativoId,
+  }) {
+    return RawValuesInsertable({
+      if (key != null) 'key': key,
+      if (tipoNotaId != null) 'tipo_nota_id': tipoNotaId,
+      if (nombre != null) 'nombre': nombre,
+      if (tipoId != null) 'tipo_id': tipoId,
+      if (tiponombre != null) 'tiponombre': tiponombre,
+      if (valorDefecto != null) 'valor_defecto': valorDefecto,
+      if (longitudPaso != null) 'longitud_paso': longitudPaso,
+      if (intervalo != null) 'intervalo': intervalo,
+      if (estatico != null) 'estatico': estatico,
+      if (entidadId != null) 'entidad_id': entidadId,
+      if (georeferenciaId != null) 'georeferencia_id': georeferenciaId,
+      if (organigramaId != null) 'organigrama_id': organigramaId,
+      if (estadoId != null) 'estado_id': estadoId,
+      if (tipoFuenteId != null) 'tipo_fuente_id': tipoFuenteId,
+      if (valorMinimo != null) 'valor_minimo': valorMinimo,
+      if (valorMaximo != null) 'valor_maximo': valorMaximo,
+      if (escalaEvaluacionId != null)
+        'escala_evaluacion_id': escalaEvaluacionId,
+      if (escalanombre != null) 'escalanombre': escalanombre,
+      if (escalavalorMinimo != null) 'escalavalor_minimo': escalavalorMinimo,
+      if (escalavalorMaximo != null) 'escalavalor_maximo': escalavalorMaximo,
+      if (escalaestado != null) 'escalaestado': escalaestado,
+      if (escaladefecto != null) 'escaladefecto': escaladefecto,
+      if (escalaentidadId != null) 'escalaentidad_id': escalaentidadId,
+      if (programaEducativoId != null)
+        'programa_educativo_id': programaEducativoId,
+    });
+  }
+
+  TipoNotaRubroCompanion copyWith(
+      {Value<String>? key,
+      Value<String?>? tipoNotaId,
+      Value<String?>? nombre,
+      Value<int?>? tipoId,
+      Value<String?>? tiponombre,
+      Value<String?>? valorDefecto,
+      Value<double?>? longitudPaso,
+      Value<bool?>? intervalo,
+      Value<bool?>? estatico,
+      Value<int?>? entidadId,
+      Value<int?>? georeferenciaId,
+      Value<int?>? organigramaId,
+      Value<int?>? estadoId,
+      Value<int?>? tipoFuenteId,
+      Value<int?>? valorMinimo,
+      Value<int?>? valorMaximo,
+      Value<int?>? escalaEvaluacionId,
+      Value<String?>? escalanombre,
+      Value<int?>? escalavalorMinimo,
+      Value<int?>? escalavalorMaximo,
+      Value<int?>? escalaestado,
+      Value<bool?>? escaladefecto,
+      Value<int?>? escalaentidadId,
+      Value<int?>? programaEducativoId}) {
+    return TipoNotaRubroCompanion(
+      key: key ?? this.key,
+      tipoNotaId: tipoNotaId ?? this.tipoNotaId,
+      nombre: nombre ?? this.nombre,
+      tipoId: tipoId ?? this.tipoId,
+      tiponombre: tiponombre ?? this.tiponombre,
+      valorDefecto: valorDefecto ?? this.valorDefecto,
+      longitudPaso: longitudPaso ?? this.longitudPaso,
+      intervalo: intervalo ?? this.intervalo,
+      estatico: estatico ?? this.estatico,
+      entidadId: entidadId ?? this.entidadId,
+      georeferenciaId: georeferenciaId ?? this.georeferenciaId,
+      organigramaId: organigramaId ?? this.organigramaId,
+      estadoId: estadoId ?? this.estadoId,
+      tipoFuenteId: tipoFuenteId ?? this.tipoFuenteId,
+      valorMinimo: valorMinimo ?? this.valorMinimo,
+      valorMaximo: valorMaximo ?? this.valorMaximo,
+      escalaEvaluacionId: escalaEvaluacionId ?? this.escalaEvaluacionId,
+      escalanombre: escalanombre ?? this.escalanombre,
+      escalavalorMinimo: escalavalorMinimo ?? this.escalavalorMinimo,
+      escalavalorMaximo: escalavalorMaximo ?? this.escalavalorMaximo,
+      escalaestado: escalaestado ?? this.escalaestado,
+      escaladefecto: escaladefecto ?? this.escaladefecto,
+      escalaentidadId: escalaentidadId ?? this.escalaentidadId,
+      programaEducativoId: programaEducativoId ?? this.programaEducativoId,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (key.present) {
+      map['key'] = Variable<String>(key.value);
+    }
+    if (tipoNotaId.present) {
+      map['tipo_nota_id'] = Variable<String?>(tipoNotaId.value);
+    }
+    if (nombre.present) {
+      map['nombre'] = Variable<String?>(nombre.value);
+    }
+    if (tipoId.present) {
+      map['tipo_id'] = Variable<int?>(tipoId.value);
+    }
+    if (tiponombre.present) {
+      map['tiponombre'] = Variable<String?>(tiponombre.value);
+    }
+    if (valorDefecto.present) {
+      map['valor_defecto'] = Variable<String?>(valorDefecto.value);
+    }
+    if (longitudPaso.present) {
+      map['longitud_paso'] = Variable<double?>(longitudPaso.value);
+    }
+    if (intervalo.present) {
+      map['intervalo'] = Variable<bool?>(intervalo.value);
+    }
+    if (estatico.present) {
+      map['estatico'] = Variable<bool?>(estatico.value);
+    }
+    if (entidadId.present) {
+      map['entidad_id'] = Variable<int?>(entidadId.value);
+    }
+    if (georeferenciaId.present) {
+      map['georeferencia_id'] = Variable<int?>(georeferenciaId.value);
+    }
+    if (organigramaId.present) {
+      map['organigrama_id'] = Variable<int?>(organigramaId.value);
+    }
+    if (estadoId.present) {
+      map['estado_id'] = Variable<int?>(estadoId.value);
+    }
+    if (tipoFuenteId.present) {
+      map['tipo_fuente_id'] = Variable<int?>(tipoFuenteId.value);
+    }
+    if (valorMinimo.present) {
+      map['valor_minimo'] = Variable<int?>(valorMinimo.value);
+    }
+    if (valorMaximo.present) {
+      map['valor_maximo'] = Variable<int?>(valorMaximo.value);
+    }
+    if (escalaEvaluacionId.present) {
+      map['escala_evaluacion_id'] = Variable<int?>(escalaEvaluacionId.value);
+    }
+    if (escalanombre.present) {
+      map['escalanombre'] = Variable<String?>(escalanombre.value);
+    }
+    if (escalavalorMinimo.present) {
+      map['escalavalor_minimo'] = Variable<int?>(escalavalorMinimo.value);
+    }
+    if (escalavalorMaximo.present) {
+      map['escalavalor_maximo'] = Variable<int?>(escalavalorMaximo.value);
+    }
+    if (escalaestado.present) {
+      map['escalaestado'] = Variable<int?>(escalaestado.value);
+    }
+    if (escaladefecto.present) {
+      map['escaladefecto'] = Variable<bool?>(escaladefecto.value);
+    }
+    if (escalaentidadId.present) {
+      map['escalaentidad_id'] = Variable<int?>(escalaentidadId.value);
+    }
+    if (programaEducativoId.present) {
+      map['programa_educativo_id'] = Variable<int?>(programaEducativoId.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TipoNotaRubroCompanion(')
+          ..write('key: $key, ')
+          ..write('tipoNotaId: $tipoNotaId, ')
+          ..write('nombre: $nombre, ')
+          ..write('tipoId: $tipoId, ')
+          ..write('tiponombre: $tiponombre, ')
+          ..write('valorDefecto: $valorDefecto, ')
+          ..write('longitudPaso: $longitudPaso, ')
+          ..write('intervalo: $intervalo, ')
+          ..write('estatico: $estatico, ')
+          ..write('entidadId: $entidadId, ')
+          ..write('georeferenciaId: $georeferenciaId, ')
+          ..write('organigramaId: $organigramaId, ')
+          ..write('estadoId: $estadoId, ')
+          ..write('tipoFuenteId: $tipoFuenteId, ')
+          ..write('valorMinimo: $valorMinimo, ')
+          ..write('valorMaximo: $valorMaximo, ')
+          ..write('escalaEvaluacionId: $escalaEvaluacionId, ')
+          ..write('escalanombre: $escalanombre, ')
+          ..write('escalavalorMinimo: $escalavalorMinimo, ')
+          ..write('escalavalorMaximo: $escalavalorMaximo, ')
+          ..write('escalaestado: $escalaestado, ')
+          ..write('escaladefecto: $escaladefecto, ')
+          ..write('escalaentidadId: $escalaentidadId, ')
+          ..write('programaEducativoId: $programaEducativoId')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $TipoNotaRubroTable extends TipoNotaRubro
+    with TableInfo<$TipoNotaRubroTable, TipoNotaRubroData> {
+  final GeneratedDatabase _db;
+  final String? _alias;
+  $TipoNotaRubroTable(this._db, [this._alias]);
+  final VerificationMeta _keyMeta = const VerificationMeta('key');
+  @override
+  late final GeneratedTextColumn key = _constructKey();
+  GeneratedTextColumn _constructKey() {
+    return GeneratedTextColumn(
+      'key',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _tipoNotaIdMeta = const VerificationMeta('tipoNotaId');
+  @override
+  late final GeneratedTextColumn tipoNotaId = _constructTipoNotaId();
+  GeneratedTextColumn _constructTipoNotaId() {
+    return GeneratedTextColumn(
+      'tipo_nota_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _nombreMeta = const VerificationMeta('nombre');
+  @override
+  late final GeneratedTextColumn nombre = _constructNombre();
+  GeneratedTextColumn _constructNombre() {
+    return GeneratedTextColumn(
+      'nombre',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _tipoIdMeta = const VerificationMeta('tipoId');
+  @override
+  late final GeneratedIntColumn tipoId = _constructTipoId();
+  GeneratedIntColumn _constructTipoId() {
+    return GeneratedIntColumn(
+      'tipo_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _tiponombreMeta = const VerificationMeta('tiponombre');
+  @override
+  late final GeneratedTextColumn tiponombre = _constructTiponombre();
+  GeneratedTextColumn _constructTiponombre() {
+    return GeneratedTextColumn(
+      'tiponombre',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _valorDefectoMeta =
+      const VerificationMeta('valorDefecto');
+  @override
+  late final GeneratedTextColumn valorDefecto = _constructValorDefecto();
+  GeneratedTextColumn _constructValorDefecto() {
+    return GeneratedTextColumn(
+      'valor_defecto',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _longitudPasoMeta =
+      const VerificationMeta('longitudPaso');
+  @override
+  late final GeneratedRealColumn longitudPaso = _constructLongitudPaso();
+  GeneratedRealColumn _constructLongitudPaso() {
+    return GeneratedRealColumn(
+      'longitud_paso',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _intervaloMeta = const VerificationMeta('intervalo');
+  @override
+  late final GeneratedBoolColumn intervalo = _constructIntervalo();
+  GeneratedBoolColumn _constructIntervalo() {
+    return GeneratedBoolColumn(
+      'intervalo',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _estaticoMeta = const VerificationMeta('estatico');
+  @override
+  late final GeneratedBoolColumn estatico = _constructEstatico();
+  GeneratedBoolColumn _constructEstatico() {
+    return GeneratedBoolColumn(
+      'estatico',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _entidadIdMeta = const VerificationMeta('entidadId');
+  @override
+  late final GeneratedIntColumn entidadId = _constructEntidadId();
+  GeneratedIntColumn _constructEntidadId() {
+    return GeneratedIntColumn(
+      'entidad_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _georeferenciaIdMeta =
+      const VerificationMeta('georeferenciaId');
+  @override
+  late final GeneratedIntColumn georeferenciaId = _constructGeoreferenciaId();
+  GeneratedIntColumn _constructGeoreferenciaId() {
+    return GeneratedIntColumn(
+      'georeferencia_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _organigramaIdMeta =
+      const VerificationMeta('organigramaId');
+  @override
+  late final GeneratedIntColumn organigramaId = _constructOrganigramaId();
+  GeneratedIntColumn _constructOrganigramaId() {
+    return GeneratedIntColumn(
+      'organigrama_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _estadoIdMeta = const VerificationMeta('estadoId');
+  @override
+  late final GeneratedIntColumn estadoId = _constructEstadoId();
+  GeneratedIntColumn _constructEstadoId() {
+    return GeneratedIntColumn(
+      'estado_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _tipoFuenteIdMeta =
+      const VerificationMeta('tipoFuenteId');
+  @override
+  late final GeneratedIntColumn tipoFuenteId = _constructTipoFuenteId();
+  GeneratedIntColumn _constructTipoFuenteId() {
+    return GeneratedIntColumn(
+      'tipo_fuente_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _valorMinimoMeta =
+      const VerificationMeta('valorMinimo');
+  @override
+  late final GeneratedIntColumn valorMinimo = _constructValorMinimo();
+  GeneratedIntColumn _constructValorMinimo() {
+    return GeneratedIntColumn(
+      'valor_minimo',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _valorMaximoMeta =
+      const VerificationMeta('valorMaximo');
+  @override
+  late final GeneratedIntColumn valorMaximo = _constructValorMaximo();
+  GeneratedIntColumn _constructValorMaximo() {
+    return GeneratedIntColumn(
+      'valor_maximo',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _escalaEvaluacionIdMeta =
+      const VerificationMeta('escalaEvaluacionId');
+  @override
+  late final GeneratedIntColumn escalaEvaluacionId =
+      _constructEscalaEvaluacionId();
+  GeneratedIntColumn _constructEscalaEvaluacionId() {
+    return GeneratedIntColumn(
+      'escala_evaluacion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _escalanombreMeta =
+      const VerificationMeta('escalanombre');
+  @override
+  late final GeneratedTextColumn escalanombre = _constructEscalanombre();
+  GeneratedTextColumn _constructEscalanombre() {
+    return GeneratedTextColumn(
+      'escalanombre',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _escalavalorMinimoMeta =
+      const VerificationMeta('escalavalorMinimo');
+  @override
+  late final GeneratedIntColumn escalavalorMinimo =
+      _constructEscalavalorMinimo();
+  GeneratedIntColumn _constructEscalavalorMinimo() {
+    return GeneratedIntColumn(
+      'escalavalor_minimo',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _escalavalorMaximoMeta =
+      const VerificationMeta('escalavalorMaximo');
+  @override
+  late final GeneratedIntColumn escalavalorMaximo =
+      _constructEscalavalorMaximo();
+  GeneratedIntColumn _constructEscalavalorMaximo() {
+    return GeneratedIntColumn(
+      'escalavalor_maximo',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _escalaestadoMeta =
+      const VerificationMeta('escalaestado');
+  @override
+  late final GeneratedIntColumn escalaestado = _constructEscalaestado();
+  GeneratedIntColumn _constructEscalaestado() {
+    return GeneratedIntColumn(
+      'escalaestado',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _escaladefectoMeta =
+      const VerificationMeta('escaladefecto');
+  @override
+  late final GeneratedBoolColumn escaladefecto = _constructEscaladefecto();
+  GeneratedBoolColumn _constructEscaladefecto() {
+    return GeneratedBoolColumn(
+      'escaladefecto',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _escalaentidadIdMeta =
+      const VerificationMeta('escalaentidadId');
+  @override
+  late final GeneratedIntColumn escalaentidadId = _constructEscalaentidadId();
+  GeneratedIntColumn _constructEscalaentidadId() {
+    return GeneratedIntColumn(
+      'escalaentidad_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _programaEducativoIdMeta =
+      const VerificationMeta('programaEducativoId');
+  @override
+  late final GeneratedIntColumn programaEducativoId =
+      _constructProgramaEducativoId();
+  GeneratedIntColumn _constructProgramaEducativoId() {
+    return GeneratedIntColumn(
+      'programa_educativo_id',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [
+        key,
+        tipoNotaId,
+        nombre,
+        tipoId,
+        tiponombre,
+        valorDefecto,
+        longitudPaso,
+        intervalo,
+        estatico,
+        entidadId,
+        georeferenciaId,
+        organigramaId,
+        estadoId,
+        tipoFuenteId,
+        valorMinimo,
+        valorMaximo,
+        escalaEvaluacionId,
+        escalanombre,
+        escalavalorMinimo,
+        escalavalorMaximo,
+        escalaestado,
+        escaladefecto,
+        escalaentidadId,
+        programaEducativoId
+      ];
+  @override
+  $TipoNotaRubroTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'tipo_nota_rubro';
+  @override
+  final String actualTableName = 'tipo_nota_rubro';
+  @override
+  VerificationContext validateIntegrity(Insertable<TipoNotaRubroData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('key')) {
+      context.handle(
+          _keyMeta, key.isAcceptableOrUnknown(data['key']!, _keyMeta));
+    } else if (isInserting) {
+      context.missing(_keyMeta);
+    }
+    if (data.containsKey('tipo_nota_id')) {
+      context.handle(
+          _tipoNotaIdMeta,
+          tipoNotaId.isAcceptableOrUnknown(
+              data['tipo_nota_id']!, _tipoNotaIdMeta));
+    }
+    if (data.containsKey('nombre')) {
+      context.handle(_nombreMeta,
+          nombre.isAcceptableOrUnknown(data['nombre']!, _nombreMeta));
+    }
+    if (data.containsKey('tipo_id')) {
+      context.handle(_tipoIdMeta,
+          tipoId.isAcceptableOrUnknown(data['tipo_id']!, _tipoIdMeta));
+    }
+    if (data.containsKey('tiponombre')) {
+      context.handle(
+          _tiponombreMeta,
+          tiponombre.isAcceptableOrUnknown(
+              data['tiponombre']!, _tiponombreMeta));
+    }
+    if (data.containsKey('valor_defecto')) {
+      context.handle(
+          _valorDefectoMeta,
+          valorDefecto.isAcceptableOrUnknown(
+              data['valor_defecto']!, _valorDefectoMeta));
+    }
+    if (data.containsKey('longitud_paso')) {
+      context.handle(
+          _longitudPasoMeta,
+          longitudPaso.isAcceptableOrUnknown(
+              data['longitud_paso']!, _longitudPasoMeta));
+    }
+    if (data.containsKey('intervalo')) {
+      context.handle(_intervaloMeta,
+          intervalo.isAcceptableOrUnknown(data['intervalo']!, _intervaloMeta));
+    }
+    if (data.containsKey('estatico')) {
+      context.handle(_estaticoMeta,
+          estatico.isAcceptableOrUnknown(data['estatico']!, _estaticoMeta));
+    }
+    if (data.containsKey('entidad_id')) {
+      context.handle(_entidadIdMeta,
+          entidadId.isAcceptableOrUnknown(data['entidad_id']!, _entidadIdMeta));
+    }
+    if (data.containsKey('georeferencia_id')) {
+      context.handle(
+          _georeferenciaIdMeta,
+          georeferenciaId.isAcceptableOrUnknown(
+              data['georeferencia_id']!, _georeferenciaIdMeta));
+    }
+    if (data.containsKey('organigrama_id')) {
+      context.handle(
+          _organigramaIdMeta,
+          organigramaId.isAcceptableOrUnknown(
+              data['organigrama_id']!, _organigramaIdMeta));
+    }
+    if (data.containsKey('estado_id')) {
+      context.handle(_estadoIdMeta,
+          estadoId.isAcceptableOrUnknown(data['estado_id']!, _estadoIdMeta));
+    }
+    if (data.containsKey('tipo_fuente_id')) {
+      context.handle(
+          _tipoFuenteIdMeta,
+          tipoFuenteId.isAcceptableOrUnknown(
+              data['tipo_fuente_id']!, _tipoFuenteIdMeta));
+    }
+    if (data.containsKey('valor_minimo')) {
+      context.handle(
+          _valorMinimoMeta,
+          valorMinimo.isAcceptableOrUnknown(
+              data['valor_minimo']!, _valorMinimoMeta));
+    }
+    if (data.containsKey('valor_maximo')) {
+      context.handle(
+          _valorMaximoMeta,
+          valorMaximo.isAcceptableOrUnknown(
+              data['valor_maximo']!, _valorMaximoMeta));
+    }
+    if (data.containsKey('escala_evaluacion_id')) {
+      context.handle(
+          _escalaEvaluacionIdMeta,
+          escalaEvaluacionId.isAcceptableOrUnknown(
+              data['escala_evaluacion_id']!, _escalaEvaluacionIdMeta));
+    }
+    if (data.containsKey('escalanombre')) {
+      context.handle(
+          _escalanombreMeta,
+          escalanombre.isAcceptableOrUnknown(
+              data['escalanombre']!, _escalanombreMeta));
+    }
+    if (data.containsKey('escalavalor_minimo')) {
+      context.handle(
+          _escalavalorMinimoMeta,
+          escalavalorMinimo.isAcceptableOrUnknown(
+              data['escalavalor_minimo']!, _escalavalorMinimoMeta));
+    }
+    if (data.containsKey('escalavalor_maximo')) {
+      context.handle(
+          _escalavalorMaximoMeta,
+          escalavalorMaximo.isAcceptableOrUnknown(
+              data['escalavalor_maximo']!, _escalavalorMaximoMeta));
+    }
+    if (data.containsKey('escalaestado')) {
+      context.handle(
+          _escalaestadoMeta,
+          escalaestado.isAcceptableOrUnknown(
+              data['escalaestado']!, _escalaestadoMeta));
+    }
+    if (data.containsKey('escaladefecto')) {
+      context.handle(
+          _escaladefectoMeta,
+          escaladefecto.isAcceptableOrUnknown(
+              data['escaladefecto']!, _escaladefectoMeta));
+    }
+    if (data.containsKey('escalaentidad_id')) {
+      context.handle(
+          _escalaentidadIdMeta,
+          escalaentidadId.isAcceptableOrUnknown(
+              data['escalaentidad_id']!, _escalaentidadIdMeta));
+    }
+    if (data.containsKey('programa_educativo_id')) {
+      context.handle(
+          _programaEducativoIdMeta,
+          programaEducativoId.isAcceptableOrUnknown(
+              data['programa_educativo_id']!, _programaEducativoIdMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {key};
+  @override
+  TipoNotaRubroData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return TipoNotaRubroData.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $TipoNotaRubroTable createAlias(String alias) {
+    return $TipoNotaRubroTable(_db, alias);
+  }
+}
+
+class ValorTipoNotaRubroData extends DataClass
+    implements Insertable<ValorTipoNotaRubroData> {
+  final String key;
+  final String? valorTipoNotaId;
+  final String? tipoNotaId;
+  final String? titulo;
+  final String? alias;
+  final double? limiteInferior;
+  final double? limiteSuperior;
+  final double? valorNumerico;
+  final String? icono;
+  final int? estadoId;
+  final bool? incluidoLInferior;
+  final bool? incluidoLSuperior;
+  final int? tipoId;
+  final int? usuarioCreacionId;
+  final int? usuarioCreadorId;
+  final int? fechaCreacion;
+  final int? usuarioAccionId;
+  final int? fechaAccion;
+  final int? fechaEnvio;
+  final int? fechaEntrega;
+  final int? fechaRecibido;
+  final int? fechaVisto;
+  final int? fechaRespuesta;
+  final String? getSTime;
+  ValorTipoNotaRubroData(
+      {required this.key,
+      this.valorTipoNotaId,
+      this.tipoNotaId,
+      this.titulo,
+      this.alias,
+      this.limiteInferior,
+      this.limiteSuperior,
+      this.valorNumerico,
+      this.icono,
+      this.estadoId,
+      this.incluidoLInferior,
+      this.incluidoLSuperior,
+      this.tipoId,
+      this.usuarioCreacionId,
+      this.usuarioCreadorId,
+      this.fechaCreacion,
+      this.usuarioAccionId,
+      this.fechaAccion,
+      this.fechaEnvio,
+      this.fechaEntrega,
+      this.fechaRecibido,
+      this.fechaVisto,
+      this.fechaRespuesta,
+      this.getSTime});
+  factory ValorTipoNotaRubroData.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
+      {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final stringType = db.typeSystem.forDartType<String>();
+    final doubleType = db.typeSystem.forDartType<double>();
+    final intType = db.typeSystem.forDartType<int>();
+    final boolType = db.typeSystem.forDartType<bool>();
+    return ValorTipoNotaRubroData(
+      key: stringType.mapFromDatabaseResponse(data['${effectivePrefix}key'])!,
+      valorTipoNotaId: stringType.mapFromDatabaseResponse(
+          data['${effectivePrefix}valor_tipo_nota_id']),
+      tipoNotaId: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}tipo_nota_id']),
+      titulo:
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}titulo']),
+      alias:
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}alias']),
+      limiteInferior: doubleType
+          .mapFromDatabaseResponse(data['${effectivePrefix}limite_inferior']),
+      limiteSuperior: doubleType
+          .mapFromDatabaseResponse(data['${effectivePrefix}limite_superior']),
+      valorNumerico: doubleType
+          .mapFromDatabaseResponse(data['${effectivePrefix}valor_numerico']),
+      icono:
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}icono']),
+      estadoId:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
+      incluidoLInferior: boolType.mapFromDatabaseResponse(
+          data['${effectivePrefix}incluido_l_inferior']),
+      incluidoLSuperior: boolType.mapFromDatabaseResponse(
+          data['${effectivePrefix}incluido_l_superior']),
+      tipoId:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}tipo_id']),
+      usuarioCreacionId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}usuario_creacion_id']),
+      usuarioCreadorId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}usuario_creador_id']),
+      fechaCreacion: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_creacion']),
+      usuarioAccionId: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}usuario_accion_id']),
+      fechaAccion: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_accion']),
+      fechaEnvio: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_envio']),
+      fechaEntrega: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_entrega']),
+      fechaRecibido: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_recibido']),
+      fechaVisto: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_visto']),
+      fechaRespuesta: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_respuesta']),
+      getSTime: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}get_s_time']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['key'] = Variable<String>(key);
+    if (!nullToAbsent || valorTipoNotaId != null) {
+      map['valor_tipo_nota_id'] = Variable<String?>(valorTipoNotaId);
+    }
+    if (!nullToAbsent || tipoNotaId != null) {
+      map['tipo_nota_id'] = Variable<String?>(tipoNotaId);
+    }
+    if (!nullToAbsent || titulo != null) {
+      map['titulo'] = Variable<String?>(titulo);
+    }
+    if (!nullToAbsent || alias != null) {
+      map['alias'] = Variable<String?>(alias);
+    }
+    if (!nullToAbsent || limiteInferior != null) {
+      map['limite_inferior'] = Variable<double?>(limiteInferior);
+    }
+    if (!nullToAbsent || limiteSuperior != null) {
+      map['limite_superior'] = Variable<double?>(limiteSuperior);
+    }
+    if (!nullToAbsent || valorNumerico != null) {
+      map['valor_numerico'] = Variable<double?>(valorNumerico);
+    }
+    if (!nullToAbsent || icono != null) {
+      map['icono'] = Variable<String?>(icono);
+    }
+    if (!nullToAbsent || estadoId != null) {
+      map['estado_id'] = Variable<int?>(estadoId);
+    }
+    if (!nullToAbsent || incluidoLInferior != null) {
+      map['incluido_l_inferior'] = Variable<bool?>(incluidoLInferior);
+    }
+    if (!nullToAbsent || incluidoLSuperior != null) {
+      map['incluido_l_superior'] = Variable<bool?>(incluidoLSuperior);
+    }
+    if (!nullToAbsent || tipoId != null) {
+      map['tipo_id'] = Variable<int?>(tipoId);
+    }
+    if (!nullToAbsent || usuarioCreacionId != null) {
+      map['usuario_creacion_id'] = Variable<int?>(usuarioCreacionId);
+    }
+    if (!nullToAbsent || usuarioCreadorId != null) {
+      map['usuario_creador_id'] = Variable<int?>(usuarioCreadorId);
+    }
+    if (!nullToAbsent || fechaCreacion != null) {
+      map['fecha_creacion'] = Variable<int?>(fechaCreacion);
+    }
+    if (!nullToAbsent || usuarioAccionId != null) {
+      map['usuario_accion_id'] = Variable<int?>(usuarioAccionId);
+    }
+    if (!nullToAbsent || fechaAccion != null) {
+      map['fecha_accion'] = Variable<int?>(fechaAccion);
+    }
+    if (!nullToAbsent || fechaEnvio != null) {
+      map['fecha_envio'] = Variable<int?>(fechaEnvio);
+    }
+    if (!nullToAbsent || fechaEntrega != null) {
+      map['fecha_entrega'] = Variable<int?>(fechaEntrega);
+    }
+    if (!nullToAbsent || fechaRecibido != null) {
+      map['fecha_recibido'] = Variable<int?>(fechaRecibido);
+    }
+    if (!nullToAbsent || fechaVisto != null) {
+      map['fecha_visto'] = Variable<int?>(fechaVisto);
+    }
+    if (!nullToAbsent || fechaRespuesta != null) {
+      map['fecha_respuesta'] = Variable<int?>(fechaRespuesta);
+    }
+    if (!nullToAbsent || getSTime != null) {
+      map['get_s_time'] = Variable<String?>(getSTime);
+    }
+    return map;
+  }
+
+  ValorTipoNotaRubroCompanion toCompanion(bool nullToAbsent) {
+    return ValorTipoNotaRubroCompanion(
+      key: Value(key),
+      valorTipoNotaId: valorTipoNotaId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(valorTipoNotaId),
+      tipoNotaId: tipoNotaId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(tipoNotaId),
+      titulo:
+          titulo == null && nullToAbsent ? const Value.absent() : Value(titulo),
+      alias:
+          alias == null && nullToAbsent ? const Value.absent() : Value(alias),
+      limiteInferior: limiteInferior == null && nullToAbsent
+          ? const Value.absent()
+          : Value(limiteInferior),
+      limiteSuperior: limiteSuperior == null && nullToAbsent
+          ? const Value.absent()
+          : Value(limiteSuperior),
+      valorNumerico: valorNumerico == null && nullToAbsent
+          ? const Value.absent()
+          : Value(valorNumerico),
+      icono:
+          icono == null && nullToAbsent ? const Value.absent() : Value(icono),
+      estadoId: estadoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(estadoId),
+      incluidoLInferior: incluidoLInferior == null && nullToAbsent
+          ? const Value.absent()
+          : Value(incluidoLInferior),
+      incluidoLSuperior: incluidoLSuperior == null && nullToAbsent
+          ? const Value.absent()
+          : Value(incluidoLSuperior),
+      tipoId:
+          tipoId == null && nullToAbsent ? const Value.absent() : Value(tipoId),
+      usuarioCreacionId: usuarioCreacionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioCreacionId),
+      usuarioCreadorId: usuarioCreadorId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioCreadorId),
+      fechaCreacion: fechaCreacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaCreacion),
+      usuarioAccionId: usuarioAccionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioAccionId),
+      fechaAccion: fechaAccion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaAccion),
+      fechaEnvio: fechaEnvio == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaEnvio),
+      fechaEntrega: fechaEntrega == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaEntrega),
+      fechaRecibido: fechaRecibido == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaRecibido),
+      fechaVisto: fechaVisto == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaVisto),
+      fechaRespuesta: fechaRespuesta == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaRespuesta),
+      getSTime: getSTime == null && nullToAbsent
+          ? const Value.absent()
+          : Value(getSTime),
+    );
+  }
+
+  factory ValorTipoNotaRubroData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return ValorTipoNotaRubroData(
+      key: serializer.fromJson<String>(json['key']),
+      valorTipoNotaId: serializer.fromJson<String?>(json['valorTipoNotaId']),
+      tipoNotaId: serializer.fromJson<String?>(json['tipoNotaId']),
+      titulo: serializer.fromJson<String?>(json['titulo']),
+      alias: serializer.fromJson<String?>(json['alias']),
+      limiteInferior: serializer.fromJson<double?>(json['limiteInferior']),
+      limiteSuperior: serializer.fromJson<double?>(json['limiteSuperior']),
+      valorNumerico: serializer.fromJson<double?>(json['valorNumerico']),
+      icono: serializer.fromJson<String?>(json['icono']),
+      estadoId: serializer.fromJson<int?>(json['estadoId']),
+      incluidoLInferior: serializer.fromJson<bool?>(json['incluidoLInferior']),
+      incluidoLSuperior: serializer.fromJson<bool?>(json['incluidoLSuperior']),
+      tipoId: serializer.fromJson<int?>(json['tipoId']),
+      usuarioCreacionId: serializer.fromJson<int?>(json['usuarioCreacionId']),
+      usuarioCreadorId: serializer.fromJson<int?>(json['usuarioCreadorId']),
+      fechaCreacion: serializer.fromJson<int?>(json['fechaCreacion']),
+      usuarioAccionId: serializer.fromJson<int?>(json['usuarioAccionId']),
+      fechaAccion: serializer.fromJson<int?>(json['fechaAccion']),
+      fechaEnvio: serializer.fromJson<int?>(json['fechaEnvio']),
+      fechaEntrega: serializer.fromJson<int?>(json['fechaEntrega']),
+      fechaRecibido: serializer.fromJson<int?>(json['fechaRecibido']),
+      fechaVisto: serializer.fromJson<int?>(json['fechaVisto']),
+      fechaRespuesta: serializer.fromJson<int?>(json['fechaRespuesta']),
+      getSTime: serializer.fromJson<String?>(json['getSTime']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'key': serializer.toJson<String>(key),
+      'valorTipoNotaId': serializer.toJson<String?>(valorTipoNotaId),
+      'tipoNotaId': serializer.toJson<String?>(tipoNotaId),
+      'titulo': serializer.toJson<String?>(titulo),
+      'alias': serializer.toJson<String?>(alias),
+      'limiteInferior': serializer.toJson<double?>(limiteInferior),
+      'limiteSuperior': serializer.toJson<double?>(limiteSuperior),
+      'valorNumerico': serializer.toJson<double?>(valorNumerico),
+      'icono': serializer.toJson<String?>(icono),
+      'estadoId': serializer.toJson<int?>(estadoId),
+      'incluidoLInferior': serializer.toJson<bool?>(incluidoLInferior),
+      'incluidoLSuperior': serializer.toJson<bool?>(incluidoLSuperior),
+      'tipoId': serializer.toJson<int?>(tipoId),
+      'usuarioCreacionId': serializer.toJson<int?>(usuarioCreacionId),
+      'usuarioCreadorId': serializer.toJson<int?>(usuarioCreadorId),
+      'fechaCreacion': serializer.toJson<int?>(fechaCreacion),
+      'usuarioAccionId': serializer.toJson<int?>(usuarioAccionId),
+      'fechaAccion': serializer.toJson<int?>(fechaAccion),
+      'fechaEnvio': serializer.toJson<int?>(fechaEnvio),
+      'fechaEntrega': serializer.toJson<int?>(fechaEntrega),
+      'fechaRecibido': serializer.toJson<int?>(fechaRecibido),
+      'fechaVisto': serializer.toJson<int?>(fechaVisto),
+      'fechaRespuesta': serializer.toJson<int?>(fechaRespuesta),
+      'getSTime': serializer.toJson<String?>(getSTime),
+    };
+  }
+
+  ValorTipoNotaRubroData copyWith(
+          {String? key,
+          String? valorTipoNotaId,
+          String? tipoNotaId,
+          String? titulo,
+          String? alias,
+          double? limiteInferior,
+          double? limiteSuperior,
+          double? valorNumerico,
+          String? icono,
+          int? estadoId,
+          bool? incluidoLInferior,
+          bool? incluidoLSuperior,
+          int? tipoId,
+          int? usuarioCreacionId,
+          int? usuarioCreadorId,
+          int? fechaCreacion,
+          int? usuarioAccionId,
+          int? fechaAccion,
+          int? fechaEnvio,
+          int? fechaEntrega,
+          int? fechaRecibido,
+          int? fechaVisto,
+          int? fechaRespuesta,
+          String? getSTime}) =>
+      ValorTipoNotaRubroData(
+        key: key ?? this.key,
+        valorTipoNotaId: valorTipoNotaId ?? this.valorTipoNotaId,
+        tipoNotaId: tipoNotaId ?? this.tipoNotaId,
+        titulo: titulo ?? this.titulo,
+        alias: alias ?? this.alias,
+        limiteInferior: limiteInferior ?? this.limiteInferior,
+        limiteSuperior: limiteSuperior ?? this.limiteSuperior,
+        valorNumerico: valorNumerico ?? this.valorNumerico,
+        icono: icono ?? this.icono,
+        estadoId: estadoId ?? this.estadoId,
+        incluidoLInferior: incluidoLInferior ?? this.incluidoLInferior,
+        incluidoLSuperior: incluidoLSuperior ?? this.incluidoLSuperior,
+        tipoId: tipoId ?? this.tipoId,
+        usuarioCreacionId: usuarioCreacionId ?? this.usuarioCreacionId,
+        usuarioCreadorId: usuarioCreadorId ?? this.usuarioCreadorId,
+        fechaCreacion: fechaCreacion ?? this.fechaCreacion,
+        usuarioAccionId: usuarioAccionId ?? this.usuarioAccionId,
+        fechaAccion: fechaAccion ?? this.fechaAccion,
+        fechaEnvio: fechaEnvio ?? this.fechaEnvio,
+        fechaEntrega: fechaEntrega ?? this.fechaEntrega,
+        fechaRecibido: fechaRecibido ?? this.fechaRecibido,
+        fechaVisto: fechaVisto ?? this.fechaVisto,
+        fechaRespuesta: fechaRespuesta ?? this.fechaRespuesta,
+        getSTime: getSTime ?? this.getSTime,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('ValorTipoNotaRubroData(')
+          ..write('key: $key, ')
+          ..write('valorTipoNotaId: $valorTipoNotaId, ')
+          ..write('tipoNotaId: $tipoNotaId, ')
+          ..write('titulo: $titulo, ')
+          ..write('alias: $alias, ')
+          ..write('limiteInferior: $limiteInferior, ')
+          ..write('limiteSuperior: $limiteSuperior, ')
+          ..write('valorNumerico: $valorNumerico, ')
+          ..write('icono: $icono, ')
+          ..write('estadoId: $estadoId, ')
+          ..write('incluidoLInferior: $incluidoLInferior, ')
+          ..write('incluidoLSuperior: $incluidoLSuperior, ')
+          ..write('tipoId: $tipoId, ')
+          ..write('usuarioCreacionId: $usuarioCreacionId, ')
+          ..write('usuarioCreadorId: $usuarioCreadorId, ')
+          ..write('fechaCreacion: $fechaCreacion, ')
+          ..write('usuarioAccionId: $usuarioAccionId, ')
+          ..write('fechaAccion: $fechaAccion, ')
+          ..write('fechaEnvio: $fechaEnvio, ')
+          ..write('fechaEntrega: $fechaEntrega, ')
+          ..write('fechaRecibido: $fechaRecibido, ')
+          ..write('fechaVisto: $fechaVisto, ')
+          ..write('fechaRespuesta: $fechaRespuesta, ')
+          ..write('getSTime: $getSTime')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      key.hashCode,
+      $mrjc(
+          valorTipoNotaId.hashCode,
+          $mrjc(
+              tipoNotaId.hashCode,
+              $mrjc(
+                  titulo.hashCode,
+                  $mrjc(
+                      alias.hashCode,
+                      $mrjc(
+                          limiteInferior.hashCode,
+                          $mrjc(
+                              limiteSuperior.hashCode,
+                              $mrjc(
+                                  valorNumerico.hashCode,
+                                  $mrjc(
+                                      icono.hashCode,
+                                      $mrjc(
+                                          estadoId.hashCode,
+                                          $mrjc(
+                                              incluidoLInferior.hashCode,
+                                              $mrjc(
+                                                  incluidoLSuperior.hashCode,
+                                                  $mrjc(
+                                                      tipoId.hashCode,
+                                                      $mrjc(
+                                                          usuarioCreacionId
+                                                              .hashCode,
+                                                          $mrjc(
+                                                              usuarioCreadorId
+                                                                  .hashCode,
+                                                              $mrjc(
+                                                                  fechaCreacion
+                                                                      .hashCode,
+                                                                  $mrjc(
+                                                                      usuarioAccionId
+                                                                          .hashCode,
+                                                                      $mrjc(
+                                                                          fechaAccion
+                                                                              .hashCode,
+                                                                          $mrjc(
+                                                                              fechaEnvio.hashCode,
+                                                                              $mrjc(fechaEntrega.hashCode, $mrjc(fechaRecibido.hashCode, $mrjc(fechaVisto.hashCode, $mrjc(fechaRespuesta.hashCode, getSTime.hashCode))))))))))))))))))))))));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is ValorTipoNotaRubroData &&
+          other.key == this.key &&
+          other.valorTipoNotaId == this.valorTipoNotaId &&
+          other.tipoNotaId == this.tipoNotaId &&
+          other.titulo == this.titulo &&
+          other.alias == this.alias &&
+          other.limiteInferior == this.limiteInferior &&
+          other.limiteSuperior == this.limiteSuperior &&
+          other.valorNumerico == this.valorNumerico &&
+          other.icono == this.icono &&
+          other.estadoId == this.estadoId &&
+          other.incluidoLInferior == this.incluidoLInferior &&
+          other.incluidoLSuperior == this.incluidoLSuperior &&
+          other.tipoId == this.tipoId &&
+          other.usuarioCreacionId == this.usuarioCreacionId &&
+          other.usuarioCreadorId == this.usuarioCreadorId &&
+          other.fechaCreacion == this.fechaCreacion &&
+          other.usuarioAccionId == this.usuarioAccionId &&
+          other.fechaAccion == this.fechaAccion &&
+          other.fechaEnvio == this.fechaEnvio &&
+          other.fechaEntrega == this.fechaEntrega &&
+          other.fechaRecibido == this.fechaRecibido &&
+          other.fechaVisto == this.fechaVisto &&
+          other.fechaRespuesta == this.fechaRespuesta &&
+          other.getSTime == this.getSTime);
+}
+
+class ValorTipoNotaRubroCompanion
+    extends UpdateCompanion<ValorTipoNotaRubroData> {
+  final Value<String> key;
+  final Value<String?> valorTipoNotaId;
+  final Value<String?> tipoNotaId;
+  final Value<String?> titulo;
+  final Value<String?> alias;
+  final Value<double?> limiteInferior;
+  final Value<double?> limiteSuperior;
+  final Value<double?> valorNumerico;
+  final Value<String?> icono;
+  final Value<int?> estadoId;
+  final Value<bool?> incluidoLInferior;
+  final Value<bool?> incluidoLSuperior;
+  final Value<int?> tipoId;
+  final Value<int?> usuarioCreacionId;
+  final Value<int?> usuarioCreadorId;
+  final Value<int?> fechaCreacion;
+  final Value<int?> usuarioAccionId;
+  final Value<int?> fechaAccion;
+  final Value<int?> fechaEnvio;
+  final Value<int?> fechaEntrega;
+  final Value<int?> fechaRecibido;
+  final Value<int?> fechaVisto;
+  final Value<int?> fechaRespuesta;
+  final Value<String?> getSTime;
+  const ValorTipoNotaRubroCompanion({
+    this.key = const Value.absent(),
+    this.valorTipoNotaId = const Value.absent(),
+    this.tipoNotaId = const Value.absent(),
+    this.titulo = const Value.absent(),
+    this.alias = const Value.absent(),
+    this.limiteInferior = const Value.absent(),
+    this.limiteSuperior = const Value.absent(),
+    this.valorNumerico = const Value.absent(),
+    this.icono = const Value.absent(),
+    this.estadoId = const Value.absent(),
+    this.incluidoLInferior = const Value.absent(),
+    this.incluidoLSuperior = const Value.absent(),
+    this.tipoId = const Value.absent(),
+    this.usuarioCreacionId = const Value.absent(),
+    this.usuarioCreadorId = const Value.absent(),
+    this.fechaCreacion = const Value.absent(),
+    this.usuarioAccionId = const Value.absent(),
+    this.fechaAccion = const Value.absent(),
+    this.fechaEnvio = const Value.absent(),
+    this.fechaEntrega = const Value.absent(),
+    this.fechaRecibido = const Value.absent(),
+    this.fechaVisto = const Value.absent(),
+    this.fechaRespuesta = const Value.absent(),
+    this.getSTime = const Value.absent(),
+  });
+  ValorTipoNotaRubroCompanion.insert({
+    required String key,
+    this.valorTipoNotaId = const Value.absent(),
+    this.tipoNotaId = const Value.absent(),
+    this.titulo = const Value.absent(),
+    this.alias = const Value.absent(),
+    this.limiteInferior = const Value.absent(),
+    this.limiteSuperior = const Value.absent(),
+    this.valorNumerico = const Value.absent(),
+    this.icono = const Value.absent(),
+    this.estadoId = const Value.absent(),
+    this.incluidoLInferior = const Value.absent(),
+    this.incluidoLSuperior = const Value.absent(),
+    this.tipoId = const Value.absent(),
+    this.usuarioCreacionId = const Value.absent(),
+    this.usuarioCreadorId = const Value.absent(),
+    this.fechaCreacion = const Value.absent(),
+    this.usuarioAccionId = const Value.absent(),
+    this.fechaAccion = const Value.absent(),
+    this.fechaEnvio = const Value.absent(),
+    this.fechaEntrega = const Value.absent(),
+    this.fechaRecibido = const Value.absent(),
+    this.fechaVisto = const Value.absent(),
+    this.fechaRespuesta = const Value.absent(),
+    this.getSTime = const Value.absent(),
+  }) : key = Value(key);
+  static Insertable<ValorTipoNotaRubroData> custom({
+    Expression<String>? key,
+    Expression<String?>? valorTipoNotaId,
+    Expression<String?>? tipoNotaId,
+    Expression<String?>? titulo,
+    Expression<String?>? alias,
+    Expression<double?>? limiteInferior,
+    Expression<double?>? limiteSuperior,
+    Expression<double?>? valorNumerico,
+    Expression<String?>? icono,
+    Expression<int?>? estadoId,
+    Expression<bool?>? incluidoLInferior,
+    Expression<bool?>? incluidoLSuperior,
+    Expression<int?>? tipoId,
+    Expression<int?>? usuarioCreacionId,
+    Expression<int?>? usuarioCreadorId,
+    Expression<int?>? fechaCreacion,
+    Expression<int?>? usuarioAccionId,
+    Expression<int?>? fechaAccion,
+    Expression<int?>? fechaEnvio,
+    Expression<int?>? fechaEntrega,
+    Expression<int?>? fechaRecibido,
+    Expression<int?>? fechaVisto,
+    Expression<int?>? fechaRespuesta,
+    Expression<String?>? getSTime,
+  }) {
+    return RawValuesInsertable({
+      if (key != null) 'key': key,
+      if (valorTipoNotaId != null) 'valor_tipo_nota_id': valorTipoNotaId,
+      if (tipoNotaId != null) 'tipo_nota_id': tipoNotaId,
+      if (titulo != null) 'titulo': titulo,
+      if (alias != null) 'alias': alias,
+      if (limiteInferior != null) 'limite_inferior': limiteInferior,
+      if (limiteSuperior != null) 'limite_superior': limiteSuperior,
+      if (valorNumerico != null) 'valor_numerico': valorNumerico,
+      if (icono != null) 'icono': icono,
+      if (estadoId != null) 'estado_id': estadoId,
+      if (incluidoLInferior != null) 'incluido_l_inferior': incluidoLInferior,
+      if (incluidoLSuperior != null) 'incluido_l_superior': incluidoLSuperior,
+      if (tipoId != null) 'tipo_id': tipoId,
+      if (usuarioCreacionId != null) 'usuario_creacion_id': usuarioCreacionId,
+      if (usuarioCreadorId != null) 'usuario_creador_id': usuarioCreadorId,
+      if (fechaCreacion != null) 'fecha_creacion': fechaCreacion,
+      if (usuarioAccionId != null) 'usuario_accion_id': usuarioAccionId,
+      if (fechaAccion != null) 'fecha_accion': fechaAccion,
+      if (fechaEnvio != null) 'fecha_envio': fechaEnvio,
+      if (fechaEntrega != null) 'fecha_entrega': fechaEntrega,
+      if (fechaRecibido != null) 'fecha_recibido': fechaRecibido,
+      if (fechaVisto != null) 'fecha_visto': fechaVisto,
+      if (fechaRespuesta != null) 'fecha_respuesta': fechaRespuesta,
+      if (getSTime != null) 'get_s_time': getSTime,
+    });
+  }
+
+  ValorTipoNotaRubroCompanion copyWith(
+      {Value<String>? key,
+      Value<String?>? valorTipoNotaId,
+      Value<String?>? tipoNotaId,
+      Value<String?>? titulo,
+      Value<String?>? alias,
+      Value<double?>? limiteInferior,
+      Value<double?>? limiteSuperior,
+      Value<double?>? valorNumerico,
+      Value<String?>? icono,
+      Value<int?>? estadoId,
+      Value<bool?>? incluidoLInferior,
+      Value<bool?>? incluidoLSuperior,
+      Value<int?>? tipoId,
+      Value<int?>? usuarioCreacionId,
+      Value<int?>? usuarioCreadorId,
+      Value<int?>? fechaCreacion,
+      Value<int?>? usuarioAccionId,
+      Value<int?>? fechaAccion,
+      Value<int?>? fechaEnvio,
+      Value<int?>? fechaEntrega,
+      Value<int?>? fechaRecibido,
+      Value<int?>? fechaVisto,
+      Value<int?>? fechaRespuesta,
+      Value<String?>? getSTime}) {
+    return ValorTipoNotaRubroCompanion(
+      key: key ?? this.key,
+      valorTipoNotaId: valorTipoNotaId ?? this.valorTipoNotaId,
+      tipoNotaId: tipoNotaId ?? this.tipoNotaId,
+      titulo: titulo ?? this.titulo,
+      alias: alias ?? this.alias,
+      limiteInferior: limiteInferior ?? this.limiteInferior,
+      limiteSuperior: limiteSuperior ?? this.limiteSuperior,
+      valorNumerico: valorNumerico ?? this.valorNumerico,
+      icono: icono ?? this.icono,
+      estadoId: estadoId ?? this.estadoId,
+      incluidoLInferior: incluidoLInferior ?? this.incluidoLInferior,
+      incluidoLSuperior: incluidoLSuperior ?? this.incluidoLSuperior,
+      tipoId: tipoId ?? this.tipoId,
+      usuarioCreacionId: usuarioCreacionId ?? this.usuarioCreacionId,
+      usuarioCreadorId: usuarioCreadorId ?? this.usuarioCreadorId,
+      fechaCreacion: fechaCreacion ?? this.fechaCreacion,
+      usuarioAccionId: usuarioAccionId ?? this.usuarioAccionId,
+      fechaAccion: fechaAccion ?? this.fechaAccion,
+      fechaEnvio: fechaEnvio ?? this.fechaEnvio,
+      fechaEntrega: fechaEntrega ?? this.fechaEntrega,
+      fechaRecibido: fechaRecibido ?? this.fechaRecibido,
+      fechaVisto: fechaVisto ?? this.fechaVisto,
+      fechaRespuesta: fechaRespuesta ?? this.fechaRespuesta,
+      getSTime: getSTime ?? this.getSTime,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (key.present) {
+      map['key'] = Variable<String>(key.value);
+    }
+    if (valorTipoNotaId.present) {
+      map['valor_tipo_nota_id'] = Variable<String?>(valorTipoNotaId.value);
+    }
+    if (tipoNotaId.present) {
+      map['tipo_nota_id'] = Variable<String?>(tipoNotaId.value);
+    }
+    if (titulo.present) {
+      map['titulo'] = Variable<String?>(titulo.value);
+    }
+    if (alias.present) {
+      map['alias'] = Variable<String?>(alias.value);
+    }
+    if (limiteInferior.present) {
+      map['limite_inferior'] = Variable<double?>(limiteInferior.value);
+    }
+    if (limiteSuperior.present) {
+      map['limite_superior'] = Variable<double?>(limiteSuperior.value);
+    }
+    if (valorNumerico.present) {
+      map['valor_numerico'] = Variable<double?>(valorNumerico.value);
+    }
+    if (icono.present) {
+      map['icono'] = Variable<String?>(icono.value);
+    }
+    if (estadoId.present) {
+      map['estado_id'] = Variable<int?>(estadoId.value);
+    }
+    if (incluidoLInferior.present) {
+      map['incluido_l_inferior'] = Variable<bool?>(incluidoLInferior.value);
+    }
+    if (incluidoLSuperior.present) {
+      map['incluido_l_superior'] = Variable<bool?>(incluidoLSuperior.value);
+    }
+    if (tipoId.present) {
+      map['tipo_id'] = Variable<int?>(tipoId.value);
+    }
+    if (usuarioCreacionId.present) {
+      map['usuario_creacion_id'] = Variable<int?>(usuarioCreacionId.value);
+    }
+    if (usuarioCreadorId.present) {
+      map['usuario_creador_id'] = Variable<int?>(usuarioCreadorId.value);
+    }
+    if (fechaCreacion.present) {
+      map['fecha_creacion'] = Variable<int?>(fechaCreacion.value);
+    }
+    if (usuarioAccionId.present) {
+      map['usuario_accion_id'] = Variable<int?>(usuarioAccionId.value);
+    }
+    if (fechaAccion.present) {
+      map['fecha_accion'] = Variable<int?>(fechaAccion.value);
+    }
+    if (fechaEnvio.present) {
+      map['fecha_envio'] = Variable<int?>(fechaEnvio.value);
+    }
+    if (fechaEntrega.present) {
+      map['fecha_entrega'] = Variable<int?>(fechaEntrega.value);
+    }
+    if (fechaRecibido.present) {
+      map['fecha_recibido'] = Variable<int?>(fechaRecibido.value);
+    }
+    if (fechaVisto.present) {
+      map['fecha_visto'] = Variable<int?>(fechaVisto.value);
+    }
+    if (fechaRespuesta.present) {
+      map['fecha_respuesta'] = Variable<int?>(fechaRespuesta.value);
+    }
+    if (getSTime.present) {
+      map['get_s_time'] = Variable<String?>(getSTime.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ValorTipoNotaRubroCompanion(')
+          ..write('key: $key, ')
+          ..write('valorTipoNotaId: $valorTipoNotaId, ')
+          ..write('tipoNotaId: $tipoNotaId, ')
+          ..write('titulo: $titulo, ')
+          ..write('alias: $alias, ')
+          ..write('limiteInferior: $limiteInferior, ')
+          ..write('limiteSuperior: $limiteSuperior, ')
+          ..write('valorNumerico: $valorNumerico, ')
+          ..write('icono: $icono, ')
+          ..write('estadoId: $estadoId, ')
+          ..write('incluidoLInferior: $incluidoLInferior, ')
+          ..write('incluidoLSuperior: $incluidoLSuperior, ')
+          ..write('tipoId: $tipoId, ')
+          ..write('usuarioCreacionId: $usuarioCreacionId, ')
+          ..write('usuarioCreadorId: $usuarioCreadorId, ')
+          ..write('fechaCreacion: $fechaCreacion, ')
+          ..write('usuarioAccionId: $usuarioAccionId, ')
+          ..write('fechaAccion: $fechaAccion, ')
+          ..write('fechaEnvio: $fechaEnvio, ')
+          ..write('fechaEntrega: $fechaEntrega, ')
+          ..write('fechaRecibido: $fechaRecibido, ')
+          ..write('fechaVisto: $fechaVisto, ')
+          ..write('fechaRespuesta: $fechaRespuesta, ')
+          ..write('getSTime: $getSTime')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ValorTipoNotaRubroTable extends ValorTipoNotaRubro
+    with TableInfo<$ValorTipoNotaRubroTable, ValorTipoNotaRubroData> {
+  final GeneratedDatabase _db;
+  final String? _alias;
+  $ValorTipoNotaRubroTable(this._db, [this._alias]);
+  final VerificationMeta _keyMeta = const VerificationMeta('key');
+  @override
+  late final GeneratedTextColumn key = _constructKey();
+  GeneratedTextColumn _constructKey() {
+    return GeneratedTextColumn(
+      'key',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _valorTipoNotaIdMeta =
+      const VerificationMeta('valorTipoNotaId');
+  @override
+  late final GeneratedTextColumn valorTipoNotaId = _constructValorTipoNotaId();
+  GeneratedTextColumn _constructValorTipoNotaId() {
+    return GeneratedTextColumn(
+      'valor_tipo_nota_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _tipoNotaIdMeta = const VerificationMeta('tipoNotaId');
+  @override
+  late final GeneratedTextColumn tipoNotaId = _constructTipoNotaId();
+  GeneratedTextColumn _constructTipoNotaId() {
+    return GeneratedTextColumn(
+      'tipo_nota_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _tituloMeta = const VerificationMeta('titulo');
+  @override
+  late final GeneratedTextColumn titulo = _constructTitulo();
+  GeneratedTextColumn _constructTitulo() {
+    return GeneratedTextColumn(
+      'titulo',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _aliasMeta = const VerificationMeta('alias');
+  @override
+  late final GeneratedTextColumn alias = _constructAlias();
+  GeneratedTextColumn _constructAlias() {
+    return GeneratedTextColumn(
+      'alias',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _limiteInferiorMeta =
+      const VerificationMeta('limiteInferior');
+  @override
+  late final GeneratedRealColumn limiteInferior = _constructLimiteInferior();
+  GeneratedRealColumn _constructLimiteInferior() {
+    return GeneratedRealColumn(
+      'limite_inferior',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _limiteSuperiorMeta =
+      const VerificationMeta('limiteSuperior');
+  @override
+  late final GeneratedRealColumn limiteSuperior = _constructLimiteSuperior();
+  GeneratedRealColumn _constructLimiteSuperior() {
+    return GeneratedRealColumn(
+      'limite_superior',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _valorNumericoMeta =
+      const VerificationMeta('valorNumerico');
+  @override
+  late final GeneratedRealColumn valorNumerico = _constructValorNumerico();
+  GeneratedRealColumn _constructValorNumerico() {
+    return GeneratedRealColumn(
+      'valor_numerico',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _iconoMeta = const VerificationMeta('icono');
+  @override
+  late final GeneratedTextColumn icono = _constructIcono();
+  GeneratedTextColumn _constructIcono() {
+    return GeneratedTextColumn(
+      'icono',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _estadoIdMeta = const VerificationMeta('estadoId');
+  @override
+  late final GeneratedIntColumn estadoId = _constructEstadoId();
+  GeneratedIntColumn _constructEstadoId() {
+    return GeneratedIntColumn(
+      'estado_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _incluidoLInferiorMeta =
+      const VerificationMeta('incluidoLInferior');
+  @override
+  late final GeneratedBoolColumn incluidoLInferior =
+      _constructIncluidoLInferior();
+  GeneratedBoolColumn _constructIncluidoLInferior() {
+    return GeneratedBoolColumn(
+      'incluido_l_inferior',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _incluidoLSuperiorMeta =
+      const VerificationMeta('incluidoLSuperior');
+  @override
+  late final GeneratedBoolColumn incluidoLSuperior =
+      _constructIncluidoLSuperior();
+  GeneratedBoolColumn _constructIncluidoLSuperior() {
+    return GeneratedBoolColumn(
+      'incluido_l_superior',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _tipoIdMeta = const VerificationMeta('tipoId');
+  @override
+  late final GeneratedIntColumn tipoId = _constructTipoId();
+  GeneratedIntColumn _constructTipoId() {
+    return GeneratedIntColumn(
+      'tipo_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioCreacionIdMeta =
+      const VerificationMeta('usuarioCreacionId');
+  @override
+  late final GeneratedIntColumn usuarioCreacionId =
+      _constructUsuarioCreacionId();
+  GeneratedIntColumn _constructUsuarioCreacionId() {
+    return GeneratedIntColumn(
+      'usuario_creacion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioCreadorIdMeta =
+      const VerificationMeta('usuarioCreadorId');
+  @override
+  late final GeneratedIntColumn usuarioCreadorId = _constructUsuarioCreadorId();
+  GeneratedIntColumn _constructUsuarioCreadorId() {
+    return GeneratedIntColumn(
+      'usuario_creador_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaCreacionMeta =
+      const VerificationMeta('fechaCreacion');
+  @override
+  late final GeneratedIntColumn fechaCreacion = _constructFechaCreacion();
+  GeneratedIntColumn _constructFechaCreacion() {
+    return GeneratedIntColumn(
+      'fecha_creacion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioAccionIdMeta =
+      const VerificationMeta('usuarioAccionId');
+  @override
+  late final GeneratedIntColumn usuarioAccionId = _constructUsuarioAccionId();
+  GeneratedIntColumn _constructUsuarioAccionId() {
+    return GeneratedIntColumn(
+      'usuario_accion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaAccionMeta =
+      const VerificationMeta('fechaAccion');
+  @override
+  late final GeneratedIntColumn fechaAccion = _constructFechaAccion();
+  GeneratedIntColumn _constructFechaAccion() {
+    return GeneratedIntColumn(
+      'fecha_accion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaEnvioMeta = const VerificationMeta('fechaEnvio');
+  @override
+  late final GeneratedIntColumn fechaEnvio = _constructFechaEnvio();
+  GeneratedIntColumn _constructFechaEnvio() {
+    return GeneratedIntColumn(
+      'fecha_envio',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaEntregaMeta =
+      const VerificationMeta('fechaEntrega');
+  @override
+  late final GeneratedIntColumn fechaEntrega = _constructFechaEntrega();
+  GeneratedIntColumn _constructFechaEntrega() {
+    return GeneratedIntColumn(
+      'fecha_entrega',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaRecibidoMeta =
+      const VerificationMeta('fechaRecibido');
+  @override
+  late final GeneratedIntColumn fechaRecibido = _constructFechaRecibido();
+  GeneratedIntColumn _constructFechaRecibido() {
+    return GeneratedIntColumn(
+      'fecha_recibido',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaVistoMeta = const VerificationMeta('fechaVisto');
+  @override
+  late final GeneratedIntColumn fechaVisto = _constructFechaVisto();
+  GeneratedIntColumn _constructFechaVisto() {
+    return GeneratedIntColumn(
+      'fecha_visto',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaRespuestaMeta =
+      const VerificationMeta('fechaRespuesta');
+  @override
+  late final GeneratedIntColumn fechaRespuesta = _constructFechaRespuesta();
+  GeneratedIntColumn _constructFechaRespuesta() {
+    return GeneratedIntColumn(
+      'fecha_respuesta',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _getSTimeMeta = const VerificationMeta('getSTime');
+  @override
+  late final GeneratedTextColumn getSTime = _constructGetSTime();
+  GeneratedTextColumn _constructGetSTime() {
+    return GeneratedTextColumn(
+      'get_s_time',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [
+        key,
+        valorTipoNotaId,
+        tipoNotaId,
+        titulo,
+        alias,
+        limiteInferior,
+        limiteSuperior,
+        valorNumerico,
+        icono,
+        estadoId,
+        incluidoLInferior,
+        incluidoLSuperior,
+        tipoId,
+        usuarioCreacionId,
+        usuarioCreadorId,
+        fechaCreacion,
+        usuarioAccionId,
+        fechaAccion,
+        fechaEnvio,
+        fechaEntrega,
+        fechaRecibido,
+        fechaVisto,
+        fechaRespuesta,
+        getSTime
+      ];
+  @override
+  $ValorTipoNotaRubroTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'valor_tipo_nota_rubro';
+  @override
+  final String actualTableName = 'valor_tipo_nota_rubro';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<ValorTipoNotaRubroData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('key')) {
+      context.handle(
+          _keyMeta, key.isAcceptableOrUnknown(data['key']!, _keyMeta));
+    } else if (isInserting) {
+      context.missing(_keyMeta);
+    }
+    if (data.containsKey('valor_tipo_nota_id')) {
+      context.handle(
+          _valorTipoNotaIdMeta,
+          valorTipoNotaId.isAcceptableOrUnknown(
+              data['valor_tipo_nota_id']!, _valorTipoNotaIdMeta));
+    }
+    if (data.containsKey('tipo_nota_id')) {
+      context.handle(
+          _tipoNotaIdMeta,
+          tipoNotaId.isAcceptableOrUnknown(
+              data['tipo_nota_id']!, _tipoNotaIdMeta));
+    }
+    if (data.containsKey('titulo')) {
+      context.handle(_tituloMeta,
+          titulo.isAcceptableOrUnknown(data['titulo']!, _tituloMeta));
+    }
+    if (data.containsKey('alias')) {
+      context.handle(
+          _aliasMeta, alias.isAcceptableOrUnknown(data['alias']!, _aliasMeta));
+    }
+    if (data.containsKey('limite_inferior')) {
+      context.handle(
+          _limiteInferiorMeta,
+          limiteInferior.isAcceptableOrUnknown(
+              data['limite_inferior']!, _limiteInferiorMeta));
+    }
+    if (data.containsKey('limite_superior')) {
+      context.handle(
+          _limiteSuperiorMeta,
+          limiteSuperior.isAcceptableOrUnknown(
+              data['limite_superior']!, _limiteSuperiorMeta));
+    }
+    if (data.containsKey('valor_numerico')) {
+      context.handle(
+          _valorNumericoMeta,
+          valorNumerico.isAcceptableOrUnknown(
+              data['valor_numerico']!, _valorNumericoMeta));
+    }
+    if (data.containsKey('icono')) {
+      context.handle(
+          _iconoMeta, icono.isAcceptableOrUnknown(data['icono']!, _iconoMeta));
+    }
+    if (data.containsKey('estado_id')) {
+      context.handle(_estadoIdMeta,
+          estadoId.isAcceptableOrUnknown(data['estado_id']!, _estadoIdMeta));
+    }
+    if (data.containsKey('incluido_l_inferior')) {
+      context.handle(
+          _incluidoLInferiorMeta,
+          incluidoLInferior.isAcceptableOrUnknown(
+              data['incluido_l_inferior']!, _incluidoLInferiorMeta));
+    }
+    if (data.containsKey('incluido_l_superior')) {
+      context.handle(
+          _incluidoLSuperiorMeta,
+          incluidoLSuperior.isAcceptableOrUnknown(
+              data['incluido_l_superior']!, _incluidoLSuperiorMeta));
+    }
+    if (data.containsKey('tipo_id')) {
+      context.handle(_tipoIdMeta,
+          tipoId.isAcceptableOrUnknown(data['tipo_id']!, _tipoIdMeta));
+    }
+    if (data.containsKey('usuario_creacion_id')) {
+      context.handle(
+          _usuarioCreacionIdMeta,
+          usuarioCreacionId.isAcceptableOrUnknown(
+              data['usuario_creacion_id']!, _usuarioCreacionIdMeta));
+    }
+    if (data.containsKey('usuario_creador_id')) {
+      context.handle(
+          _usuarioCreadorIdMeta,
+          usuarioCreadorId.isAcceptableOrUnknown(
+              data['usuario_creador_id']!, _usuarioCreadorIdMeta));
+    }
+    if (data.containsKey('fecha_creacion')) {
+      context.handle(
+          _fechaCreacionMeta,
+          fechaCreacion.isAcceptableOrUnknown(
+              data['fecha_creacion']!, _fechaCreacionMeta));
+    }
+    if (data.containsKey('usuario_accion_id')) {
+      context.handle(
+          _usuarioAccionIdMeta,
+          usuarioAccionId.isAcceptableOrUnknown(
+              data['usuario_accion_id']!, _usuarioAccionIdMeta));
+    }
+    if (data.containsKey('fecha_accion')) {
+      context.handle(
+          _fechaAccionMeta,
+          fechaAccion.isAcceptableOrUnknown(
+              data['fecha_accion']!, _fechaAccionMeta));
+    }
+    if (data.containsKey('fecha_envio')) {
+      context.handle(
+          _fechaEnvioMeta,
+          fechaEnvio.isAcceptableOrUnknown(
+              data['fecha_envio']!, _fechaEnvioMeta));
+    }
+    if (data.containsKey('fecha_entrega')) {
+      context.handle(
+          _fechaEntregaMeta,
+          fechaEntrega.isAcceptableOrUnknown(
+              data['fecha_entrega']!, _fechaEntregaMeta));
+    }
+    if (data.containsKey('fecha_recibido')) {
+      context.handle(
+          _fechaRecibidoMeta,
+          fechaRecibido.isAcceptableOrUnknown(
+              data['fecha_recibido']!, _fechaRecibidoMeta));
+    }
+    if (data.containsKey('fecha_visto')) {
+      context.handle(
+          _fechaVistoMeta,
+          fechaVisto.isAcceptableOrUnknown(
+              data['fecha_visto']!, _fechaVistoMeta));
+    }
+    if (data.containsKey('fecha_respuesta')) {
+      context.handle(
+          _fechaRespuestaMeta,
+          fechaRespuesta.isAcceptableOrUnknown(
+              data['fecha_respuesta']!, _fechaRespuestaMeta));
+    }
+    if (data.containsKey('get_s_time')) {
+      context.handle(_getSTimeMeta,
+          getSTime.isAcceptableOrUnknown(data['get_s_time']!, _getSTimeMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {key};
+  @override
+  ValorTipoNotaRubroData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return ValorTipoNotaRubroData.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $ValorTipoNotaRubroTable createAlias(String alias) {
+    return $ValorTipoNotaRubroTable(_db, alias);
   }
 }
 
@@ -19629,6 +22782,12 @@ abstract class _$AppDataBase extends GeneratedDatabase {
   late final $UsuarioTable usuario = $UsuarioTable(this);
   late final $WebConfigsTable webConfigs = $WebConfigsTable(this);
   late final $CriterioTable criterio = $CriterioTable(this);
+  late final $TipoEvaluacionRubroTable tipoEvaluacionRubro =
+      $TipoEvaluacionRubroTable(this);
+  late final $TiposRubroTable tiposRubro = $TiposRubroTable(this);
+  late final $TipoNotaRubroTable tipoNotaRubro = $TipoNotaRubroTable(this);
+  late final $ValorTipoNotaRubroTable valorTipoNotaRubro =
+      $ValorTipoNotaRubroTable(this);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
@@ -19671,6 +22830,10 @@ abstract class _$AppDataBase extends GeneratedDatabase {
         calendarioAcademico,
         usuario,
         webConfigs,
-        criterio
+        criterio,
+        tipoEvaluacionRubro,
+        tiposRubro,
+        tipoNotaRubro,
+        valorTipoNotaRubro
       ];
 }

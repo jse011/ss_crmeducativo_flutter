@@ -2,6 +2,10 @@ import 'package:moor/src/runtime/data_class.dart';
 import 'package:ss_crmeducativo_2/src/data/helpers/serelizable/rest_api_response.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/database/app_database.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/horario_hora.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/tipo_evaluacion_rubro.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/tipo_nota_rubro.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/tipos_rubro.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/valor_tipo_nota_rubro.dart';
 
 class SerializableConvert{
   static EntidadData converSerializeEntidad(Map<String,dynamic> model){
@@ -609,6 +613,46 @@ class SerializableConvert{
     }
     return items;
   }
+  static TiposRubroData converSerializeTiposRubro(Map<String,dynamic> model){
+    TiposSerial serial = TiposSerial.fromJson(model);
+
+    return TiposRubroData(
+        tipoId: serial.tipoId??0,
+        objeto: serial.objeto,
+        concepto: serial.concepto,
+        nombre: serial.nombre,
+        codigo: serial.codigo,
+        parentId: serial.parentId);
+  }
+
+  static List<TiposRubroData> converListSerializeTiposRubro(dynamic model){
+    List<TiposRubroData> items = [];
+    Iterable l = model;
+    for(var item in l){
+      items.add(converSerializeTiposRubro(item));
+    }
+    return items;
+  }
+  static TipoEvaluacionRubroData converSerializeTipoEvaluacionRubro(Map<String,dynamic> model){
+    TipoEvaluacionRubroSerial serial = TipoEvaluacionRubroSerial.fromJson(model);
+
+    return TipoEvaluacionRubroData(
+      tipoEvaluacionId: serial.tipoEvaluacionId??0,
+      nombre: serial.nombre,
+      estado: serial.estado
+    );
+
+  }
+
+  static List<TipoEvaluacionRubroData> converListSerializeTipoEvaluacionRubro(dynamic model){
+    List<TipoEvaluacionRubroData> items = [];
+    Iterable l = model;
+    for(var item in l){
+      items.add(converSerializeTipoEvaluacionRubro(item));
+    }
+    return items;
+  }
+
   static CalendarioAcademicoData converSerializeCalendarioAcademico(Map<String,dynamic> model){
     CalendarioAcademicoSerial serial = CalendarioAcademicoSerial.fromJson(model);
 
@@ -806,6 +850,7 @@ class SerializableConvert{
         peso: serial.peso,
         codigo: serial.codigo,
         tipoId: serial.tipoId,
+
         url: serial.url,
         desempenioId: serial.desempenioId,
         desempenioIcdDescripcion: serial.desempenioIcdDescripcion,
@@ -834,6 +879,84 @@ class SerializableConvert{
     return items;
   }
 
+
+  static TipoNotaRubroData converSerializeTipoNotaRubro(Map<String,dynamic> model){
+    TipoNotaRubroSerial serial = TipoNotaRubroSerial.fromJson(model);
+    return TipoNotaRubroData(
+        key: serial.key??'',
+        tipoNotaId: serial.tipoNotaId,
+        nombre: serial.nombre,
+        tipoId: serial.tipoId,
+        tiponombre: serial.tiponombre,
+        valorDefecto: serial.valorDefecto,
+        longitudPaso: serial.longitudPaso,
+        intervalo: serial.intervalo,
+        estatico: serial.estatico,
+        entidadId: serial.entidadId,
+        georeferenciaId: serial.georeferenciaId,
+        organigramaId: serial.organigramaId,
+        estadoId: serial.estadoId,
+        tipoFuenteId: serial.tipoFuenteId,
+        valorMinimo: serial.valorMinimo,
+        valorMaximo: serial.valorMaximo,
+        escalaEvaluacionId: serial.escalaEvaluacionId,
+        escalanombre: serial.escalanombre,
+        escalavalorMinimo: serial.escalavalorMinimo,
+        escalavalorMaximo: serial.escalavalorMaximo,
+        escalaestado: serial.escalaestado,
+        escaladefecto: serial.escaladefecto,
+        escalaentidadId: serial.escalaentidadId,
+        programaEducativoId: serial.programaEducativoId
+    );
+  }
+
+  static List<TipoNotaRubroData> converListSerializeTipoNotaRubro(dynamic model){
+    List<TipoNotaRubroData> items = [];
+    Iterable l = model;
+    for(var item in l){
+      items.add(converSerializeTipoNotaRubro(item));
+    }
+    return items;
+  }
+
+  static ValorTipoNotaRubroData converSerializeValorTipoNotaRubro(Map<String,dynamic> model){
+    ValorTipoNotaRubroSerial serial = ValorTipoNotaRubroSerial.fromJson(model);
+    return ValorTipoNotaRubroData(
+        key: serial.key??'',
+        valorTipoNotaId: serial.valorTipoNotaId,
+        tipoNotaId: serial.tipoNotaId,
+        titulo: serial.titulo,
+        alias: serial.alias,
+        limiteInferior: serial.limiteInferior,
+        limiteSuperior: serial.limiteSuperior,
+        valorNumerico: serial.valorNumerico,
+        icono: serial.icono,
+        estadoId: serial.estadoId,
+        incluidoLInferior: serial.incluidoLInferior,
+        incluidoLSuperior: serial.incluidoLSuperior,
+        tipoId: serial.tipoId,
+        usuarioCreacionId: serial.usuarioCreacionId,
+        usuarioCreadorId: serial.usuarioCreadorId,
+        fechaCreacion: serial.fechaCreacion,
+        usuarioAccionId: serial.usuarioAccionId,
+        fechaAccion: serial.fechaAccion,
+        fechaEnvio: serial.fechaEnvio,
+        fechaEntrega: serial.fechaEntrega,
+        fechaRecibido: serial.fechaRecibido,
+        fechaVisto: serial.fechaVisto,
+        fechaRespuesta: serial.fechaRespuesta,
+        getSTime: serial.getSTime
+    );
+  }
+
+  static List<ValorTipoNotaRubroData> converListSerializeValorTipoNotaRubro(dynamic model){
+    List<ValorTipoNotaRubroData> items = [];
+    Iterable l = model;
+    for(var item in l){
+      items.add(converSerializeValorTipoNotaRubro(item));
+    }
+    return items;
+  }
 
 }
 

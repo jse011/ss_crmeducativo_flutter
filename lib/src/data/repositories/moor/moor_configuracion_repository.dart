@@ -146,7 +146,6 @@ class MoorConfiguracionRepository extends ConfiguracionRepository{
           batch.insertAll(SQL.parametroConfiguracion, SerializableConvert.converListSerializeParametroConfiguracion(datosInicioPadre["parametroConfiguracion"]), mode: InsertMode.insertOrReplace );
         }
 
-
       });
 
        UsuarioUi usuarioUi = new UsuarioUi();

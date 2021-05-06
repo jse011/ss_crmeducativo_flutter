@@ -995,3 +995,130 @@ class CriteriosSerial {
 
   Map<String, dynamic> toJson() => _$CriteriosSerialToJson(this);
 }
+@JsonSerializable()
+class TipoEvaluacionRubroSerial {
+  int? tipoEvaluacionId;
+  String? nombre;
+  bool? estado;
+
+  TipoEvaluacionRubroSerial(this.tipoEvaluacionId, this.nombre, this.estado);
+  factory TipoEvaluacionRubroSerial.fromJson(Map<String, dynamic> json) => _$TipoEvaluacionRubroSerialFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TipoEvaluacionRubroSerialToJson(this);
+
+}
+
+@JsonSerializable()
+class TipoNotaRubroSerial {
+  String? key;
+  String? tipoNotaId;
+  String? nombre;
+  int? tipoId;
+  String? tiponombre;
+  String? valorDefecto;
+  double? longitudPaso;
+  bool? intervalo;
+  bool? estatico;
+  int? entidadId;
+  int? georeferenciaId;
+  int? organigramaId;
+  int? estadoId;
+  int? tipoFuenteId;
+  int? valorMinimo;
+  int? valorMaximo;
+  int? escalaEvaluacionId;
+  String? escalanombre;
+  int? escalavalorMinimo;
+  int? escalavalorMaximo;
+  int? escalaestado;
+  bool? escaladefecto;
+  int? escalaentidadId;
+  int? programaEducativoId;
+
+  TipoNotaRubroSerial(
+      {this.key,
+        this.tipoNotaId,
+        this.nombre,
+        this.tipoId,
+        this.tiponombre,
+        this.valorDefecto,
+        this.longitudPaso,
+        this.intervalo,
+        this.estatico,
+        this.entidadId,
+        this.georeferenciaId,
+        this.organigramaId,
+        this.estadoId,
+        this.tipoFuenteId,
+        this.valorMinimo,
+        this.valorMaximo,
+        this.escalaEvaluacionId,
+        this.escalanombre,
+        this.escalavalorMinimo,
+        this.escalavalorMaximo,
+        this.escalaestado,
+        this.escaladefecto,
+        this.escalaentidadId,
+        this.programaEducativoId});
+
+  factory TipoNotaRubroSerial.fromJson(Map<String, dynamic> json) => _$TipoNotaRubroSerialFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TipoNotaRubroSerialToJson(this);
+}
+
+@JsonSerializable()
+class ValorTipoNotaRubroSerial {
+  String? key;
+  String? valorTipoNotaId;
+  String? tipoNotaId;
+  String? titulo;
+  String? alias;
+  double? limiteInferior;
+  double? limiteSuperior;
+  double? valorNumerico;
+  String? icono;
+  int? estadoId;
+  bool? incluidoLInferior;
+  bool? incluidoLSuperior;
+  int? tipoId;
+  int? usuarioCreacionId;
+  int? usuarioCreadorId;
+  int? fechaCreacion;
+  int? usuarioAccionId;
+  int? fechaAccion;
+  int? fechaEnvio;
+  int? fechaEntrega;
+  int? fechaRecibido;
+  int? fechaVisto;
+  int? fechaRespuesta;
+  String? getSTime;
+
+  ValorTipoNotaRubroSerial(
+      {this.valorTipoNotaId,
+        this.tipoNotaId,
+        this.titulo,
+        this.alias,
+        this.limiteInferior,
+        this.limiteSuperior,
+        this.valorNumerico,
+        this.icono,
+        this.estadoId,
+        this.incluidoLInferior,
+        this.incluidoLSuperior,
+        this.tipoId,
+        this.key,
+        this.usuarioCreacionId,
+        this.usuarioCreadorId,
+        this.fechaCreacion,
+        this.usuarioAccionId,
+        this.fechaAccion,
+        this.fechaEnvio,
+        this.fechaEntrega,
+        this.fechaRecibido,
+        this.fechaVisto,
+        this.fechaRespuesta,
+        this.getSTime});
+  factory ValorTipoNotaRubroSerial.fromJson(Map<String, dynamic> json) => _$ValorTipoNotaRubroSerialFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ValorTipoNotaRubroSerialToJson(this);
+}

@@ -48,6 +48,7 @@ TextColumn get campoTematicoParentTitulo => text().nullable()();
 TextColumn get campoTematicoParentDescripcion => text().nullable()();
 IntColumn get campoTematicoParentEstado => integer().nullable()();
 IntColumn get campoTematicoParentParentId => integer().nullable()();
+IntColumn get calendarioPeriodoId => integer().nullable()();
 
 @override
   Set<Column> get primaryKey => { silaboEventoId, unidadAprendiajeId, sesionAprendizajeId, competenciaId, desempenioIcdId, campoTematicoId};

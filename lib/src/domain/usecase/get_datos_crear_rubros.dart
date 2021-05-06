@@ -43,7 +43,7 @@ class GetDatosCrearRubro extends UseCase<GetDatosCrearRubroResponse, GetDatosCre
             Map<String,dynamic> body = json.decode(utf8.decode(_bytes));
             if(body.containsKey("Successful")&&body.containsKey("Value")&&body["Value"]!=null){
 
-              rubroRepository.saveDatosCrearRubros(body["Value"], params?.silaboEventoId??0);
+              rubroRepository.saveDatosCrearRubros(body["Value"], params?.silaboEventoId??0, params?.calendarioPeriodoId??0);
                controller.add(GetDatosCrearRubroResponse(false, false, false, _total, _received));
             }else{
                controller.add(GetDatosCrearRubroResponse(false, true, false, _total, _received));
