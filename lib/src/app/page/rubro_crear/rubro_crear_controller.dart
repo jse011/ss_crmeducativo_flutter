@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubro_crear/rubro_crear_presenter.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/calendario_periodio_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/competencia_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/criterio_peso_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/criterio_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/criterio_valor_tipo_nota_ui.dart';
@@ -19,7 +21,8 @@ class RubroCrearController extends Controller{
 
   RubroCrearPresenter presenter;
 
-  CursosUi cursosUi;
+  CursosUi? cursosUi;
+  CalendarioPeriodoUI? calendarioPeriodoUI;
   RubroUi? rubroUi;
   bool _showDialog = false;
   bool get showDialog => _showDialog;
@@ -44,6 +47,9 @@ class RubroCrearController extends Controller{
   List<CriterioUi> _criterioUiList = [];
   List<CriterioUi> get criterioUiList => _criterioUiList;
 
+  List<CompetenciaUi> _competenciaUiList = [];
+  List<CompetenciaUi> get competenciaUiList => _competenciaUiList;
+
   List<dynamic> _tableTipoNotaColumns = [];
   List<dynamic> get tableTipoNotaColumns => _tableTipoNotaColumns;
   List<List<dynamic>> _tableTipoNotaCells = [];
@@ -53,7 +59,7 @@ class RubroCrearController extends Controller{
 
 
 
-  RubroCrearController(this.cursosUi, this.rubroUi, rubroRepo, usuarioRepo): presenter = new RubroCrearPresenter(rubroRepo,usuarioRepo);
+  RubroCrearController(this.cursosUi, this.calendarioPeriodoUI, this.rubroUi, rubroRepo, usuarioRepo): presenter = new RubroCrearPresenter(rubroRepo,usuarioRepo);
 
   @override
   void initListeners() {
@@ -91,6 +97,17 @@ class RubroCrearController extends Controller{
       _tipoNotaUiList = [];
       _tipoNotaUi = null;
       iniciarTablaTipoNota();
+      refreshUI();
+    };
+
+
+
+    presenter.getTemaCriteriosOnNext = (List<CompetenciaUi> competenciaUiList){
+      _competenciaUiList = competenciaUiList;
+      refreshUI();
+    };
+    presenter.getTemaCriteriosOnError = (e){
+      _competenciaUiList = [];
       refreshUI();
     };
 
@@ -138,6 +155,7 @@ class RubroCrearController extends Controller{
     presenter.getFormaEvaluacion();
     presenter.getTipoEvaluacion();
     presenter.getTipoNota();
+    presenter.getTemaCriterios(cursosUi, calendarioPeriodoUI);
     print("getFormaEvaluacion");
     super.onInitState();
   }

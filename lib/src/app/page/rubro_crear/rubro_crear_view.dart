@@ -19,9 +19,14 @@ import 'package:ss_crmeducativo_2/src/app/widgets/dropdown_formfield.dart';
 import 'package:ss_crmeducativo_2/src/app/widgets/dropdown_formfield_2.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_configuracion_repository.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_rubro_repository.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/calendario_periodio_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/capacidad_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/competencia_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/criterio_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/forma_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/rubro_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/tema_criterio_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_tipos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_ui.dart';
@@ -31,10 +36,12 @@ import 'package:ss_crmeducativo_2/src/domain/entities/valor_tipo_nota_ui.dart';
 class RubroCrearView extends View{
   CursosUi cursosUi;
   RubroUi? rubroUi;
-  RubroCrearView(this.cursosUi, this.rubroUi);
+  CalendarioPeriodoUI? calendarioPeriodoUI;
+
+  RubroCrearView(this.cursosUi, this.calendarioPeriodoUI, this.rubroUi);
 
   @override
-  RubroCrearViewState createState() => RubroCrearViewState(cursosUi, rubroUi);
+  RubroCrearViewState createState() => RubroCrearViewState(cursosUi, calendarioPeriodoUI, rubroUi);
 
 }
 class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController> with TickerProviderStateMixin{
@@ -47,7 +54,7 @@ class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController
 
 
   String? _myActivity = null;
-  RubroCrearViewState(cursosUi, rubroUi) : super(RubroCrearController(cursosUi, rubroUi, MoorRubroRepository(), MoorConfiguracionRepository()));
+  RubroCrearViewState(cursosUi, calendarioPeriodoUI, rubroUi) : super(RubroCrearController(cursosUi, calendarioPeriodoUI, rubroUi, MoorRubroRepository(), MoorConfiguracionRepository()));
   var _tiuloRubricacontroller = TextEditingController();
 
   int? selectedRow;
@@ -1083,7 +1090,116 @@ class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController
                                 Expanded(
                                   child: TabBarView(
                                     children: [
-                                      Container(),
+                                      SingleChildScrollView(
+                                        physics: ScrollPhysics(),
+                                        child: ListView.builder(
+                                            physics: NeverScrollableScrollPhysics(),
+                                            shrinkWrap: true,
+                                            itemCount: controller.competenciaUiList.length,
+                                            itemBuilder: (BuildContext ctxt, int index) {
+                                              CompetenciaUi  comtenciaUi = controller.competenciaUiList[index];
+                                              return Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Container(
+                                                    padding: EdgeInsets.only(top: 8, left: 24, right: 24, bottom: 8),
+                                                    child: Text(comtenciaUi.nombre??"",style: TextStyle(color: AppTheme.colorAccent, fontSize: 17, fontWeight: FontWeight.w700)),
+                                                  ),
+                                                  ListView.builder(
+                                                    physics: NeverScrollableScrollPhysics(),
+                                                    shrinkWrap: true,
+                                                    itemCount: comtenciaUi.capacidadUiList?.length,
+                                                    itemBuilder: (context, index) {
+                                                      CapacidadUi capacidadUi = comtenciaUi.capacidadUiList![index];
+                                                      return  Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Container(
+                                                            padding: EdgeInsets.only(top: 0, left: 24, right: 24, bottom: 8),
+                                                            child: Text(capacidadUi.nombre??"",style: TextStyle(fontSize: 17,color: AppTheme.greyDarken1)),
+                                                          ),
+                                                          ListView.builder(
+                                                              physics: NeverScrollableScrollPhysics(),
+                                                              shrinkWrap: true,
+                                                              itemCount: capacidadUi.criterioUiList?.length,
+                                                              itemBuilder: (context, index) {
+                                                                CriterioUi criterioUi = capacidadUi.criterioUiList![index];
+
+                                                                return Column(
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  children: [
+                                                                    Container(
+                                                                      padding: EdgeInsets.only(top: 0, left: 24, right: 24, bottom: 8),
+                                                                      child: Row(
+                                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                                        children: [
+                                                                          CachedNetworkImage(
+                                                                            height: 25,
+                                                                            width: 25,
+                                                                            imageUrl: criterioUi.url??"",
+                                                                            placeholder: (context, url) => CircularProgressIndicator(),
+                                                                            errorWidget: (context, url, error) => Icon(Icons.error),
+                                                                          ),
+                                                                          Padding(padding: EdgeInsets.all(4),),
+                                                                          SizedBox(
+                                                                            height: 24.0,
+                                                                            width: 24.0,
+                                                                            child: Checkbox(
+                                                                              value: false,
+                                                                              onChanged: (bool? value) {  },
+                                                                            ),
+                                                                          ),
+                                                                          Padding(padding: EdgeInsets.all(4),),
+                                                                          Expanded(child: Text(criterioUi.icdTitulo??"",style: TextStyle(fontSize: 14)))
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    ListView.builder(
+                                                                      physics: NeverScrollableScrollPhysics(),
+                                                                      shrinkWrap: true,
+                                                                      itemCount: criterioUi.temaCriterioUiList?.length,
+                                                                      itemBuilder: (context, index) {
+                                                                       TemaCriterioUi temaCriterioUi = criterioUi.temaCriterioUiList![index];
+
+                                                                       if((temaCriterioUi.temaCriterioUiList??[]).isNotEmpty){
+                                                                         return Column(
+                                                                           children: [
+                                                                             Text(temaCriterioUi.titulo??""),
+                                                                             ListView.builder(
+                                                                               physics: NeverScrollableScrollPhysics(),
+                                                                               shrinkWrap: true,
+                                                                               itemCount: temaCriterioUi.temaCriterioUiList?.length,
+                                                                               itemBuilder: (context, index) {
+                                                                                 TemaCriterioUi childtemaCriterioUi = temaCriterioUi.temaCriterioUiList![index];
+
+                                                                                 return Text(childtemaCriterioUi.titulo??"");
+                                                                               },
+                                                                             )
+                                                                           ],
+                                                                         );
+                                                                       }else{
+                                                                         return Text(temaCriterioUi.titulo??"");
+                                                                       }
+
+
+                                                                      },
+                                                                    )
+
+                                                                  ],
+                                                                );
+
+                                                              },
+                                                          )
+
+                                                        ],
+                                                      );
+                                                    },
+                                                  )
+                                                ],
+                                              );
+                                            }
+                                        ),
+                                      ),
                                       Container(),
                                       Container()
                                     ],

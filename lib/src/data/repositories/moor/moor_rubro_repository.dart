@@ -3,12 +3,18 @@ import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/tipo_evaluaci
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/tipo_nota_rubro.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/tipos_rubro.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/tools/serializable_convert.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/capacidad_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/competencia_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/criterio_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/forma_evaluacion_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/tema_criterio_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_tipos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/valor_tipo_nota_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/repositories/rubro_repository.dart';
+import 'package:collection/collection.dart';
+
 
 import 'database/app_database.dart';
 import 'model/criterios.dart';
@@ -162,6 +168,110 @@ class MoorRubroRepository extends RubroRepository{
     }
     return tipoNotaUiList;
 
+  }
+
+  @override
+  Future<List<CompetenciaUi>> getTemasCriterios(int calendarioPeriodoId, int silaboEventoId) async{
+    AppDataBase SQL = AppDataBase();
+    var query = SQL.select(SQL.criterio)..where((tbl) => tbl.calendarioPeriodoId.equals(calendarioPeriodoId));
+    query.where((tbl) => tbl.silaboEventoId.equals(silaboEventoId));
+
+    List<CompetenciaUi> competenciaUiList = [];
+    //List<CapacidadUi> capacidadUiList = [];
+    //List<CriterioUi> criterioUiList = [];
+
+    //List<TemaCriterioUi> padreTemaCriterioDataList = [];
+    //List<TemaCriterioUi> temaCriterioDataList = [];
+
+    List<CriterioData> criterioDataList = await query.get();
+    for(CriterioData criterioData in criterioDataList){
+
+
+      CompetenciaUi? competenciaUi = competenciaUiList.firstWhereOrNull((element) => element.competenciaId == criterioData.superCompetenciaId);
+      if(competenciaUi==null){
+        competenciaUi = CompetenciaUi();
+        competenciaUi.capacidadUiList = [];
+        competenciaUi.competenciaId = criterioData.superCompetenciaId;
+        competenciaUi.nombre = criterioData.superCompetenciaNombre;
+        competenciaUi.descripcion = criterioData.superCompetenciaDescripcion;
+        competenciaUi.tipoId = criterioData.superCompetenciaTipoId;
+        competenciaUiList.add(competenciaUi);
+      }
+
+      CapacidadUi? capacidadUi = competenciaUi.capacidadUiList?.firstWhereOrNull((element) => element.capacidadId == criterioData.competenciaId);
+      if(capacidadUi==null){
+        capacidadUi = CapacidadUi();
+        capacidadUi.criterioUiList = [];
+        capacidadUi.capacidadId = criterioData.competenciaId;
+        capacidadUi.nombre = criterioData.competenciaNombre;
+        capacidadUi.descripcion = criterioData.competenciaDescripcion;
+        capacidadUi.tipoId = criterioData.competenciaTipoId;
+        capacidadUi.competenciaId = criterioData.superCompetenciaId;
+        capacidadUi.competenciaUi = competenciaUi;
+        competenciaUi.capacidadUiList?.add(capacidadUi);
+      }
+
+      CriterioUi? criterioUi = capacidadUi.criterioUiList?.firstWhereOrNull((element) => element.desempenioIcdId == criterioData.desempenioIcdId);
+      if(criterioUi==null){
+        criterioUi= CriterioUi();
+        criterioUi.temaCriterioUiList = [];
+        criterioUi.desempenioIcdId = criterioData.desempenioIcdId;
+        criterioUi.desempenioId = criterioData.desempenioId;
+        criterioUi.icdId = criterioData.icdId;
+        criterioUi.desempenioDescripcion = criterioData.DesempenioDescripcion;
+        criterioUi.peso = criterioData.peso;
+        criterioUi.icdTitulo = criterioData.icdTitulo;
+        criterioUi.icdDescripcion = criterioData.icdDescripcion;
+        criterioUi.desempenioIcdDescripcion = criterioData.desempenioIcdDescripcion;
+        criterioUi.capacidadId = criterioData.competenciaId;
+        criterioUi.capacidadUi = capacidadUi;
+        criterioUi.tipoId = criterioData.tipoId;
+        criterioUi.url = criterioData.url;
+        capacidadUi.criterioUiList?.add(criterioUi);
+
+      }
+
+      if((criterioData.campoTematicoParentId??0) > 0) {
+        TemaCriterioUi? padreTemaCriterioUi = criterioUi.temaCriterioUiList?.firstWhereOrNull((element) => element.campoTematicoId == criterioData.campoTematicoParentId);
+        if (padreTemaCriterioUi == null) {
+          padreTemaCriterioUi = TemaCriterioUi();
+          padreTemaCriterioUi.temaCriterioUiList = [];
+          padreTemaCriterioUi.campoTematicoId =
+              criterioData.campoTematicoParentId;
+          padreTemaCriterioUi.titulo = criterioData.campoTematicoParentTitulo;
+          padreTemaCriterioUi.descripcion =
+              criterioData.campoTematicoParentDescripcion;
+          padreTemaCriterioUi.parentId = criterioData.campoTematicoParentId;
+          criterioUi.temaCriterioUiList?.add(padreTemaCriterioUi);
+        }
+
+
+        TemaCriterioUi? temaCriterioUi = padreTemaCriterioUi.temaCriterioUiList?.firstWhereOrNull((element) => element.campoTematicoId == criterioData.campoTematicoId);
+        if(temaCriterioUi==null){
+          temaCriterioUi = TemaCriterioUi();
+          temaCriterioUi.campoTematicoId = criterioData.campoTematicoId;
+          temaCriterioUi.titulo = criterioData.campoTematicoTitulo;
+          temaCriterioUi.descripcion = criterioData.campoTematicoDescripcion;
+          temaCriterioUi.parentId = criterioData.campoTematicoParentId;
+          temaCriterioUi.parent = padreTemaCriterioUi;
+          padreTemaCriterioUi.temaCriterioUiList?.add(temaCriterioUi);
+        }
+
+      }else{
+        TemaCriterioUi? temaCriterioUi = criterioUi.temaCriterioUiList?.firstWhereOrNull((element) => element.campoTematicoId == criterioData.campoTematicoId);
+        if(temaCriterioUi==null){
+          temaCriterioUi = TemaCriterioUi();
+          temaCriterioUi.campoTematicoId = criterioData.campoTematicoId;
+          temaCriterioUi.titulo = criterioData.campoTematicoTitulo;
+          temaCriterioUi.descripcion = criterioData.campoTematicoDescripcion;
+          temaCriterioUi.parentId = criterioData.campoTematicoParentId;
+          criterioUi.temaCriterioUiList?.add(temaCriterioUi);
+        }
+      }
+
+    }
+   // print("competenciaUiList size "+competenciaUiList.length.toString());
+    return competenciaUiList;
   }
 
 }

@@ -862,11 +862,12 @@ class SerializableConvert{
         campoTematicoTitulo: serial.campoTematicoTitulo,
         campoTematicoDescripcion: serial.campoTematicoDescripcion,
         campoTematicoEstado: serial.campoTematicoEstado,
-        campoTematicoParentId: serial.campoTematicoParentParentId,
+        campoTematicoParentId: serial.campoTematicoParentId,
         campoTematicoParentTitulo: serial.campoTematicoParentTitulo,
         campoTematicoParentDescripcion: serial.campoTematicoParentDescripcion,
         campoTematicoParentEstado: serial.campoTematicoParentEstado,
-        campoTematicoParentParentId: serial.campoTematicoParentParentId
+        campoTematicoParentParentId: serial.campoTematicoParentParentId,
+        calendarioPeriodoId: serial.calendarioPeriodoId
     );
   }
 

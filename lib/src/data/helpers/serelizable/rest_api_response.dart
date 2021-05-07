@@ -956,6 +956,7 @@ class CriteriosSerial {
   int? campoTematicoParentEstado;
   int? campoTematicoParentParentId;
 
+  int? calendarioPeriodoId;
 
   CriteriosSerial(
       {this.sesionAprendizajeId,
@@ -989,7 +990,8 @@ class CriteriosSerial {
       this.campoTematicoParentTitulo,
       this.campoTematicoParentDescripcion,
       this.campoTematicoParentEstado,
-      this.campoTematicoParentParentId});
+      this.campoTematicoParentParentId,
+      this.calendarioPeriodoId});
 
   factory CriteriosSerial.fromJson(Map<String, dynamic> json) => _$CriteriosSerialFromJson(json);
 

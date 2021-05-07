@@ -1,8 +1,11 @@
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/calendario_periodio_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/repositories/configuracion_repository.dart';
 import 'package:ss_crmeducativo_2/src/domain/repositories/rubro_repository.dart';
 import 'package:ss_crmeducativo_2/src/domain/usecase/get_forma_evaluacion.dart';
+import 'package:ss_crmeducativo_2/src/domain/usecase/get_temas_criterio.dart';
 import 'package:ss_crmeducativo_2/src/domain/usecase/get_tipo_evaluacion.dart';
 import 'package:ss_crmeducativo_2/src/domain/usecase/get_tipo_nota.dart';
 
@@ -14,11 +17,14 @@ class RubroCrearPresenter extends Presenter{
   late Function getTipoEvaluacionOnNext, getTipoEvaluacionOnError;
   GetTipoNota _getTipoNota;
   late Function getTipoNotaOnNext, getTipoNotaOnError;
+  GetTemaCriterios _getTemaCriterios;
+  late Function getTemaCriteriosOnNext, getTemaCriteriosOnError;
 
   RubroCrearPresenter(RubroRepository rubroRepo, ConfiguracionRepository configuracionRepo):
       _getFormaEvaluacion = new GetFormaEvaluacion(rubroRepo),
       _getTipoEvaluacion = new GetTipoEvaluacion(rubroRepo),
       _getTipoNota = new GetTipoNota(configuracionRepo, rubroRepo),
+        _getTemaCriterios = new GetTemaCriterios(rubroRepo),
         super();
 
   getFormaEvaluacion(){
@@ -30,6 +36,7 @@ class RubroCrearPresenter extends Presenter{
    _getFormaEvaluacion.dispose();
    _getTipoEvaluacion.dispose();
    _getTipoNota.dispose();
+   _getTemaCriterios.dispose();
   }
 
   void getTipoEvaluacion() {
@@ -40,6 +47,9 @@ class RubroCrearPresenter extends Presenter{
     _getTipoNota.execute(_GetTipoNotaCase(this), GetTipoNotaParms());
   }
 
+  void getTemaCriterios(CursosUi? cursosUi, CalendarioPeriodoUI? calendarioPeriodoUI){
+    _getTemaCriterios.execute(_GetTemaCriteriosCase(this), GetTemaCriteriosParms(calendarioPeriodoUI?.id, cursosUi?.silaboEventoId));
+  }
 
 }
 
@@ -112,6 +122,30 @@ class _GetTipoNotaCase extends Observer<GetTipoNotaResponse>{
   void onNext(GetTipoNotaResponse? response) {
     assert(presenter.getTipoNotaOnNext!=null);
     presenter.getTipoNotaOnNext(response?.tipoNotaUiList, response?.tipoEvaluacionUi);
+  }
+
+}
+
+class _GetTemaCriteriosCase extends Observer<GetTemaCriteriosResponse>{
+  RubroCrearPresenter presenter;
+
+  _GetTemaCriteriosCase(this.presenter);
+
+  @override
+  void onComplete() {
+    // TODO: implement onComplete
+  }
+
+  @override
+  void onError(e) {
+    assert(presenter.getTemaCriteriosOnError!=null);
+    presenter.getTemaCriteriosOnError(e);
+  }
+
+  @override
+  void onNext(GetTemaCriteriosResponse? response) {
+    assert(presenter.getTemaCriteriosOnNext!=null);
+    presenter.getTemaCriteriosOnNext(response?.competenciaUiList);
   }
 
 }

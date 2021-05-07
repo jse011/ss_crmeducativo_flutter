@@ -997,6 +997,7 @@ CriteriosSerial _$CriteriosSerialFromJson(Map<String, dynamic> json) {
         json['campoTematicoParentDescripcion'] as String?,
     campoTematicoParentEstado: json['campoTematicoParentEstado'] as int?,
     campoTematicoParentParentId: json['campoTematicoParentParentId'] as int?,
+    calendarioPeriodoId: json['calendarioPeriodoId'] as int?,
   );
 }
 
@@ -1034,6 +1035,7 @@ Map<String, dynamic> _$CriteriosSerialToJson(CriteriosSerial instance) =>
       'campoTematicoParentDescripcion': instance.campoTematicoParentDescripcion,
       'campoTematicoParentEstado': instance.campoTematicoParentEstado,
       'campoTematicoParentParentId': instance.campoTematicoParentParentId,
+      'calendarioPeriodoId': instance.calendarioPeriodoId,
     };
 
 TipoEvaluacionRubroSerial _$TipoEvaluacionRubroSerialFromJson(

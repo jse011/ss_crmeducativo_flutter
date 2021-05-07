@@ -7,6 +7,7 @@ import 'package:ss_crmeducativo_2/src/app/page/login/login_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubro_crear/rubro_crear_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubros/rubro_view.dart';
 import 'package:ss_crmeducativo_2/src/app/widgets/wrap_widget_demo.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/calendario_periodio_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/rubro_ui.dart';
 class AppRouter {
@@ -47,11 +48,14 @@ class AppRouter {
         builder: (context) {
           CursosUi cursosUi = arguments['cursoUi'];
           RubroUi? rubroUi = null;
+          CalendarioPeriodoUI? calendarioPeriodoUI = null;
           if(arguments.containsKey('rubroUi')){
             rubroUi  = arguments['rubroUi'];
           }
-
-          return RubroCrearView(cursosUi, rubroUi);
+          if(arguments.containsKey('calendarioPeriodoUI')){
+            calendarioPeriodoUI  = arguments['calendarioPeriodoUI'];
+          }
+          return RubroCrearView(cursosUi, calendarioPeriodoUI, rubroUi);
         },
       );
     }
@@ -100,10 +104,10 @@ class AppRouter {
         SESION,
     );
   }
-  static void createRouteRubroCrearRouter(BuildContext context, CursosUi cursosUi, RubroUi? rubroUi) {
+  static void createRouteRubroCrearRouter(BuildContext context, CursosUi? cursosUi,CalendarioPeriodoUI? calendarioPeriodoUI, RubroUi? rubroUi) {
     Navigator.pushNamed(context,
         RUBROCREAR,
-        arguments: {'cursoUi': cursosUi, 'rubroUi': rubroUi}
+        arguments: {'cursoUi': cursosUi, 'calendarioPeriodoUI':calendarioPeriodoUI ,'rubroUi': rubroUi}
     );
   }
 

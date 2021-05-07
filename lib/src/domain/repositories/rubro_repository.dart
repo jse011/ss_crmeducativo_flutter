@@ -1,3 +1,4 @@
+import 'package:ss_crmeducativo_2/src/domain/entities/competencia_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/forma_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_ui.dart';
@@ -10,4 +11,6 @@ abstract class RubroRepository{
   Future<List<TipoEvaluacionUi>> getGetTipoEvaluacion();
 
   Future<List<TipoNotaUi>> getGetTipoNota(int programaEducativoId);
+
+  Future<List<CompetenciaUi>> getTemasCriterios(int calendarioPeriodoId, int silaboEventoId);
 }

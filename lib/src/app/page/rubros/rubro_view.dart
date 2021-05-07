@@ -573,7 +573,7 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                   backgroundColor: controller.cursosUi.color2!=null?HexColor(controller.cursosUi.color2):AppTheme.colorAccent,
                   foregroundColor: Colors.white,
                   onPressed: () {
-                    AppRouter.createRouteRubroCrearRouter(context, controller.cursosUi, null);
+                    AppRouter.createRouteRubroCrearRouter(context, controller.cursosUi, controller.calendarioPeriodoUI, null);
                   },
                   child: Icon(Ionicons.add),
                 ),
