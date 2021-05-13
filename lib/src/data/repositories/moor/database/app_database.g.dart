@@ -22729,6 +22729,2029 @@ class $ValorTipoNotaRubroTable extends ValorTipoNotaRubro
   }
 }
 
+class RubroEvaluacionProcesoData extends DataClass
+    implements Insertable<RubroEvaluacionProcesoData> {
+  final int? syncFlag;
+  final DateTime? timestampFlag;
+  final int? usuarioCreacionId;
+  final DateTime? fechaCreacion;
+  final int? usuarioAccionId;
+  final DateTime? fechaAccion;
+  final String rubroEvalProcesoId;
+  final String? titulo;
+  final String? subtitulo;
+  final String? colorFondo;
+  final bool? mColorFondo;
+  final String? valorDefecto;
+  final int? competenciaId;
+  final int? calendarioPeriodoId;
+  final String? anchoColumna;
+  final bool? ocultarColumna;
+  final int? tipoFormulaId;
+  final int? silaboEventoId;
+  final int? tipoRedondeoId;
+  final int? valorRedondeoId;
+  final int? rubroEvalResultadoId;
+  final int? tipoNotaId;
+  final int? sesionAprendizajeId;
+  final int? desempenioIcdId;
+  final int? campoTematicoId;
+  final int? tipoEvaluacionId;
+  final int? estadoId;
+  final int? tipoEscalaEvaluacionId;
+  final int? tipoColorRubroProceso;
+  final int? tiporubroid;
+  final int? formaEvaluacionId;
+  final int? countIndicador;
+  final int? rubroFormal;
+  final int? msje;
+  final double? promedio;
+  final double? desviacionEstandar;
+  final int? unidadAprendizajeId;
+  final int? estrategiaEvaluacionId;
+  final String? tareaId;
+  final String? resultadoTipoNotaId;
+  RubroEvaluacionProcesoData(
+      {this.syncFlag,
+      this.timestampFlag,
+      this.usuarioCreacionId,
+      this.fechaCreacion,
+      this.usuarioAccionId,
+      this.fechaAccion,
+      required this.rubroEvalProcesoId,
+      this.titulo,
+      this.subtitulo,
+      this.colorFondo,
+      this.mColorFondo,
+      this.valorDefecto,
+      this.competenciaId,
+      this.calendarioPeriodoId,
+      this.anchoColumna,
+      this.ocultarColumna,
+      this.tipoFormulaId,
+      this.silaboEventoId,
+      this.tipoRedondeoId,
+      this.valorRedondeoId,
+      this.rubroEvalResultadoId,
+      this.tipoNotaId,
+      this.sesionAprendizajeId,
+      this.desempenioIcdId,
+      this.campoTematicoId,
+      this.tipoEvaluacionId,
+      this.estadoId,
+      this.tipoEscalaEvaluacionId,
+      this.tipoColorRubroProceso,
+      this.tiporubroid,
+      this.formaEvaluacionId,
+      this.countIndicador,
+      this.rubroFormal,
+      this.msje,
+      this.promedio,
+      this.desviacionEstandar,
+      this.unidadAprendizajeId,
+      this.estrategiaEvaluacionId,
+      this.tareaId,
+      this.resultadoTipoNotaId});
+  factory RubroEvaluacionProcesoData.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
+      {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final intType = db.typeSystem.forDartType<int>();
+    final dateTimeType = db.typeSystem.forDartType<DateTime>();
+    final stringType = db.typeSystem.forDartType<String>();
+    final boolType = db.typeSystem.forDartType<bool>();
+    final doubleType = db.typeSystem.forDartType<double>();
+    return RubroEvaluacionProcesoData(
+      syncFlag:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}sync_flag']),
+      timestampFlag: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}timestamp_flag']),
+      usuarioCreacionId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}usuario_creacion_id']),
+      fechaCreacion: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_creacion']),
+      usuarioAccionId: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}usuario_accion_id']),
+      fechaAccion: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_accion']),
+      rubroEvalProcesoId: stringType.mapFromDatabaseResponse(
+          data['${effectivePrefix}rubro_eval_proceso_id'])!,
+      titulo:
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}titulo']),
+      subtitulo: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}subtitulo']),
+      colorFondo: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}color_fondo']),
+      mColorFondo: boolType
+          .mapFromDatabaseResponse(data['${effectivePrefix}m_color_fondo']),
+      valorDefecto: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}valor_defecto']),
+      competenciaId: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}competencia_id']),
+      calendarioPeriodoId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}calendario_periodo_id']),
+      anchoColumna: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}ancho_columna']),
+      ocultarColumna: boolType
+          .mapFromDatabaseResponse(data['${effectivePrefix}ocultar_columna']),
+      tipoFormulaId: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}tipo_formula_id']),
+      silaboEventoId: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}silabo_evento_id']),
+      tipoRedondeoId: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}tipo_redondeo_id']),
+      valorRedondeoId: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}valor_redondeo_id']),
+      rubroEvalResultadoId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}rubro_eval_resultado_id']),
+      tipoNotaId: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}tipo_nota_id']),
+      sesionAprendizajeId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}sesion_aprendizaje_id']),
+      desempenioIcdId: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}desempenio_icd_id']),
+      campoTematicoId: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}campo_tematico_id']),
+      tipoEvaluacionId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}tipo_evaluacion_id']),
+      estadoId:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
+      tipoEscalaEvaluacionId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}tipo_escala_evaluacion_id']),
+      tipoColorRubroProceso: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}tipo_color_rubro_proceso']),
+      tiporubroid: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}tiporubroid']),
+      formaEvaluacionId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}forma_evaluacion_id']),
+      countIndicador: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}count_indicador']),
+      rubroFormal: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}rubro_formal']),
+      msje: intType.mapFromDatabaseResponse(data['${effectivePrefix}msje']),
+      promedio: doubleType
+          .mapFromDatabaseResponse(data['${effectivePrefix}promedio']),
+      desviacionEstandar: doubleType.mapFromDatabaseResponse(
+          data['${effectivePrefix}desviacion_estandar']),
+      unidadAprendizajeId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}unidad_aprendizaje_id']),
+      estrategiaEvaluacionId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}estrategia_evaluacion_id']),
+      tareaId: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}tarea_id']),
+      resultadoTipoNotaId: stringType.mapFromDatabaseResponse(
+          data['${effectivePrefix}resultado_tipo_nota_id']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || syncFlag != null) {
+      map['sync_flag'] = Variable<int?>(syncFlag);
+    }
+    if (!nullToAbsent || timestampFlag != null) {
+      map['timestamp_flag'] = Variable<DateTime?>(timestampFlag);
+    }
+    if (!nullToAbsent || usuarioCreacionId != null) {
+      map['usuario_creacion_id'] = Variable<int?>(usuarioCreacionId);
+    }
+    if (!nullToAbsent || fechaCreacion != null) {
+      map['fecha_creacion'] = Variable<DateTime?>(fechaCreacion);
+    }
+    if (!nullToAbsent || usuarioAccionId != null) {
+      map['usuario_accion_id'] = Variable<int?>(usuarioAccionId);
+    }
+    if (!nullToAbsent || fechaAccion != null) {
+      map['fecha_accion'] = Variable<DateTime?>(fechaAccion);
+    }
+    map['rubro_eval_proceso_id'] = Variable<String>(rubroEvalProcesoId);
+    if (!nullToAbsent || titulo != null) {
+      map['titulo'] = Variable<String?>(titulo);
+    }
+    if (!nullToAbsent || subtitulo != null) {
+      map['subtitulo'] = Variable<String?>(subtitulo);
+    }
+    if (!nullToAbsent || colorFondo != null) {
+      map['color_fondo'] = Variable<String?>(colorFondo);
+    }
+    if (!nullToAbsent || mColorFondo != null) {
+      map['m_color_fondo'] = Variable<bool?>(mColorFondo);
+    }
+    if (!nullToAbsent || valorDefecto != null) {
+      map['valor_defecto'] = Variable<String?>(valorDefecto);
+    }
+    if (!nullToAbsent || competenciaId != null) {
+      map['competencia_id'] = Variable<int?>(competenciaId);
+    }
+    if (!nullToAbsent || calendarioPeriodoId != null) {
+      map['calendario_periodo_id'] = Variable<int?>(calendarioPeriodoId);
+    }
+    if (!nullToAbsent || anchoColumna != null) {
+      map['ancho_columna'] = Variable<String?>(anchoColumna);
+    }
+    if (!nullToAbsent || ocultarColumna != null) {
+      map['ocultar_columna'] = Variable<bool?>(ocultarColumna);
+    }
+    if (!nullToAbsent || tipoFormulaId != null) {
+      map['tipo_formula_id'] = Variable<int?>(tipoFormulaId);
+    }
+    if (!nullToAbsent || silaboEventoId != null) {
+      map['silabo_evento_id'] = Variable<int?>(silaboEventoId);
+    }
+    if (!nullToAbsent || tipoRedondeoId != null) {
+      map['tipo_redondeo_id'] = Variable<int?>(tipoRedondeoId);
+    }
+    if (!nullToAbsent || valorRedondeoId != null) {
+      map['valor_redondeo_id'] = Variable<int?>(valorRedondeoId);
+    }
+    if (!nullToAbsent || rubroEvalResultadoId != null) {
+      map['rubro_eval_resultado_id'] = Variable<int?>(rubroEvalResultadoId);
+    }
+    if (!nullToAbsent || tipoNotaId != null) {
+      map['tipo_nota_id'] = Variable<int?>(tipoNotaId);
+    }
+    if (!nullToAbsent || sesionAprendizajeId != null) {
+      map['sesion_aprendizaje_id'] = Variable<int?>(sesionAprendizajeId);
+    }
+    if (!nullToAbsent || desempenioIcdId != null) {
+      map['desempenio_icd_id'] = Variable<int?>(desempenioIcdId);
+    }
+    if (!nullToAbsent || campoTematicoId != null) {
+      map['campo_tematico_id'] = Variable<int?>(campoTematicoId);
+    }
+    if (!nullToAbsent || tipoEvaluacionId != null) {
+      map['tipo_evaluacion_id'] = Variable<int?>(tipoEvaluacionId);
+    }
+    if (!nullToAbsent || estadoId != null) {
+      map['estado_id'] = Variable<int?>(estadoId);
+    }
+    if (!nullToAbsent || tipoEscalaEvaluacionId != null) {
+      map['tipo_escala_evaluacion_id'] = Variable<int?>(tipoEscalaEvaluacionId);
+    }
+    if (!nullToAbsent || tipoColorRubroProceso != null) {
+      map['tipo_color_rubro_proceso'] = Variable<int?>(tipoColorRubroProceso);
+    }
+    if (!nullToAbsent || tiporubroid != null) {
+      map['tiporubroid'] = Variable<int?>(tiporubroid);
+    }
+    if (!nullToAbsent || formaEvaluacionId != null) {
+      map['forma_evaluacion_id'] = Variable<int?>(formaEvaluacionId);
+    }
+    if (!nullToAbsent || countIndicador != null) {
+      map['count_indicador'] = Variable<int?>(countIndicador);
+    }
+    if (!nullToAbsent || rubroFormal != null) {
+      map['rubro_formal'] = Variable<int?>(rubroFormal);
+    }
+    if (!nullToAbsent || msje != null) {
+      map['msje'] = Variable<int?>(msje);
+    }
+    if (!nullToAbsent || promedio != null) {
+      map['promedio'] = Variable<double?>(promedio);
+    }
+    if (!nullToAbsent || desviacionEstandar != null) {
+      map['desviacion_estandar'] = Variable<double?>(desviacionEstandar);
+    }
+    if (!nullToAbsent || unidadAprendizajeId != null) {
+      map['unidad_aprendizaje_id'] = Variable<int?>(unidadAprendizajeId);
+    }
+    if (!nullToAbsent || estrategiaEvaluacionId != null) {
+      map['estrategia_evaluacion_id'] = Variable<int?>(estrategiaEvaluacionId);
+    }
+    if (!nullToAbsent || tareaId != null) {
+      map['tarea_id'] = Variable<String?>(tareaId);
+    }
+    if (!nullToAbsent || resultadoTipoNotaId != null) {
+      map['resultado_tipo_nota_id'] = Variable<String?>(resultadoTipoNotaId);
+    }
+    return map;
+  }
+
+  RubroEvaluacionProcesoCompanion toCompanion(bool nullToAbsent) {
+    return RubroEvaluacionProcesoCompanion(
+      syncFlag: syncFlag == null && nullToAbsent
+          ? const Value.absent()
+          : Value(syncFlag),
+      timestampFlag: timestampFlag == null && nullToAbsent
+          ? const Value.absent()
+          : Value(timestampFlag),
+      usuarioCreacionId: usuarioCreacionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioCreacionId),
+      fechaCreacion: fechaCreacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaCreacion),
+      usuarioAccionId: usuarioAccionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioAccionId),
+      fechaAccion: fechaAccion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaAccion),
+      rubroEvalProcesoId: Value(rubroEvalProcesoId),
+      titulo:
+          titulo == null && nullToAbsent ? const Value.absent() : Value(titulo),
+      subtitulo: subtitulo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(subtitulo),
+      colorFondo: colorFondo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(colorFondo),
+      mColorFondo: mColorFondo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(mColorFondo),
+      valorDefecto: valorDefecto == null && nullToAbsent
+          ? const Value.absent()
+          : Value(valorDefecto),
+      competenciaId: competenciaId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(competenciaId),
+      calendarioPeriodoId: calendarioPeriodoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(calendarioPeriodoId),
+      anchoColumna: anchoColumna == null && nullToAbsent
+          ? const Value.absent()
+          : Value(anchoColumna),
+      ocultarColumna: ocultarColumna == null && nullToAbsent
+          ? const Value.absent()
+          : Value(ocultarColumna),
+      tipoFormulaId: tipoFormulaId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(tipoFormulaId),
+      silaboEventoId: silaboEventoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(silaboEventoId),
+      tipoRedondeoId: tipoRedondeoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(tipoRedondeoId),
+      valorRedondeoId: valorRedondeoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(valorRedondeoId),
+      rubroEvalResultadoId: rubroEvalResultadoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(rubroEvalResultadoId),
+      tipoNotaId: tipoNotaId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(tipoNotaId),
+      sesionAprendizajeId: sesionAprendizajeId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(sesionAprendizajeId),
+      desempenioIcdId: desempenioIcdId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(desempenioIcdId),
+      campoTematicoId: campoTematicoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(campoTematicoId),
+      tipoEvaluacionId: tipoEvaluacionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(tipoEvaluacionId),
+      estadoId: estadoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(estadoId),
+      tipoEscalaEvaluacionId: tipoEscalaEvaluacionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(tipoEscalaEvaluacionId),
+      tipoColorRubroProceso: tipoColorRubroProceso == null && nullToAbsent
+          ? const Value.absent()
+          : Value(tipoColorRubroProceso),
+      tiporubroid: tiporubroid == null && nullToAbsent
+          ? const Value.absent()
+          : Value(tiporubroid),
+      formaEvaluacionId: formaEvaluacionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(formaEvaluacionId),
+      countIndicador: countIndicador == null && nullToAbsent
+          ? const Value.absent()
+          : Value(countIndicador),
+      rubroFormal: rubroFormal == null && nullToAbsent
+          ? const Value.absent()
+          : Value(rubroFormal),
+      msje: msje == null && nullToAbsent ? const Value.absent() : Value(msje),
+      promedio: promedio == null && nullToAbsent
+          ? const Value.absent()
+          : Value(promedio),
+      desviacionEstandar: desviacionEstandar == null && nullToAbsent
+          ? const Value.absent()
+          : Value(desviacionEstandar),
+      unidadAprendizajeId: unidadAprendizajeId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(unidadAprendizajeId),
+      estrategiaEvaluacionId: estrategiaEvaluacionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(estrategiaEvaluacionId),
+      tareaId: tareaId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(tareaId),
+      resultadoTipoNotaId: resultadoTipoNotaId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(resultadoTipoNotaId),
+    );
+  }
+
+  factory RubroEvaluacionProcesoData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return RubroEvaluacionProcesoData(
+      syncFlag: serializer.fromJson<int?>(json['syncFlag']),
+      timestampFlag: serializer.fromJson<DateTime?>(json['timestampFlag']),
+      usuarioCreacionId: serializer.fromJson<int?>(json['usuarioCreacionId']),
+      fechaCreacion: serializer.fromJson<DateTime?>(json['fechaCreacion']),
+      usuarioAccionId: serializer.fromJson<int?>(json['usuarioAccionId']),
+      fechaAccion: serializer.fromJson<DateTime?>(json['fechaAccion']),
+      rubroEvalProcesoId:
+          serializer.fromJson<String>(json['rubroEvalProcesoId']),
+      titulo: serializer.fromJson<String?>(json['titulo']),
+      subtitulo: serializer.fromJson<String?>(json['subtitulo']),
+      colorFondo: serializer.fromJson<String?>(json['colorFondo']),
+      mColorFondo: serializer.fromJson<bool?>(json['mColorFondo']),
+      valorDefecto: serializer.fromJson<String?>(json['valorDefecto']),
+      competenciaId: serializer.fromJson<int?>(json['competenciaId']),
+      calendarioPeriodoId:
+          serializer.fromJson<int?>(json['calendarioPeriodoId']),
+      anchoColumna: serializer.fromJson<String?>(json['anchoColumna']),
+      ocultarColumna: serializer.fromJson<bool?>(json['ocultarColumna']),
+      tipoFormulaId: serializer.fromJson<int?>(json['tipoFormulaId']),
+      silaboEventoId: serializer.fromJson<int?>(json['silaboEventoId']),
+      tipoRedondeoId: serializer.fromJson<int?>(json['tipoRedondeoId']),
+      valorRedondeoId: serializer.fromJson<int?>(json['valorRedondeoId']),
+      rubroEvalResultadoId:
+          serializer.fromJson<int?>(json['rubroEvalResultadoId']),
+      tipoNotaId: serializer.fromJson<int?>(json['tipoNotaId']),
+      sesionAprendizajeId:
+          serializer.fromJson<int?>(json['sesionAprendizajeId']),
+      desempenioIcdId: serializer.fromJson<int?>(json['desempenioIcdId']),
+      campoTematicoId: serializer.fromJson<int?>(json['campoTematicoId']),
+      tipoEvaluacionId: serializer.fromJson<int?>(json['tipoEvaluacionId']),
+      estadoId: serializer.fromJson<int?>(json['estadoId']),
+      tipoEscalaEvaluacionId:
+          serializer.fromJson<int?>(json['tipoEscalaEvaluacionId']),
+      tipoColorRubroProceso:
+          serializer.fromJson<int?>(json['tipoColorRubroProceso']),
+      tiporubroid: serializer.fromJson<int?>(json['tiporubroid']),
+      formaEvaluacionId: serializer.fromJson<int?>(json['formaEvaluacionId']),
+      countIndicador: serializer.fromJson<int?>(json['countIndicador']),
+      rubroFormal: serializer.fromJson<int?>(json['rubroFormal']),
+      msje: serializer.fromJson<int?>(json['msje']),
+      promedio: serializer.fromJson<double?>(json['promedio']),
+      desviacionEstandar:
+          serializer.fromJson<double?>(json['desviacionEstandar']),
+      unidadAprendizajeId:
+          serializer.fromJson<int?>(json['unidadAprendizajeId']),
+      estrategiaEvaluacionId:
+          serializer.fromJson<int?>(json['estrategiaEvaluacionId']),
+      tareaId: serializer.fromJson<String?>(json['tareaId']),
+      resultadoTipoNotaId:
+          serializer.fromJson<String?>(json['resultadoTipoNotaId']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'syncFlag': serializer.toJson<int?>(syncFlag),
+      'timestampFlag': serializer.toJson<DateTime?>(timestampFlag),
+      'usuarioCreacionId': serializer.toJson<int?>(usuarioCreacionId),
+      'fechaCreacion': serializer.toJson<DateTime?>(fechaCreacion),
+      'usuarioAccionId': serializer.toJson<int?>(usuarioAccionId),
+      'fechaAccion': serializer.toJson<DateTime?>(fechaAccion),
+      'rubroEvalProcesoId': serializer.toJson<String>(rubroEvalProcesoId),
+      'titulo': serializer.toJson<String?>(titulo),
+      'subtitulo': serializer.toJson<String?>(subtitulo),
+      'colorFondo': serializer.toJson<String?>(colorFondo),
+      'mColorFondo': serializer.toJson<bool?>(mColorFondo),
+      'valorDefecto': serializer.toJson<String?>(valorDefecto),
+      'competenciaId': serializer.toJson<int?>(competenciaId),
+      'calendarioPeriodoId': serializer.toJson<int?>(calendarioPeriodoId),
+      'anchoColumna': serializer.toJson<String?>(anchoColumna),
+      'ocultarColumna': serializer.toJson<bool?>(ocultarColumna),
+      'tipoFormulaId': serializer.toJson<int?>(tipoFormulaId),
+      'silaboEventoId': serializer.toJson<int?>(silaboEventoId),
+      'tipoRedondeoId': serializer.toJson<int?>(tipoRedondeoId),
+      'valorRedondeoId': serializer.toJson<int?>(valorRedondeoId),
+      'rubroEvalResultadoId': serializer.toJson<int?>(rubroEvalResultadoId),
+      'tipoNotaId': serializer.toJson<int?>(tipoNotaId),
+      'sesionAprendizajeId': serializer.toJson<int?>(sesionAprendizajeId),
+      'desempenioIcdId': serializer.toJson<int?>(desempenioIcdId),
+      'campoTematicoId': serializer.toJson<int?>(campoTematicoId),
+      'tipoEvaluacionId': serializer.toJson<int?>(tipoEvaluacionId),
+      'estadoId': serializer.toJson<int?>(estadoId),
+      'tipoEscalaEvaluacionId': serializer.toJson<int?>(tipoEscalaEvaluacionId),
+      'tipoColorRubroProceso': serializer.toJson<int?>(tipoColorRubroProceso),
+      'tiporubroid': serializer.toJson<int?>(tiporubroid),
+      'formaEvaluacionId': serializer.toJson<int?>(formaEvaluacionId),
+      'countIndicador': serializer.toJson<int?>(countIndicador),
+      'rubroFormal': serializer.toJson<int?>(rubroFormal),
+      'msje': serializer.toJson<int?>(msje),
+      'promedio': serializer.toJson<double?>(promedio),
+      'desviacionEstandar': serializer.toJson<double?>(desviacionEstandar),
+      'unidadAprendizajeId': serializer.toJson<int?>(unidadAprendizajeId),
+      'estrategiaEvaluacionId': serializer.toJson<int?>(estrategiaEvaluacionId),
+      'tareaId': serializer.toJson<String?>(tareaId),
+      'resultadoTipoNotaId': serializer.toJson<String?>(resultadoTipoNotaId),
+    };
+  }
+
+  RubroEvaluacionProcesoData copyWith(
+          {int? syncFlag,
+          DateTime? timestampFlag,
+          int? usuarioCreacionId,
+          DateTime? fechaCreacion,
+          int? usuarioAccionId,
+          DateTime? fechaAccion,
+          String? rubroEvalProcesoId,
+          String? titulo,
+          String? subtitulo,
+          String? colorFondo,
+          bool? mColorFondo,
+          String? valorDefecto,
+          int? competenciaId,
+          int? calendarioPeriodoId,
+          String? anchoColumna,
+          bool? ocultarColumna,
+          int? tipoFormulaId,
+          int? silaboEventoId,
+          int? tipoRedondeoId,
+          int? valorRedondeoId,
+          int? rubroEvalResultadoId,
+          int? tipoNotaId,
+          int? sesionAprendizajeId,
+          int? desempenioIcdId,
+          int? campoTematicoId,
+          int? tipoEvaluacionId,
+          int? estadoId,
+          int? tipoEscalaEvaluacionId,
+          int? tipoColorRubroProceso,
+          int? tiporubroid,
+          int? formaEvaluacionId,
+          int? countIndicador,
+          int? rubroFormal,
+          int? msje,
+          double? promedio,
+          double? desviacionEstandar,
+          int? unidadAprendizajeId,
+          int? estrategiaEvaluacionId,
+          String? tareaId,
+          String? resultadoTipoNotaId}) =>
+      RubroEvaluacionProcesoData(
+        syncFlag: syncFlag ?? this.syncFlag,
+        timestampFlag: timestampFlag ?? this.timestampFlag,
+        usuarioCreacionId: usuarioCreacionId ?? this.usuarioCreacionId,
+        fechaCreacion: fechaCreacion ?? this.fechaCreacion,
+        usuarioAccionId: usuarioAccionId ?? this.usuarioAccionId,
+        fechaAccion: fechaAccion ?? this.fechaAccion,
+        rubroEvalProcesoId: rubroEvalProcesoId ?? this.rubroEvalProcesoId,
+        titulo: titulo ?? this.titulo,
+        subtitulo: subtitulo ?? this.subtitulo,
+        colorFondo: colorFondo ?? this.colorFondo,
+        mColorFondo: mColorFondo ?? this.mColorFondo,
+        valorDefecto: valorDefecto ?? this.valorDefecto,
+        competenciaId: competenciaId ?? this.competenciaId,
+        calendarioPeriodoId: calendarioPeriodoId ?? this.calendarioPeriodoId,
+        anchoColumna: anchoColumna ?? this.anchoColumna,
+        ocultarColumna: ocultarColumna ?? this.ocultarColumna,
+        tipoFormulaId: tipoFormulaId ?? this.tipoFormulaId,
+        silaboEventoId: silaboEventoId ?? this.silaboEventoId,
+        tipoRedondeoId: tipoRedondeoId ?? this.tipoRedondeoId,
+        valorRedondeoId: valorRedondeoId ?? this.valorRedondeoId,
+        rubroEvalResultadoId: rubroEvalResultadoId ?? this.rubroEvalResultadoId,
+        tipoNotaId: tipoNotaId ?? this.tipoNotaId,
+        sesionAprendizajeId: sesionAprendizajeId ?? this.sesionAprendizajeId,
+        desempenioIcdId: desempenioIcdId ?? this.desempenioIcdId,
+        campoTematicoId: campoTematicoId ?? this.campoTematicoId,
+        tipoEvaluacionId: tipoEvaluacionId ?? this.tipoEvaluacionId,
+        estadoId: estadoId ?? this.estadoId,
+        tipoEscalaEvaluacionId:
+            tipoEscalaEvaluacionId ?? this.tipoEscalaEvaluacionId,
+        tipoColorRubroProceso:
+            tipoColorRubroProceso ?? this.tipoColorRubroProceso,
+        tiporubroid: tiporubroid ?? this.tiporubroid,
+        formaEvaluacionId: formaEvaluacionId ?? this.formaEvaluacionId,
+        countIndicador: countIndicador ?? this.countIndicador,
+        rubroFormal: rubroFormal ?? this.rubroFormal,
+        msje: msje ?? this.msje,
+        promedio: promedio ?? this.promedio,
+        desviacionEstandar: desviacionEstandar ?? this.desviacionEstandar,
+        unidadAprendizajeId: unidadAprendizajeId ?? this.unidadAprendizajeId,
+        estrategiaEvaluacionId:
+            estrategiaEvaluacionId ?? this.estrategiaEvaluacionId,
+        tareaId: tareaId ?? this.tareaId,
+        resultadoTipoNotaId: resultadoTipoNotaId ?? this.resultadoTipoNotaId,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('RubroEvaluacionProcesoData(')
+          ..write('syncFlag: $syncFlag, ')
+          ..write('timestampFlag: $timestampFlag, ')
+          ..write('usuarioCreacionId: $usuarioCreacionId, ')
+          ..write('fechaCreacion: $fechaCreacion, ')
+          ..write('usuarioAccionId: $usuarioAccionId, ')
+          ..write('fechaAccion: $fechaAccion, ')
+          ..write('rubroEvalProcesoId: $rubroEvalProcesoId, ')
+          ..write('titulo: $titulo, ')
+          ..write('subtitulo: $subtitulo, ')
+          ..write('colorFondo: $colorFondo, ')
+          ..write('mColorFondo: $mColorFondo, ')
+          ..write('valorDefecto: $valorDefecto, ')
+          ..write('competenciaId: $competenciaId, ')
+          ..write('calendarioPeriodoId: $calendarioPeriodoId, ')
+          ..write('anchoColumna: $anchoColumna, ')
+          ..write('ocultarColumna: $ocultarColumna, ')
+          ..write('tipoFormulaId: $tipoFormulaId, ')
+          ..write('silaboEventoId: $silaboEventoId, ')
+          ..write('tipoRedondeoId: $tipoRedondeoId, ')
+          ..write('valorRedondeoId: $valorRedondeoId, ')
+          ..write('rubroEvalResultadoId: $rubroEvalResultadoId, ')
+          ..write('tipoNotaId: $tipoNotaId, ')
+          ..write('sesionAprendizajeId: $sesionAprendizajeId, ')
+          ..write('desempenioIcdId: $desempenioIcdId, ')
+          ..write('campoTematicoId: $campoTematicoId, ')
+          ..write('tipoEvaluacionId: $tipoEvaluacionId, ')
+          ..write('estadoId: $estadoId, ')
+          ..write('tipoEscalaEvaluacionId: $tipoEscalaEvaluacionId, ')
+          ..write('tipoColorRubroProceso: $tipoColorRubroProceso, ')
+          ..write('tiporubroid: $tiporubroid, ')
+          ..write('formaEvaluacionId: $formaEvaluacionId, ')
+          ..write('countIndicador: $countIndicador, ')
+          ..write('rubroFormal: $rubroFormal, ')
+          ..write('msje: $msje, ')
+          ..write('promedio: $promedio, ')
+          ..write('desviacionEstandar: $desviacionEstandar, ')
+          ..write('unidadAprendizajeId: $unidadAprendizajeId, ')
+          ..write('estrategiaEvaluacionId: $estrategiaEvaluacionId, ')
+          ..write('tareaId: $tareaId, ')
+          ..write('resultadoTipoNotaId: $resultadoTipoNotaId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      syncFlag.hashCode,
+      $mrjc(
+          timestampFlag.hashCode,
+          $mrjc(
+              usuarioCreacionId.hashCode,
+              $mrjc(
+                  fechaCreacion.hashCode,
+                  $mrjc(
+                      usuarioAccionId.hashCode,
+                      $mrjc(
+                          fechaAccion.hashCode,
+                          $mrjc(
+                              rubroEvalProcesoId.hashCode,
+                              $mrjc(
+                                  titulo.hashCode,
+                                  $mrjc(
+                                      subtitulo.hashCode,
+                                      $mrjc(
+                                          colorFondo.hashCode,
+                                          $mrjc(
+                                              mColorFondo.hashCode,
+                                              $mrjc(
+                                                  valorDefecto.hashCode,
+                                                  $mrjc(
+                                                      competenciaId.hashCode,
+                                                      $mrjc(
+                                                          calendarioPeriodoId
+                                                              .hashCode,
+                                                          $mrjc(
+                                                              anchoColumna
+                                                                  .hashCode,
+                                                              $mrjc(
+                                                                  ocultarColumna
+                                                                      .hashCode,
+                                                                  $mrjc(
+                                                                      tipoFormulaId
+                                                                          .hashCode,
+                                                                      $mrjc(
+                                                                          silaboEventoId
+                                                                              .hashCode,
+                                                                          $mrjc(
+                                                                              tipoRedondeoId.hashCode,
+                                                                              $mrjc(valorRedondeoId.hashCode, $mrjc(rubroEvalResultadoId.hashCode, $mrjc(tipoNotaId.hashCode, $mrjc(sesionAprendizajeId.hashCode, $mrjc(desempenioIcdId.hashCode, $mrjc(campoTematicoId.hashCode, $mrjc(tipoEvaluacionId.hashCode, $mrjc(estadoId.hashCode, $mrjc(tipoEscalaEvaluacionId.hashCode, $mrjc(tipoColorRubroProceso.hashCode, $mrjc(tiporubroid.hashCode, $mrjc(formaEvaluacionId.hashCode, $mrjc(countIndicador.hashCode, $mrjc(rubroFormal.hashCode, $mrjc(msje.hashCode, $mrjc(promedio.hashCode, $mrjc(desviacionEstandar.hashCode, $mrjc(unidadAprendizajeId.hashCode, $mrjc(estrategiaEvaluacionId.hashCode, $mrjc(tareaId.hashCode, resultadoTipoNotaId.hashCode))))))))))))))))))))))))))))))))))))))));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is RubroEvaluacionProcesoData &&
+          other.syncFlag == this.syncFlag &&
+          other.timestampFlag == this.timestampFlag &&
+          other.usuarioCreacionId == this.usuarioCreacionId &&
+          other.fechaCreacion == this.fechaCreacion &&
+          other.usuarioAccionId == this.usuarioAccionId &&
+          other.fechaAccion == this.fechaAccion &&
+          other.rubroEvalProcesoId == this.rubroEvalProcesoId &&
+          other.titulo == this.titulo &&
+          other.subtitulo == this.subtitulo &&
+          other.colorFondo == this.colorFondo &&
+          other.mColorFondo == this.mColorFondo &&
+          other.valorDefecto == this.valorDefecto &&
+          other.competenciaId == this.competenciaId &&
+          other.calendarioPeriodoId == this.calendarioPeriodoId &&
+          other.anchoColumna == this.anchoColumna &&
+          other.ocultarColumna == this.ocultarColumna &&
+          other.tipoFormulaId == this.tipoFormulaId &&
+          other.silaboEventoId == this.silaboEventoId &&
+          other.tipoRedondeoId == this.tipoRedondeoId &&
+          other.valorRedondeoId == this.valorRedondeoId &&
+          other.rubroEvalResultadoId == this.rubroEvalResultadoId &&
+          other.tipoNotaId == this.tipoNotaId &&
+          other.sesionAprendizajeId == this.sesionAprendizajeId &&
+          other.desempenioIcdId == this.desempenioIcdId &&
+          other.campoTematicoId == this.campoTematicoId &&
+          other.tipoEvaluacionId == this.tipoEvaluacionId &&
+          other.estadoId == this.estadoId &&
+          other.tipoEscalaEvaluacionId == this.tipoEscalaEvaluacionId &&
+          other.tipoColorRubroProceso == this.tipoColorRubroProceso &&
+          other.tiporubroid == this.tiporubroid &&
+          other.formaEvaluacionId == this.formaEvaluacionId &&
+          other.countIndicador == this.countIndicador &&
+          other.rubroFormal == this.rubroFormal &&
+          other.msje == this.msje &&
+          other.promedio == this.promedio &&
+          other.desviacionEstandar == this.desviacionEstandar &&
+          other.unidadAprendizajeId == this.unidadAprendizajeId &&
+          other.estrategiaEvaluacionId == this.estrategiaEvaluacionId &&
+          other.tareaId == this.tareaId &&
+          other.resultadoTipoNotaId == this.resultadoTipoNotaId);
+}
+
+class RubroEvaluacionProcesoCompanion
+    extends UpdateCompanion<RubroEvaluacionProcesoData> {
+  final Value<int?> syncFlag;
+  final Value<DateTime?> timestampFlag;
+  final Value<int?> usuarioCreacionId;
+  final Value<DateTime?> fechaCreacion;
+  final Value<int?> usuarioAccionId;
+  final Value<DateTime?> fechaAccion;
+  final Value<String> rubroEvalProcesoId;
+  final Value<String?> titulo;
+  final Value<String?> subtitulo;
+  final Value<String?> colorFondo;
+  final Value<bool?> mColorFondo;
+  final Value<String?> valorDefecto;
+  final Value<int?> competenciaId;
+  final Value<int?> calendarioPeriodoId;
+  final Value<String?> anchoColumna;
+  final Value<bool?> ocultarColumna;
+  final Value<int?> tipoFormulaId;
+  final Value<int?> silaboEventoId;
+  final Value<int?> tipoRedondeoId;
+  final Value<int?> valorRedondeoId;
+  final Value<int?> rubroEvalResultadoId;
+  final Value<int?> tipoNotaId;
+  final Value<int?> sesionAprendizajeId;
+  final Value<int?> desempenioIcdId;
+  final Value<int?> campoTematicoId;
+  final Value<int?> tipoEvaluacionId;
+  final Value<int?> estadoId;
+  final Value<int?> tipoEscalaEvaluacionId;
+  final Value<int?> tipoColorRubroProceso;
+  final Value<int?> tiporubroid;
+  final Value<int?> formaEvaluacionId;
+  final Value<int?> countIndicador;
+  final Value<int?> rubroFormal;
+  final Value<int?> msje;
+  final Value<double?> promedio;
+  final Value<double?> desviacionEstandar;
+  final Value<int?> unidadAprendizajeId;
+  final Value<int?> estrategiaEvaluacionId;
+  final Value<String?> tareaId;
+  final Value<String?> resultadoTipoNotaId;
+  const RubroEvaluacionProcesoCompanion({
+    this.syncFlag = const Value.absent(),
+    this.timestampFlag = const Value.absent(),
+    this.usuarioCreacionId = const Value.absent(),
+    this.fechaCreacion = const Value.absent(),
+    this.usuarioAccionId = const Value.absent(),
+    this.fechaAccion = const Value.absent(),
+    this.rubroEvalProcesoId = const Value.absent(),
+    this.titulo = const Value.absent(),
+    this.subtitulo = const Value.absent(),
+    this.colorFondo = const Value.absent(),
+    this.mColorFondo = const Value.absent(),
+    this.valorDefecto = const Value.absent(),
+    this.competenciaId = const Value.absent(),
+    this.calendarioPeriodoId = const Value.absent(),
+    this.anchoColumna = const Value.absent(),
+    this.ocultarColumna = const Value.absent(),
+    this.tipoFormulaId = const Value.absent(),
+    this.silaboEventoId = const Value.absent(),
+    this.tipoRedondeoId = const Value.absent(),
+    this.valorRedondeoId = const Value.absent(),
+    this.rubroEvalResultadoId = const Value.absent(),
+    this.tipoNotaId = const Value.absent(),
+    this.sesionAprendizajeId = const Value.absent(),
+    this.desempenioIcdId = const Value.absent(),
+    this.campoTematicoId = const Value.absent(),
+    this.tipoEvaluacionId = const Value.absent(),
+    this.estadoId = const Value.absent(),
+    this.tipoEscalaEvaluacionId = const Value.absent(),
+    this.tipoColorRubroProceso = const Value.absent(),
+    this.tiporubroid = const Value.absent(),
+    this.formaEvaluacionId = const Value.absent(),
+    this.countIndicador = const Value.absent(),
+    this.rubroFormal = const Value.absent(),
+    this.msje = const Value.absent(),
+    this.promedio = const Value.absent(),
+    this.desviacionEstandar = const Value.absent(),
+    this.unidadAprendizajeId = const Value.absent(),
+    this.estrategiaEvaluacionId = const Value.absent(),
+    this.tareaId = const Value.absent(),
+    this.resultadoTipoNotaId = const Value.absent(),
+  });
+  RubroEvaluacionProcesoCompanion.insert({
+    this.syncFlag = const Value.absent(),
+    this.timestampFlag = const Value.absent(),
+    this.usuarioCreacionId = const Value.absent(),
+    this.fechaCreacion = const Value.absent(),
+    this.usuarioAccionId = const Value.absent(),
+    this.fechaAccion = const Value.absent(),
+    required String rubroEvalProcesoId,
+    this.titulo = const Value.absent(),
+    this.subtitulo = const Value.absent(),
+    this.colorFondo = const Value.absent(),
+    this.mColorFondo = const Value.absent(),
+    this.valorDefecto = const Value.absent(),
+    this.competenciaId = const Value.absent(),
+    this.calendarioPeriodoId = const Value.absent(),
+    this.anchoColumna = const Value.absent(),
+    this.ocultarColumna = const Value.absent(),
+    this.tipoFormulaId = const Value.absent(),
+    this.silaboEventoId = const Value.absent(),
+    this.tipoRedondeoId = const Value.absent(),
+    this.valorRedondeoId = const Value.absent(),
+    this.rubroEvalResultadoId = const Value.absent(),
+    this.tipoNotaId = const Value.absent(),
+    this.sesionAprendizajeId = const Value.absent(),
+    this.desempenioIcdId = const Value.absent(),
+    this.campoTematicoId = const Value.absent(),
+    this.tipoEvaluacionId = const Value.absent(),
+    this.estadoId = const Value.absent(),
+    this.tipoEscalaEvaluacionId = const Value.absent(),
+    this.tipoColorRubroProceso = const Value.absent(),
+    this.tiporubroid = const Value.absent(),
+    this.formaEvaluacionId = const Value.absent(),
+    this.countIndicador = const Value.absent(),
+    this.rubroFormal = const Value.absent(),
+    this.msje = const Value.absent(),
+    this.promedio = const Value.absent(),
+    this.desviacionEstandar = const Value.absent(),
+    this.unidadAprendizajeId = const Value.absent(),
+    this.estrategiaEvaluacionId = const Value.absent(),
+    this.tareaId = const Value.absent(),
+    this.resultadoTipoNotaId = const Value.absent(),
+  }) : rubroEvalProcesoId = Value(rubroEvalProcesoId);
+  static Insertable<RubroEvaluacionProcesoData> custom({
+    Expression<int?>? syncFlag,
+    Expression<DateTime?>? timestampFlag,
+    Expression<int?>? usuarioCreacionId,
+    Expression<DateTime?>? fechaCreacion,
+    Expression<int?>? usuarioAccionId,
+    Expression<DateTime?>? fechaAccion,
+    Expression<String>? rubroEvalProcesoId,
+    Expression<String?>? titulo,
+    Expression<String?>? subtitulo,
+    Expression<String?>? colorFondo,
+    Expression<bool?>? mColorFondo,
+    Expression<String?>? valorDefecto,
+    Expression<int?>? competenciaId,
+    Expression<int?>? calendarioPeriodoId,
+    Expression<String?>? anchoColumna,
+    Expression<bool?>? ocultarColumna,
+    Expression<int?>? tipoFormulaId,
+    Expression<int?>? silaboEventoId,
+    Expression<int?>? tipoRedondeoId,
+    Expression<int?>? valorRedondeoId,
+    Expression<int?>? rubroEvalResultadoId,
+    Expression<int?>? tipoNotaId,
+    Expression<int?>? sesionAprendizajeId,
+    Expression<int?>? desempenioIcdId,
+    Expression<int?>? campoTematicoId,
+    Expression<int?>? tipoEvaluacionId,
+    Expression<int?>? estadoId,
+    Expression<int?>? tipoEscalaEvaluacionId,
+    Expression<int?>? tipoColorRubroProceso,
+    Expression<int?>? tiporubroid,
+    Expression<int?>? formaEvaluacionId,
+    Expression<int?>? countIndicador,
+    Expression<int?>? rubroFormal,
+    Expression<int?>? msje,
+    Expression<double?>? promedio,
+    Expression<double?>? desviacionEstandar,
+    Expression<int?>? unidadAprendizajeId,
+    Expression<int?>? estrategiaEvaluacionId,
+    Expression<String?>? tareaId,
+    Expression<String?>? resultadoTipoNotaId,
+  }) {
+    return RawValuesInsertable({
+      if (syncFlag != null) 'sync_flag': syncFlag,
+      if (timestampFlag != null) 'timestamp_flag': timestampFlag,
+      if (usuarioCreacionId != null) 'usuario_creacion_id': usuarioCreacionId,
+      if (fechaCreacion != null) 'fecha_creacion': fechaCreacion,
+      if (usuarioAccionId != null) 'usuario_accion_id': usuarioAccionId,
+      if (fechaAccion != null) 'fecha_accion': fechaAccion,
+      if (rubroEvalProcesoId != null)
+        'rubro_eval_proceso_id': rubroEvalProcesoId,
+      if (titulo != null) 'titulo': titulo,
+      if (subtitulo != null) 'subtitulo': subtitulo,
+      if (colorFondo != null) 'color_fondo': colorFondo,
+      if (mColorFondo != null) 'm_color_fondo': mColorFondo,
+      if (valorDefecto != null) 'valor_defecto': valorDefecto,
+      if (competenciaId != null) 'competencia_id': competenciaId,
+      if (calendarioPeriodoId != null)
+        'calendario_periodo_id': calendarioPeriodoId,
+      if (anchoColumna != null) 'ancho_columna': anchoColumna,
+      if (ocultarColumna != null) 'ocultar_columna': ocultarColumna,
+      if (tipoFormulaId != null) 'tipo_formula_id': tipoFormulaId,
+      if (silaboEventoId != null) 'silabo_evento_id': silaboEventoId,
+      if (tipoRedondeoId != null) 'tipo_redondeo_id': tipoRedondeoId,
+      if (valorRedondeoId != null) 'valor_redondeo_id': valorRedondeoId,
+      if (rubroEvalResultadoId != null)
+        'rubro_eval_resultado_id': rubroEvalResultadoId,
+      if (tipoNotaId != null) 'tipo_nota_id': tipoNotaId,
+      if (sesionAprendizajeId != null)
+        'sesion_aprendizaje_id': sesionAprendizajeId,
+      if (desempenioIcdId != null) 'desempenio_icd_id': desempenioIcdId,
+      if (campoTematicoId != null) 'campo_tematico_id': campoTematicoId,
+      if (tipoEvaluacionId != null) 'tipo_evaluacion_id': tipoEvaluacionId,
+      if (estadoId != null) 'estado_id': estadoId,
+      if (tipoEscalaEvaluacionId != null)
+        'tipo_escala_evaluacion_id': tipoEscalaEvaluacionId,
+      if (tipoColorRubroProceso != null)
+        'tipo_color_rubro_proceso': tipoColorRubroProceso,
+      if (tiporubroid != null) 'tiporubroid': tiporubroid,
+      if (formaEvaluacionId != null) 'forma_evaluacion_id': formaEvaluacionId,
+      if (countIndicador != null) 'count_indicador': countIndicador,
+      if (rubroFormal != null) 'rubro_formal': rubroFormal,
+      if (msje != null) 'msje': msje,
+      if (promedio != null) 'promedio': promedio,
+      if (desviacionEstandar != null) 'desviacion_estandar': desviacionEstandar,
+      if (unidadAprendizajeId != null)
+        'unidad_aprendizaje_id': unidadAprendizajeId,
+      if (estrategiaEvaluacionId != null)
+        'estrategia_evaluacion_id': estrategiaEvaluacionId,
+      if (tareaId != null) 'tarea_id': tareaId,
+      if (resultadoTipoNotaId != null)
+        'resultado_tipo_nota_id': resultadoTipoNotaId,
+    });
+  }
+
+  RubroEvaluacionProcesoCompanion copyWith(
+      {Value<int?>? syncFlag,
+      Value<DateTime?>? timestampFlag,
+      Value<int?>? usuarioCreacionId,
+      Value<DateTime?>? fechaCreacion,
+      Value<int?>? usuarioAccionId,
+      Value<DateTime?>? fechaAccion,
+      Value<String>? rubroEvalProcesoId,
+      Value<String?>? titulo,
+      Value<String?>? subtitulo,
+      Value<String?>? colorFondo,
+      Value<bool?>? mColorFondo,
+      Value<String?>? valorDefecto,
+      Value<int?>? competenciaId,
+      Value<int?>? calendarioPeriodoId,
+      Value<String?>? anchoColumna,
+      Value<bool?>? ocultarColumna,
+      Value<int?>? tipoFormulaId,
+      Value<int?>? silaboEventoId,
+      Value<int?>? tipoRedondeoId,
+      Value<int?>? valorRedondeoId,
+      Value<int?>? rubroEvalResultadoId,
+      Value<int?>? tipoNotaId,
+      Value<int?>? sesionAprendizajeId,
+      Value<int?>? desempenioIcdId,
+      Value<int?>? campoTematicoId,
+      Value<int?>? tipoEvaluacionId,
+      Value<int?>? estadoId,
+      Value<int?>? tipoEscalaEvaluacionId,
+      Value<int?>? tipoColorRubroProceso,
+      Value<int?>? tiporubroid,
+      Value<int?>? formaEvaluacionId,
+      Value<int?>? countIndicador,
+      Value<int?>? rubroFormal,
+      Value<int?>? msje,
+      Value<double?>? promedio,
+      Value<double?>? desviacionEstandar,
+      Value<int?>? unidadAprendizajeId,
+      Value<int?>? estrategiaEvaluacionId,
+      Value<String?>? tareaId,
+      Value<String?>? resultadoTipoNotaId}) {
+    return RubroEvaluacionProcesoCompanion(
+      syncFlag: syncFlag ?? this.syncFlag,
+      timestampFlag: timestampFlag ?? this.timestampFlag,
+      usuarioCreacionId: usuarioCreacionId ?? this.usuarioCreacionId,
+      fechaCreacion: fechaCreacion ?? this.fechaCreacion,
+      usuarioAccionId: usuarioAccionId ?? this.usuarioAccionId,
+      fechaAccion: fechaAccion ?? this.fechaAccion,
+      rubroEvalProcesoId: rubroEvalProcesoId ?? this.rubroEvalProcesoId,
+      titulo: titulo ?? this.titulo,
+      subtitulo: subtitulo ?? this.subtitulo,
+      colorFondo: colorFondo ?? this.colorFondo,
+      mColorFondo: mColorFondo ?? this.mColorFondo,
+      valorDefecto: valorDefecto ?? this.valorDefecto,
+      competenciaId: competenciaId ?? this.competenciaId,
+      calendarioPeriodoId: calendarioPeriodoId ?? this.calendarioPeriodoId,
+      anchoColumna: anchoColumna ?? this.anchoColumna,
+      ocultarColumna: ocultarColumna ?? this.ocultarColumna,
+      tipoFormulaId: tipoFormulaId ?? this.tipoFormulaId,
+      silaboEventoId: silaboEventoId ?? this.silaboEventoId,
+      tipoRedondeoId: tipoRedondeoId ?? this.tipoRedondeoId,
+      valorRedondeoId: valorRedondeoId ?? this.valorRedondeoId,
+      rubroEvalResultadoId: rubroEvalResultadoId ?? this.rubroEvalResultadoId,
+      tipoNotaId: tipoNotaId ?? this.tipoNotaId,
+      sesionAprendizajeId: sesionAprendizajeId ?? this.sesionAprendizajeId,
+      desempenioIcdId: desempenioIcdId ?? this.desempenioIcdId,
+      campoTematicoId: campoTematicoId ?? this.campoTematicoId,
+      tipoEvaluacionId: tipoEvaluacionId ?? this.tipoEvaluacionId,
+      estadoId: estadoId ?? this.estadoId,
+      tipoEscalaEvaluacionId:
+          tipoEscalaEvaluacionId ?? this.tipoEscalaEvaluacionId,
+      tipoColorRubroProceso:
+          tipoColorRubroProceso ?? this.tipoColorRubroProceso,
+      tiporubroid: tiporubroid ?? this.tiporubroid,
+      formaEvaluacionId: formaEvaluacionId ?? this.formaEvaluacionId,
+      countIndicador: countIndicador ?? this.countIndicador,
+      rubroFormal: rubroFormal ?? this.rubroFormal,
+      msje: msje ?? this.msje,
+      promedio: promedio ?? this.promedio,
+      desviacionEstandar: desviacionEstandar ?? this.desviacionEstandar,
+      unidadAprendizajeId: unidadAprendizajeId ?? this.unidadAprendizajeId,
+      estrategiaEvaluacionId:
+          estrategiaEvaluacionId ?? this.estrategiaEvaluacionId,
+      tareaId: tareaId ?? this.tareaId,
+      resultadoTipoNotaId: resultadoTipoNotaId ?? this.resultadoTipoNotaId,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (syncFlag.present) {
+      map['sync_flag'] = Variable<int?>(syncFlag.value);
+    }
+    if (timestampFlag.present) {
+      map['timestamp_flag'] = Variable<DateTime?>(timestampFlag.value);
+    }
+    if (usuarioCreacionId.present) {
+      map['usuario_creacion_id'] = Variable<int?>(usuarioCreacionId.value);
+    }
+    if (fechaCreacion.present) {
+      map['fecha_creacion'] = Variable<DateTime?>(fechaCreacion.value);
+    }
+    if (usuarioAccionId.present) {
+      map['usuario_accion_id'] = Variable<int?>(usuarioAccionId.value);
+    }
+    if (fechaAccion.present) {
+      map['fecha_accion'] = Variable<DateTime?>(fechaAccion.value);
+    }
+    if (rubroEvalProcesoId.present) {
+      map['rubro_eval_proceso_id'] = Variable<String>(rubroEvalProcesoId.value);
+    }
+    if (titulo.present) {
+      map['titulo'] = Variable<String?>(titulo.value);
+    }
+    if (subtitulo.present) {
+      map['subtitulo'] = Variable<String?>(subtitulo.value);
+    }
+    if (colorFondo.present) {
+      map['color_fondo'] = Variable<String?>(colorFondo.value);
+    }
+    if (mColorFondo.present) {
+      map['m_color_fondo'] = Variable<bool?>(mColorFondo.value);
+    }
+    if (valorDefecto.present) {
+      map['valor_defecto'] = Variable<String?>(valorDefecto.value);
+    }
+    if (competenciaId.present) {
+      map['competencia_id'] = Variable<int?>(competenciaId.value);
+    }
+    if (calendarioPeriodoId.present) {
+      map['calendario_periodo_id'] = Variable<int?>(calendarioPeriodoId.value);
+    }
+    if (anchoColumna.present) {
+      map['ancho_columna'] = Variable<String?>(anchoColumna.value);
+    }
+    if (ocultarColumna.present) {
+      map['ocultar_columna'] = Variable<bool?>(ocultarColumna.value);
+    }
+    if (tipoFormulaId.present) {
+      map['tipo_formula_id'] = Variable<int?>(tipoFormulaId.value);
+    }
+    if (silaboEventoId.present) {
+      map['silabo_evento_id'] = Variable<int?>(silaboEventoId.value);
+    }
+    if (tipoRedondeoId.present) {
+      map['tipo_redondeo_id'] = Variable<int?>(tipoRedondeoId.value);
+    }
+    if (valorRedondeoId.present) {
+      map['valor_redondeo_id'] = Variable<int?>(valorRedondeoId.value);
+    }
+    if (rubroEvalResultadoId.present) {
+      map['rubro_eval_resultado_id'] =
+          Variable<int?>(rubroEvalResultadoId.value);
+    }
+    if (tipoNotaId.present) {
+      map['tipo_nota_id'] = Variable<int?>(tipoNotaId.value);
+    }
+    if (sesionAprendizajeId.present) {
+      map['sesion_aprendizaje_id'] = Variable<int?>(sesionAprendizajeId.value);
+    }
+    if (desempenioIcdId.present) {
+      map['desempenio_icd_id'] = Variable<int?>(desempenioIcdId.value);
+    }
+    if (campoTematicoId.present) {
+      map['campo_tematico_id'] = Variable<int?>(campoTematicoId.value);
+    }
+    if (tipoEvaluacionId.present) {
+      map['tipo_evaluacion_id'] = Variable<int?>(tipoEvaluacionId.value);
+    }
+    if (estadoId.present) {
+      map['estado_id'] = Variable<int?>(estadoId.value);
+    }
+    if (tipoEscalaEvaluacionId.present) {
+      map['tipo_escala_evaluacion_id'] =
+          Variable<int?>(tipoEscalaEvaluacionId.value);
+    }
+    if (tipoColorRubroProceso.present) {
+      map['tipo_color_rubro_proceso'] =
+          Variable<int?>(tipoColorRubroProceso.value);
+    }
+    if (tiporubroid.present) {
+      map['tiporubroid'] = Variable<int?>(tiporubroid.value);
+    }
+    if (formaEvaluacionId.present) {
+      map['forma_evaluacion_id'] = Variable<int?>(formaEvaluacionId.value);
+    }
+    if (countIndicador.present) {
+      map['count_indicador'] = Variable<int?>(countIndicador.value);
+    }
+    if (rubroFormal.present) {
+      map['rubro_formal'] = Variable<int?>(rubroFormal.value);
+    }
+    if (msje.present) {
+      map['msje'] = Variable<int?>(msje.value);
+    }
+    if (promedio.present) {
+      map['promedio'] = Variable<double?>(promedio.value);
+    }
+    if (desviacionEstandar.present) {
+      map['desviacion_estandar'] = Variable<double?>(desviacionEstandar.value);
+    }
+    if (unidadAprendizajeId.present) {
+      map['unidad_aprendizaje_id'] = Variable<int?>(unidadAprendizajeId.value);
+    }
+    if (estrategiaEvaluacionId.present) {
+      map['estrategia_evaluacion_id'] =
+          Variable<int?>(estrategiaEvaluacionId.value);
+    }
+    if (tareaId.present) {
+      map['tarea_id'] = Variable<String?>(tareaId.value);
+    }
+    if (resultadoTipoNotaId.present) {
+      map['resultado_tipo_nota_id'] =
+          Variable<String?>(resultadoTipoNotaId.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RubroEvaluacionProcesoCompanion(')
+          ..write('syncFlag: $syncFlag, ')
+          ..write('timestampFlag: $timestampFlag, ')
+          ..write('usuarioCreacionId: $usuarioCreacionId, ')
+          ..write('fechaCreacion: $fechaCreacion, ')
+          ..write('usuarioAccionId: $usuarioAccionId, ')
+          ..write('fechaAccion: $fechaAccion, ')
+          ..write('rubroEvalProcesoId: $rubroEvalProcesoId, ')
+          ..write('titulo: $titulo, ')
+          ..write('subtitulo: $subtitulo, ')
+          ..write('colorFondo: $colorFondo, ')
+          ..write('mColorFondo: $mColorFondo, ')
+          ..write('valorDefecto: $valorDefecto, ')
+          ..write('competenciaId: $competenciaId, ')
+          ..write('calendarioPeriodoId: $calendarioPeriodoId, ')
+          ..write('anchoColumna: $anchoColumna, ')
+          ..write('ocultarColumna: $ocultarColumna, ')
+          ..write('tipoFormulaId: $tipoFormulaId, ')
+          ..write('silaboEventoId: $silaboEventoId, ')
+          ..write('tipoRedondeoId: $tipoRedondeoId, ')
+          ..write('valorRedondeoId: $valorRedondeoId, ')
+          ..write('rubroEvalResultadoId: $rubroEvalResultadoId, ')
+          ..write('tipoNotaId: $tipoNotaId, ')
+          ..write('sesionAprendizajeId: $sesionAprendizajeId, ')
+          ..write('desempenioIcdId: $desempenioIcdId, ')
+          ..write('campoTematicoId: $campoTematicoId, ')
+          ..write('tipoEvaluacionId: $tipoEvaluacionId, ')
+          ..write('estadoId: $estadoId, ')
+          ..write('tipoEscalaEvaluacionId: $tipoEscalaEvaluacionId, ')
+          ..write('tipoColorRubroProceso: $tipoColorRubroProceso, ')
+          ..write('tiporubroid: $tiporubroid, ')
+          ..write('formaEvaluacionId: $formaEvaluacionId, ')
+          ..write('countIndicador: $countIndicador, ')
+          ..write('rubroFormal: $rubroFormal, ')
+          ..write('msje: $msje, ')
+          ..write('promedio: $promedio, ')
+          ..write('desviacionEstandar: $desviacionEstandar, ')
+          ..write('unidadAprendizajeId: $unidadAprendizajeId, ')
+          ..write('estrategiaEvaluacionId: $estrategiaEvaluacionId, ')
+          ..write('tareaId: $tareaId, ')
+          ..write('resultadoTipoNotaId: $resultadoTipoNotaId')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $RubroEvaluacionProcesoTable extends RubroEvaluacionProceso
+    with TableInfo<$RubroEvaluacionProcesoTable, RubroEvaluacionProcesoData> {
+  final GeneratedDatabase _db;
+  final String? _alias;
+  $RubroEvaluacionProcesoTable(this._db, [this._alias]);
+  final VerificationMeta _syncFlagMeta = const VerificationMeta('syncFlag');
+  @override
+  late final GeneratedIntColumn syncFlag = _constructSyncFlag();
+  GeneratedIntColumn _constructSyncFlag() {
+    return GeneratedIntColumn(
+      'sync_flag',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _timestampFlagMeta =
+      const VerificationMeta('timestampFlag');
+  @override
+  late final GeneratedDateTimeColumn timestampFlag = _constructTimestampFlag();
+  GeneratedDateTimeColumn _constructTimestampFlag() {
+    return GeneratedDateTimeColumn(
+      'timestamp_flag',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioCreacionIdMeta =
+      const VerificationMeta('usuarioCreacionId');
+  @override
+  late final GeneratedIntColumn usuarioCreacionId =
+      _constructUsuarioCreacionId();
+  GeneratedIntColumn _constructUsuarioCreacionId() {
+    return GeneratedIntColumn(
+      'usuario_creacion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaCreacionMeta =
+      const VerificationMeta('fechaCreacion');
+  @override
+  late final GeneratedDateTimeColumn fechaCreacion = _constructFechaCreacion();
+  GeneratedDateTimeColumn _constructFechaCreacion() {
+    return GeneratedDateTimeColumn(
+      'fecha_creacion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioAccionIdMeta =
+      const VerificationMeta('usuarioAccionId');
+  @override
+  late final GeneratedIntColumn usuarioAccionId = _constructUsuarioAccionId();
+  GeneratedIntColumn _constructUsuarioAccionId() {
+    return GeneratedIntColumn(
+      'usuario_accion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaAccionMeta =
+      const VerificationMeta('fechaAccion');
+  @override
+  late final GeneratedDateTimeColumn fechaAccion = _constructFechaAccion();
+  GeneratedDateTimeColumn _constructFechaAccion() {
+    return GeneratedDateTimeColumn(
+      'fecha_accion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _rubroEvalProcesoIdMeta =
+      const VerificationMeta('rubroEvalProcesoId');
+  @override
+  late final GeneratedTextColumn rubroEvalProcesoId =
+      _constructRubroEvalProcesoId();
+  GeneratedTextColumn _constructRubroEvalProcesoId() {
+    return GeneratedTextColumn(
+      'rubro_eval_proceso_id',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _tituloMeta = const VerificationMeta('titulo');
+  @override
+  late final GeneratedTextColumn titulo = _constructTitulo();
+  GeneratedTextColumn _constructTitulo() {
+    return GeneratedTextColumn(
+      'titulo',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _subtituloMeta = const VerificationMeta('subtitulo');
+  @override
+  late final GeneratedTextColumn subtitulo = _constructSubtitulo();
+  GeneratedTextColumn _constructSubtitulo() {
+    return GeneratedTextColumn(
+      'subtitulo',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _colorFondoMeta = const VerificationMeta('colorFondo');
+  @override
+  late final GeneratedTextColumn colorFondo = _constructColorFondo();
+  GeneratedTextColumn _constructColorFondo() {
+    return GeneratedTextColumn(
+      'color_fondo',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _mColorFondoMeta =
+      const VerificationMeta('mColorFondo');
+  @override
+  late final GeneratedBoolColumn mColorFondo = _constructMColorFondo();
+  GeneratedBoolColumn _constructMColorFondo() {
+    return GeneratedBoolColumn(
+      'm_color_fondo',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _valorDefectoMeta =
+      const VerificationMeta('valorDefecto');
+  @override
+  late final GeneratedTextColumn valorDefecto = _constructValorDefecto();
+  GeneratedTextColumn _constructValorDefecto() {
+    return GeneratedTextColumn(
+      'valor_defecto',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _competenciaIdMeta =
+      const VerificationMeta('competenciaId');
+  @override
+  late final GeneratedIntColumn competenciaId = _constructCompetenciaId();
+  GeneratedIntColumn _constructCompetenciaId() {
+    return GeneratedIntColumn(
+      'competencia_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _calendarioPeriodoIdMeta =
+      const VerificationMeta('calendarioPeriodoId');
+  @override
+  late final GeneratedIntColumn calendarioPeriodoId =
+      _constructCalendarioPeriodoId();
+  GeneratedIntColumn _constructCalendarioPeriodoId() {
+    return GeneratedIntColumn(
+      'calendario_periodo_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _anchoColumnaMeta =
+      const VerificationMeta('anchoColumna');
+  @override
+  late final GeneratedTextColumn anchoColumna = _constructAnchoColumna();
+  GeneratedTextColumn _constructAnchoColumna() {
+    return GeneratedTextColumn(
+      'ancho_columna',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _ocultarColumnaMeta =
+      const VerificationMeta('ocultarColumna');
+  @override
+  late final GeneratedBoolColumn ocultarColumna = _constructOcultarColumna();
+  GeneratedBoolColumn _constructOcultarColumna() {
+    return GeneratedBoolColumn(
+      'ocultar_columna',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _tipoFormulaIdMeta =
+      const VerificationMeta('tipoFormulaId');
+  @override
+  late final GeneratedIntColumn tipoFormulaId = _constructTipoFormulaId();
+  GeneratedIntColumn _constructTipoFormulaId() {
+    return GeneratedIntColumn(
+      'tipo_formula_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _silaboEventoIdMeta =
+      const VerificationMeta('silaboEventoId');
+  @override
+  late final GeneratedIntColumn silaboEventoId = _constructSilaboEventoId();
+  GeneratedIntColumn _constructSilaboEventoId() {
+    return GeneratedIntColumn(
+      'silabo_evento_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _tipoRedondeoIdMeta =
+      const VerificationMeta('tipoRedondeoId');
+  @override
+  late final GeneratedIntColumn tipoRedondeoId = _constructTipoRedondeoId();
+  GeneratedIntColumn _constructTipoRedondeoId() {
+    return GeneratedIntColumn(
+      'tipo_redondeo_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _valorRedondeoIdMeta =
+      const VerificationMeta('valorRedondeoId');
+  @override
+  late final GeneratedIntColumn valorRedondeoId = _constructValorRedondeoId();
+  GeneratedIntColumn _constructValorRedondeoId() {
+    return GeneratedIntColumn(
+      'valor_redondeo_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _rubroEvalResultadoIdMeta =
+      const VerificationMeta('rubroEvalResultadoId');
+  @override
+  late final GeneratedIntColumn rubroEvalResultadoId =
+      _constructRubroEvalResultadoId();
+  GeneratedIntColumn _constructRubroEvalResultadoId() {
+    return GeneratedIntColumn(
+      'rubro_eval_resultado_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _tipoNotaIdMeta = const VerificationMeta('tipoNotaId');
+  @override
+  late final GeneratedIntColumn tipoNotaId = _constructTipoNotaId();
+  GeneratedIntColumn _constructTipoNotaId() {
+    return GeneratedIntColumn(
+      'tipo_nota_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _sesionAprendizajeIdMeta =
+      const VerificationMeta('sesionAprendizajeId');
+  @override
+  late final GeneratedIntColumn sesionAprendizajeId =
+      _constructSesionAprendizajeId();
+  GeneratedIntColumn _constructSesionAprendizajeId() {
+    return GeneratedIntColumn(
+      'sesion_aprendizaje_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _desempenioIcdIdMeta =
+      const VerificationMeta('desempenioIcdId');
+  @override
+  late final GeneratedIntColumn desempenioIcdId = _constructDesempenioIcdId();
+  GeneratedIntColumn _constructDesempenioIcdId() {
+    return GeneratedIntColumn(
+      'desempenio_icd_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _campoTematicoIdMeta =
+      const VerificationMeta('campoTematicoId');
+  @override
+  late final GeneratedIntColumn campoTematicoId = _constructCampoTematicoId();
+  GeneratedIntColumn _constructCampoTematicoId() {
+    return GeneratedIntColumn(
+      'campo_tematico_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _tipoEvaluacionIdMeta =
+      const VerificationMeta('tipoEvaluacionId');
+  @override
+  late final GeneratedIntColumn tipoEvaluacionId = _constructTipoEvaluacionId();
+  GeneratedIntColumn _constructTipoEvaluacionId() {
+    return GeneratedIntColumn(
+      'tipo_evaluacion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _estadoIdMeta = const VerificationMeta('estadoId');
+  @override
+  late final GeneratedIntColumn estadoId = _constructEstadoId();
+  GeneratedIntColumn _constructEstadoId() {
+    return GeneratedIntColumn(
+      'estado_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _tipoEscalaEvaluacionIdMeta =
+      const VerificationMeta('tipoEscalaEvaluacionId');
+  @override
+  late final GeneratedIntColumn tipoEscalaEvaluacionId =
+      _constructTipoEscalaEvaluacionId();
+  GeneratedIntColumn _constructTipoEscalaEvaluacionId() {
+    return GeneratedIntColumn(
+      'tipo_escala_evaluacion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _tipoColorRubroProcesoMeta =
+      const VerificationMeta('tipoColorRubroProceso');
+  @override
+  late final GeneratedIntColumn tipoColorRubroProceso =
+      _constructTipoColorRubroProceso();
+  GeneratedIntColumn _constructTipoColorRubroProceso() {
+    return GeneratedIntColumn(
+      'tipo_color_rubro_proceso',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _tiporubroidMeta =
+      const VerificationMeta('tiporubroid');
+  @override
+  late final GeneratedIntColumn tiporubroid = _constructTiporubroid();
+  GeneratedIntColumn _constructTiporubroid() {
+    return GeneratedIntColumn(
+      'tiporubroid',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _formaEvaluacionIdMeta =
+      const VerificationMeta('formaEvaluacionId');
+  @override
+  late final GeneratedIntColumn formaEvaluacionId =
+      _constructFormaEvaluacionId();
+  GeneratedIntColumn _constructFormaEvaluacionId() {
+    return GeneratedIntColumn(
+      'forma_evaluacion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _countIndicadorMeta =
+      const VerificationMeta('countIndicador');
+  @override
+  late final GeneratedIntColumn countIndicador = _constructCountIndicador();
+  GeneratedIntColumn _constructCountIndicador() {
+    return GeneratedIntColumn(
+      'count_indicador',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _rubroFormalMeta =
+      const VerificationMeta('rubroFormal');
+  @override
+  late final GeneratedIntColumn rubroFormal = _constructRubroFormal();
+  GeneratedIntColumn _constructRubroFormal() {
+    return GeneratedIntColumn(
+      'rubro_formal',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _msjeMeta = const VerificationMeta('msje');
+  @override
+  late final GeneratedIntColumn msje = _constructMsje();
+  GeneratedIntColumn _constructMsje() {
+    return GeneratedIntColumn(
+      'msje',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _promedioMeta = const VerificationMeta('promedio');
+  @override
+  late final GeneratedRealColumn promedio = _constructPromedio();
+  GeneratedRealColumn _constructPromedio() {
+    return GeneratedRealColumn(
+      'promedio',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _desviacionEstandarMeta =
+      const VerificationMeta('desviacionEstandar');
+  @override
+  late final GeneratedRealColumn desviacionEstandar =
+      _constructDesviacionEstandar();
+  GeneratedRealColumn _constructDesviacionEstandar() {
+    return GeneratedRealColumn(
+      'desviacion_estandar',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _unidadAprendizajeIdMeta =
+      const VerificationMeta('unidadAprendizajeId');
+  @override
+  late final GeneratedIntColumn unidadAprendizajeId =
+      _constructUnidadAprendizajeId();
+  GeneratedIntColumn _constructUnidadAprendizajeId() {
+    return GeneratedIntColumn(
+      'unidad_aprendizaje_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _estrategiaEvaluacionIdMeta =
+      const VerificationMeta('estrategiaEvaluacionId');
+  @override
+  late final GeneratedIntColumn estrategiaEvaluacionId =
+      _constructEstrategiaEvaluacionId();
+  GeneratedIntColumn _constructEstrategiaEvaluacionId() {
+    return GeneratedIntColumn(
+      'estrategia_evaluacion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _tareaIdMeta = const VerificationMeta('tareaId');
+  @override
+  late final GeneratedTextColumn tareaId = _constructTareaId();
+  GeneratedTextColumn _constructTareaId() {
+    return GeneratedTextColumn(
+      'tarea_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _resultadoTipoNotaIdMeta =
+      const VerificationMeta('resultadoTipoNotaId');
+  @override
+  late final GeneratedTextColumn resultadoTipoNotaId =
+      _constructResultadoTipoNotaId();
+  GeneratedTextColumn _constructResultadoTipoNotaId() {
+    return GeneratedTextColumn(
+      'resultado_tipo_nota_id',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [
+        syncFlag,
+        timestampFlag,
+        usuarioCreacionId,
+        fechaCreacion,
+        usuarioAccionId,
+        fechaAccion,
+        rubroEvalProcesoId,
+        titulo,
+        subtitulo,
+        colorFondo,
+        mColorFondo,
+        valorDefecto,
+        competenciaId,
+        calendarioPeriodoId,
+        anchoColumna,
+        ocultarColumna,
+        tipoFormulaId,
+        silaboEventoId,
+        tipoRedondeoId,
+        valorRedondeoId,
+        rubroEvalResultadoId,
+        tipoNotaId,
+        sesionAprendizajeId,
+        desempenioIcdId,
+        campoTematicoId,
+        tipoEvaluacionId,
+        estadoId,
+        tipoEscalaEvaluacionId,
+        tipoColorRubroProceso,
+        tiporubroid,
+        formaEvaluacionId,
+        countIndicador,
+        rubroFormal,
+        msje,
+        promedio,
+        desviacionEstandar,
+        unidadAprendizajeId,
+        estrategiaEvaluacionId,
+        tareaId,
+        resultadoTipoNotaId
+      ];
+  @override
+  $RubroEvaluacionProcesoTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'rubro_evaluacion_proceso';
+  @override
+  final String actualTableName = 'rubro_evaluacion_proceso';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<RubroEvaluacionProcesoData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('sync_flag')) {
+      context.handle(_syncFlagMeta,
+          syncFlag.isAcceptableOrUnknown(data['sync_flag']!, _syncFlagMeta));
+    }
+    if (data.containsKey('timestamp_flag')) {
+      context.handle(
+          _timestampFlagMeta,
+          timestampFlag.isAcceptableOrUnknown(
+              data['timestamp_flag']!, _timestampFlagMeta));
+    }
+    if (data.containsKey('usuario_creacion_id')) {
+      context.handle(
+          _usuarioCreacionIdMeta,
+          usuarioCreacionId.isAcceptableOrUnknown(
+              data['usuario_creacion_id']!, _usuarioCreacionIdMeta));
+    }
+    if (data.containsKey('fecha_creacion')) {
+      context.handle(
+          _fechaCreacionMeta,
+          fechaCreacion.isAcceptableOrUnknown(
+              data['fecha_creacion']!, _fechaCreacionMeta));
+    }
+    if (data.containsKey('usuario_accion_id')) {
+      context.handle(
+          _usuarioAccionIdMeta,
+          usuarioAccionId.isAcceptableOrUnknown(
+              data['usuario_accion_id']!, _usuarioAccionIdMeta));
+    }
+    if (data.containsKey('fecha_accion')) {
+      context.handle(
+          _fechaAccionMeta,
+          fechaAccion.isAcceptableOrUnknown(
+              data['fecha_accion']!, _fechaAccionMeta));
+    }
+    if (data.containsKey('rubro_eval_proceso_id')) {
+      context.handle(
+          _rubroEvalProcesoIdMeta,
+          rubroEvalProcesoId.isAcceptableOrUnknown(
+              data['rubro_eval_proceso_id']!, _rubroEvalProcesoIdMeta));
+    } else if (isInserting) {
+      context.missing(_rubroEvalProcesoIdMeta);
+    }
+    if (data.containsKey('titulo')) {
+      context.handle(_tituloMeta,
+          titulo.isAcceptableOrUnknown(data['titulo']!, _tituloMeta));
+    }
+    if (data.containsKey('subtitulo')) {
+      context.handle(_subtituloMeta,
+          subtitulo.isAcceptableOrUnknown(data['subtitulo']!, _subtituloMeta));
+    }
+    if (data.containsKey('color_fondo')) {
+      context.handle(
+          _colorFondoMeta,
+          colorFondo.isAcceptableOrUnknown(
+              data['color_fondo']!, _colorFondoMeta));
+    }
+    if (data.containsKey('m_color_fondo')) {
+      context.handle(
+          _mColorFondoMeta,
+          mColorFondo.isAcceptableOrUnknown(
+              data['m_color_fondo']!, _mColorFondoMeta));
+    }
+    if (data.containsKey('valor_defecto')) {
+      context.handle(
+          _valorDefectoMeta,
+          valorDefecto.isAcceptableOrUnknown(
+              data['valor_defecto']!, _valorDefectoMeta));
+    }
+    if (data.containsKey('competencia_id')) {
+      context.handle(
+          _competenciaIdMeta,
+          competenciaId.isAcceptableOrUnknown(
+              data['competencia_id']!, _competenciaIdMeta));
+    }
+    if (data.containsKey('calendario_periodo_id')) {
+      context.handle(
+          _calendarioPeriodoIdMeta,
+          calendarioPeriodoId.isAcceptableOrUnknown(
+              data['calendario_periodo_id']!, _calendarioPeriodoIdMeta));
+    }
+    if (data.containsKey('ancho_columna')) {
+      context.handle(
+          _anchoColumnaMeta,
+          anchoColumna.isAcceptableOrUnknown(
+              data['ancho_columna']!, _anchoColumnaMeta));
+    }
+    if (data.containsKey('ocultar_columna')) {
+      context.handle(
+          _ocultarColumnaMeta,
+          ocultarColumna.isAcceptableOrUnknown(
+              data['ocultar_columna']!, _ocultarColumnaMeta));
+    }
+    if (data.containsKey('tipo_formula_id')) {
+      context.handle(
+          _tipoFormulaIdMeta,
+          tipoFormulaId.isAcceptableOrUnknown(
+              data['tipo_formula_id']!, _tipoFormulaIdMeta));
+    }
+    if (data.containsKey('silabo_evento_id')) {
+      context.handle(
+          _silaboEventoIdMeta,
+          silaboEventoId.isAcceptableOrUnknown(
+              data['silabo_evento_id']!, _silaboEventoIdMeta));
+    }
+    if (data.containsKey('tipo_redondeo_id')) {
+      context.handle(
+          _tipoRedondeoIdMeta,
+          tipoRedondeoId.isAcceptableOrUnknown(
+              data['tipo_redondeo_id']!, _tipoRedondeoIdMeta));
+    }
+    if (data.containsKey('valor_redondeo_id')) {
+      context.handle(
+          _valorRedondeoIdMeta,
+          valorRedondeoId.isAcceptableOrUnknown(
+              data['valor_redondeo_id']!, _valorRedondeoIdMeta));
+    }
+    if (data.containsKey('rubro_eval_resultado_id')) {
+      context.handle(
+          _rubroEvalResultadoIdMeta,
+          rubroEvalResultadoId.isAcceptableOrUnknown(
+              data['rubro_eval_resultado_id']!, _rubroEvalResultadoIdMeta));
+    }
+    if (data.containsKey('tipo_nota_id')) {
+      context.handle(
+          _tipoNotaIdMeta,
+          tipoNotaId.isAcceptableOrUnknown(
+              data['tipo_nota_id']!, _tipoNotaIdMeta));
+    }
+    if (data.containsKey('sesion_aprendizaje_id')) {
+      context.handle(
+          _sesionAprendizajeIdMeta,
+          sesionAprendizajeId.isAcceptableOrUnknown(
+              data['sesion_aprendizaje_id']!, _sesionAprendizajeIdMeta));
+    }
+    if (data.containsKey('desempenio_icd_id')) {
+      context.handle(
+          _desempenioIcdIdMeta,
+          desempenioIcdId.isAcceptableOrUnknown(
+              data['desempenio_icd_id']!, _desempenioIcdIdMeta));
+    }
+    if (data.containsKey('campo_tematico_id')) {
+      context.handle(
+          _campoTematicoIdMeta,
+          campoTematicoId.isAcceptableOrUnknown(
+              data['campo_tematico_id']!, _campoTematicoIdMeta));
+    }
+    if (data.containsKey('tipo_evaluacion_id')) {
+      context.handle(
+          _tipoEvaluacionIdMeta,
+          tipoEvaluacionId.isAcceptableOrUnknown(
+              data['tipo_evaluacion_id']!, _tipoEvaluacionIdMeta));
+    }
+    if (data.containsKey('estado_id')) {
+      context.handle(_estadoIdMeta,
+          estadoId.isAcceptableOrUnknown(data['estado_id']!, _estadoIdMeta));
+    }
+    if (data.containsKey('tipo_escala_evaluacion_id')) {
+      context.handle(
+          _tipoEscalaEvaluacionIdMeta,
+          tipoEscalaEvaluacionId.isAcceptableOrUnknown(
+              data['tipo_escala_evaluacion_id']!, _tipoEscalaEvaluacionIdMeta));
+    }
+    if (data.containsKey('tipo_color_rubro_proceso')) {
+      context.handle(
+          _tipoColorRubroProcesoMeta,
+          tipoColorRubroProceso.isAcceptableOrUnknown(
+              data['tipo_color_rubro_proceso']!, _tipoColorRubroProcesoMeta));
+    }
+    if (data.containsKey('tiporubroid')) {
+      context.handle(
+          _tiporubroidMeta,
+          tiporubroid.isAcceptableOrUnknown(
+              data['tiporubroid']!, _tiporubroidMeta));
+    }
+    if (data.containsKey('forma_evaluacion_id')) {
+      context.handle(
+          _formaEvaluacionIdMeta,
+          formaEvaluacionId.isAcceptableOrUnknown(
+              data['forma_evaluacion_id']!, _formaEvaluacionIdMeta));
+    }
+    if (data.containsKey('count_indicador')) {
+      context.handle(
+          _countIndicadorMeta,
+          countIndicador.isAcceptableOrUnknown(
+              data['count_indicador']!, _countIndicadorMeta));
+    }
+    if (data.containsKey('rubro_formal')) {
+      context.handle(
+          _rubroFormalMeta,
+          rubroFormal.isAcceptableOrUnknown(
+              data['rubro_formal']!, _rubroFormalMeta));
+    }
+    if (data.containsKey('msje')) {
+      context.handle(
+          _msjeMeta, msje.isAcceptableOrUnknown(data['msje']!, _msjeMeta));
+    }
+    if (data.containsKey('promedio')) {
+      context.handle(_promedioMeta,
+          promedio.isAcceptableOrUnknown(data['promedio']!, _promedioMeta));
+    }
+    if (data.containsKey('desviacion_estandar')) {
+      context.handle(
+          _desviacionEstandarMeta,
+          desviacionEstandar.isAcceptableOrUnknown(
+              data['desviacion_estandar']!, _desviacionEstandarMeta));
+    }
+    if (data.containsKey('unidad_aprendizaje_id')) {
+      context.handle(
+          _unidadAprendizajeIdMeta,
+          unidadAprendizajeId.isAcceptableOrUnknown(
+              data['unidad_aprendizaje_id']!, _unidadAprendizajeIdMeta));
+    }
+    if (data.containsKey('estrategia_evaluacion_id')) {
+      context.handle(
+          _estrategiaEvaluacionIdMeta,
+          estrategiaEvaluacionId.isAcceptableOrUnknown(
+              data['estrategia_evaluacion_id']!, _estrategiaEvaluacionIdMeta));
+    }
+    if (data.containsKey('tarea_id')) {
+      context.handle(_tareaIdMeta,
+          tareaId.isAcceptableOrUnknown(data['tarea_id']!, _tareaIdMeta));
+    }
+    if (data.containsKey('resultado_tipo_nota_id')) {
+      context.handle(
+          _resultadoTipoNotaIdMeta,
+          resultadoTipoNotaId.isAcceptableOrUnknown(
+              data['resultado_tipo_nota_id']!, _resultadoTipoNotaIdMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {rubroEvalProcesoId};
+  @override
+  RubroEvaluacionProcesoData map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return RubroEvaluacionProcesoData.fromData(data, _db,
+        prefix: effectivePrefix);
+  }
+
+  @override
+  $RubroEvaluacionProcesoTable createAlias(String alias) {
+    return $RubroEvaluacionProcesoTable(_db, alias);
+  }
+}
+
 abstract class _$AppDataBase extends GeneratedDatabase {
   _$AppDataBase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
   late final $SessionUserTable sessionUser = $SessionUserTable(this);
@@ -22788,6 +24811,8 @@ abstract class _$AppDataBase extends GeneratedDatabase {
   late final $TipoNotaRubroTable tipoNotaRubro = $TipoNotaRubroTable(this);
   late final $ValorTipoNotaRubroTable valorTipoNotaRubro =
       $ValorTipoNotaRubroTable(this);
+  late final $RubroEvaluacionProcesoTable rubroEvaluacionProceso =
+      $RubroEvaluacionProcesoTable(this);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
@@ -22834,6 +24859,7 @@ abstract class _$AppDataBase extends GeneratedDatabase {
         tipoEvaluacionRubro,
         tiposRubro,
         tipoNotaRubro,
-        valorTipoNotaRubro
+        valorTipoNotaRubro,
+        rubroEvaluacionProceso
       ];
 }

@@ -19,4 +19,6 @@ class CriterioUi {
   CapacidadUi? capacidadUi;
   int? capacidadId;
   List<TemaCriterioUi>? temaCriterioUiList;
+  bool? toogle;
+  String? icdTituloEditado;
 }

@@ -8,6 +8,7 @@ import 'package:ss_crmeducativo_2/src/domain/entities/competencia_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/criterio_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/forma_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tema_criterio_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/tipo_competencia_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_tipos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_ui.dart';
@@ -21,6 +22,7 @@ import 'model/criterios.dart';
 
 class MoorRubroRepository extends RubroRepository{
   static const int TN_VALOR_NUMERICO = 410, TN_SELECTOR_NUMERICO = 411, TN_SELECTOR_VALORES = 412, TN_SELECTOR_ICONOS = 409, TN_VALOR_ASISTENCIA= 474;
+  static const int COMPETENCIA_BASE = 347, COMPETENCIA_TRANS = 348, COMPETENCIA_ENFQ = 349;
   @override
   void saveDatosCrearRubros(Map<String, dynamic> crearRubro, int silaboEventoId, int calendarioPeriodoId) async {
     AppDataBase SQL = AppDataBase();
@@ -194,7 +196,18 @@ class MoorRubroRepository extends RubroRepository{
         competenciaUi.competenciaId = criterioData.superCompetenciaId;
         competenciaUi.nombre = criterioData.superCompetenciaNombre;
         competenciaUi.descripcion = criterioData.superCompetenciaDescripcion;
-        competenciaUi.tipoId = criterioData.superCompetenciaTipoId;
+        switch( criterioData.superCompetenciaTipoId??0){
+          case COMPETENCIA_BASE:
+            competenciaUi.tipoCompetenciaUi = TipoCompetenciaUi.BASE;
+            break;
+          case COMPETENCIA_ENFQ:
+            competenciaUi.tipoCompetenciaUi = TipoCompetenciaUi.ENFOQUE;
+            break;
+          case COMPETENCIA_TRANS:
+            competenciaUi.tipoCompetenciaUi = TipoCompetenciaUi.TRANSVERSAL;
+            break;
+        }
+
         competenciaUiList.add(competenciaUi);
       }
 

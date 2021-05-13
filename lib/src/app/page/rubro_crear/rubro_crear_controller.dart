@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubro_crear/rubro_crear_presenter.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/calendario_periodio_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/capacidad_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/competencia_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/criterio_peso_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/criterio_ui.dart';
@@ -9,13 +9,12 @@ import 'package:ss_crmeducativo_2/src/domain/entities/criterio_valor_tipo_nota_u
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/forma_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/rubro_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/tema_criterio_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/tipo_competencia_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_ui.dart';
-import 'dart:math';
-
-import 'package:ss_crmeducativo_2/src/domain/entities/tipos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/valor_tipo_nota_ui.dart';
-import 'package:ss_crmeducativo_2/src/domain/repositories/rubro_repository.dart';
+import 'package:collection/collection.dart';
 
 class RubroCrearController extends Controller{
 
@@ -47,8 +46,12 @@ class RubroCrearController extends Controller{
   List<CriterioUi> _criterioUiList = [];
   List<CriterioUi> get criterioUiList => _criterioUiList;
 
-  List<CompetenciaUi> _competenciaUiList = [];
-  List<CompetenciaUi> get competenciaUiList => _competenciaUiList;
+  List<CompetenciaUi> _competenciaUiBaseList = [];
+  List<CompetenciaUi> get competenciaUiBaseList => _competenciaUiBaseList;
+  List<CompetenciaUi> _competenciaUiTransversalList = [];
+  List<CompetenciaUi> get competenciaUiTransversalList => _competenciaUiTransversalList;
+  List<CompetenciaUi> _competenciaUiEnfoqueList = [];
+  List<CompetenciaUi> get competenciaUiEnfoqueList => _competenciaUiEnfoqueList;
 
   List<dynamic> _tableTipoNotaColumns = [];
   List<dynamic> get tableTipoNotaColumns => _tableTipoNotaColumns;
@@ -57,8 +60,10 @@ class RubroCrearController extends Controller{
   List<double> _tableTipoNotacolumnWidths = [];
   List<double> get tableTipoNotacolumnWidths => _tableTipoNotacolumnWidths;
 
-
-
+  String? _tituloCriterio = null;
+  String? get tituloCriterio => _tituloCriterio;
+  List<TemaCriterioUi> _temaCriterioEditList = [];
+  List<TemaCriterioUi> get temaCriterioEditList => _temaCriterioEditList;
   RubroCrearController(this.cursosUi, this.calendarioPeriodoUI, this.rubroUi, rubroRepo, usuarioRepo): presenter = new RubroCrearPresenter(rubroRepo,usuarioRepo);
 
   @override
@@ -103,11 +108,20 @@ class RubroCrearController extends Controller{
 
 
     presenter.getTemaCriteriosOnNext = (List<CompetenciaUi> competenciaUiList){
-      _competenciaUiList = competenciaUiList;
+      _competenciaUiBaseList.clear();
+      _competenciaUiTransversalList.clear();
+      _competenciaUiEnfoqueList.clear();
+      for(CompetenciaUi co in competenciaUiList){
+        if(co.tipoCompetenciaUi == TipoCompetenciaUi.BASE)_competenciaUiBaseList.add(co);
+        if(co.tipoCompetenciaUi == TipoCompetenciaUi.TRANSVERSAL)_competenciaUiTransversalList.add(co);
+        if(co.tipoCompetenciaUi == TipoCompetenciaUi.ENFOQUE)_competenciaUiEnfoqueList.add(co);
+      }
       refreshUI();
     };
     presenter.getTemaCriteriosOnError = (e){
-      _competenciaUiList = [];
+      _competenciaUiBaseList.clear();
+      _competenciaUiTransversalList.clear();
+      _competenciaUiEnfoqueList.clear();
       refreshUI();
     };
 
@@ -120,35 +134,67 @@ class RubroCrearController extends Controller{
     _tableTipoNotacolumnWidths.clear();
     _tableTipoNotaCells.clear();
 
+    _criterioUiList.clear();
+
+    List<CompetenciaUi> competenciaUiList = [];
+    competenciaUiList.addAll(_competenciaUiBaseList);
+    competenciaUiList.addAll(_competenciaUiTransversalList);
+    competenciaUiList.addAll(_competenciaUiEnfoqueList);
+    for(CompetenciaUi competenciaUi in competenciaUiList){
+      for(CapacidadUi capacidadUi in competenciaUi.capacidadUiList??[]){
+        for(CriterioUi criterioUi in capacidadUi.criterioUiList??[]){
+          if(criterioUi.toogle??false)_criterioUiList.add(criterioUi);
+        }
+      }
+    }
+
     if(_tipoNotaUi!=null){
-
       _tableTipoNotaColumns.add("Criterios");
-      _tableTipoNotacolumnWidths.add(120.0);
-
-
+      _tableTipoNotacolumnWidths.add(125.0);
       for (ValorTipoNotaUi valorTipoNotaUi in _tipoNotaUi?.valorTipoNotaList??[]) {
         _tableTipoNotaColumns.add(valorTipoNotaUi);
         _tableTipoNotacolumnWidths.add(50.0);
       }
       _tableTipoNotaColumns.add(true);
       _tableTipoNotacolumnWidths.add(45.0);
-
+      List<int> percentParts = getPercentPartsV2(100, _criterioUiList.length);
       List<List<dynamic>> output = [];
-      for (CriterioUi criterioUi in _criterioUiList) {
+      for (int i = 0; i < _criterioUiList.length; i++) {
+        CriterioUi criterioUi = _criterioUiList[i];
         final List<dynamic> row = [];
         row.add(criterioUi);
         for (int i = 0; i < ( _tipoNotaUi?.valorTipoNotaList??[]).length; i++) {
           row.add(CriterioValorTipoNotaUi());
         }
-        row.add(CriterioPesoUi());
+        CriterioPesoUi criterioPesoUi = CriterioPesoUi();
+        criterioPesoUi.peso = percentParts[i];
+        criterioPesoUi.criterioUi = criterioUi;
+        row.add(criterioPesoUi);
         output.add(row);
       }
-
       _tableTipoNotaCells = output;
-
     }
 
   }
+
+  List<int> getPercentPartsV2(int? totalPeso, int? cantidad) {
+    if (cantidad == null||cantidad == 0) return [];
+    List<int> percentParts = [];
+
+    int subtotalPeso =  ((totalPeso??0)/cantidad).toInt();
+    int diferencia = (totalPeso??0) - (subtotalPeso * cantidad);
+
+    for (int i = 0; i < cantidad; i++) {
+      percentParts.add(subtotalPeso);
+    }
+
+    for (int i = 0; i < diferencia; i++) {
+      percentParts[i]+=1;
+    }
+
+    return percentParts;
+  }
+
 
   @override
   void onInitState() {
@@ -165,6 +211,56 @@ class RubroCrearController extends Controller{
   }
 
   void onSave() {
+
+    if((_tituloRubrica??"").isEmpty){
+      _mensaje = "Ingrese el título de la rúbrica";
+      refreshUI();
+      return;
+    }
+
+    if(_formaEvaluacionUi==null){
+      _mensaje = "Forma evaluación vacío";
+      refreshUI();
+      return;
+    }
+
+    if(_tipoEvaluacionUi==null){
+      _mensaje = "Tipo evaluación vacío";
+      refreshUI();
+      return;
+    }
+
+    if(_tipoEvaluacionUi==null) {
+      _mensaje = "Promedio de logro vacío";
+      refreshUI();
+      return;
+    }
+
+   if(_criterioUiList.isEmpty){
+     _mensaje = "No ha seleccionado criterios";
+     refreshUI();
+     return;
+   }
+   /*Vasta que un indicador este selecionado para guardar*/
+    /*Esta validacion puede cambiar privio analisis*/
+    bool camposTemaSelecionado  = false;
+   for(CriterioUi criterioUi in _criterioUiList){
+     camposTemaSelecionado = sinSelecionarCampoAccion(criterioUi.temaCriterioUiList??[]);
+     if(camposTemaSelecionado)break;
+   }
+    if(!camposTemaSelecionado){
+      _mensaje = "No ha seleccionado campo Acción";
+      refreshUI();
+      return;
+    }
+
+    if(!validarPeso(_tableTipoNotaCells)){
+      _mensaje = "El peso de los inidicadores erroneos";
+      refreshUI();
+    }
+
+
+
 
   }
 
@@ -195,6 +291,140 @@ class RubroCrearController extends Controller{
     refreshUI();
   }
 
+  void onClickCriterio(CriterioUi criterioUi) {
+    criterioUi.toogle = !(criterioUi.toogle??false);
+    for(TemaCriterioUi item in criterioUi.temaCriterioUiList??[]){
+        if((item.temaCriterioUiList??[]).isEmpty){
+          item.toogle =  criterioUi.toogle;
+        }else{
+          for(TemaCriterioUi subitem in item.temaCriterioUiList??[]){
+            subitem.toogle =  criterioUi.toogle;
+          }
+        }
+    }
+    iniciarTablaTipoNota();
+    refreshUI();
+  }
+
+  void onClickTemaCriterio(TemaCriterioUi childtemaCriterioUi, CriterioUi criterioUi) {
+    childtemaCriterioUi.toogle = !(childtemaCriterioUi.toogle??false);
+    bool todosTemasSelecionados = false;
+    for(TemaCriterioUi item in criterioUi.temaCriterioUiList??[]){
+      if((item.temaCriterioUiList??[]).isEmpty){
+        if((item.toogle??false)){
+          todosTemasSelecionados = true;
+          break;
+        }
+      }else{
+        for(TemaCriterioUi subitem in item.temaCriterioUiList??[]){
+          if((subitem.toogle??false)){
+            todosTemasSelecionados = true;
+            break;
+          }
+        }
+      }
+    }
+    criterioUi.toogle = todosTemasSelecionados;
+    iniciarTablaTipoNota();
+    refreshUI();
+  }
+
+  void clearTituloCriterio(CriterioUi criterioUi) {
+    _tituloCriterio = "";
+  }
+
+  void changeCriterioTitulo(String texto, CriterioUi criterioUi) {
+    _tituloCriterio = texto;
+  }
+
+  void showDialogEditCriterio(CriterioUi criterioUi) {
+    _tituloCriterio = criterioUi.icdTituloEditado??criterioUi.icdTituloEditado??criterioUi.icdTitulo??"";
+    _temaCriterioEditList.clear();
+    for(TemaCriterioUi item in criterioUi.temaCriterioUiList??[]){
+        TemaCriterioUi temaCriterioUi = TemaCriterioUi.copy(item);
+        temaCriterioUi.temaCriterioUiList = [];
+        for(TemaCriterioUi subitem in item.temaCriterioUiList??[]){
+          TemaCriterioUi subtemaCriterioUi = TemaCriterioUi.copy(subitem);
+          subtemaCriterioUi.parent = temaCriterioUi;
+          temaCriterioUi.temaCriterioUiList?.add(subtemaCriterioUi);
+        }
+        _temaCriterioEditList.add(temaCriterioUi);
+    }
+  }
+
+  bool onSaveCriterio(CriterioUi criterioUi) {
+
+    if((_tituloCriterio??"").isEmpty){
+      _mensaje = "Título vacio";
+      refreshUI();
+      return false;
+    }
+
+    if(!sinSelecionarCampoAccion(_temaCriterioEditList)){
+      _mensaje = "Seleccione un campo de acción";
+      refreshUI();
+      return false;
+    }
+
+    if((_tituloCriterio??"").isNotEmpty) criterioUi.icdTituloEditado = _tituloCriterio;
+    for(TemaCriterioUi item in _temaCriterioEditList){
+      TemaCriterioUi? temaCriterioUi = criterioUi.temaCriterioUiList?.firstWhere((element) => element.campoTematicoId == item.campoTematicoId);
+      temaCriterioUi?.toogle = item.toogle;
+      for(TemaCriterioUi subitem in item.temaCriterioUiList??[]){
+        TemaCriterioUi? subtemaCriterioUi = temaCriterioUi?.temaCriterioUiList?.firstWhere((element) => element.campoTematicoId == subitem.campoTematicoId);
+        subtemaCriterioUi?.toogle = subitem.toogle;
+      }
+    }
+
+    iniciarTablaTipoNota();
+    refreshUI();
+
+    return true;
+
+  }
+
+  void onClickTemaCriterioEdit(TemaCriterioUi childtemaCriterioUi) {
+    childtemaCriterioUi.toogle = !(childtemaCriterioUi.toogle??false);
+  }
+
+  bool sinSelecionarCampoAccion(List<TemaCriterioUi> temaCriterioEditList) {
+   bool sinCampoAccion = false;
+    for(TemaCriterioUi item in temaCriterioEditList){
+      if(item.toogle??false){
+        sinCampoAccion = true;
+        break;
+      }
+      for(TemaCriterioUi subitem in item.temaCriterioUiList??[]){
+        if(subitem.toogle??false){
+          sinCampoAccion = true;
+          break;
+        }
+      }
+    }
+    return sinCampoAccion;
+  }
+
+  bool validarPeso(List<List<dynamic>> bodyList) {
+    int porcentaje = 0;
+    for (List<dynamic> cellList in bodyList) {
+      CriterioPesoUi? criterioPesoUi = null;
+      for(var o in cellList){
+        if(o is CriterioPesoUi){
+          criterioPesoUi = o;
+        }
+      }
+      porcentaje += criterioPesoUi?.peso??0;
+      if((criterioPesoUi?.peso??0)==0)return false;
+    }
+
+    print("TAG Peso: " + porcentaje.toString());
+    if (porcentaje == 100) {
+      return true;
+    } else {
+      return false;
+    }
+
+  }
 
 
 }

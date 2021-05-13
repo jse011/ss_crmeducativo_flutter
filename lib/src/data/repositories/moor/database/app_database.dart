@@ -31,6 +31,7 @@ import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/plan_cursos.d
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/plan_estudios.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/programas_educativo.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/rol.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/rubro/rubro_evaluacion_proceso.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/seccion.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/session_user.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/silabo_evento.dart';
@@ -48,7 +49,7 @@ part 'app_database.g.dart';
 @UseMoor(tables:[SessionUser, UsuarioRolGeoreferencia, Rol, Georeferencia, Entidad, Persona, Empleado, AnioAcademico, ParametroConfiguracion, Aula, CargaAcademica,
   CargaCursoDocente, CargaCursoDocenteDet, CargaCurso, Cursos, ParametrosDisenio, NivelAcademico, Periodos, PlanCursos, PlanEstudio, ProgramasEducativo, Seccion, SilaboEvento,
   CalendarioPeriodo, CalendarioPeriodoDetalle, CargaCursoCalendarioPeriodo, Tipos, Hora, HorarioPrograma, HorarioHora, DetalleHorario, Dia, HorarioDia, CursosDetHorario, Horario,
-  CalendarioAcademico, Usuario, WebConfigs, Criterio, TipoEvaluacionRubro, TiposRubro, TipoNotaRubro, ValorTipoNotaRubro])
+  CalendarioAcademico, Usuario, WebConfigs, Criterio, TipoEvaluacionRubro, TiposRubro, TipoNotaRubro, ValorTipoNotaRubro, RubroEvaluacionProceso])
 class AppDataBase extends _$AppDataBase {
   @override
   int get schemaVersion => 1;
