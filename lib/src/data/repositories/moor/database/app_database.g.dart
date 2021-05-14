@@ -22752,7 +22752,7 @@ class RubroEvaluacionProcesoData extends DataClass
   final int? tipoRedondeoId;
   final int? valorRedondeoId;
   final int? rubroEvalResultadoId;
-  final int? tipoNotaId;
+  final String? tipoNotaId;
   final int? sesionAprendizajeId;
   final int? desempenioIcdId;
   final int? campoTematicoId;
@@ -22864,7 +22864,7 @@ class RubroEvaluacionProcesoData extends DataClass
           .mapFromDatabaseResponse(data['${effectivePrefix}valor_redondeo_id']),
       rubroEvalResultadoId: intType.mapFromDatabaseResponse(
           data['${effectivePrefix}rubro_eval_resultado_id']),
-      tipoNotaId: intType
+      tipoNotaId: stringType
           .mapFromDatabaseResponse(data['${effectivePrefix}tipo_nota_id']),
       sesionAprendizajeId: intType.mapFromDatabaseResponse(
           data['${effectivePrefix}sesion_aprendizaje_id']),
@@ -22968,7 +22968,7 @@ class RubroEvaluacionProcesoData extends DataClass
       map['rubro_eval_resultado_id'] = Variable<int?>(rubroEvalResultadoId);
     }
     if (!nullToAbsent || tipoNotaId != null) {
-      map['tipo_nota_id'] = Variable<int?>(tipoNotaId);
+      map['tipo_nota_id'] = Variable<String?>(tipoNotaId);
     }
     if (!nullToAbsent || sesionAprendizajeId != null) {
       map['sesion_aprendizaje_id'] = Variable<int?>(sesionAprendizajeId);
@@ -23175,7 +23175,7 @@ class RubroEvaluacionProcesoData extends DataClass
       valorRedondeoId: serializer.fromJson<int?>(json['valorRedondeoId']),
       rubroEvalResultadoId:
           serializer.fromJson<int?>(json['rubroEvalResultadoId']),
-      tipoNotaId: serializer.fromJson<int?>(json['tipoNotaId']),
+      tipoNotaId: serializer.fromJson<String?>(json['tipoNotaId']),
       sesionAprendizajeId:
           serializer.fromJson<int?>(json['sesionAprendizajeId']),
       desempenioIcdId: serializer.fromJson<int?>(json['desempenioIcdId']),
@@ -23228,7 +23228,7 @@ class RubroEvaluacionProcesoData extends DataClass
       'tipoRedondeoId': serializer.toJson<int?>(tipoRedondeoId),
       'valorRedondeoId': serializer.toJson<int?>(valorRedondeoId),
       'rubroEvalResultadoId': serializer.toJson<int?>(rubroEvalResultadoId),
-      'tipoNotaId': serializer.toJson<int?>(tipoNotaId),
+      'tipoNotaId': serializer.toJson<String?>(tipoNotaId),
       'sesionAprendizajeId': serializer.toJson<int?>(sesionAprendizajeId),
       'desempenioIcdId': serializer.toJson<int?>(desempenioIcdId),
       'campoTematicoId': serializer.toJson<int?>(campoTematicoId),
@@ -23272,7 +23272,7 @@ class RubroEvaluacionProcesoData extends DataClass
           int? tipoRedondeoId,
           int? valorRedondeoId,
           int? rubroEvalResultadoId,
-          int? tipoNotaId,
+          String? tipoNotaId,
           int? sesionAprendizajeId,
           int? desempenioIcdId,
           int? campoTematicoId,
@@ -23497,7 +23497,7 @@ class RubroEvaluacionProcesoCompanion
   final Value<int?> tipoRedondeoId;
   final Value<int?> valorRedondeoId;
   final Value<int?> rubroEvalResultadoId;
-  final Value<int?> tipoNotaId;
+  final Value<String?> tipoNotaId;
   final Value<int?> sesionAprendizajeId;
   final Value<int?> desempenioIcdId;
   final Value<int?> campoTematicoId;
@@ -23622,7 +23622,7 @@ class RubroEvaluacionProcesoCompanion
     Expression<int?>? tipoRedondeoId,
     Expression<int?>? valorRedondeoId,
     Expression<int?>? rubroEvalResultadoId,
-    Expression<int?>? tipoNotaId,
+    Expression<String?>? tipoNotaId,
     Expression<int?>? sesionAprendizajeId,
     Expression<int?>? desempenioIcdId,
     Expression<int?>? campoTematicoId,
@@ -23717,7 +23717,7 @@ class RubroEvaluacionProcesoCompanion
       Value<int?>? tipoRedondeoId,
       Value<int?>? valorRedondeoId,
       Value<int?>? rubroEvalResultadoId,
-      Value<int?>? tipoNotaId,
+      Value<String?>? tipoNotaId,
       Value<int?>? sesionAprendizajeId,
       Value<int?>? desempenioIcdId,
       Value<int?>? campoTematicoId,
@@ -23851,7 +23851,7 @@ class RubroEvaluacionProcesoCompanion
           Variable<int?>(rubroEvalResultadoId.value);
     }
     if (tipoNotaId.present) {
-      map['tipo_nota_id'] = Variable<int?>(tipoNotaId.value);
+      map['tipo_nota_id'] = Variable<String?>(tipoNotaId.value);
     }
     if (sesionAprendizajeId.present) {
       map['sesion_aprendizaje_id'] = Variable<int?>(sesionAprendizajeId.value);
@@ -24221,9 +24221,9 @@ class $RubroEvaluacionProcesoTable extends RubroEvaluacionProceso
 
   final VerificationMeta _tipoNotaIdMeta = const VerificationMeta('tipoNotaId');
   @override
-  late final GeneratedIntColumn tipoNotaId = _constructTipoNotaId();
-  GeneratedIntColumn _constructTipoNotaId() {
-    return GeneratedIntColumn(
+  late final GeneratedTextColumn tipoNotaId = _constructTipoNotaId();
+  GeneratedTextColumn _constructTipoNotaId() {
+    return GeneratedTextColumn(
       'tipo_nota_id',
       $tableName,
       true,
@@ -24752,6 +24752,4264 @@ class $RubroEvaluacionProcesoTable extends RubroEvaluacionProceso
   }
 }
 
+class ArchivoRubroData extends DataClass
+    implements Insertable<ArchivoRubroData> {
+  final int? syncFlag;
+  final DateTime? timestampFlag;
+  final int? usuarioCreacionId;
+  final DateTime? fechaCreacion;
+  final int? usuarioAccionId;
+  final DateTime? fechaAccion;
+  final String archivoRubroId;
+  final String? url;
+  final int? tipoArchivoId;
+  final String? evaluacionProcesoId;
+  final String? localpath;
+  final int? delete;
+  ArchivoRubroData(
+      {this.syncFlag,
+      this.timestampFlag,
+      this.usuarioCreacionId,
+      this.fechaCreacion,
+      this.usuarioAccionId,
+      this.fechaAccion,
+      required this.archivoRubroId,
+      this.url,
+      this.tipoArchivoId,
+      this.evaluacionProcesoId,
+      this.localpath,
+      this.delete});
+  factory ArchivoRubroData.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
+      {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final intType = db.typeSystem.forDartType<int>();
+    final dateTimeType = db.typeSystem.forDartType<DateTime>();
+    final stringType = db.typeSystem.forDartType<String>();
+    return ArchivoRubroData(
+      syncFlag:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}sync_flag']),
+      timestampFlag: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}timestamp_flag']),
+      usuarioCreacionId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}usuario_creacion_id']),
+      fechaCreacion: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_creacion']),
+      usuarioAccionId: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}usuario_accion_id']),
+      fechaAccion: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_accion']),
+      archivoRubroId: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}archivo_rubro_id'])!,
+      url: stringType.mapFromDatabaseResponse(data['${effectivePrefix}url']),
+      tipoArchivoId: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}tipo_archivo_id']),
+      evaluacionProcesoId: stringType.mapFromDatabaseResponse(
+          data['${effectivePrefix}evaluacion_proceso_id']),
+      localpath: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}localpath']),
+      delete: intType.mapFromDatabaseResponse(data['${effectivePrefix}delete']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || syncFlag != null) {
+      map['sync_flag'] = Variable<int?>(syncFlag);
+    }
+    if (!nullToAbsent || timestampFlag != null) {
+      map['timestamp_flag'] = Variable<DateTime?>(timestampFlag);
+    }
+    if (!nullToAbsent || usuarioCreacionId != null) {
+      map['usuario_creacion_id'] = Variable<int?>(usuarioCreacionId);
+    }
+    if (!nullToAbsent || fechaCreacion != null) {
+      map['fecha_creacion'] = Variable<DateTime?>(fechaCreacion);
+    }
+    if (!nullToAbsent || usuarioAccionId != null) {
+      map['usuario_accion_id'] = Variable<int?>(usuarioAccionId);
+    }
+    if (!nullToAbsent || fechaAccion != null) {
+      map['fecha_accion'] = Variable<DateTime?>(fechaAccion);
+    }
+    map['archivo_rubro_id'] = Variable<String>(archivoRubroId);
+    if (!nullToAbsent || url != null) {
+      map['url'] = Variable<String?>(url);
+    }
+    if (!nullToAbsent || tipoArchivoId != null) {
+      map['tipo_archivo_id'] = Variable<int?>(tipoArchivoId);
+    }
+    if (!nullToAbsent || evaluacionProcesoId != null) {
+      map['evaluacion_proceso_id'] = Variable<String?>(evaluacionProcesoId);
+    }
+    if (!nullToAbsent || localpath != null) {
+      map['localpath'] = Variable<String?>(localpath);
+    }
+    if (!nullToAbsent || delete != null) {
+      map['delete'] = Variable<int?>(delete);
+    }
+    return map;
+  }
+
+  ArchivoRubroCompanion toCompanion(bool nullToAbsent) {
+    return ArchivoRubroCompanion(
+      syncFlag: syncFlag == null && nullToAbsent
+          ? const Value.absent()
+          : Value(syncFlag),
+      timestampFlag: timestampFlag == null && nullToAbsent
+          ? const Value.absent()
+          : Value(timestampFlag),
+      usuarioCreacionId: usuarioCreacionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioCreacionId),
+      fechaCreacion: fechaCreacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaCreacion),
+      usuarioAccionId: usuarioAccionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioAccionId),
+      fechaAccion: fechaAccion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaAccion),
+      archivoRubroId: Value(archivoRubroId),
+      url: url == null && nullToAbsent ? const Value.absent() : Value(url),
+      tipoArchivoId: tipoArchivoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(tipoArchivoId),
+      evaluacionProcesoId: evaluacionProcesoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(evaluacionProcesoId),
+      localpath: localpath == null && nullToAbsent
+          ? const Value.absent()
+          : Value(localpath),
+      delete:
+          delete == null && nullToAbsent ? const Value.absent() : Value(delete),
+    );
+  }
+
+  factory ArchivoRubroData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return ArchivoRubroData(
+      syncFlag: serializer.fromJson<int?>(json['syncFlag']),
+      timestampFlag: serializer.fromJson<DateTime?>(json['timestampFlag']),
+      usuarioCreacionId: serializer.fromJson<int?>(json['usuarioCreacionId']),
+      fechaCreacion: serializer.fromJson<DateTime?>(json['fechaCreacion']),
+      usuarioAccionId: serializer.fromJson<int?>(json['usuarioAccionId']),
+      fechaAccion: serializer.fromJson<DateTime?>(json['fechaAccion']),
+      archivoRubroId: serializer.fromJson<String>(json['archivoRubroId']),
+      url: serializer.fromJson<String?>(json['url']),
+      tipoArchivoId: serializer.fromJson<int?>(json['tipoArchivoId']),
+      evaluacionProcesoId:
+          serializer.fromJson<String?>(json['evaluacionProcesoId']),
+      localpath: serializer.fromJson<String?>(json['localpath']),
+      delete: serializer.fromJson<int?>(json['delete']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'syncFlag': serializer.toJson<int?>(syncFlag),
+      'timestampFlag': serializer.toJson<DateTime?>(timestampFlag),
+      'usuarioCreacionId': serializer.toJson<int?>(usuarioCreacionId),
+      'fechaCreacion': serializer.toJson<DateTime?>(fechaCreacion),
+      'usuarioAccionId': serializer.toJson<int?>(usuarioAccionId),
+      'fechaAccion': serializer.toJson<DateTime?>(fechaAccion),
+      'archivoRubroId': serializer.toJson<String>(archivoRubroId),
+      'url': serializer.toJson<String?>(url),
+      'tipoArchivoId': serializer.toJson<int?>(tipoArchivoId),
+      'evaluacionProcesoId': serializer.toJson<String?>(evaluacionProcesoId),
+      'localpath': serializer.toJson<String?>(localpath),
+      'delete': serializer.toJson<int?>(delete),
+    };
+  }
+
+  ArchivoRubroData copyWith(
+          {int? syncFlag,
+          DateTime? timestampFlag,
+          int? usuarioCreacionId,
+          DateTime? fechaCreacion,
+          int? usuarioAccionId,
+          DateTime? fechaAccion,
+          String? archivoRubroId,
+          String? url,
+          int? tipoArchivoId,
+          String? evaluacionProcesoId,
+          String? localpath,
+          int? delete}) =>
+      ArchivoRubroData(
+        syncFlag: syncFlag ?? this.syncFlag,
+        timestampFlag: timestampFlag ?? this.timestampFlag,
+        usuarioCreacionId: usuarioCreacionId ?? this.usuarioCreacionId,
+        fechaCreacion: fechaCreacion ?? this.fechaCreacion,
+        usuarioAccionId: usuarioAccionId ?? this.usuarioAccionId,
+        fechaAccion: fechaAccion ?? this.fechaAccion,
+        archivoRubroId: archivoRubroId ?? this.archivoRubroId,
+        url: url ?? this.url,
+        tipoArchivoId: tipoArchivoId ?? this.tipoArchivoId,
+        evaluacionProcesoId: evaluacionProcesoId ?? this.evaluacionProcesoId,
+        localpath: localpath ?? this.localpath,
+        delete: delete ?? this.delete,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('ArchivoRubroData(')
+          ..write('syncFlag: $syncFlag, ')
+          ..write('timestampFlag: $timestampFlag, ')
+          ..write('usuarioCreacionId: $usuarioCreacionId, ')
+          ..write('fechaCreacion: $fechaCreacion, ')
+          ..write('usuarioAccionId: $usuarioAccionId, ')
+          ..write('fechaAccion: $fechaAccion, ')
+          ..write('archivoRubroId: $archivoRubroId, ')
+          ..write('url: $url, ')
+          ..write('tipoArchivoId: $tipoArchivoId, ')
+          ..write('evaluacionProcesoId: $evaluacionProcesoId, ')
+          ..write('localpath: $localpath, ')
+          ..write('delete: $delete')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      syncFlag.hashCode,
+      $mrjc(
+          timestampFlag.hashCode,
+          $mrjc(
+              usuarioCreacionId.hashCode,
+              $mrjc(
+                  fechaCreacion.hashCode,
+                  $mrjc(
+                      usuarioAccionId.hashCode,
+                      $mrjc(
+                          fechaAccion.hashCode,
+                          $mrjc(
+                              archivoRubroId.hashCode,
+                              $mrjc(
+                                  url.hashCode,
+                                  $mrjc(
+                                      tipoArchivoId.hashCode,
+                                      $mrjc(
+                                          evaluacionProcesoId.hashCode,
+                                          $mrjc(localpath.hashCode,
+                                              delete.hashCode))))))))))));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is ArchivoRubroData &&
+          other.syncFlag == this.syncFlag &&
+          other.timestampFlag == this.timestampFlag &&
+          other.usuarioCreacionId == this.usuarioCreacionId &&
+          other.fechaCreacion == this.fechaCreacion &&
+          other.usuarioAccionId == this.usuarioAccionId &&
+          other.fechaAccion == this.fechaAccion &&
+          other.archivoRubroId == this.archivoRubroId &&
+          other.url == this.url &&
+          other.tipoArchivoId == this.tipoArchivoId &&
+          other.evaluacionProcesoId == this.evaluacionProcesoId &&
+          other.localpath == this.localpath &&
+          other.delete == this.delete);
+}
+
+class ArchivoRubroCompanion extends UpdateCompanion<ArchivoRubroData> {
+  final Value<int?> syncFlag;
+  final Value<DateTime?> timestampFlag;
+  final Value<int?> usuarioCreacionId;
+  final Value<DateTime?> fechaCreacion;
+  final Value<int?> usuarioAccionId;
+  final Value<DateTime?> fechaAccion;
+  final Value<String> archivoRubroId;
+  final Value<String?> url;
+  final Value<int?> tipoArchivoId;
+  final Value<String?> evaluacionProcesoId;
+  final Value<String?> localpath;
+  final Value<int?> delete;
+  const ArchivoRubroCompanion({
+    this.syncFlag = const Value.absent(),
+    this.timestampFlag = const Value.absent(),
+    this.usuarioCreacionId = const Value.absent(),
+    this.fechaCreacion = const Value.absent(),
+    this.usuarioAccionId = const Value.absent(),
+    this.fechaAccion = const Value.absent(),
+    this.archivoRubroId = const Value.absent(),
+    this.url = const Value.absent(),
+    this.tipoArchivoId = const Value.absent(),
+    this.evaluacionProcesoId = const Value.absent(),
+    this.localpath = const Value.absent(),
+    this.delete = const Value.absent(),
+  });
+  ArchivoRubroCompanion.insert({
+    this.syncFlag = const Value.absent(),
+    this.timestampFlag = const Value.absent(),
+    this.usuarioCreacionId = const Value.absent(),
+    this.fechaCreacion = const Value.absent(),
+    this.usuarioAccionId = const Value.absent(),
+    this.fechaAccion = const Value.absent(),
+    required String archivoRubroId,
+    this.url = const Value.absent(),
+    this.tipoArchivoId = const Value.absent(),
+    this.evaluacionProcesoId = const Value.absent(),
+    this.localpath = const Value.absent(),
+    this.delete = const Value.absent(),
+  }) : archivoRubroId = Value(archivoRubroId);
+  static Insertable<ArchivoRubroData> custom({
+    Expression<int?>? syncFlag,
+    Expression<DateTime?>? timestampFlag,
+    Expression<int?>? usuarioCreacionId,
+    Expression<DateTime?>? fechaCreacion,
+    Expression<int?>? usuarioAccionId,
+    Expression<DateTime?>? fechaAccion,
+    Expression<String>? archivoRubroId,
+    Expression<String?>? url,
+    Expression<int?>? tipoArchivoId,
+    Expression<String?>? evaluacionProcesoId,
+    Expression<String?>? localpath,
+    Expression<int?>? delete,
+  }) {
+    return RawValuesInsertable({
+      if (syncFlag != null) 'sync_flag': syncFlag,
+      if (timestampFlag != null) 'timestamp_flag': timestampFlag,
+      if (usuarioCreacionId != null) 'usuario_creacion_id': usuarioCreacionId,
+      if (fechaCreacion != null) 'fecha_creacion': fechaCreacion,
+      if (usuarioAccionId != null) 'usuario_accion_id': usuarioAccionId,
+      if (fechaAccion != null) 'fecha_accion': fechaAccion,
+      if (archivoRubroId != null) 'archivo_rubro_id': archivoRubroId,
+      if (url != null) 'url': url,
+      if (tipoArchivoId != null) 'tipo_archivo_id': tipoArchivoId,
+      if (evaluacionProcesoId != null)
+        'evaluacion_proceso_id': evaluacionProcesoId,
+      if (localpath != null) 'localpath': localpath,
+      if (delete != null) 'delete': delete,
+    });
+  }
+
+  ArchivoRubroCompanion copyWith(
+      {Value<int?>? syncFlag,
+      Value<DateTime?>? timestampFlag,
+      Value<int?>? usuarioCreacionId,
+      Value<DateTime?>? fechaCreacion,
+      Value<int?>? usuarioAccionId,
+      Value<DateTime?>? fechaAccion,
+      Value<String>? archivoRubroId,
+      Value<String?>? url,
+      Value<int?>? tipoArchivoId,
+      Value<String?>? evaluacionProcesoId,
+      Value<String?>? localpath,
+      Value<int?>? delete}) {
+    return ArchivoRubroCompanion(
+      syncFlag: syncFlag ?? this.syncFlag,
+      timestampFlag: timestampFlag ?? this.timestampFlag,
+      usuarioCreacionId: usuarioCreacionId ?? this.usuarioCreacionId,
+      fechaCreacion: fechaCreacion ?? this.fechaCreacion,
+      usuarioAccionId: usuarioAccionId ?? this.usuarioAccionId,
+      fechaAccion: fechaAccion ?? this.fechaAccion,
+      archivoRubroId: archivoRubroId ?? this.archivoRubroId,
+      url: url ?? this.url,
+      tipoArchivoId: tipoArchivoId ?? this.tipoArchivoId,
+      evaluacionProcesoId: evaluacionProcesoId ?? this.evaluacionProcesoId,
+      localpath: localpath ?? this.localpath,
+      delete: delete ?? this.delete,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (syncFlag.present) {
+      map['sync_flag'] = Variable<int?>(syncFlag.value);
+    }
+    if (timestampFlag.present) {
+      map['timestamp_flag'] = Variable<DateTime?>(timestampFlag.value);
+    }
+    if (usuarioCreacionId.present) {
+      map['usuario_creacion_id'] = Variable<int?>(usuarioCreacionId.value);
+    }
+    if (fechaCreacion.present) {
+      map['fecha_creacion'] = Variable<DateTime?>(fechaCreacion.value);
+    }
+    if (usuarioAccionId.present) {
+      map['usuario_accion_id'] = Variable<int?>(usuarioAccionId.value);
+    }
+    if (fechaAccion.present) {
+      map['fecha_accion'] = Variable<DateTime?>(fechaAccion.value);
+    }
+    if (archivoRubroId.present) {
+      map['archivo_rubro_id'] = Variable<String>(archivoRubroId.value);
+    }
+    if (url.present) {
+      map['url'] = Variable<String?>(url.value);
+    }
+    if (tipoArchivoId.present) {
+      map['tipo_archivo_id'] = Variable<int?>(tipoArchivoId.value);
+    }
+    if (evaluacionProcesoId.present) {
+      map['evaluacion_proceso_id'] =
+          Variable<String?>(evaluacionProcesoId.value);
+    }
+    if (localpath.present) {
+      map['localpath'] = Variable<String?>(localpath.value);
+    }
+    if (delete.present) {
+      map['delete'] = Variable<int?>(delete.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ArchivoRubroCompanion(')
+          ..write('syncFlag: $syncFlag, ')
+          ..write('timestampFlag: $timestampFlag, ')
+          ..write('usuarioCreacionId: $usuarioCreacionId, ')
+          ..write('fechaCreacion: $fechaCreacion, ')
+          ..write('usuarioAccionId: $usuarioAccionId, ')
+          ..write('fechaAccion: $fechaAccion, ')
+          ..write('archivoRubroId: $archivoRubroId, ')
+          ..write('url: $url, ')
+          ..write('tipoArchivoId: $tipoArchivoId, ')
+          ..write('evaluacionProcesoId: $evaluacionProcesoId, ')
+          ..write('localpath: $localpath, ')
+          ..write('delete: $delete')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ArchivoRubroTable extends ArchivoRubro
+    with TableInfo<$ArchivoRubroTable, ArchivoRubroData> {
+  final GeneratedDatabase _db;
+  final String? _alias;
+  $ArchivoRubroTable(this._db, [this._alias]);
+  final VerificationMeta _syncFlagMeta = const VerificationMeta('syncFlag');
+  @override
+  late final GeneratedIntColumn syncFlag = _constructSyncFlag();
+  GeneratedIntColumn _constructSyncFlag() {
+    return GeneratedIntColumn(
+      'sync_flag',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _timestampFlagMeta =
+      const VerificationMeta('timestampFlag');
+  @override
+  late final GeneratedDateTimeColumn timestampFlag = _constructTimestampFlag();
+  GeneratedDateTimeColumn _constructTimestampFlag() {
+    return GeneratedDateTimeColumn(
+      'timestamp_flag',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioCreacionIdMeta =
+      const VerificationMeta('usuarioCreacionId');
+  @override
+  late final GeneratedIntColumn usuarioCreacionId =
+      _constructUsuarioCreacionId();
+  GeneratedIntColumn _constructUsuarioCreacionId() {
+    return GeneratedIntColumn(
+      'usuario_creacion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaCreacionMeta =
+      const VerificationMeta('fechaCreacion');
+  @override
+  late final GeneratedDateTimeColumn fechaCreacion = _constructFechaCreacion();
+  GeneratedDateTimeColumn _constructFechaCreacion() {
+    return GeneratedDateTimeColumn(
+      'fecha_creacion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioAccionIdMeta =
+      const VerificationMeta('usuarioAccionId');
+  @override
+  late final GeneratedIntColumn usuarioAccionId = _constructUsuarioAccionId();
+  GeneratedIntColumn _constructUsuarioAccionId() {
+    return GeneratedIntColumn(
+      'usuario_accion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaAccionMeta =
+      const VerificationMeta('fechaAccion');
+  @override
+  late final GeneratedDateTimeColumn fechaAccion = _constructFechaAccion();
+  GeneratedDateTimeColumn _constructFechaAccion() {
+    return GeneratedDateTimeColumn(
+      'fecha_accion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _archivoRubroIdMeta =
+      const VerificationMeta('archivoRubroId');
+  @override
+  late final GeneratedTextColumn archivoRubroId = _constructArchivoRubroId();
+  GeneratedTextColumn _constructArchivoRubroId() {
+    return GeneratedTextColumn(
+      'archivo_rubro_id',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _urlMeta = const VerificationMeta('url');
+  @override
+  late final GeneratedTextColumn url = _constructUrl();
+  GeneratedTextColumn _constructUrl() {
+    return GeneratedTextColumn(
+      'url',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _tipoArchivoIdMeta =
+      const VerificationMeta('tipoArchivoId');
+  @override
+  late final GeneratedIntColumn tipoArchivoId = _constructTipoArchivoId();
+  GeneratedIntColumn _constructTipoArchivoId() {
+    return GeneratedIntColumn(
+      'tipo_archivo_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _evaluacionProcesoIdMeta =
+      const VerificationMeta('evaluacionProcesoId');
+  @override
+  late final GeneratedTextColumn evaluacionProcesoId =
+      _constructEvaluacionProcesoId();
+  GeneratedTextColumn _constructEvaluacionProcesoId() {
+    return GeneratedTextColumn(
+      'evaluacion_proceso_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _localpathMeta = const VerificationMeta('localpath');
+  @override
+  late final GeneratedTextColumn localpath = _constructLocalpath();
+  GeneratedTextColumn _constructLocalpath() {
+    return GeneratedTextColumn(
+      'localpath',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _deleteMeta = const VerificationMeta('delete');
+  @override
+  late final GeneratedIntColumn delete = _constructDelete();
+  GeneratedIntColumn _constructDelete() {
+    return GeneratedIntColumn(
+      'delete',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [
+        syncFlag,
+        timestampFlag,
+        usuarioCreacionId,
+        fechaCreacion,
+        usuarioAccionId,
+        fechaAccion,
+        archivoRubroId,
+        url,
+        tipoArchivoId,
+        evaluacionProcesoId,
+        localpath,
+        delete
+      ];
+  @override
+  $ArchivoRubroTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'archivo_rubro';
+  @override
+  final String actualTableName = 'archivo_rubro';
+  @override
+  VerificationContext validateIntegrity(Insertable<ArchivoRubroData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('sync_flag')) {
+      context.handle(_syncFlagMeta,
+          syncFlag.isAcceptableOrUnknown(data['sync_flag']!, _syncFlagMeta));
+    }
+    if (data.containsKey('timestamp_flag')) {
+      context.handle(
+          _timestampFlagMeta,
+          timestampFlag.isAcceptableOrUnknown(
+              data['timestamp_flag']!, _timestampFlagMeta));
+    }
+    if (data.containsKey('usuario_creacion_id')) {
+      context.handle(
+          _usuarioCreacionIdMeta,
+          usuarioCreacionId.isAcceptableOrUnknown(
+              data['usuario_creacion_id']!, _usuarioCreacionIdMeta));
+    }
+    if (data.containsKey('fecha_creacion')) {
+      context.handle(
+          _fechaCreacionMeta,
+          fechaCreacion.isAcceptableOrUnknown(
+              data['fecha_creacion']!, _fechaCreacionMeta));
+    }
+    if (data.containsKey('usuario_accion_id')) {
+      context.handle(
+          _usuarioAccionIdMeta,
+          usuarioAccionId.isAcceptableOrUnknown(
+              data['usuario_accion_id']!, _usuarioAccionIdMeta));
+    }
+    if (data.containsKey('fecha_accion')) {
+      context.handle(
+          _fechaAccionMeta,
+          fechaAccion.isAcceptableOrUnknown(
+              data['fecha_accion']!, _fechaAccionMeta));
+    }
+    if (data.containsKey('archivo_rubro_id')) {
+      context.handle(
+          _archivoRubroIdMeta,
+          archivoRubroId.isAcceptableOrUnknown(
+              data['archivo_rubro_id']!, _archivoRubroIdMeta));
+    } else if (isInserting) {
+      context.missing(_archivoRubroIdMeta);
+    }
+    if (data.containsKey('url')) {
+      context.handle(
+          _urlMeta, url.isAcceptableOrUnknown(data['url']!, _urlMeta));
+    }
+    if (data.containsKey('tipo_archivo_id')) {
+      context.handle(
+          _tipoArchivoIdMeta,
+          tipoArchivoId.isAcceptableOrUnknown(
+              data['tipo_archivo_id']!, _tipoArchivoIdMeta));
+    }
+    if (data.containsKey('evaluacion_proceso_id')) {
+      context.handle(
+          _evaluacionProcesoIdMeta,
+          evaluacionProcesoId.isAcceptableOrUnknown(
+              data['evaluacion_proceso_id']!, _evaluacionProcesoIdMeta));
+    }
+    if (data.containsKey('localpath')) {
+      context.handle(_localpathMeta,
+          localpath.isAcceptableOrUnknown(data['localpath']!, _localpathMeta));
+    }
+    if (data.containsKey('delete')) {
+      context.handle(_deleteMeta,
+          delete.isAcceptableOrUnknown(data['delete']!, _deleteMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {archivoRubroId};
+  @override
+  ArchivoRubroData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return ArchivoRubroData.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $ArchivoRubroTable createAlias(String alias) {
+    return $ArchivoRubroTable(_db, alias);
+  }
+}
+
+class EquipoEvaluacionData extends DataClass
+    implements Insertable<EquipoEvaluacionData> {
+  final int? syncFlag;
+  final DateTime? timestampFlag;
+  final int? usuarioCreacionId;
+  final DateTime? fechaCreacion;
+  final int? usuarioAccionId;
+  final DateTime? fechaAccion;
+  final String equipoEvaluacionProcesoId;
+  final String? rubroEvalProcesoId;
+  final int? sesionAprendizajeId;
+  final String? equipoId;
+  final double? nota;
+  final String? escala;
+  final String? valorTipoNotaId;
+  EquipoEvaluacionData(
+      {this.syncFlag,
+      this.timestampFlag,
+      this.usuarioCreacionId,
+      this.fechaCreacion,
+      this.usuarioAccionId,
+      this.fechaAccion,
+      required this.equipoEvaluacionProcesoId,
+      this.rubroEvalProcesoId,
+      this.sesionAprendizajeId,
+      this.equipoId,
+      this.nota,
+      this.escala,
+      this.valorTipoNotaId});
+  factory EquipoEvaluacionData.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
+      {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final intType = db.typeSystem.forDartType<int>();
+    final dateTimeType = db.typeSystem.forDartType<DateTime>();
+    final stringType = db.typeSystem.forDartType<String>();
+    final doubleType = db.typeSystem.forDartType<double>();
+    return EquipoEvaluacionData(
+      syncFlag:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}sync_flag']),
+      timestampFlag: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}timestamp_flag']),
+      usuarioCreacionId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}usuario_creacion_id']),
+      fechaCreacion: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_creacion']),
+      usuarioAccionId: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}usuario_accion_id']),
+      fechaAccion: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_accion']),
+      equipoEvaluacionProcesoId: stringType.mapFromDatabaseResponse(
+          data['${effectivePrefix}equipo_evaluacion_proceso_id'])!,
+      rubroEvalProcesoId: stringType.mapFromDatabaseResponse(
+          data['${effectivePrefix}rubro_eval_proceso_id']),
+      sesionAprendizajeId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}sesion_aprendizaje_id']),
+      equipoId: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}equipo_id']),
+      nota: doubleType.mapFromDatabaseResponse(data['${effectivePrefix}nota']),
+      escala:
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}escala']),
+      valorTipoNotaId: stringType.mapFromDatabaseResponse(
+          data['${effectivePrefix}valor_tipo_nota_id']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || syncFlag != null) {
+      map['sync_flag'] = Variable<int?>(syncFlag);
+    }
+    if (!nullToAbsent || timestampFlag != null) {
+      map['timestamp_flag'] = Variable<DateTime?>(timestampFlag);
+    }
+    if (!nullToAbsent || usuarioCreacionId != null) {
+      map['usuario_creacion_id'] = Variable<int?>(usuarioCreacionId);
+    }
+    if (!nullToAbsent || fechaCreacion != null) {
+      map['fecha_creacion'] = Variable<DateTime?>(fechaCreacion);
+    }
+    if (!nullToAbsent || usuarioAccionId != null) {
+      map['usuario_accion_id'] = Variable<int?>(usuarioAccionId);
+    }
+    if (!nullToAbsent || fechaAccion != null) {
+      map['fecha_accion'] = Variable<DateTime?>(fechaAccion);
+    }
+    map['equipo_evaluacion_proceso_id'] =
+        Variable<String>(equipoEvaluacionProcesoId);
+    if (!nullToAbsent || rubroEvalProcesoId != null) {
+      map['rubro_eval_proceso_id'] = Variable<String?>(rubroEvalProcesoId);
+    }
+    if (!nullToAbsent || sesionAprendizajeId != null) {
+      map['sesion_aprendizaje_id'] = Variable<int?>(sesionAprendizajeId);
+    }
+    if (!nullToAbsent || equipoId != null) {
+      map['equipo_id'] = Variable<String?>(equipoId);
+    }
+    if (!nullToAbsent || nota != null) {
+      map['nota'] = Variable<double?>(nota);
+    }
+    if (!nullToAbsent || escala != null) {
+      map['escala'] = Variable<String?>(escala);
+    }
+    if (!nullToAbsent || valorTipoNotaId != null) {
+      map['valor_tipo_nota_id'] = Variable<String?>(valorTipoNotaId);
+    }
+    return map;
+  }
+
+  EquipoEvaluacionCompanion toCompanion(bool nullToAbsent) {
+    return EquipoEvaluacionCompanion(
+      syncFlag: syncFlag == null && nullToAbsent
+          ? const Value.absent()
+          : Value(syncFlag),
+      timestampFlag: timestampFlag == null && nullToAbsent
+          ? const Value.absent()
+          : Value(timestampFlag),
+      usuarioCreacionId: usuarioCreacionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioCreacionId),
+      fechaCreacion: fechaCreacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaCreacion),
+      usuarioAccionId: usuarioAccionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioAccionId),
+      fechaAccion: fechaAccion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaAccion),
+      equipoEvaluacionProcesoId: Value(equipoEvaluacionProcesoId),
+      rubroEvalProcesoId: rubroEvalProcesoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(rubroEvalProcesoId),
+      sesionAprendizajeId: sesionAprendizajeId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(sesionAprendizajeId),
+      equipoId: equipoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(equipoId),
+      nota: nota == null && nullToAbsent ? const Value.absent() : Value(nota),
+      escala:
+          escala == null && nullToAbsent ? const Value.absent() : Value(escala),
+      valorTipoNotaId: valorTipoNotaId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(valorTipoNotaId),
+    );
+  }
+
+  factory EquipoEvaluacionData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return EquipoEvaluacionData(
+      syncFlag: serializer.fromJson<int?>(json['syncFlag']),
+      timestampFlag: serializer.fromJson<DateTime?>(json['timestampFlag']),
+      usuarioCreacionId: serializer.fromJson<int?>(json['usuarioCreacionId']),
+      fechaCreacion: serializer.fromJson<DateTime?>(json['fechaCreacion']),
+      usuarioAccionId: serializer.fromJson<int?>(json['usuarioAccionId']),
+      fechaAccion: serializer.fromJson<DateTime?>(json['fechaAccion']),
+      equipoEvaluacionProcesoId:
+          serializer.fromJson<String>(json['equipoEvaluacionProcesoId']),
+      rubroEvalProcesoId:
+          serializer.fromJson<String?>(json['rubroEvalProcesoId']),
+      sesionAprendizajeId:
+          serializer.fromJson<int?>(json['sesionAprendizajeId']),
+      equipoId: serializer.fromJson<String?>(json['equipoId']),
+      nota: serializer.fromJson<double?>(json['nota']),
+      escala: serializer.fromJson<String?>(json['escala']),
+      valorTipoNotaId: serializer.fromJson<String?>(json['valorTipoNotaId']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'syncFlag': serializer.toJson<int?>(syncFlag),
+      'timestampFlag': serializer.toJson<DateTime?>(timestampFlag),
+      'usuarioCreacionId': serializer.toJson<int?>(usuarioCreacionId),
+      'fechaCreacion': serializer.toJson<DateTime?>(fechaCreacion),
+      'usuarioAccionId': serializer.toJson<int?>(usuarioAccionId),
+      'fechaAccion': serializer.toJson<DateTime?>(fechaAccion),
+      'equipoEvaluacionProcesoId':
+          serializer.toJson<String>(equipoEvaluacionProcesoId),
+      'rubroEvalProcesoId': serializer.toJson<String?>(rubroEvalProcesoId),
+      'sesionAprendizajeId': serializer.toJson<int?>(sesionAprendizajeId),
+      'equipoId': serializer.toJson<String?>(equipoId),
+      'nota': serializer.toJson<double?>(nota),
+      'escala': serializer.toJson<String?>(escala),
+      'valorTipoNotaId': serializer.toJson<String?>(valorTipoNotaId),
+    };
+  }
+
+  EquipoEvaluacionData copyWith(
+          {int? syncFlag,
+          DateTime? timestampFlag,
+          int? usuarioCreacionId,
+          DateTime? fechaCreacion,
+          int? usuarioAccionId,
+          DateTime? fechaAccion,
+          String? equipoEvaluacionProcesoId,
+          String? rubroEvalProcesoId,
+          int? sesionAprendizajeId,
+          String? equipoId,
+          double? nota,
+          String? escala,
+          String? valorTipoNotaId}) =>
+      EquipoEvaluacionData(
+        syncFlag: syncFlag ?? this.syncFlag,
+        timestampFlag: timestampFlag ?? this.timestampFlag,
+        usuarioCreacionId: usuarioCreacionId ?? this.usuarioCreacionId,
+        fechaCreacion: fechaCreacion ?? this.fechaCreacion,
+        usuarioAccionId: usuarioAccionId ?? this.usuarioAccionId,
+        fechaAccion: fechaAccion ?? this.fechaAccion,
+        equipoEvaluacionProcesoId:
+            equipoEvaluacionProcesoId ?? this.equipoEvaluacionProcesoId,
+        rubroEvalProcesoId: rubroEvalProcesoId ?? this.rubroEvalProcesoId,
+        sesionAprendizajeId: sesionAprendizajeId ?? this.sesionAprendizajeId,
+        equipoId: equipoId ?? this.equipoId,
+        nota: nota ?? this.nota,
+        escala: escala ?? this.escala,
+        valorTipoNotaId: valorTipoNotaId ?? this.valorTipoNotaId,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('EquipoEvaluacionData(')
+          ..write('syncFlag: $syncFlag, ')
+          ..write('timestampFlag: $timestampFlag, ')
+          ..write('usuarioCreacionId: $usuarioCreacionId, ')
+          ..write('fechaCreacion: $fechaCreacion, ')
+          ..write('usuarioAccionId: $usuarioAccionId, ')
+          ..write('fechaAccion: $fechaAccion, ')
+          ..write('equipoEvaluacionProcesoId: $equipoEvaluacionProcesoId, ')
+          ..write('rubroEvalProcesoId: $rubroEvalProcesoId, ')
+          ..write('sesionAprendizajeId: $sesionAprendizajeId, ')
+          ..write('equipoId: $equipoId, ')
+          ..write('nota: $nota, ')
+          ..write('escala: $escala, ')
+          ..write('valorTipoNotaId: $valorTipoNotaId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      syncFlag.hashCode,
+      $mrjc(
+          timestampFlag.hashCode,
+          $mrjc(
+              usuarioCreacionId.hashCode,
+              $mrjc(
+                  fechaCreacion.hashCode,
+                  $mrjc(
+                      usuarioAccionId.hashCode,
+                      $mrjc(
+                          fechaAccion.hashCode,
+                          $mrjc(
+                              equipoEvaluacionProcesoId.hashCode,
+                              $mrjc(
+                                  rubroEvalProcesoId.hashCode,
+                                  $mrjc(
+                                      sesionAprendizajeId.hashCode,
+                                      $mrjc(
+                                          equipoId.hashCode,
+                                          $mrjc(
+                                              nota.hashCode,
+                                              $mrjc(
+                                                  escala.hashCode,
+                                                  valorTipoNotaId
+                                                      .hashCode)))))))))))));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is EquipoEvaluacionData &&
+          other.syncFlag == this.syncFlag &&
+          other.timestampFlag == this.timestampFlag &&
+          other.usuarioCreacionId == this.usuarioCreacionId &&
+          other.fechaCreacion == this.fechaCreacion &&
+          other.usuarioAccionId == this.usuarioAccionId &&
+          other.fechaAccion == this.fechaAccion &&
+          other.equipoEvaluacionProcesoId == this.equipoEvaluacionProcesoId &&
+          other.rubroEvalProcesoId == this.rubroEvalProcesoId &&
+          other.sesionAprendizajeId == this.sesionAprendizajeId &&
+          other.equipoId == this.equipoId &&
+          other.nota == this.nota &&
+          other.escala == this.escala &&
+          other.valorTipoNotaId == this.valorTipoNotaId);
+}
+
+class EquipoEvaluacionCompanion extends UpdateCompanion<EquipoEvaluacionData> {
+  final Value<int?> syncFlag;
+  final Value<DateTime?> timestampFlag;
+  final Value<int?> usuarioCreacionId;
+  final Value<DateTime?> fechaCreacion;
+  final Value<int?> usuarioAccionId;
+  final Value<DateTime?> fechaAccion;
+  final Value<String> equipoEvaluacionProcesoId;
+  final Value<String?> rubroEvalProcesoId;
+  final Value<int?> sesionAprendizajeId;
+  final Value<String?> equipoId;
+  final Value<double?> nota;
+  final Value<String?> escala;
+  final Value<String?> valorTipoNotaId;
+  const EquipoEvaluacionCompanion({
+    this.syncFlag = const Value.absent(),
+    this.timestampFlag = const Value.absent(),
+    this.usuarioCreacionId = const Value.absent(),
+    this.fechaCreacion = const Value.absent(),
+    this.usuarioAccionId = const Value.absent(),
+    this.fechaAccion = const Value.absent(),
+    this.equipoEvaluacionProcesoId = const Value.absent(),
+    this.rubroEvalProcesoId = const Value.absent(),
+    this.sesionAprendizajeId = const Value.absent(),
+    this.equipoId = const Value.absent(),
+    this.nota = const Value.absent(),
+    this.escala = const Value.absent(),
+    this.valorTipoNotaId = const Value.absent(),
+  });
+  EquipoEvaluacionCompanion.insert({
+    this.syncFlag = const Value.absent(),
+    this.timestampFlag = const Value.absent(),
+    this.usuarioCreacionId = const Value.absent(),
+    this.fechaCreacion = const Value.absent(),
+    this.usuarioAccionId = const Value.absent(),
+    this.fechaAccion = const Value.absent(),
+    required String equipoEvaluacionProcesoId,
+    this.rubroEvalProcesoId = const Value.absent(),
+    this.sesionAprendizajeId = const Value.absent(),
+    this.equipoId = const Value.absent(),
+    this.nota = const Value.absent(),
+    this.escala = const Value.absent(),
+    this.valorTipoNotaId = const Value.absent(),
+  }) : equipoEvaluacionProcesoId = Value(equipoEvaluacionProcesoId);
+  static Insertable<EquipoEvaluacionData> custom({
+    Expression<int?>? syncFlag,
+    Expression<DateTime?>? timestampFlag,
+    Expression<int?>? usuarioCreacionId,
+    Expression<DateTime?>? fechaCreacion,
+    Expression<int?>? usuarioAccionId,
+    Expression<DateTime?>? fechaAccion,
+    Expression<String>? equipoEvaluacionProcesoId,
+    Expression<String?>? rubroEvalProcesoId,
+    Expression<int?>? sesionAprendizajeId,
+    Expression<String?>? equipoId,
+    Expression<double?>? nota,
+    Expression<String?>? escala,
+    Expression<String?>? valorTipoNotaId,
+  }) {
+    return RawValuesInsertable({
+      if (syncFlag != null) 'sync_flag': syncFlag,
+      if (timestampFlag != null) 'timestamp_flag': timestampFlag,
+      if (usuarioCreacionId != null) 'usuario_creacion_id': usuarioCreacionId,
+      if (fechaCreacion != null) 'fecha_creacion': fechaCreacion,
+      if (usuarioAccionId != null) 'usuario_accion_id': usuarioAccionId,
+      if (fechaAccion != null) 'fecha_accion': fechaAccion,
+      if (equipoEvaluacionProcesoId != null)
+        'equipo_evaluacion_proceso_id': equipoEvaluacionProcesoId,
+      if (rubroEvalProcesoId != null)
+        'rubro_eval_proceso_id': rubroEvalProcesoId,
+      if (sesionAprendizajeId != null)
+        'sesion_aprendizaje_id': sesionAprendizajeId,
+      if (equipoId != null) 'equipo_id': equipoId,
+      if (nota != null) 'nota': nota,
+      if (escala != null) 'escala': escala,
+      if (valorTipoNotaId != null) 'valor_tipo_nota_id': valorTipoNotaId,
+    });
+  }
+
+  EquipoEvaluacionCompanion copyWith(
+      {Value<int?>? syncFlag,
+      Value<DateTime?>? timestampFlag,
+      Value<int?>? usuarioCreacionId,
+      Value<DateTime?>? fechaCreacion,
+      Value<int?>? usuarioAccionId,
+      Value<DateTime?>? fechaAccion,
+      Value<String>? equipoEvaluacionProcesoId,
+      Value<String?>? rubroEvalProcesoId,
+      Value<int?>? sesionAprendizajeId,
+      Value<String?>? equipoId,
+      Value<double?>? nota,
+      Value<String?>? escala,
+      Value<String?>? valorTipoNotaId}) {
+    return EquipoEvaluacionCompanion(
+      syncFlag: syncFlag ?? this.syncFlag,
+      timestampFlag: timestampFlag ?? this.timestampFlag,
+      usuarioCreacionId: usuarioCreacionId ?? this.usuarioCreacionId,
+      fechaCreacion: fechaCreacion ?? this.fechaCreacion,
+      usuarioAccionId: usuarioAccionId ?? this.usuarioAccionId,
+      fechaAccion: fechaAccion ?? this.fechaAccion,
+      equipoEvaluacionProcesoId:
+          equipoEvaluacionProcesoId ?? this.equipoEvaluacionProcesoId,
+      rubroEvalProcesoId: rubroEvalProcesoId ?? this.rubroEvalProcesoId,
+      sesionAprendizajeId: sesionAprendizajeId ?? this.sesionAprendizajeId,
+      equipoId: equipoId ?? this.equipoId,
+      nota: nota ?? this.nota,
+      escala: escala ?? this.escala,
+      valorTipoNotaId: valorTipoNotaId ?? this.valorTipoNotaId,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (syncFlag.present) {
+      map['sync_flag'] = Variable<int?>(syncFlag.value);
+    }
+    if (timestampFlag.present) {
+      map['timestamp_flag'] = Variable<DateTime?>(timestampFlag.value);
+    }
+    if (usuarioCreacionId.present) {
+      map['usuario_creacion_id'] = Variable<int?>(usuarioCreacionId.value);
+    }
+    if (fechaCreacion.present) {
+      map['fecha_creacion'] = Variable<DateTime?>(fechaCreacion.value);
+    }
+    if (usuarioAccionId.present) {
+      map['usuario_accion_id'] = Variable<int?>(usuarioAccionId.value);
+    }
+    if (fechaAccion.present) {
+      map['fecha_accion'] = Variable<DateTime?>(fechaAccion.value);
+    }
+    if (equipoEvaluacionProcesoId.present) {
+      map['equipo_evaluacion_proceso_id'] =
+          Variable<String>(equipoEvaluacionProcesoId.value);
+    }
+    if (rubroEvalProcesoId.present) {
+      map['rubro_eval_proceso_id'] =
+          Variable<String?>(rubroEvalProcesoId.value);
+    }
+    if (sesionAprendizajeId.present) {
+      map['sesion_aprendizaje_id'] = Variable<int?>(sesionAprendizajeId.value);
+    }
+    if (equipoId.present) {
+      map['equipo_id'] = Variable<String?>(equipoId.value);
+    }
+    if (nota.present) {
+      map['nota'] = Variable<double?>(nota.value);
+    }
+    if (escala.present) {
+      map['escala'] = Variable<String?>(escala.value);
+    }
+    if (valorTipoNotaId.present) {
+      map['valor_tipo_nota_id'] = Variable<String?>(valorTipoNotaId.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('EquipoEvaluacionCompanion(')
+          ..write('syncFlag: $syncFlag, ')
+          ..write('timestampFlag: $timestampFlag, ')
+          ..write('usuarioCreacionId: $usuarioCreacionId, ')
+          ..write('fechaCreacion: $fechaCreacion, ')
+          ..write('usuarioAccionId: $usuarioAccionId, ')
+          ..write('fechaAccion: $fechaAccion, ')
+          ..write('equipoEvaluacionProcesoId: $equipoEvaluacionProcesoId, ')
+          ..write('rubroEvalProcesoId: $rubroEvalProcesoId, ')
+          ..write('sesionAprendizajeId: $sesionAprendizajeId, ')
+          ..write('equipoId: $equipoId, ')
+          ..write('nota: $nota, ')
+          ..write('escala: $escala, ')
+          ..write('valorTipoNotaId: $valorTipoNotaId')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $EquipoEvaluacionTable extends EquipoEvaluacion
+    with TableInfo<$EquipoEvaluacionTable, EquipoEvaluacionData> {
+  final GeneratedDatabase _db;
+  final String? _alias;
+  $EquipoEvaluacionTable(this._db, [this._alias]);
+  final VerificationMeta _syncFlagMeta = const VerificationMeta('syncFlag');
+  @override
+  late final GeneratedIntColumn syncFlag = _constructSyncFlag();
+  GeneratedIntColumn _constructSyncFlag() {
+    return GeneratedIntColumn(
+      'sync_flag',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _timestampFlagMeta =
+      const VerificationMeta('timestampFlag');
+  @override
+  late final GeneratedDateTimeColumn timestampFlag = _constructTimestampFlag();
+  GeneratedDateTimeColumn _constructTimestampFlag() {
+    return GeneratedDateTimeColumn(
+      'timestamp_flag',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioCreacionIdMeta =
+      const VerificationMeta('usuarioCreacionId');
+  @override
+  late final GeneratedIntColumn usuarioCreacionId =
+      _constructUsuarioCreacionId();
+  GeneratedIntColumn _constructUsuarioCreacionId() {
+    return GeneratedIntColumn(
+      'usuario_creacion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaCreacionMeta =
+      const VerificationMeta('fechaCreacion');
+  @override
+  late final GeneratedDateTimeColumn fechaCreacion = _constructFechaCreacion();
+  GeneratedDateTimeColumn _constructFechaCreacion() {
+    return GeneratedDateTimeColumn(
+      'fecha_creacion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioAccionIdMeta =
+      const VerificationMeta('usuarioAccionId');
+  @override
+  late final GeneratedIntColumn usuarioAccionId = _constructUsuarioAccionId();
+  GeneratedIntColumn _constructUsuarioAccionId() {
+    return GeneratedIntColumn(
+      'usuario_accion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaAccionMeta =
+      const VerificationMeta('fechaAccion');
+  @override
+  late final GeneratedDateTimeColumn fechaAccion = _constructFechaAccion();
+  GeneratedDateTimeColumn _constructFechaAccion() {
+    return GeneratedDateTimeColumn(
+      'fecha_accion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _equipoEvaluacionProcesoIdMeta =
+      const VerificationMeta('equipoEvaluacionProcesoId');
+  @override
+  late final GeneratedTextColumn equipoEvaluacionProcesoId =
+      _constructEquipoEvaluacionProcesoId();
+  GeneratedTextColumn _constructEquipoEvaluacionProcesoId() {
+    return GeneratedTextColumn(
+      'equipo_evaluacion_proceso_id',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _rubroEvalProcesoIdMeta =
+      const VerificationMeta('rubroEvalProcesoId');
+  @override
+  late final GeneratedTextColumn rubroEvalProcesoId =
+      _constructRubroEvalProcesoId();
+  GeneratedTextColumn _constructRubroEvalProcesoId() {
+    return GeneratedTextColumn(
+      'rubro_eval_proceso_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _sesionAprendizajeIdMeta =
+      const VerificationMeta('sesionAprendizajeId');
+  @override
+  late final GeneratedIntColumn sesionAprendizajeId =
+      _constructSesionAprendizajeId();
+  GeneratedIntColumn _constructSesionAprendizajeId() {
+    return GeneratedIntColumn(
+      'sesion_aprendizaje_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _equipoIdMeta = const VerificationMeta('equipoId');
+  @override
+  late final GeneratedTextColumn equipoId = _constructEquipoId();
+  GeneratedTextColumn _constructEquipoId() {
+    return GeneratedTextColumn(
+      'equipo_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _notaMeta = const VerificationMeta('nota');
+  @override
+  late final GeneratedRealColumn nota = _constructNota();
+  GeneratedRealColumn _constructNota() {
+    return GeneratedRealColumn(
+      'nota',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _escalaMeta = const VerificationMeta('escala');
+  @override
+  late final GeneratedTextColumn escala = _constructEscala();
+  GeneratedTextColumn _constructEscala() {
+    return GeneratedTextColumn(
+      'escala',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _valorTipoNotaIdMeta =
+      const VerificationMeta('valorTipoNotaId');
+  @override
+  late final GeneratedTextColumn valorTipoNotaId = _constructValorTipoNotaId();
+  GeneratedTextColumn _constructValorTipoNotaId() {
+    return GeneratedTextColumn(
+      'valor_tipo_nota_id',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [
+        syncFlag,
+        timestampFlag,
+        usuarioCreacionId,
+        fechaCreacion,
+        usuarioAccionId,
+        fechaAccion,
+        equipoEvaluacionProcesoId,
+        rubroEvalProcesoId,
+        sesionAprendizajeId,
+        equipoId,
+        nota,
+        escala,
+        valorTipoNotaId
+      ];
+  @override
+  $EquipoEvaluacionTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'equipo_evaluacion';
+  @override
+  final String actualTableName = 'equipo_evaluacion';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<EquipoEvaluacionData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('sync_flag')) {
+      context.handle(_syncFlagMeta,
+          syncFlag.isAcceptableOrUnknown(data['sync_flag']!, _syncFlagMeta));
+    }
+    if (data.containsKey('timestamp_flag')) {
+      context.handle(
+          _timestampFlagMeta,
+          timestampFlag.isAcceptableOrUnknown(
+              data['timestamp_flag']!, _timestampFlagMeta));
+    }
+    if (data.containsKey('usuario_creacion_id')) {
+      context.handle(
+          _usuarioCreacionIdMeta,
+          usuarioCreacionId.isAcceptableOrUnknown(
+              data['usuario_creacion_id']!, _usuarioCreacionIdMeta));
+    }
+    if (data.containsKey('fecha_creacion')) {
+      context.handle(
+          _fechaCreacionMeta,
+          fechaCreacion.isAcceptableOrUnknown(
+              data['fecha_creacion']!, _fechaCreacionMeta));
+    }
+    if (data.containsKey('usuario_accion_id')) {
+      context.handle(
+          _usuarioAccionIdMeta,
+          usuarioAccionId.isAcceptableOrUnknown(
+              data['usuario_accion_id']!, _usuarioAccionIdMeta));
+    }
+    if (data.containsKey('fecha_accion')) {
+      context.handle(
+          _fechaAccionMeta,
+          fechaAccion.isAcceptableOrUnknown(
+              data['fecha_accion']!, _fechaAccionMeta));
+    }
+    if (data.containsKey('equipo_evaluacion_proceso_id')) {
+      context.handle(
+          _equipoEvaluacionProcesoIdMeta,
+          equipoEvaluacionProcesoId.isAcceptableOrUnknown(
+              data['equipo_evaluacion_proceso_id']!,
+              _equipoEvaluacionProcesoIdMeta));
+    } else if (isInserting) {
+      context.missing(_equipoEvaluacionProcesoIdMeta);
+    }
+    if (data.containsKey('rubro_eval_proceso_id')) {
+      context.handle(
+          _rubroEvalProcesoIdMeta,
+          rubroEvalProcesoId.isAcceptableOrUnknown(
+              data['rubro_eval_proceso_id']!, _rubroEvalProcesoIdMeta));
+    }
+    if (data.containsKey('sesion_aprendizaje_id')) {
+      context.handle(
+          _sesionAprendizajeIdMeta,
+          sesionAprendizajeId.isAcceptableOrUnknown(
+              data['sesion_aprendizaje_id']!, _sesionAprendizajeIdMeta));
+    }
+    if (data.containsKey('equipo_id')) {
+      context.handle(_equipoIdMeta,
+          equipoId.isAcceptableOrUnknown(data['equipo_id']!, _equipoIdMeta));
+    }
+    if (data.containsKey('nota')) {
+      context.handle(
+          _notaMeta, nota.isAcceptableOrUnknown(data['nota']!, _notaMeta));
+    }
+    if (data.containsKey('escala')) {
+      context.handle(_escalaMeta,
+          escala.isAcceptableOrUnknown(data['escala']!, _escalaMeta));
+    }
+    if (data.containsKey('valor_tipo_nota_id')) {
+      context.handle(
+          _valorTipoNotaIdMeta,
+          valorTipoNotaId.isAcceptableOrUnknown(
+              data['valor_tipo_nota_id']!, _valorTipoNotaIdMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {equipoEvaluacionProcesoId};
+  @override
+  EquipoEvaluacionData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return EquipoEvaluacionData.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $EquipoEvaluacionTable createAlias(String alias) {
+    return $EquipoEvaluacionTable(_db, alias);
+  }
+}
+
+class EvaluacionProcesoData extends DataClass
+    implements Insertable<EvaluacionProcesoData> {
+  final int? syncFlag;
+  final DateTime? timestampFlag;
+  final int? usuarioCreacionId;
+  final DateTime? fechaCreacion;
+  final int? usuarioAccionId;
+  final DateTime? fechaAccion;
+  final String evaluacionProcesoId;
+  final int? evaluacionResultadoId;
+  final double? nota;
+  final String? escala;
+  final String? rubroEvalProcesoId;
+  final int? sesionAprendizajeId;
+  final String? valorTipoNotaId;
+  final String? equipoId;
+  final int? alumnoId;
+  final int? calendarioPeriodoId;
+  final bool? formulaSinc;
+  final int? msje;
+  final int? publicado;
+  final int? visto;
+  EvaluacionProcesoData(
+      {this.syncFlag,
+      this.timestampFlag,
+      this.usuarioCreacionId,
+      this.fechaCreacion,
+      this.usuarioAccionId,
+      this.fechaAccion,
+      required this.evaluacionProcesoId,
+      this.evaluacionResultadoId,
+      this.nota,
+      this.escala,
+      this.rubroEvalProcesoId,
+      this.sesionAprendizajeId,
+      this.valorTipoNotaId,
+      this.equipoId,
+      this.alumnoId,
+      this.calendarioPeriodoId,
+      this.formulaSinc,
+      this.msje,
+      this.publicado,
+      this.visto});
+  factory EvaluacionProcesoData.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
+      {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final intType = db.typeSystem.forDartType<int>();
+    final dateTimeType = db.typeSystem.forDartType<DateTime>();
+    final stringType = db.typeSystem.forDartType<String>();
+    final doubleType = db.typeSystem.forDartType<double>();
+    final boolType = db.typeSystem.forDartType<bool>();
+    return EvaluacionProcesoData(
+      syncFlag:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}sync_flag']),
+      timestampFlag: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}timestamp_flag']),
+      usuarioCreacionId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}usuario_creacion_id']),
+      fechaCreacion: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_creacion']),
+      usuarioAccionId: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}usuario_accion_id']),
+      fechaAccion: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_accion']),
+      evaluacionProcesoId: stringType.mapFromDatabaseResponse(
+          data['${effectivePrefix}evaluacion_proceso_id'])!,
+      evaluacionResultadoId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}evaluacion_resultado_id']),
+      nota: doubleType.mapFromDatabaseResponse(data['${effectivePrefix}nota']),
+      escala:
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}escala']),
+      rubroEvalProcesoId: stringType.mapFromDatabaseResponse(
+          data['${effectivePrefix}rubro_eval_proceso_id']),
+      sesionAprendizajeId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}sesion_aprendizaje_id']),
+      valorTipoNotaId: stringType.mapFromDatabaseResponse(
+          data['${effectivePrefix}valor_tipo_nota_id']),
+      equipoId: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}equipo_id']),
+      alumnoId:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}alumno_id']),
+      calendarioPeriodoId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}calendario_periodo_id']),
+      formulaSinc: boolType
+          .mapFromDatabaseResponse(data['${effectivePrefix}formula_sinc']),
+      msje: intType.mapFromDatabaseResponse(data['${effectivePrefix}msje']),
+      publicado:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}publicado']),
+      visto: intType.mapFromDatabaseResponse(data['${effectivePrefix}visto']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || syncFlag != null) {
+      map['sync_flag'] = Variable<int?>(syncFlag);
+    }
+    if (!nullToAbsent || timestampFlag != null) {
+      map['timestamp_flag'] = Variable<DateTime?>(timestampFlag);
+    }
+    if (!nullToAbsent || usuarioCreacionId != null) {
+      map['usuario_creacion_id'] = Variable<int?>(usuarioCreacionId);
+    }
+    if (!nullToAbsent || fechaCreacion != null) {
+      map['fecha_creacion'] = Variable<DateTime?>(fechaCreacion);
+    }
+    if (!nullToAbsent || usuarioAccionId != null) {
+      map['usuario_accion_id'] = Variable<int?>(usuarioAccionId);
+    }
+    if (!nullToAbsent || fechaAccion != null) {
+      map['fecha_accion'] = Variable<DateTime?>(fechaAccion);
+    }
+    map['evaluacion_proceso_id'] = Variable<String>(evaluacionProcesoId);
+    if (!nullToAbsent || evaluacionResultadoId != null) {
+      map['evaluacion_resultado_id'] = Variable<int?>(evaluacionResultadoId);
+    }
+    if (!nullToAbsent || nota != null) {
+      map['nota'] = Variable<double?>(nota);
+    }
+    if (!nullToAbsent || escala != null) {
+      map['escala'] = Variable<String?>(escala);
+    }
+    if (!nullToAbsent || rubroEvalProcesoId != null) {
+      map['rubro_eval_proceso_id'] = Variable<String?>(rubroEvalProcesoId);
+    }
+    if (!nullToAbsent || sesionAprendizajeId != null) {
+      map['sesion_aprendizaje_id'] = Variable<int?>(sesionAprendizajeId);
+    }
+    if (!nullToAbsent || valorTipoNotaId != null) {
+      map['valor_tipo_nota_id'] = Variable<String?>(valorTipoNotaId);
+    }
+    if (!nullToAbsent || equipoId != null) {
+      map['equipo_id'] = Variable<String?>(equipoId);
+    }
+    if (!nullToAbsent || alumnoId != null) {
+      map['alumno_id'] = Variable<int?>(alumnoId);
+    }
+    if (!nullToAbsent || calendarioPeriodoId != null) {
+      map['calendario_periodo_id'] = Variable<int?>(calendarioPeriodoId);
+    }
+    if (!nullToAbsent || formulaSinc != null) {
+      map['formula_sinc'] = Variable<bool?>(formulaSinc);
+    }
+    if (!nullToAbsent || msje != null) {
+      map['msje'] = Variable<int?>(msje);
+    }
+    if (!nullToAbsent || publicado != null) {
+      map['publicado'] = Variable<int?>(publicado);
+    }
+    if (!nullToAbsent || visto != null) {
+      map['visto'] = Variable<int?>(visto);
+    }
+    return map;
+  }
+
+  EvaluacionProcesoCompanion toCompanion(bool nullToAbsent) {
+    return EvaluacionProcesoCompanion(
+      syncFlag: syncFlag == null && nullToAbsent
+          ? const Value.absent()
+          : Value(syncFlag),
+      timestampFlag: timestampFlag == null && nullToAbsent
+          ? const Value.absent()
+          : Value(timestampFlag),
+      usuarioCreacionId: usuarioCreacionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioCreacionId),
+      fechaCreacion: fechaCreacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaCreacion),
+      usuarioAccionId: usuarioAccionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioAccionId),
+      fechaAccion: fechaAccion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaAccion),
+      evaluacionProcesoId: Value(evaluacionProcesoId),
+      evaluacionResultadoId: evaluacionResultadoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(evaluacionResultadoId),
+      nota: nota == null && nullToAbsent ? const Value.absent() : Value(nota),
+      escala:
+          escala == null && nullToAbsent ? const Value.absent() : Value(escala),
+      rubroEvalProcesoId: rubroEvalProcesoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(rubroEvalProcesoId),
+      sesionAprendizajeId: sesionAprendizajeId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(sesionAprendizajeId),
+      valorTipoNotaId: valorTipoNotaId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(valorTipoNotaId),
+      equipoId: equipoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(equipoId),
+      alumnoId: alumnoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(alumnoId),
+      calendarioPeriodoId: calendarioPeriodoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(calendarioPeriodoId),
+      formulaSinc: formulaSinc == null && nullToAbsent
+          ? const Value.absent()
+          : Value(formulaSinc),
+      msje: msje == null && nullToAbsent ? const Value.absent() : Value(msje),
+      publicado: publicado == null && nullToAbsent
+          ? const Value.absent()
+          : Value(publicado),
+      visto:
+          visto == null && nullToAbsent ? const Value.absent() : Value(visto),
+    );
+  }
+
+  factory EvaluacionProcesoData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return EvaluacionProcesoData(
+      syncFlag: serializer.fromJson<int?>(json['syncFlag']),
+      timestampFlag: serializer.fromJson<DateTime?>(json['timestampFlag']),
+      usuarioCreacionId: serializer.fromJson<int?>(json['usuarioCreacionId']),
+      fechaCreacion: serializer.fromJson<DateTime?>(json['fechaCreacion']),
+      usuarioAccionId: serializer.fromJson<int?>(json['usuarioAccionId']),
+      fechaAccion: serializer.fromJson<DateTime?>(json['fechaAccion']),
+      evaluacionProcesoId:
+          serializer.fromJson<String>(json['evaluacionProcesoId']),
+      evaluacionResultadoId:
+          serializer.fromJson<int?>(json['evaluacionResultadoId']),
+      nota: serializer.fromJson<double?>(json['nota']),
+      escala: serializer.fromJson<String?>(json['escala']),
+      rubroEvalProcesoId:
+          serializer.fromJson<String?>(json['rubroEvalProcesoId']),
+      sesionAprendizajeId:
+          serializer.fromJson<int?>(json['sesionAprendizajeId']),
+      valorTipoNotaId: serializer.fromJson<String?>(json['valorTipoNotaId']),
+      equipoId: serializer.fromJson<String?>(json['equipoId']),
+      alumnoId: serializer.fromJson<int?>(json['alumnoId']),
+      calendarioPeriodoId:
+          serializer.fromJson<int?>(json['calendarioPeriodoId']),
+      formulaSinc: serializer.fromJson<bool?>(json['formulaSinc']),
+      msje: serializer.fromJson<int?>(json['msje']),
+      publicado: serializer.fromJson<int?>(json['publicado']),
+      visto: serializer.fromJson<int?>(json['visto']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'syncFlag': serializer.toJson<int?>(syncFlag),
+      'timestampFlag': serializer.toJson<DateTime?>(timestampFlag),
+      'usuarioCreacionId': serializer.toJson<int?>(usuarioCreacionId),
+      'fechaCreacion': serializer.toJson<DateTime?>(fechaCreacion),
+      'usuarioAccionId': serializer.toJson<int?>(usuarioAccionId),
+      'fechaAccion': serializer.toJson<DateTime?>(fechaAccion),
+      'evaluacionProcesoId': serializer.toJson<String>(evaluacionProcesoId),
+      'evaluacionResultadoId': serializer.toJson<int?>(evaluacionResultadoId),
+      'nota': serializer.toJson<double?>(nota),
+      'escala': serializer.toJson<String?>(escala),
+      'rubroEvalProcesoId': serializer.toJson<String?>(rubroEvalProcesoId),
+      'sesionAprendizajeId': serializer.toJson<int?>(sesionAprendizajeId),
+      'valorTipoNotaId': serializer.toJson<String?>(valorTipoNotaId),
+      'equipoId': serializer.toJson<String?>(equipoId),
+      'alumnoId': serializer.toJson<int?>(alumnoId),
+      'calendarioPeriodoId': serializer.toJson<int?>(calendarioPeriodoId),
+      'formulaSinc': serializer.toJson<bool?>(formulaSinc),
+      'msje': serializer.toJson<int?>(msje),
+      'publicado': serializer.toJson<int?>(publicado),
+      'visto': serializer.toJson<int?>(visto),
+    };
+  }
+
+  EvaluacionProcesoData copyWith(
+          {int? syncFlag,
+          DateTime? timestampFlag,
+          int? usuarioCreacionId,
+          DateTime? fechaCreacion,
+          int? usuarioAccionId,
+          DateTime? fechaAccion,
+          String? evaluacionProcesoId,
+          int? evaluacionResultadoId,
+          double? nota,
+          String? escala,
+          String? rubroEvalProcesoId,
+          int? sesionAprendizajeId,
+          String? valorTipoNotaId,
+          String? equipoId,
+          int? alumnoId,
+          int? calendarioPeriodoId,
+          bool? formulaSinc,
+          int? msje,
+          int? publicado,
+          int? visto}) =>
+      EvaluacionProcesoData(
+        syncFlag: syncFlag ?? this.syncFlag,
+        timestampFlag: timestampFlag ?? this.timestampFlag,
+        usuarioCreacionId: usuarioCreacionId ?? this.usuarioCreacionId,
+        fechaCreacion: fechaCreacion ?? this.fechaCreacion,
+        usuarioAccionId: usuarioAccionId ?? this.usuarioAccionId,
+        fechaAccion: fechaAccion ?? this.fechaAccion,
+        evaluacionProcesoId: evaluacionProcesoId ?? this.evaluacionProcesoId,
+        evaluacionResultadoId:
+            evaluacionResultadoId ?? this.evaluacionResultadoId,
+        nota: nota ?? this.nota,
+        escala: escala ?? this.escala,
+        rubroEvalProcesoId: rubroEvalProcesoId ?? this.rubroEvalProcesoId,
+        sesionAprendizajeId: sesionAprendizajeId ?? this.sesionAprendizajeId,
+        valorTipoNotaId: valorTipoNotaId ?? this.valorTipoNotaId,
+        equipoId: equipoId ?? this.equipoId,
+        alumnoId: alumnoId ?? this.alumnoId,
+        calendarioPeriodoId: calendarioPeriodoId ?? this.calendarioPeriodoId,
+        formulaSinc: formulaSinc ?? this.formulaSinc,
+        msje: msje ?? this.msje,
+        publicado: publicado ?? this.publicado,
+        visto: visto ?? this.visto,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('EvaluacionProcesoData(')
+          ..write('syncFlag: $syncFlag, ')
+          ..write('timestampFlag: $timestampFlag, ')
+          ..write('usuarioCreacionId: $usuarioCreacionId, ')
+          ..write('fechaCreacion: $fechaCreacion, ')
+          ..write('usuarioAccionId: $usuarioAccionId, ')
+          ..write('fechaAccion: $fechaAccion, ')
+          ..write('evaluacionProcesoId: $evaluacionProcesoId, ')
+          ..write('evaluacionResultadoId: $evaluacionResultadoId, ')
+          ..write('nota: $nota, ')
+          ..write('escala: $escala, ')
+          ..write('rubroEvalProcesoId: $rubroEvalProcesoId, ')
+          ..write('sesionAprendizajeId: $sesionAprendizajeId, ')
+          ..write('valorTipoNotaId: $valorTipoNotaId, ')
+          ..write('equipoId: $equipoId, ')
+          ..write('alumnoId: $alumnoId, ')
+          ..write('calendarioPeriodoId: $calendarioPeriodoId, ')
+          ..write('formulaSinc: $formulaSinc, ')
+          ..write('msje: $msje, ')
+          ..write('publicado: $publicado, ')
+          ..write('visto: $visto')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      syncFlag.hashCode,
+      $mrjc(
+          timestampFlag.hashCode,
+          $mrjc(
+              usuarioCreacionId.hashCode,
+              $mrjc(
+                  fechaCreacion.hashCode,
+                  $mrjc(
+                      usuarioAccionId.hashCode,
+                      $mrjc(
+                          fechaAccion.hashCode,
+                          $mrjc(
+                              evaluacionProcesoId.hashCode,
+                              $mrjc(
+                                  evaluacionResultadoId.hashCode,
+                                  $mrjc(
+                                      nota.hashCode,
+                                      $mrjc(
+                                          escala.hashCode,
+                                          $mrjc(
+                                              rubroEvalProcesoId.hashCode,
+                                              $mrjc(
+                                                  sesionAprendizajeId.hashCode,
+                                                  $mrjc(
+                                                      valorTipoNotaId.hashCode,
+                                                      $mrjc(
+                                                          equipoId.hashCode,
+                                                          $mrjc(
+                                                              alumnoId.hashCode,
+                                                              $mrjc(
+                                                                  calendarioPeriodoId
+                                                                      .hashCode,
+                                                                  $mrjc(
+                                                                      formulaSinc
+                                                                          .hashCode,
+                                                                      $mrjc(
+                                                                          msje
+                                                                              .hashCode,
+                                                                          $mrjc(
+                                                                              publicado.hashCode,
+                                                                              visto.hashCode))))))))))))))))))));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is EvaluacionProcesoData &&
+          other.syncFlag == this.syncFlag &&
+          other.timestampFlag == this.timestampFlag &&
+          other.usuarioCreacionId == this.usuarioCreacionId &&
+          other.fechaCreacion == this.fechaCreacion &&
+          other.usuarioAccionId == this.usuarioAccionId &&
+          other.fechaAccion == this.fechaAccion &&
+          other.evaluacionProcesoId == this.evaluacionProcesoId &&
+          other.evaluacionResultadoId == this.evaluacionResultadoId &&
+          other.nota == this.nota &&
+          other.escala == this.escala &&
+          other.rubroEvalProcesoId == this.rubroEvalProcesoId &&
+          other.sesionAprendizajeId == this.sesionAprendizajeId &&
+          other.valorTipoNotaId == this.valorTipoNotaId &&
+          other.equipoId == this.equipoId &&
+          other.alumnoId == this.alumnoId &&
+          other.calendarioPeriodoId == this.calendarioPeriodoId &&
+          other.formulaSinc == this.formulaSinc &&
+          other.msje == this.msje &&
+          other.publicado == this.publicado &&
+          other.visto == this.visto);
+}
+
+class EvaluacionProcesoCompanion
+    extends UpdateCompanion<EvaluacionProcesoData> {
+  final Value<int?> syncFlag;
+  final Value<DateTime?> timestampFlag;
+  final Value<int?> usuarioCreacionId;
+  final Value<DateTime?> fechaCreacion;
+  final Value<int?> usuarioAccionId;
+  final Value<DateTime?> fechaAccion;
+  final Value<String> evaluacionProcesoId;
+  final Value<int?> evaluacionResultadoId;
+  final Value<double?> nota;
+  final Value<String?> escala;
+  final Value<String?> rubroEvalProcesoId;
+  final Value<int?> sesionAprendizajeId;
+  final Value<String?> valorTipoNotaId;
+  final Value<String?> equipoId;
+  final Value<int?> alumnoId;
+  final Value<int?> calendarioPeriodoId;
+  final Value<bool?> formulaSinc;
+  final Value<int?> msje;
+  final Value<int?> publicado;
+  final Value<int?> visto;
+  const EvaluacionProcesoCompanion({
+    this.syncFlag = const Value.absent(),
+    this.timestampFlag = const Value.absent(),
+    this.usuarioCreacionId = const Value.absent(),
+    this.fechaCreacion = const Value.absent(),
+    this.usuarioAccionId = const Value.absent(),
+    this.fechaAccion = const Value.absent(),
+    this.evaluacionProcesoId = const Value.absent(),
+    this.evaluacionResultadoId = const Value.absent(),
+    this.nota = const Value.absent(),
+    this.escala = const Value.absent(),
+    this.rubroEvalProcesoId = const Value.absent(),
+    this.sesionAprendizajeId = const Value.absent(),
+    this.valorTipoNotaId = const Value.absent(),
+    this.equipoId = const Value.absent(),
+    this.alumnoId = const Value.absent(),
+    this.calendarioPeriodoId = const Value.absent(),
+    this.formulaSinc = const Value.absent(),
+    this.msje = const Value.absent(),
+    this.publicado = const Value.absent(),
+    this.visto = const Value.absent(),
+  });
+  EvaluacionProcesoCompanion.insert({
+    this.syncFlag = const Value.absent(),
+    this.timestampFlag = const Value.absent(),
+    this.usuarioCreacionId = const Value.absent(),
+    this.fechaCreacion = const Value.absent(),
+    this.usuarioAccionId = const Value.absent(),
+    this.fechaAccion = const Value.absent(),
+    required String evaluacionProcesoId,
+    this.evaluacionResultadoId = const Value.absent(),
+    this.nota = const Value.absent(),
+    this.escala = const Value.absent(),
+    this.rubroEvalProcesoId = const Value.absent(),
+    this.sesionAprendizajeId = const Value.absent(),
+    this.valorTipoNotaId = const Value.absent(),
+    this.equipoId = const Value.absent(),
+    this.alumnoId = const Value.absent(),
+    this.calendarioPeriodoId = const Value.absent(),
+    this.formulaSinc = const Value.absent(),
+    this.msje = const Value.absent(),
+    this.publicado = const Value.absent(),
+    this.visto = const Value.absent(),
+  }) : evaluacionProcesoId = Value(evaluacionProcesoId);
+  static Insertable<EvaluacionProcesoData> custom({
+    Expression<int?>? syncFlag,
+    Expression<DateTime?>? timestampFlag,
+    Expression<int?>? usuarioCreacionId,
+    Expression<DateTime?>? fechaCreacion,
+    Expression<int?>? usuarioAccionId,
+    Expression<DateTime?>? fechaAccion,
+    Expression<String>? evaluacionProcesoId,
+    Expression<int?>? evaluacionResultadoId,
+    Expression<double?>? nota,
+    Expression<String?>? escala,
+    Expression<String?>? rubroEvalProcesoId,
+    Expression<int?>? sesionAprendizajeId,
+    Expression<String?>? valorTipoNotaId,
+    Expression<String?>? equipoId,
+    Expression<int?>? alumnoId,
+    Expression<int?>? calendarioPeriodoId,
+    Expression<bool?>? formulaSinc,
+    Expression<int?>? msje,
+    Expression<int?>? publicado,
+    Expression<int?>? visto,
+  }) {
+    return RawValuesInsertable({
+      if (syncFlag != null) 'sync_flag': syncFlag,
+      if (timestampFlag != null) 'timestamp_flag': timestampFlag,
+      if (usuarioCreacionId != null) 'usuario_creacion_id': usuarioCreacionId,
+      if (fechaCreacion != null) 'fecha_creacion': fechaCreacion,
+      if (usuarioAccionId != null) 'usuario_accion_id': usuarioAccionId,
+      if (fechaAccion != null) 'fecha_accion': fechaAccion,
+      if (evaluacionProcesoId != null)
+        'evaluacion_proceso_id': evaluacionProcesoId,
+      if (evaluacionResultadoId != null)
+        'evaluacion_resultado_id': evaluacionResultadoId,
+      if (nota != null) 'nota': nota,
+      if (escala != null) 'escala': escala,
+      if (rubroEvalProcesoId != null)
+        'rubro_eval_proceso_id': rubroEvalProcesoId,
+      if (sesionAprendizajeId != null)
+        'sesion_aprendizaje_id': sesionAprendizajeId,
+      if (valorTipoNotaId != null) 'valor_tipo_nota_id': valorTipoNotaId,
+      if (equipoId != null) 'equipo_id': equipoId,
+      if (alumnoId != null) 'alumno_id': alumnoId,
+      if (calendarioPeriodoId != null)
+        'calendario_periodo_id': calendarioPeriodoId,
+      if (formulaSinc != null) 'formula_sinc': formulaSinc,
+      if (msje != null) 'msje': msje,
+      if (publicado != null) 'publicado': publicado,
+      if (visto != null) 'visto': visto,
+    });
+  }
+
+  EvaluacionProcesoCompanion copyWith(
+      {Value<int?>? syncFlag,
+      Value<DateTime?>? timestampFlag,
+      Value<int?>? usuarioCreacionId,
+      Value<DateTime?>? fechaCreacion,
+      Value<int?>? usuarioAccionId,
+      Value<DateTime?>? fechaAccion,
+      Value<String>? evaluacionProcesoId,
+      Value<int?>? evaluacionResultadoId,
+      Value<double?>? nota,
+      Value<String?>? escala,
+      Value<String?>? rubroEvalProcesoId,
+      Value<int?>? sesionAprendizajeId,
+      Value<String?>? valorTipoNotaId,
+      Value<String?>? equipoId,
+      Value<int?>? alumnoId,
+      Value<int?>? calendarioPeriodoId,
+      Value<bool?>? formulaSinc,
+      Value<int?>? msje,
+      Value<int?>? publicado,
+      Value<int?>? visto}) {
+    return EvaluacionProcesoCompanion(
+      syncFlag: syncFlag ?? this.syncFlag,
+      timestampFlag: timestampFlag ?? this.timestampFlag,
+      usuarioCreacionId: usuarioCreacionId ?? this.usuarioCreacionId,
+      fechaCreacion: fechaCreacion ?? this.fechaCreacion,
+      usuarioAccionId: usuarioAccionId ?? this.usuarioAccionId,
+      fechaAccion: fechaAccion ?? this.fechaAccion,
+      evaluacionProcesoId: evaluacionProcesoId ?? this.evaluacionProcesoId,
+      evaluacionResultadoId:
+          evaluacionResultadoId ?? this.evaluacionResultadoId,
+      nota: nota ?? this.nota,
+      escala: escala ?? this.escala,
+      rubroEvalProcesoId: rubroEvalProcesoId ?? this.rubroEvalProcesoId,
+      sesionAprendizajeId: sesionAprendizajeId ?? this.sesionAprendizajeId,
+      valorTipoNotaId: valorTipoNotaId ?? this.valorTipoNotaId,
+      equipoId: equipoId ?? this.equipoId,
+      alumnoId: alumnoId ?? this.alumnoId,
+      calendarioPeriodoId: calendarioPeriodoId ?? this.calendarioPeriodoId,
+      formulaSinc: formulaSinc ?? this.formulaSinc,
+      msje: msje ?? this.msje,
+      publicado: publicado ?? this.publicado,
+      visto: visto ?? this.visto,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (syncFlag.present) {
+      map['sync_flag'] = Variable<int?>(syncFlag.value);
+    }
+    if (timestampFlag.present) {
+      map['timestamp_flag'] = Variable<DateTime?>(timestampFlag.value);
+    }
+    if (usuarioCreacionId.present) {
+      map['usuario_creacion_id'] = Variable<int?>(usuarioCreacionId.value);
+    }
+    if (fechaCreacion.present) {
+      map['fecha_creacion'] = Variable<DateTime?>(fechaCreacion.value);
+    }
+    if (usuarioAccionId.present) {
+      map['usuario_accion_id'] = Variable<int?>(usuarioAccionId.value);
+    }
+    if (fechaAccion.present) {
+      map['fecha_accion'] = Variable<DateTime?>(fechaAccion.value);
+    }
+    if (evaluacionProcesoId.present) {
+      map['evaluacion_proceso_id'] =
+          Variable<String>(evaluacionProcesoId.value);
+    }
+    if (evaluacionResultadoId.present) {
+      map['evaluacion_resultado_id'] =
+          Variable<int?>(evaluacionResultadoId.value);
+    }
+    if (nota.present) {
+      map['nota'] = Variable<double?>(nota.value);
+    }
+    if (escala.present) {
+      map['escala'] = Variable<String?>(escala.value);
+    }
+    if (rubroEvalProcesoId.present) {
+      map['rubro_eval_proceso_id'] =
+          Variable<String?>(rubroEvalProcesoId.value);
+    }
+    if (sesionAprendizajeId.present) {
+      map['sesion_aprendizaje_id'] = Variable<int?>(sesionAprendizajeId.value);
+    }
+    if (valorTipoNotaId.present) {
+      map['valor_tipo_nota_id'] = Variable<String?>(valorTipoNotaId.value);
+    }
+    if (equipoId.present) {
+      map['equipo_id'] = Variable<String?>(equipoId.value);
+    }
+    if (alumnoId.present) {
+      map['alumno_id'] = Variable<int?>(alumnoId.value);
+    }
+    if (calendarioPeriodoId.present) {
+      map['calendario_periodo_id'] = Variable<int?>(calendarioPeriodoId.value);
+    }
+    if (formulaSinc.present) {
+      map['formula_sinc'] = Variable<bool?>(formulaSinc.value);
+    }
+    if (msje.present) {
+      map['msje'] = Variable<int?>(msje.value);
+    }
+    if (publicado.present) {
+      map['publicado'] = Variable<int?>(publicado.value);
+    }
+    if (visto.present) {
+      map['visto'] = Variable<int?>(visto.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('EvaluacionProcesoCompanion(')
+          ..write('syncFlag: $syncFlag, ')
+          ..write('timestampFlag: $timestampFlag, ')
+          ..write('usuarioCreacionId: $usuarioCreacionId, ')
+          ..write('fechaCreacion: $fechaCreacion, ')
+          ..write('usuarioAccionId: $usuarioAccionId, ')
+          ..write('fechaAccion: $fechaAccion, ')
+          ..write('evaluacionProcesoId: $evaluacionProcesoId, ')
+          ..write('evaluacionResultadoId: $evaluacionResultadoId, ')
+          ..write('nota: $nota, ')
+          ..write('escala: $escala, ')
+          ..write('rubroEvalProcesoId: $rubroEvalProcesoId, ')
+          ..write('sesionAprendizajeId: $sesionAprendizajeId, ')
+          ..write('valorTipoNotaId: $valorTipoNotaId, ')
+          ..write('equipoId: $equipoId, ')
+          ..write('alumnoId: $alumnoId, ')
+          ..write('calendarioPeriodoId: $calendarioPeriodoId, ')
+          ..write('formulaSinc: $formulaSinc, ')
+          ..write('msje: $msje, ')
+          ..write('publicado: $publicado, ')
+          ..write('visto: $visto')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $EvaluacionProcesoTable extends EvaluacionProceso
+    with TableInfo<$EvaluacionProcesoTable, EvaluacionProcesoData> {
+  final GeneratedDatabase _db;
+  final String? _alias;
+  $EvaluacionProcesoTable(this._db, [this._alias]);
+  final VerificationMeta _syncFlagMeta = const VerificationMeta('syncFlag');
+  @override
+  late final GeneratedIntColumn syncFlag = _constructSyncFlag();
+  GeneratedIntColumn _constructSyncFlag() {
+    return GeneratedIntColumn(
+      'sync_flag',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _timestampFlagMeta =
+      const VerificationMeta('timestampFlag');
+  @override
+  late final GeneratedDateTimeColumn timestampFlag = _constructTimestampFlag();
+  GeneratedDateTimeColumn _constructTimestampFlag() {
+    return GeneratedDateTimeColumn(
+      'timestamp_flag',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioCreacionIdMeta =
+      const VerificationMeta('usuarioCreacionId');
+  @override
+  late final GeneratedIntColumn usuarioCreacionId =
+      _constructUsuarioCreacionId();
+  GeneratedIntColumn _constructUsuarioCreacionId() {
+    return GeneratedIntColumn(
+      'usuario_creacion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaCreacionMeta =
+      const VerificationMeta('fechaCreacion');
+  @override
+  late final GeneratedDateTimeColumn fechaCreacion = _constructFechaCreacion();
+  GeneratedDateTimeColumn _constructFechaCreacion() {
+    return GeneratedDateTimeColumn(
+      'fecha_creacion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioAccionIdMeta =
+      const VerificationMeta('usuarioAccionId');
+  @override
+  late final GeneratedIntColumn usuarioAccionId = _constructUsuarioAccionId();
+  GeneratedIntColumn _constructUsuarioAccionId() {
+    return GeneratedIntColumn(
+      'usuario_accion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaAccionMeta =
+      const VerificationMeta('fechaAccion');
+  @override
+  late final GeneratedDateTimeColumn fechaAccion = _constructFechaAccion();
+  GeneratedDateTimeColumn _constructFechaAccion() {
+    return GeneratedDateTimeColumn(
+      'fecha_accion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _evaluacionProcesoIdMeta =
+      const VerificationMeta('evaluacionProcesoId');
+  @override
+  late final GeneratedTextColumn evaluacionProcesoId =
+      _constructEvaluacionProcesoId();
+  GeneratedTextColumn _constructEvaluacionProcesoId() {
+    return GeneratedTextColumn(
+      'evaluacion_proceso_id',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _evaluacionResultadoIdMeta =
+      const VerificationMeta('evaluacionResultadoId');
+  @override
+  late final GeneratedIntColumn evaluacionResultadoId =
+      _constructEvaluacionResultadoId();
+  GeneratedIntColumn _constructEvaluacionResultadoId() {
+    return GeneratedIntColumn(
+      'evaluacion_resultado_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _notaMeta = const VerificationMeta('nota');
+  @override
+  late final GeneratedRealColumn nota = _constructNota();
+  GeneratedRealColumn _constructNota() {
+    return GeneratedRealColumn(
+      'nota',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _escalaMeta = const VerificationMeta('escala');
+  @override
+  late final GeneratedTextColumn escala = _constructEscala();
+  GeneratedTextColumn _constructEscala() {
+    return GeneratedTextColumn(
+      'escala',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _rubroEvalProcesoIdMeta =
+      const VerificationMeta('rubroEvalProcesoId');
+  @override
+  late final GeneratedTextColumn rubroEvalProcesoId =
+      _constructRubroEvalProcesoId();
+  GeneratedTextColumn _constructRubroEvalProcesoId() {
+    return GeneratedTextColumn(
+      'rubro_eval_proceso_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _sesionAprendizajeIdMeta =
+      const VerificationMeta('sesionAprendizajeId');
+  @override
+  late final GeneratedIntColumn sesionAprendizajeId =
+      _constructSesionAprendizajeId();
+  GeneratedIntColumn _constructSesionAprendizajeId() {
+    return GeneratedIntColumn(
+      'sesion_aprendizaje_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _valorTipoNotaIdMeta =
+      const VerificationMeta('valorTipoNotaId');
+  @override
+  late final GeneratedTextColumn valorTipoNotaId = _constructValorTipoNotaId();
+  GeneratedTextColumn _constructValorTipoNotaId() {
+    return GeneratedTextColumn(
+      'valor_tipo_nota_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _equipoIdMeta = const VerificationMeta('equipoId');
+  @override
+  late final GeneratedTextColumn equipoId = _constructEquipoId();
+  GeneratedTextColumn _constructEquipoId() {
+    return GeneratedTextColumn(
+      'equipo_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _alumnoIdMeta = const VerificationMeta('alumnoId');
+  @override
+  late final GeneratedIntColumn alumnoId = _constructAlumnoId();
+  GeneratedIntColumn _constructAlumnoId() {
+    return GeneratedIntColumn(
+      'alumno_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _calendarioPeriodoIdMeta =
+      const VerificationMeta('calendarioPeriodoId');
+  @override
+  late final GeneratedIntColumn calendarioPeriodoId =
+      _constructCalendarioPeriodoId();
+  GeneratedIntColumn _constructCalendarioPeriodoId() {
+    return GeneratedIntColumn(
+      'calendario_periodo_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _formulaSincMeta =
+      const VerificationMeta('formulaSinc');
+  @override
+  late final GeneratedBoolColumn formulaSinc = _constructFormulaSinc();
+  GeneratedBoolColumn _constructFormulaSinc() {
+    return GeneratedBoolColumn(
+      'formula_sinc',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _msjeMeta = const VerificationMeta('msje');
+  @override
+  late final GeneratedIntColumn msje = _constructMsje();
+  GeneratedIntColumn _constructMsje() {
+    return GeneratedIntColumn(
+      'msje',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _publicadoMeta = const VerificationMeta('publicado');
+  @override
+  late final GeneratedIntColumn publicado = _constructPublicado();
+  GeneratedIntColumn _constructPublicado() {
+    return GeneratedIntColumn(
+      'publicado',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _vistoMeta = const VerificationMeta('visto');
+  @override
+  late final GeneratedIntColumn visto = _constructVisto();
+  GeneratedIntColumn _constructVisto() {
+    return GeneratedIntColumn(
+      'visto',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [
+        syncFlag,
+        timestampFlag,
+        usuarioCreacionId,
+        fechaCreacion,
+        usuarioAccionId,
+        fechaAccion,
+        evaluacionProcesoId,
+        evaluacionResultadoId,
+        nota,
+        escala,
+        rubroEvalProcesoId,
+        sesionAprendizajeId,
+        valorTipoNotaId,
+        equipoId,
+        alumnoId,
+        calendarioPeriodoId,
+        formulaSinc,
+        msje,
+        publicado,
+        visto
+      ];
+  @override
+  $EvaluacionProcesoTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'evaluacion_proceso';
+  @override
+  final String actualTableName = 'evaluacion_proceso';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<EvaluacionProcesoData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('sync_flag')) {
+      context.handle(_syncFlagMeta,
+          syncFlag.isAcceptableOrUnknown(data['sync_flag']!, _syncFlagMeta));
+    }
+    if (data.containsKey('timestamp_flag')) {
+      context.handle(
+          _timestampFlagMeta,
+          timestampFlag.isAcceptableOrUnknown(
+              data['timestamp_flag']!, _timestampFlagMeta));
+    }
+    if (data.containsKey('usuario_creacion_id')) {
+      context.handle(
+          _usuarioCreacionIdMeta,
+          usuarioCreacionId.isAcceptableOrUnknown(
+              data['usuario_creacion_id']!, _usuarioCreacionIdMeta));
+    }
+    if (data.containsKey('fecha_creacion')) {
+      context.handle(
+          _fechaCreacionMeta,
+          fechaCreacion.isAcceptableOrUnknown(
+              data['fecha_creacion']!, _fechaCreacionMeta));
+    }
+    if (data.containsKey('usuario_accion_id')) {
+      context.handle(
+          _usuarioAccionIdMeta,
+          usuarioAccionId.isAcceptableOrUnknown(
+              data['usuario_accion_id']!, _usuarioAccionIdMeta));
+    }
+    if (data.containsKey('fecha_accion')) {
+      context.handle(
+          _fechaAccionMeta,
+          fechaAccion.isAcceptableOrUnknown(
+              data['fecha_accion']!, _fechaAccionMeta));
+    }
+    if (data.containsKey('evaluacion_proceso_id')) {
+      context.handle(
+          _evaluacionProcesoIdMeta,
+          evaluacionProcesoId.isAcceptableOrUnknown(
+              data['evaluacion_proceso_id']!, _evaluacionProcesoIdMeta));
+    } else if (isInserting) {
+      context.missing(_evaluacionProcesoIdMeta);
+    }
+    if (data.containsKey('evaluacion_resultado_id')) {
+      context.handle(
+          _evaluacionResultadoIdMeta,
+          evaluacionResultadoId.isAcceptableOrUnknown(
+              data['evaluacion_resultado_id']!, _evaluacionResultadoIdMeta));
+    }
+    if (data.containsKey('nota')) {
+      context.handle(
+          _notaMeta, nota.isAcceptableOrUnknown(data['nota']!, _notaMeta));
+    }
+    if (data.containsKey('escala')) {
+      context.handle(_escalaMeta,
+          escala.isAcceptableOrUnknown(data['escala']!, _escalaMeta));
+    }
+    if (data.containsKey('rubro_eval_proceso_id')) {
+      context.handle(
+          _rubroEvalProcesoIdMeta,
+          rubroEvalProcesoId.isAcceptableOrUnknown(
+              data['rubro_eval_proceso_id']!, _rubroEvalProcesoIdMeta));
+    }
+    if (data.containsKey('sesion_aprendizaje_id')) {
+      context.handle(
+          _sesionAprendizajeIdMeta,
+          sesionAprendizajeId.isAcceptableOrUnknown(
+              data['sesion_aprendizaje_id']!, _sesionAprendizajeIdMeta));
+    }
+    if (data.containsKey('valor_tipo_nota_id')) {
+      context.handle(
+          _valorTipoNotaIdMeta,
+          valorTipoNotaId.isAcceptableOrUnknown(
+              data['valor_tipo_nota_id']!, _valorTipoNotaIdMeta));
+    }
+    if (data.containsKey('equipo_id')) {
+      context.handle(_equipoIdMeta,
+          equipoId.isAcceptableOrUnknown(data['equipo_id']!, _equipoIdMeta));
+    }
+    if (data.containsKey('alumno_id')) {
+      context.handle(_alumnoIdMeta,
+          alumnoId.isAcceptableOrUnknown(data['alumno_id']!, _alumnoIdMeta));
+    }
+    if (data.containsKey('calendario_periodo_id')) {
+      context.handle(
+          _calendarioPeriodoIdMeta,
+          calendarioPeriodoId.isAcceptableOrUnknown(
+              data['calendario_periodo_id']!, _calendarioPeriodoIdMeta));
+    }
+    if (data.containsKey('formula_sinc')) {
+      context.handle(
+          _formulaSincMeta,
+          formulaSinc.isAcceptableOrUnknown(
+              data['formula_sinc']!, _formulaSincMeta));
+    }
+    if (data.containsKey('msje')) {
+      context.handle(
+          _msjeMeta, msje.isAcceptableOrUnknown(data['msje']!, _msjeMeta));
+    }
+    if (data.containsKey('publicado')) {
+      context.handle(_publicadoMeta,
+          publicado.isAcceptableOrUnknown(data['publicado']!, _publicadoMeta));
+    }
+    if (data.containsKey('visto')) {
+      context.handle(
+          _vistoMeta, visto.isAcceptableOrUnknown(data['visto']!, _vistoMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {evaluacionProcesoId};
+  @override
+  EvaluacionProcesoData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return EvaluacionProcesoData.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $EvaluacionProcesoTable createAlias(String alias) {
+    return $EvaluacionProcesoTable(_db, alias);
+  }
+}
+
+class RubroCampotematicoData extends DataClass
+    implements Insertable<RubroCampotematicoData> {
+  final int? syncFlag;
+  final DateTime? timestampFlag;
+  final int? usuarioCreacionId;
+  final DateTime? fechaCreacion;
+  final int? usuarioAccionId;
+  final DateTime? fechaAccion;
+  final String rubroEvalProcesoId;
+  final int campoTematicoId;
+  RubroCampotematicoData(
+      {this.syncFlag,
+      this.timestampFlag,
+      this.usuarioCreacionId,
+      this.fechaCreacion,
+      this.usuarioAccionId,
+      this.fechaAccion,
+      required this.rubroEvalProcesoId,
+      required this.campoTematicoId});
+  factory RubroCampotematicoData.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
+      {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final intType = db.typeSystem.forDartType<int>();
+    final dateTimeType = db.typeSystem.forDartType<DateTime>();
+    final stringType = db.typeSystem.forDartType<String>();
+    return RubroCampotematicoData(
+      syncFlag:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}sync_flag']),
+      timestampFlag: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}timestamp_flag']),
+      usuarioCreacionId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}usuario_creacion_id']),
+      fechaCreacion: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_creacion']),
+      usuarioAccionId: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}usuario_accion_id']),
+      fechaAccion: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_accion']),
+      rubroEvalProcesoId: stringType.mapFromDatabaseResponse(
+          data['${effectivePrefix}rubro_eval_proceso_id'])!,
+      campoTematicoId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}campo_tematico_id'])!,
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || syncFlag != null) {
+      map['sync_flag'] = Variable<int?>(syncFlag);
+    }
+    if (!nullToAbsent || timestampFlag != null) {
+      map['timestamp_flag'] = Variable<DateTime?>(timestampFlag);
+    }
+    if (!nullToAbsent || usuarioCreacionId != null) {
+      map['usuario_creacion_id'] = Variable<int?>(usuarioCreacionId);
+    }
+    if (!nullToAbsent || fechaCreacion != null) {
+      map['fecha_creacion'] = Variable<DateTime?>(fechaCreacion);
+    }
+    if (!nullToAbsent || usuarioAccionId != null) {
+      map['usuario_accion_id'] = Variable<int?>(usuarioAccionId);
+    }
+    if (!nullToAbsent || fechaAccion != null) {
+      map['fecha_accion'] = Variable<DateTime?>(fechaAccion);
+    }
+    map['rubro_eval_proceso_id'] = Variable<String>(rubroEvalProcesoId);
+    map['campo_tematico_id'] = Variable<int>(campoTematicoId);
+    return map;
+  }
+
+  RubroCampotematicoCompanion toCompanion(bool nullToAbsent) {
+    return RubroCampotematicoCompanion(
+      syncFlag: syncFlag == null && nullToAbsent
+          ? const Value.absent()
+          : Value(syncFlag),
+      timestampFlag: timestampFlag == null && nullToAbsent
+          ? const Value.absent()
+          : Value(timestampFlag),
+      usuarioCreacionId: usuarioCreacionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioCreacionId),
+      fechaCreacion: fechaCreacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaCreacion),
+      usuarioAccionId: usuarioAccionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioAccionId),
+      fechaAccion: fechaAccion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaAccion),
+      rubroEvalProcesoId: Value(rubroEvalProcesoId),
+      campoTematicoId: Value(campoTematicoId),
+    );
+  }
+
+  factory RubroCampotematicoData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return RubroCampotematicoData(
+      syncFlag: serializer.fromJson<int?>(json['syncFlag']),
+      timestampFlag: serializer.fromJson<DateTime?>(json['timestampFlag']),
+      usuarioCreacionId: serializer.fromJson<int?>(json['usuarioCreacionId']),
+      fechaCreacion: serializer.fromJson<DateTime?>(json['fechaCreacion']),
+      usuarioAccionId: serializer.fromJson<int?>(json['usuarioAccionId']),
+      fechaAccion: serializer.fromJson<DateTime?>(json['fechaAccion']),
+      rubroEvalProcesoId:
+          serializer.fromJson<String>(json['rubroEvalProcesoId']),
+      campoTematicoId: serializer.fromJson<int>(json['campoTematicoId']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'syncFlag': serializer.toJson<int?>(syncFlag),
+      'timestampFlag': serializer.toJson<DateTime?>(timestampFlag),
+      'usuarioCreacionId': serializer.toJson<int?>(usuarioCreacionId),
+      'fechaCreacion': serializer.toJson<DateTime?>(fechaCreacion),
+      'usuarioAccionId': serializer.toJson<int?>(usuarioAccionId),
+      'fechaAccion': serializer.toJson<DateTime?>(fechaAccion),
+      'rubroEvalProcesoId': serializer.toJson<String>(rubroEvalProcesoId),
+      'campoTematicoId': serializer.toJson<int>(campoTematicoId),
+    };
+  }
+
+  RubroCampotematicoData copyWith(
+          {int? syncFlag,
+          DateTime? timestampFlag,
+          int? usuarioCreacionId,
+          DateTime? fechaCreacion,
+          int? usuarioAccionId,
+          DateTime? fechaAccion,
+          String? rubroEvalProcesoId,
+          int? campoTematicoId}) =>
+      RubroCampotematicoData(
+        syncFlag: syncFlag ?? this.syncFlag,
+        timestampFlag: timestampFlag ?? this.timestampFlag,
+        usuarioCreacionId: usuarioCreacionId ?? this.usuarioCreacionId,
+        fechaCreacion: fechaCreacion ?? this.fechaCreacion,
+        usuarioAccionId: usuarioAccionId ?? this.usuarioAccionId,
+        fechaAccion: fechaAccion ?? this.fechaAccion,
+        rubroEvalProcesoId: rubroEvalProcesoId ?? this.rubroEvalProcesoId,
+        campoTematicoId: campoTematicoId ?? this.campoTematicoId,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('RubroCampotematicoData(')
+          ..write('syncFlag: $syncFlag, ')
+          ..write('timestampFlag: $timestampFlag, ')
+          ..write('usuarioCreacionId: $usuarioCreacionId, ')
+          ..write('fechaCreacion: $fechaCreacion, ')
+          ..write('usuarioAccionId: $usuarioAccionId, ')
+          ..write('fechaAccion: $fechaAccion, ')
+          ..write('rubroEvalProcesoId: $rubroEvalProcesoId, ')
+          ..write('campoTematicoId: $campoTematicoId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      syncFlag.hashCode,
+      $mrjc(
+          timestampFlag.hashCode,
+          $mrjc(
+              usuarioCreacionId.hashCode,
+              $mrjc(
+                  fechaCreacion.hashCode,
+                  $mrjc(
+                      usuarioAccionId.hashCode,
+                      $mrjc(
+                          fechaAccion.hashCode,
+                          $mrjc(rubroEvalProcesoId.hashCode,
+                              campoTematicoId.hashCode))))))));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is RubroCampotematicoData &&
+          other.syncFlag == this.syncFlag &&
+          other.timestampFlag == this.timestampFlag &&
+          other.usuarioCreacionId == this.usuarioCreacionId &&
+          other.fechaCreacion == this.fechaCreacion &&
+          other.usuarioAccionId == this.usuarioAccionId &&
+          other.fechaAccion == this.fechaAccion &&
+          other.rubroEvalProcesoId == this.rubroEvalProcesoId &&
+          other.campoTematicoId == this.campoTematicoId);
+}
+
+class RubroCampotematicoCompanion
+    extends UpdateCompanion<RubroCampotematicoData> {
+  final Value<int?> syncFlag;
+  final Value<DateTime?> timestampFlag;
+  final Value<int?> usuarioCreacionId;
+  final Value<DateTime?> fechaCreacion;
+  final Value<int?> usuarioAccionId;
+  final Value<DateTime?> fechaAccion;
+  final Value<String> rubroEvalProcesoId;
+  final Value<int> campoTematicoId;
+  const RubroCampotematicoCompanion({
+    this.syncFlag = const Value.absent(),
+    this.timestampFlag = const Value.absent(),
+    this.usuarioCreacionId = const Value.absent(),
+    this.fechaCreacion = const Value.absent(),
+    this.usuarioAccionId = const Value.absent(),
+    this.fechaAccion = const Value.absent(),
+    this.rubroEvalProcesoId = const Value.absent(),
+    this.campoTematicoId = const Value.absent(),
+  });
+  RubroCampotematicoCompanion.insert({
+    this.syncFlag = const Value.absent(),
+    this.timestampFlag = const Value.absent(),
+    this.usuarioCreacionId = const Value.absent(),
+    this.fechaCreacion = const Value.absent(),
+    this.usuarioAccionId = const Value.absent(),
+    this.fechaAccion = const Value.absent(),
+    required String rubroEvalProcesoId,
+    required int campoTematicoId,
+  })  : rubroEvalProcesoId = Value(rubroEvalProcesoId),
+        campoTematicoId = Value(campoTematicoId);
+  static Insertable<RubroCampotematicoData> custom({
+    Expression<int?>? syncFlag,
+    Expression<DateTime?>? timestampFlag,
+    Expression<int?>? usuarioCreacionId,
+    Expression<DateTime?>? fechaCreacion,
+    Expression<int?>? usuarioAccionId,
+    Expression<DateTime?>? fechaAccion,
+    Expression<String>? rubroEvalProcesoId,
+    Expression<int>? campoTematicoId,
+  }) {
+    return RawValuesInsertable({
+      if (syncFlag != null) 'sync_flag': syncFlag,
+      if (timestampFlag != null) 'timestamp_flag': timestampFlag,
+      if (usuarioCreacionId != null) 'usuario_creacion_id': usuarioCreacionId,
+      if (fechaCreacion != null) 'fecha_creacion': fechaCreacion,
+      if (usuarioAccionId != null) 'usuario_accion_id': usuarioAccionId,
+      if (fechaAccion != null) 'fecha_accion': fechaAccion,
+      if (rubroEvalProcesoId != null)
+        'rubro_eval_proceso_id': rubroEvalProcesoId,
+      if (campoTematicoId != null) 'campo_tematico_id': campoTematicoId,
+    });
+  }
+
+  RubroCampotematicoCompanion copyWith(
+      {Value<int?>? syncFlag,
+      Value<DateTime?>? timestampFlag,
+      Value<int?>? usuarioCreacionId,
+      Value<DateTime?>? fechaCreacion,
+      Value<int?>? usuarioAccionId,
+      Value<DateTime?>? fechaAccion,
+      Value<String>? rubroEvalProcesoId,
+      Value<int>? campoTematicoId}) {
+    return RubroCampotematicoCompanion(
+      syncFlag: syncFlag ?? this.syncFlag,
+      timestampFlag: timestampFlag ?? this.timestampFlag,
+      usuarioCreacionId: usuarioCreacionId ?? this.usuarioCreacionId,
+      fechaCreacion: fechaCreacion ?? this.fechaCreacion,
+      usuarioAccionId: usuarioAccionId ?? this.usuarioAccionId,
+      fechaAccion: fechaAccion ?? this.fechaAccion,
+      rubroEvalProcesoId: rubroEvalProcesoId ?? this.rubroEvalProcesoId,
+      campoTematicoId: campoTematicoId ?? this.campoTematicoId,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (syncFlag.present) {
+      map['sync_flag'] = Variable<int?>(syncFlag.value);
+    }
+    if (timestampFlag.present) {
+      map['timestamp_flag'] = Variable<DateTime?>(timestampFlag.value);
+    }
+    if (usuarioCreacionId.present) {
+      map['usuario_creacion_id'] = Variable<int?>(usuarioCreacionId.value);
+    }
+    if (fechaCreacion.present) {
+      map['fecha_creacion'] = Variable<DateTime?>(fechaCreacion.value);
+    }
+    if (usuarioAccionId.present) {
+      map['usuario_accion_id'] = Variable<int?>(usuarioAccionId.value);
+    }
+    if (fechaAccion.present) {
+      map['fecha_accion'] = Variable<DateTime?>(fechaAccion.value);
+    }
+    if (rubroEvalProcesoId.present) {
+      map['rubro_eval_proceso_id'] = Variable<String>(rubroEvalProcesoId.value);
+    }
+    if (campoTematicoId.present) {
+      map['campo_tematico_id'] = Variable<int>(campoTematicoId.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RubroCampotematicoCompanion(')
+          ..write('syncFlag: $syncFlag, ')
+          ..write('timestampFlag: $timestampFlag, ')
+          ..write('usuarioCreacionId: $usuarioCreacionId, ')
+          ..write('fechaCreacion: $fechaCreacion, ')
+          ..write('usuarioAccionId: $usuarioAccionId, ')
+          ..write('fechaAccion: $fechaAccion, ')
+          ..write('rubroEvalProcesoId: $rubroEvalProcesoId, ')
+          ..write('campoTematicoId: $campoTematicoId')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $RubroCampotematicoTable extends RubroCampotematico
+    with TableInfo<$RubroCampotematicoTable, RubroCampotematicoData> {
+  final GeneratedDatabase _db;
+  final String? _alias;
+  $RubroCampotematicoTable(this._db, [this._alias]);
+  final VerificationMeta _syncFlagMeta = const VerificationMeta('syncFlag');
+  @override
+  late final GeneratedIntColumn syncFlag = _constructSyncFlag();
+  GeneratedIntColumn _constructSyncFlag() {
+    return GeneratedIntColumn(
+      'sync_flag',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _timestampFlagMeta =
+      const VerificationMeta('timestampFlag');
+  @override
+  late final GeneratedDateTimeColumn timestampFlag = _constructTimestampFlag();
+  GeneratedDateTimeColumn _constructTimestampFlag() {
+    return GeneratedDateTimeColumn(
+      'timestamp_flag',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioCreacionIdMeta =
+      const VerificationMeta('usuarioCreacionId');
+  @override
+  late final GeneratedIntColumn usuarioCreacionId =
+      _constructUsuarioCreacionId();
+  GeneratedIntColumn _constructUsuarioCreacionId() {
+    return GeneratedIntColumn(
+      'usuario_creacion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaCreacionMeta =
+      const VerificationMeta('fechaCreacion');
+  @override
+  late final GeneratedDateTimeColumn fechaCreacion = _constructFechaCreacion();
+  GeneratedDateTimeColumn _constructFechaCreacion() {
+    return GeneratedDateTimeColumn(
+      'fecha_creacion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioAccionIdMeta =
+      const VerificationMeta('usuarioAccionId');
+  @override
+  late final GeneratedIntColumn usuarioAccionId = _constructUsuarioAccionId();
+  GeneratedIntColumn _constructUsuarioAccionId() {
+    return GeneratedIntColumn(
+      'usuario_accion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaAccionMeta =
+      const VerificationMeta('fechaAccion');
+  @override
+  late final GeneratedDateTimeColumn fechaAccion = _constructFechaAccion();
+  GeneratedDateTimeColumn _constructFechaAccion() {
+    return GeneratedDateTimeColumn(
+      'fecha_accion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _rubroEvalProcesoIdMeta =
+      const VerificationMeta('rubroEvalProcesoId');
+  @override
+  late final GeneratedTextColumn rubroEvalProcesoId =
+      _constructRubroEvalProcesoId();
+  GeneratedTextColumn _constructRubroEvalProcesoId() {
+    return GeneratedTextColumn(
+      'rubro_eval_proceso_id',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _campoTematicoIdMeta =
+      const VerificationMeta('campoTematicoId');
+  @override
+  late final GeneratedIntColumn campoTematicoId = _constructCampoTematicoId();
+  GeneratedIntColumn _constructCampoTematicoId() {
+    return GeneratedIntColumn(
+      'campo_tematico_id',
+      $tableName,
+      false,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [
+        syncFlag,
+        timestampFlag,
+        usuarioCreacionId,
+        fechaCreacion,
+        usuarioAccionId,
+        fechaAccion,
+        rubroEvalProcesoId,
+        campoTematicoId
+      ];
+  @override
+  $RubroCampotematicoTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'rubro_campotematico';
+  @override
+  final String actualTableName = 'rubro_campotematico';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<RubroCampotematicoData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('sync_flag')) {
+      context.handle(_syncFlagMeta,
+          syncFlag.isAcceptableOrUnknown(data['sync_flag']!, _syncFlagMeta));
+    }
+    if (data.containsKey('timestamp_flag')) {
+      context.handle(
+          _timestampFlagMeta,
+          timestampFlag.isAcceptableOrUnknown(
+              data['timestamp_flag']!, _timestampFlagMeta));
+    }
+    if (data.containsKey('usuario_creacion_id')) {
+      context.handle(
+          _usuarioCreacionIdMeta,
+          usuarioCreacionId.isAcceptableOrUnknown(
+              data['usuario_creacion_id']!, _usuarioCreacionIdMeta));
+    }
+    if (data.containsKey('fecha_creacion')) {
+      context.handle(
+          _fechaCreacionMeta,
+          fechaCreacion.isAcceptableOrUnknown(
+              data['fecha_creacion']!, _fechaCreacionMeta));
+    }
+    if (data.containsKey('usuario_accion_id')) {
+      context.handle(
+          _usuarioAccionIdMeta,
+          usuarioAccionId.isAcceptableOrUnknown(
+              data['usuario_accion_id']!, _usuarioAccionIdMeta));
+    }
+    if (data.containsKey('fecha_accion')) {
+      context.handle(
+          _fechaAccionMeta,
+          fechaAccion.isAcceptableOrUnknown(
+              data['fecha_accion']!, _fechaAccionMeta));
+    }
+    if (data.containsKey('rubro_eval_proceso_id')) {
+      context.handle(
+          _rubroEvalProcesoIdMeta,
+          rubroEvalProcesoId.isAcceptableOrUnknown(
+              data['rubro_eval_proceso_id']!, _rubroEvalProcesoIdMeta));
+    } else if (isInserting) {
+      context.missing(_rubroEvalProcesoIdMeta);
+    }
+    if (data.containsKey('campo_tematico_id')) {
+      context.handle(
+          _campoTematicoIdMeta,
+          campoTematicoId.isAcceptableOrUnknown(
+              data['campo_tematico_id']!, _campoTematicoIdMeta));
+    } else if (isInserting) {
+      context.missing(_campoTematicoIdMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {rubroEvalProcesoId, campoTematicoId};
+  @override
+  RubroCampotematicoData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return RubroCampotematicoData.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $RubroCampotematicoTable createAlias(String alias) {
+    return $RubroCampotematicoTable(_db, alias);
+  }
+}
+
+class RubroComentarioData extends DataClass
+    implements Insertable<RubroComentarioData> {
+  final int? syncFlag;
+  final DateTime? timestampFlag;
+  final int? usuarioCreacionId;
+  final DateTime? fechaCreacion;
+  final int? usuarioAccionId;
+  final DateTime? fechaAccion;
+  final String evaluacionProcesoComentarioId;
+  final String? evaluacionProcesoId;
+  final String? comentarioId;
+  final String? descripcion;
+  final String? delete;
+  RubroComentarioData(
+      {this.syncFlag,
+      this.timestampFlag,
+      this.usuarioCreacionId,
+      this.fechaCreacion,
+      this.usuarioAccionId,
+      this.fechaAccion,
+      required this.evaluacionProcesoComentarioId,
+      this.evaluacionProcesoId,
+      this.comentarioId,
+      this.descripcion,
+      this.delete});
+  factory RubroComentarioData.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
+      {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final intType = db.typeSystem.forDartType<int>();
+    final dateTimeType = db.typeSystem.forDartType<DateTime>();
+    final stringType = db.typeSystem.forDartType<String>();
+    return RubroComentarioData(
+      syncFlag:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}sync_flag']),
+      timestampFlag: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}timestamp_flag']),
+      usuarioCreacionId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}usuario_creacion_id']),
+      fechaCreacion: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_creacion']),
+      usuarioAccionId: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}usuario_accion_id']),
+      fechaAccion: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_accion']),
+      evaluacionProcesoComentarioId: stringType.mapFromDatabaseResponse(
+          data['${effectivePrefix}evaluacion_proceso_comentario_id'])!,
+      evaluacionProcesoId: stringType.mapFromDatabaseResponse(
+          data['${effectivePrefix}evaluacion_proceso_id']),
+      comentarioId: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}comentario_id']),
+      descripcion: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}descripcion']),
+      delete:
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}delete']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || syncFlag != null) {
+      map['sync_flag'] = Variable<int?>(syncFlag);
+    }
+    if (!nullToAbsent || timestampFlag != null) {
+      map['timestamp_flag'] = Variable<DateTime?>(timestampFlag);
+    }
+    if (!nullToAbsent || usuarioCreacionId != null) {
+      map['usuario_creacion_id'] = Variable<int?>(usuarioCreacionId);
+    }
+    if (!nullToAbsent || fechaCreacion != null) {
+      map['fecha_creacion'] = Variable<DateTime?>(fechaCreacion);
+    }
+    if (!nullToAbsent || usuarioAccionId != null) {
+      map['usuario_accion_id'] = Variable<int?>(usuarioAccionId);
+    }
+    if (!nullToAbsent || fechaAccion != null) {
+      map['fecha_accion'] = Variable<DateTime?>(fechaAccion);
+    }
+    map['evaluacion_proceso_comentario_id'] =
+        Variable<String>(evaluacionProcesoComentarioId);
+    if (!nullToAbsent || evaluacionProcesoId != null) {
+      map['evaluacion_proceso_id'] = Variable<String?>(evaluacionProcesoId);
+    }
+    if (!nullToAbsent || comentarioId != null) {
+      map['comentario_id'] = Variable<String?>(comentarioId);
+    }
+    if (!nullToAbsent || descripcion != null) {
+      map['descripcion'] = Variable<String?>(descripcion);
+    }
+    if (!nullToAbsent || delete != null) {
+      map['delete'] = Variable<String?>(delete);
+    }
+    return map;
+  }
+
+  RubroComentarioCompanion toCompanion(bool nullToAbsent) {
+    return RubroComentarioCompanion(
+      syncFlag: syncFlag == null && nullToAbsent
+          ? const Value.absent()
+          : Value(syncFlag),
+      timestampFlag: timestampFlag == null && nullToAbsent
+          ? const Value.absent()
+          : Value(timestampFlag),
+      usuarioCreacionId: usuarioCreacionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioCreacionId),
+      fechaCreacion: fechaCreacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaCreacion),
+      usuarioAccionId: usuarioAccionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioAccionId),
+      fechaAccion: fechaAccion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaAccion),
+      evaluacionProcesoComentarioId: Value(evaluacionProcesoComentarioId),
+      evaluacionProcesoId: evaluacionProcesoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(evaluacionProcesoId),
+      comentarioId: comentarioId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(comentarioId),
+      descripcion: descripcion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(descripcion),
+      delete:
+          delete == null && nullToAbsent ? const Value.absent() : Value(delete),
+    );
+  }
+
+  factory RubroComentarioData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return RubroComentarioData(
+      syncFlag: serializer.fromJson<int?>(json['syncFlag']),
+      timestampFlag: serializer.fromJson<DateTime?>(json['timestampFlag']),
+      usuarioCreacionId: serializer.fromJson<int?>(json['usuarioCreacionId']),
+      fechaCreacion: serializer.fromJson<DateTime?>(json['fechaCreacion']),
+      usuarioAccionId: serializer.fromJson<int?>(json['usuarioAccionId']),
+      fechaAccion: serializer.fromJson<DateTime?>(json['fechaAccion']),
+      evaluacionProcesoComentarioId:
+          serializer.fromJson<String>(json['evaluacionProcesoComentarioId']),
+      evaluacionProcesoId:
+          serializer.fromJson<String?>(json['evaluacionProcesoId']),
+      comentarioId: serializer.fromJson<String?>(json['comentarioId']),
+      descripcion: serializer.fromJson<String?>(json['descripcion']),
+      delete: serializer.fromJson<String?>(json['delete']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'syncFlag': serializer.toJson<int?>(syncFlag),
+      'timestampFlag': serializer.toJson<DateTime?>(timestampFlag),
+      'usuarioCreacionId': serializer.toJson<int?>(usuarioCreacionId),
+      'fechaCreacion': serializer.toJson<DateTime?>(fechaCreacion),
+      'usuarioAccionId': serializer.toJson<int?>(usuarioAccionId),
+      'fechaAccion': serializer.toJson<DateTime?>(fechaAccion),
+      'evaluacionProcesoComentarioId':
+          serializer.toJson<String>(evaluacionProcesoComentarioId),
+      'evaluacionProcesoId': serializer.toJson<String?>(evaluacionProcesoId),
+      'comentarioId': serializer.toJson<String?>(comentarioId),
+      'descripcion': serializer.toJson<String?>(descripcion),
+      'delete': serializer.toJson<String?>(delete),
+    };
+  }
+
+  RubroComentarioData copyWith(
+          {int? syncFlag,
+          DateTime? timestampFlag,
+          int? usuarioCreacionId,
+          DateTime? fechaCreacion,
+          int? usuarioAccionId,
+          DateTime? fechaAccion,
+          String? evaluacionProcesoComentarioId,
+          String? evaluacionProcesoId,
+          String? comentarioId,
+          String? descripcion,
+          String? delete}) =>
+      RubroComentarioData(
+        syncFlag: syncFlag ?? this.syncFlag,
+        timestampFlag: timestampFlag ?? this.timestampFlag,
+        usuarioCreacionId: usuarioCreacionId ?? this.usuarioCreacionId,
+        fechaCreacion: fechaCreacion ?? this.fechaCreacion,
+        usuarioAccionId: usuarioAccionId ?? this.usuarioAccionId,
+        fechaAccion: fechaAccion ?? this.fechaAccion,
+        evaluacionProcesoComentarioId:
+            evaluacionProcesoComentarioId ?? this.evaluacionProcesoComentarioId,
+        evaluacionProcesoId: evaluacionProcesoId ?? this.evaluacionProcesoId,
+        comentarioId: comentarioId ?? this.comentarioId,
+        descripcion: descripcion ?? this.descripcion,
+        delete: delete ?? this.delete,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('RubroComentarioData(')
+          ..write('syncFlag: $syncFlag, ')
+          ..write('timestampFlag: $timestampFlag, ')
+          ..write('usuarioCreacionId: $usuarioCreacionId, ')
+          ..write('fechaCreacion: $fechaCreacion, ')
+          ..write('usuarioAccionId: $usuarioAccionId, ')
+          ..write('fechaAccion: $fechaAccion, ')
+          ..write(
+              'evaluacionProcesoComentarioId: $evaluacionProcesoComentarioId, ')
+          ..write('evaluacionProcesoId: $evaluacionProcesoId, ')
+          ..write('comentarioId: $comentarioId, ')
+          ..write('descripcion: $descripcion, ')
+          ..write('delete: $delete')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      syncFlag.hashCode,
+      $mrjc(
+          timestampFlag.hashCode,
+          $mrjc(
+              usuarioCreacionId.hashCode,
+              $mrjc(
+                  fechaCreacion.hashCode,
+                  $mrjc(
+                      usuarioAccionId.hashCode,
+                      $mrjc(
+                          fechaAccion.hashCode,
+                          $mrjc(
+                              evaluacionProcesoComentarioId.hashCode,
+                              $mrjc(
+                                  evaluacionProcesoId.hashCode,
+                                  $mrjc(
+                                      comentarioId.hashCode,
+                                      $mrjc(descripcion.hashCode,
+                                          delete.hashCode)))))))))));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is RubroComentarioData &&
+          other.syncFlag == this.syncFlag &&
+          other.timestampFlag == this.timestampFlag &&
+          other.usuarioCreacionId == this.usuarioCreacionId &&
+          other.fechaCreacion == this.fechaCreacion &&
+          other.usuarioAccionId == this.usuarioAccionId &&
+          other.fechaAccion == this.fechaAccion &&
+          other.evaluacionProcesoComentarioId ==
+              this.evaluacionProcesoComentarioId &&
+          other.evaluacionProcesoId == this.evaluacionProcesoId &&
+          other.comentarioId == this.comentarioId &&
+          other.descripcion == this.descripcion &&
+          other.delete == this.delete);
+}
+
+class RubroComentarioCompanion extends UpdateCompanion<RubroComentarioData> {
+  final Value<int?> syncFlag;
+  final Value<DateTime?> timestampFlag;
+  final Value<int?> usuarioCreacionId;
+  final Value<DateTime?> fechaCreacion;
+  final Value<int?> usuarioAccionId;
+  final Value<DateTime?> fechaAccion;
+  final Value<String> evaluacionProcesoComentarioId;
+  final Value<String?> evaluacionProcesoId;
+  final Value<String?> comentarioId;
+  final Value<String?> descripcion;
+  final Value<String?> delete;
+  const RubroComentarioCompanion({
+    this.syncFlag = const Value.absent(),
+    this.timestampFlag = const Value.absent(),
+    this.usuarioCreacionId = const Value.absent(),
+    this.fechaCreacion = const Value.absent(),
+    this.usuarioAccionId = const Value.absent(),
+    this.fechaAccion = const Value.absent(),
+    this.evaluacionProcesoComentarioId = const Value.absent(),
+    this.evaluacionProcesoId = const Value.absent(),
+    this.comentarioId = const Value.absent(),
+    this.descripcion = const Value.absent(),
+    this.delete = const Value.absent(),
+  });
+  RubroComentarioCompanion.insert({
+    this.syncFlag = const Value.absent(),
+    this.timestampFlag = const Value.absent(),
+    this.usuarioCreacionId = const Value.absent(),
+    this.fechaCreacion = const Value.absent(),
+    this.usuarioAccionId = const Value.absent(),
+    this.fechaAccion = const Value.absent(),
+    required String evaluacionProcesoComentarioId,
+    this.evaluacionProcesoId = const Value.absent(),
+    this.comentarioId = const Value.absent(),
+    this.descripcion = const Value.absent(),
+    this.delete = const Value.absent(),
+  }) : evaluacionProcesoComentarioId = Value(evaluacionProcesoComentarioId);
+  static Insertable<RubroComentarioData> custom({
+    Expression<int?>? syncFlag,
+    Expression<DateTime?>? timestampFlag,
+    Expression<int?>? usuarioCreacionId,
+    Expression<DateTime?>? fechaCreacion,
+    Expression<int?>? usuarioAccionId,
+    Expression<DateTime?>? fechaAccion,
+    Expression<String>? evaluacionProcesoComentarioId,
+    Expression<String?>? evaluacionProcesoId,
+    Expression<String?>? comentarioId,
+    Expression<String?>? descripcion,
+    Expression<String?>? delete,
+  }) {
+    return RawValuesInsertable({
+      if (syncFlag != null) 'sync_flag': syncFlag,
+      if (timestampFlag != null) 'timestamp_flag': timestampFlag,
+      if (usuarioCreacionId != null) 'usuario_creacion_id': usuarioCreacionId,
+      if (fechaCreacion != null) 'fecha_creacion': fechaCreacion,
+      if (usuarioAccionId != null) 'usuario_accion_id': usuarioAccionId,
+      if (fechaAccion != null) 'fecha_accion': fechaAccion,
+      if (evaluacionProcesoComentarioId != null)
+        'evaluacion_proceso_comentario_id': evaluacionProcesoComentarioId,
+      if (evaluacionProcesoId != null)
+        'evaluacion_proceso_id': evaluacionProcesoId,
+      if (comentarioId != null) 'comentario_id': comentarioId,
+      if (descripcion != null) 'descripcion': descripcion,
+      if (delete != null) 'delete': delete,
+    });
+  }
+
+  RubroComentarioCompanion copyWith(
+      {Value<int?>? syncFlag,
+      Value<DateTime?>? timestampFlag,
+      Value<int?>? usuarioCreacionId,
+      Value<DateTime?>? fechaCreacion,
+      Value<int?>? usuarioAccionId,
+      Value<DateTime?>? fechaAccion,
+      Value<String>? evaluacionProcesoComentarioId,
+      Value<String?>? evaluacionProcesoId,
+      Value<String?>? comentarioId,
+      Value<String?>? descripcion,
+      Value<String?>? delete}) {
+    return RubroComentarioCompanion(
+      syncFlag: syncFlag ?? this.syncFlag,
+      timestampFlag: timestampFlag ?? this.timestampFlag,
+      usuarioCreacionId: usuarioCreacionId ?? this.usuarioCreacionId,
+      fechaCreacion: fechaCreacion ?? this.fechaCreacion,
+      usuarioAccionId: usuarioAccionId ?? this.usuarioAccionId,
+      fechaAccion: fechaAccion ?? this.fechaAccion,
+      evaluacionProcesoComentarioId:
+          evaluacionProcesoComentarioId ?? this.evaluacionProcesoComentarioId,
+      evaluacionProcesoId: evaluacionProcesoId ?? this.evaluacionProcesoId,
+      comentarioId: comentarioId ?? this.comentarioId,
+      descripcion: descripcion ?? this.descripcion,
+      delete: delete ?? this.delete,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (syncFlag.present) {
+      map['sync_flag'] = Variable<int?>(syncFlag.value);
+    }
+    if (timestampFlag.present) {
+      map['timestamp_flag'] = Variable<DateTime?>(timestampFlag.value);
+    }
+    if (usuarioCreacionId.present) {
+      map['usuario_creacion_id'] = Variable<int?>(usuarioCreacionId.value);
+    }
+    if (fechaCreacion.present) {
+      map['fecha_creacion'] = Variable<DateTime?>(fechaCreacion.value);
+    }
+    if (usuarioAccionId.present) {
+      map['usuario_accion_id'] = Variable<int?>(usuarioAccionId.value);
+    }
+    if (fechaAccion.present) {
+      map['fecha_accion'] = Variable<DateTime?>(fechaAccion.value);
+    }
+    if (evaluacionProcesoComentarioId.present) {
+      map['evaluacion_proceso_comentario_id'] =
+          Variable<String>(evaluacionProcesoComentarioId.value);
+    }
+    if (evaluacionProcesoId.present) {
+      map['evaluacion_proceso_id'] =
+          Variable<String?>(evaluacionProcesoId.value);
+    }
+    if (comentarioId.present) {
+      map['comentario_id'] = Variable<String?>(comentarioId.value);
+    }
+    if (descripcion.present) {
+      map['descripcion'] = Variable<String?>(descripcion.value);
+    }
+    if (delete.present) {
+      map['delete'] = Variable<String?>(delete.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RubroComentarioCompanion(')
+          ..write('syncFlag: $syncFlag, ')
+          ..write('timestampFlag: $timestampFlag, ')
+          ..write('usuarioCreacionId: $usuarioCreacionId, ')
+          ..write('fechaCreacion: $fechaCreacion, ')
+          ..write('usuarioAccionId: $usuarioAccionId, ')
+          ..write('fechaAccion: $fechaAccion, ')
+          ..write(
+              'evaluacionProcesoComentarioId: $evaluacionProcesoComentarioId, ')
+          ..write('evaluacionProcesoId: $evaluacionProcesoId, ')
+          ..write('comentarioId: $comentarioId, ')
+          ..write('descripcion: $descripcion, ')
+          ..write('delete: $delete')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $RubroComentarioTable extends RubroComentario
+    with TableInfo<$RubroComentarioTable, RubroComentarioData> {
+  final GeneratedDatabase _db;
+  final String? _alias;
+  $RubroComentarioTable(this._db, [this._alias]);
+  final VerificationMeta _syncFlagMeta = const VerificationMeta('syncFlag');
+  @override
+  late final GeneratedIntColumn syncFlag = _constructSyncFlag();
+  GeneratedIntColumn _constructSyncFlag() {
+    return GeneratedIntColumn(
+      'sync_flag',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _timestampFlagMeta =
+      const VerificationMeta('timestampFlag');
+  @override
+  late final GeneratedDateTimeColumn timestampFlag = _constructTimestampFlag();
+  GeneratedDateTimeColumn _constructTimestampFlag() {
+    return GeneratedDateTimeColumn(
+      'timestamp_flag',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioCreacionIdMeta =
+      const VerificationMeta('usuarioCreacionId');
+  @override
+  late final GeneratedIntColumn usuarioCreacionId =
+      _constructUsuarioCreacionId();
+  GeneratedIntColumn _constructUsuarioCreacionId() {
+    return GeneratedIntColumn(
+      'usuario_creacion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaCreacionMeta =
+      const VerificationMeta('fechaCreacion');
+  @override
+  late final GeneratedDateTimeColumn fechaCreacion = _constructFechaCreacion();
+  GeneratedDateTimeColumn _constructFechaCreacion() {
+    return GeneratedDateTimeColumn(
+      'fecha_creacion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioAccionIdMeta =
+      const VerificationMeta('usuarioAccionId');
+  @override
+  late final GeneratedIntColumn usuarioAccionId = _constructUsuarioAccionId();
+  GeneratedIntColumn _constructUsuarioAccionId() {
+    return GeneratedIntColumn(
+      'usuario_accion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaAccionMeta =
+      const VerificationMeta('fechaAccion');
+  @override
+  late final GeneratedDateTimeColumn fechaAccion = _constructFechaAccion();
+  GeneratedDateTimeColumn _constructFechaAccion() {
+    return GeneratedDateTimeColumn(
+      'fecha_accion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _evaluacionProcesoComentarioIdMeta =
+      const VerificationMeta('evaluacionProcesoComentarioId');
+  @override
+  late final GeneratedTextColumn evaluacionProcesoComentarioId =
+      _constructEvaluacionProcesoComentarioId();
+  GeneratedTextColumn _constructEvaluacionProcesoComentarioId() {
+    return GeneratedTextColumn(
+      'evaluacion_proceso_comentario_id',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _evaluacionProcesoIdMeta =
+      const VerificationMeta('evaluacionProcesoId');
+  @override
+  late final GeneratedTextColumn evaluacionProcesoId =
+      _constructEvaluacionProcesoId();
+  GeneratedTextColumn _constructEvaluacionProcesoId() {
+    return GeneratedTextColumn(
+      'evaluacion_proceso_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _comentarioIdMeta =
+      const VerificationMeta('comentarioId');
+  @override
+  late final GeneratedTextColumn comentarioId = _constructComentarioId();
+  GeneratedTextColumn _constructComentarioId() {
+    return GeneratedTextColumn(
+      'comentario_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _descripcionMeta =
+      const VerificationMeta('descripcion');
+  @override
+  late final GeneratedTextColumn descripcion = _constructDescripcion();
+  GeneratedTextColumn _constructDescripcion() {
+    return GeneratedTextColumn(
+      'descripcion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _deleteMeta = const VerificationMeta('delete');
+  @override
+  late final GeneratedTextColumn delete = _constructDelete();
+  GeneratedTextColumn _constructDelete() {
+    return GeneratedTextColumn(
+      'delete',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [
+        syncFlag,
+        timestampFlag,
+        usuarioCreacionId,
+        fechaCreacion,
+        usuarioAccionId,
+        fechaAccion,
+        evaluacionProcesoComentarioId,
+        evaluacionProcesoId,
+        comentarioId,
+        descripcion,
+        delete
+      ];
+  @override
+  $RubroComentarioTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'rubro_comentario';
+  @override
+  final String actualTableName = 'rubro_comentario';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<RubroComentarioData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('sync_flag')) {
+      context.handle(_syncFlagMeta,
+          syncFlag.isAcceptableOrUnknown(data['sync_flag']!, _syncFlagMeta));
+    }
+    if (data.containsKey('timestamp_flag')) {
+      context.handle(
+          _timestampFlagMeta,
+          timestampFlag.isAcceptableOrUnknown(
+              data['timestamp_flag']!, _timestampFlagMeta));
+    }
+    if (data.containsKey('usuario_creacion_id')) {
+      context.handle(
+          _usuarioCreacionIdMeta,
+          usuarioCreacionId.isAcceptableOrUnknown(
+              data['usuario_creacion_id']!, _usuarioCreacionIdMeta));
+    }
+    if (data.containsKey('fecha_creacion')) {
+      context.handle(
+          _fechaCreacionMeta,
+          fechaCreacion.isAcceptableOrUnknown(
+              data['fecha_creacion']!, _fechaCreacionMeta));
+    }
+    if (data.containsKey('usuario_accion_id')) {
+      context.handle(
+          _usuarioAccionIdMeta,
+          usuarioAccionId.isAcceptableOrUnknown(
+              data['usuario_accion_id']!, _usuarioAccionIdMeta));
+    }
+    if (data.containsKey('fecha_accion')) {
+      context.handle(
+          _fechaAccionMeta,
+          fechaAccion.isAcceptableOrUnknown(
+              data['fecha_accion']!, _fechaAccionMeta));
+    }
+    if (data.containsKey('evaluacion_proceso_comentario_id')) {
+      context.handle(
+          _evaluacionProcesoComentarioIdMeta,
+          evaluacionProcesoComentarioId.isAcceptableOrUnknown(
+              data['evaluacion_proceso_comentario_id']!,
+              _evaluacionProcesoComentarioIdMeta));
+    } else if (isInserting) {
+      context.missing(_evaluacionProcesoComentarioIdMeta);
+    }
+    if (data.containsKey('evaluacion_proceso_id')) {
+      context.handle(
+          _evaluacionProcesoIdMeta,
+          evaluacionProcesoId.isAcceptableOrUnknown(
+              data['evaluacion_proceso_id']!, _evaluacionProcesoIdMeta));
+    }
+    if (data.containsKey('comentario_id')) {
+      context.handle(
+          _comentarioIdMeta,
+          comentarioId.isAcceptableOrUnknown(
+              data['comentario_id']!, _comentarioIdMeta));
+    }
+    if (data.containsKey('descripcion')) {
+      context.handle(
+          _descripcionMeta,
+          descripcion.isAcceptableOrUnknown(
+              data['descripcion']!, _descripcionMeta));
+    }
+    if (data.containsKey('delete')) {
+      context.handle(_deleteMeta,
+          delete.isAcceptableOrUnknown(data['delete']!, _deleteMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {evaluacionProcesoComentarioId};
+  @override
+  RubroComentarioData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return RubroComentarioData.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $RubroComentarioTable createAlias(String alias) {
+    return $RubroComentarioTable(_db, alias);
+  }
+}
+
+class RubroEvalRNPFormulaData extends DataClass
+    implements Insertable<RubroEvalRNPFormulaData> {
+  final int? syncFlag;
+  final DateTime? timestampFlag;
+  final int? usuarioCreacionId;
+  final DateTime? fechaCreacion;
+  final int? usuarioAccionId;
+  final DateTime? fechaAccion;
+  final String rubroFormulaId;
+  final String? rubroEvaluacionPrimId;
+  final String? rubroEvaluacionSecId;
+  final int? estado;
+  RubroEvalRNPFormulaData(
+      {this.syncFlag,
+      this.timestampFlag,
+      this.usuarioCreacionId,
+      this.fechaCreacion,
+      this.usuarioAccionId,
+      this.fechaAccion,
+      required this.rubroFormulaId,
+      this.rubroEvaluacionPrimId,
+      this.rubroEvaluacionSecId,
+      this.estado});
+  factory RubroEvalRNPFormulaData.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
+      {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final intType = db.typeSystem.forDartType<int>();
+    final dateTimeType = db.typeSystem.forDartType<DateTime>();
+    final stringType = db.typeSystem.forDartType<String>();
+    return RubroEvalRNPFormulaData(
+      syncFlag:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}sync_flag']),
+      timestampFlag: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}timestamp_flag']),
+      usuarioCreacionId: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}usuario_creacion_id']),
+      fechaCreacion: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_creacion']),
+      usuarioAccionId: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}usuario_accion_id']),
+      fechaAccion: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_accion']),
+      rubroFormulaId: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}rubro_formula_id'])!,
+      rubroEvaluacionPrimId: stringType.mapFromDatabaseResponse(
+          data['${effectivePrefix}rubro_evaluacion_prim_id']),
+      rubroEvaluacionSecId: stringType.mapFromDatabaseResponse(
+          data['${effectivePrefix}rubro_evaluacion_sec_id']),
+      estado: intType.mapFromDatabaseResponse(data['${effectivePrefix}estado']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || syncFlag != null) {
+      map['sync_flag'] = Variable<int?>(syncFlag);
+    }
+    if (!nullToAbsent || timestampFlag != null) {
+      map['timestamp_flag'] = Variable<DateTime?>(timestampFlag);
+    }
+    if (!nullToAbsent || usuarioCreacionId != null) {
+      map['usuario_creacion_id'] = Variable<int?>(usuarioCreacionId);
+    }
+    if (!nullToAbsent || fechaCreacion != null) {
+      map['fecha_creacion'] = Variable<DateTime?>(fechaCreacion);
+    }
+    if (!nullToAbsent || usuarioAccionId != null) {
+      map['usuario_accion_id'] = Variable<int?>(usuarioAccionId);
+    }
+    if (!nullToAbsent || fechaAccion != null) {
+      map['fecha_accion'] = Variable<DateTime?>(fechaAccion);
+    }
+    map['rubro_formula_id'] = Variable<String>(rubroFormulaId);
+    if (!nullToAbsent || rubroEvaluacionPrimId != null) {
+      map['rubro_evaluacion_prim_id'] =
+          Variable<String?>(rubroEvaluacionPrimId);
+    }
+    if (!nullToAbsent || rubroEvaluacionSecId != null) {
+      map['rubro_evaluacion_sec_id'] = Variable<String?>(rubroEvaluacionSecId);
+    }
+    if (!nullToAbsent || estado != null) {
+      map['estado'] = Variable<int?>(estado);
+    }
+    return map;
+  }
+
+  RubroEvalRNPFormulaCompanion toCompanion(bool nullToAbsent) {
+    return RubroEvalRNPFormulaCompanion(
+      syncFlag: syncFlag == null && nullToAbsent
+          ? const Value.absent()
+          : Value(syncFlag),
+      timestampFlag: timestampFlag == null && nullToAbsent
+          ? const Value.absent()
+          : Value(timestampFlag),
+      usuarioCreacionId: usuarioCreacionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioCreacionId),
+      fechaCreacion: fechaCreacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaCreacion),
+      usuarioAccionId: usuarioAccionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioAccionId),
+      fechaAccion: fechaAccion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaAccion),
+      rubroFormulaId: Value(rubroFormulaId),
+      rubroEvaluacionPrimId: rubroEvaluacionPrimId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(rubroEvaluacionPrimId),
+      rubroEvaluacionSecId: rubroEvaluacionSecId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(rubroEvaluacionSecId),
+      estado:
+          estado == null && nullToAbsent ? const Value.absent() : Value(estado),
+    );
+  }
+
+  factory RubroEvalRNPFormulaData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return RubroEvalRNPFormulaData(
+      syncFlag: serializer.fromJson<int?>(json['syncFlag']),
+      timestampFlag: serializer.fromJson<DateTime?>(json['timestampFlag']),
+      usuarioCreacionId: serializer.fromJson<int?>(json['usuarioCreacionId']),
+      fechaCreacion: serializer.fromJson<DateTime?>(json['fechaCreacion']),
+      usuarioAccionId: serializer.fromJson<int?>(json['usuarioAccionId']),
+      fechaAccion: serializer.fromJson<DateTime?>(json['fechaAccion']),
+      rubroFormulaId: serializer.fromJson<String>(json['rubroFormulaId']),
+      rubroEvaluacionPrimId:
+          serializer.fromJson<String?>(json['rubroEvaluacionPrimId']),
+      rubroEvaluacionSecId:
+          serializer.fromJson<String?>(json['rubroEvaluacionSecId']),
+      estado: serializer.fromJson<int?>(json['estado']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'syncFlag': serializer.toJson<int?>(syncFlag),
+      'timestampFlag': serializer.toJson<DateTime?>(timestampFlag),
+      'usuarioCreacionId': serializer.toJson<int?>(usuarioCreacionId),
+      'fechaCreacion': serializer.toJson<DateTime?>(fechaCreacion),
+      'usuarioAccionId': serializer.toJson<int?>(usuarioAccionId),
+      'fechaAccion': serializer.toJson<DateTime?>(fechaAccion),
+      'rubroFormulaId': serializer.toJson<String>(rubroFormulaId),
+      'rubroEvaluacionPrimId':
+          serializer.toJson<String?>(rubroEvaluacionPrimId),
+      'rubroEvaluacionSecId': serializer.toJson<String?>(rubroEvaluacionSecId),
+      'estado': serializer.toJson<int?>(estado),
+    };
+  }
+
+  RubroEvalRNPFormulaData copyWith(
+          {int? syncFlag,
+          DateTime? timestampFlag,
+          int? usuarioCreacionId,
+          DateTime? fechaCreacion,
+          int? usuarioAccionId,
+          DateTime? fechaAccion,
+          String? rubroFormulaId,
+          String? rubroEvaluacionPrimId,
+          String? rubroEvaluacionSecId,
+          int? estado}) =>
+      RubroEvalRNPFormulaData(
+        syncFlag: syncFlag ?? this.syncFlag,
+        timestampFlag: timestampFlag ?? this.timestampFlag,
+        usuarioCreacionId: usuarioCreacionId ?? this.usuarioCreacionId,
+        fechaCreacion: fechaCreacion ?? this.fechaCreacion,
+        usuarioAccionId: usuarioAccionId ?? this.usuarioAccionId,
+        fechaAccion: fechaAccion ?? this.fechaAccion,
+        rubroFormulaId: rubroFormulaId ?? this.rubroFormulaId,
+        rubroEvaluacionPrimId:
+            rubroEvaluacionPrimId ?? this.rubroEvaluacionPrimId,
+        rubroEvaluacionSecId: rubroEvaluacionSecId ?? this.rubroEvaluacionSecId,
+        estado: estado ?? this.estado,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('RubroEvalRNPFormulaData(')
+          ..write('syncFlag: $syncFlag, ')
+          ..write('timestampFlag: $timestampFlag, ')
+          ..write('usuarioCreacionId: $usuarioCreacionId, ')
+          ..write('fechaCreacion: $fechaCreacion, ')
+          ..write('usuarioAccionId: $usuarioAccionId, ')
+          ..write('fechaAccion: $fechaAccion, ')
+          ..write('rubroFormulaId: $rubroFormulaId, ')
+          ..write('rubroEvaluacionPrimId: $rubroEvaluacionPrimId, ')
+          ..write('rubroEvaluacionSecId: $rubroEvaluacionSecId, ')
+          ..write('estado: $estado')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      syncFlag.hashCode,
+      $mrjc(
+          timestampFlag.hashCode,
+          $mrjc(
+              usuarioCreacionId.hashCode,
+              $mrjc(
+                  fechaCreacion.hashCode,
+                  $mrjc(
+                      usuarioAccionId.hashCode,
+                      $mrjc(
+                          fechaAccion.hashCode,
+                          $mrjc(
+                              rubroFormulaId.hashCode,
+                              $mrjc(
+                                  rubroEvaluacionPrimId.hashCode,
+                                  $mrjc(rubroEvaluacionSecId.hashCode,
+                                      estado.hashCode))))))))));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is RubroEvalRNPFormulaData &&
+          other.syncFlag == this.syncFlag &&
+          other.timestampFlag == this.timestampFlag &&
+          other.usuarioCreacionId == this.usuarioCreacionId &&
+          other.fechaCreacion == this.fechaCreacion &&
+          other.usuarioAccionId == this.usuarioAccionId &&
+          other.fechaAccion == this.fechaAccion &&
+          other.rubroFormulaId == this.rubroFormulaId &&
+          other.rubroEvaluacionPrimId == this.rubroEvaluacionPrimId &&
+          other.rubroEvaluacionSecId == this.rubroEvaluacionSecId &&
+          other.estado == this.estado);
+}
+
+class RubroEvalRNPFormulaCompanion
+    extends UpdateCompanion<RubroEvalRNPFormulaData> {
+  final Value<int?> syncFlag;
+  final Value<DateTime?> timestampFlag;
+  final Value<int?> usuarioCreacionId;
+  final Value<DateTime?> fechaCreacion;
+  final Value<int?> usuarioAccionId;
+  final Value<DateTime?> fechaAccion;
+  final Value<String> rubroFormulaId;
+  final Value<String?> rubroEvaluacionPrimId;
+  final Value<String?> rubroEvaluacionSecId;
+  final Value<int?> estado;
+  const RubroEvalRNPFormulaCompanion({
+    this.syncFlag = const Value.absent(),
+    this.timestampFlag = const Value.absent(),
+    this.usuarioCreacionId = const Value.absent(),
+    this.fechaCreacion = const Value.absent(),
+    this.usuarioAccionId = const Value.absent(),
+    this.fechaAccion = const Value.absent(),
+    this.rubroFormulaId = const Value.absent(),
+    this.rubroEvaluacionPrimId = const Value.absent(),
+    this.rubroEvaluacionSecId = const Value.absent(),
+    this.estado = const Value.absent(),
+  });
+  RubroEvalRNPFormulaCompanion.insert({
+    this.syncFlag = const Value.absent(),
+    this.timestampFlag = const Value.absent(),
+    this.usuarioCreacionId = const Value.absent(),
+    this.fechaCreacion = const Value.absent(),
+    this.usuarioAccionId = const Value.absent(),
+    this.fechaAccion = const Value.absent(),
+    required String rubroFormulaId,
+    this.rubroEvaluacionPrimId = const Value.absent(),
+    this.rubroEvaluacionSecId = const Value.absent(),
+    this.estado = const Value.absent(),
+  }) : rubroFormulaId = Value(rubroFormulaId);
+  static Insertable<RubroEvalRNPFormulaData> custom({
+    Expression<int?>? syncFlag,
+    Expression<DateTime?>? timestampFlag,
+    Expression<int?>? usuarioCreacionId,
+    Expression<DateTime?>? fechaCreacion,
+    Expression<int?>? usuarioAccionId,
+    Expression<DateTime?>? fechaAccion,
+    Expression<String>? rubroFormulaId,
+    Expression<String?>? rubroEvaluacionPrimId,
+    Expression<String?>? rubroEvaluacionSecId,
+    Expression<int?>? estado,
+  }) {
+    return RawValuesInsertable({
+      if (syncFlag != null) 'sync_flag': syncFlag,
+      if (timestampFlag != null) 'timestamp_flag': timestampFlag,
+      if (usuarioCreacionId != null) 'usuario_creacion_id': usuarioCreacionId,
+      if (fechaCreacion != null) 'fecha_creacion': fechaCreacion,
+      if (usuarioAccionId != null) 'usuario_accion_id': usuarioAccionId,
+      if (fechaAccion != null) 'fecha_accion': fechaAccion,
+      if (rubroFormulaId != null) 'rubro_formula_id': rubroFormulaId,
+      if (rubroEvaluacionPrimId != null)
+        'rubro_evaluacion_prim_id': rubroEvaluacionPrimId,
+      if (rubroEvaluacionSecId != null)
+        'rubro_evaluacion_sec_id': rubroEvaluacionSecId,
+      if (estado != null) 'estado': estado,
+    });
+  }
+
+  RubroEvalRNPFormulaCompanion copyWith(
+      {Value<int?>? syncFlag,
+      Value<DateTime?>? timestampFlag,
+      Value<int?>? usuarioCreacionId,
+      Value<DateTime?>? fechaCreacion,
+      Value<int?>? usuarioAccionId,
+      Value<DateTime?>? fechaAccion,
+      Value<String>? rubroFormulaId,
+      Value<String?>? rubroEvaluacionPrimId,
+      Value<String?>? rubroEvaluacionSecId,
+      Value<int?>? estado}) {
+    return RubroEvalRNPFormulaCompanion(
+      syncFlag: syncFlag ?? this.syncFlag,
+      timestampFlag: timestampFlag ?? this.timestampFlag,
+      usuarioCreacionId: usuarioCreacionId ?? this.usuarioCreacionId,
+      fechaCreacion: fechaCreacion ?? this.fechaCreacion,
+      usuarioAccionId: usuarioAccionId ?? this.usuarioAccionId,
+      fechaAccion: fechaAccion ?? this.fechaAccion,
+      rubroFormulaId: rubroFormulaId ?? this.rubroFormulaId,
+      rubroEvaluacionPrimId:
+          rubroEvaluacionPrimId ?? this.rubroEvaluacionPrimId,
+      rubroEvaluacionSecId: rubroEvaluacionSecId ?? this.rubroEvaluacionSecId,
+      estado: estado ?? this.estado,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (syncFlag.present) {
+      map['sync_flag'] = Variable<int?>(syncFlag.value);
+    }
+    if (timestampFlag.present) {
+      map['timestamp_flag'] = Variable<DateTime?>(timestampFlag.value);
+    }
+    if (usuarioCreacionId.present) {
+      map['usuario_creacion_id'] = Variable<int?>(usuarioCreacionId.value);
+    }
+    if (fechaCreacion.present) {
+      map['fecha_creacion'] = Variable<DateTime?>(fechaCreacion.value);
+    }
+    if (usuarioAccionId.present) {
+      map['usuario_accion_id'] = Variable<int?>(usuarioAccionId.value);
+    }
+    if (fechaAccion.present) {
+      map['fecha_accion'] = Variable<DateTime?>(fechaAccion.value);
+    }
+    if (rubroFormulaId.present) {
+      map['rubro_formula_id'] = Variable<String>(rubroFormulaId.value);
+    }
+    if (rubroEvaluacionPrimId.present) {
+      map['rubro_evaluacion_prim_id'] =
+          Variable<String?>(rubroEvaluacionPrimId.value);
+    }
+    if (rubroEvaluacionSecId.present) {
+      map['rubro_evaluacion_sec_id'] =
+          Variable<String?>(rubroEvaluacionSecId.value);
+    }
+    if (estado.present) {
+      map['estado'] = Variable<int?>(estado.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RubroEvalRNPFormulaCompanion(')
+          ..write('syncFlag: $syncFlag, ')
+          ..write('timestampFlag: $timestampFlag, ')
+          ..write('usuarioCreacionId: $usuarioCreacionId, ')
+          ..write('fechaCreacion: $fechaCreacion, ')
+          ..write('usuarioAccionId: $usuarioAccionId, ')
+          ..write('fechaAccion: $fechaAccion, ')
+          ..write('rubroFormulaId: $rubroFormulaId, ')
+          ..write('rubroEvaluacionPrimId: $rubroEvaluacionPrimId, ')
+          ..write('rubroEvaluacionSecId: $rubroEvaluacionSecId, ')
+          ..write('estado: $estado')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $RubroEvalRNPFormulaTable extends RubroEvalRNPFormula
+    with TableInfo<$RubroEvalRNPFormulaTable, RubroEvalRNPFormulaData> {
+  final GeneratedDatabase _db;
+  final String? _alias;
+  $RubroEvalRNPFormulaTable(this._db, [this._alias]);
+  final VerificationMeta _syncFlagMeta = const VerificationMeta('syncFlag');
+  @override
+  late final GeneratedIntColumn syncFlag = _constructSyncFlag();
+  GeneratedIntColumn _constructSyncFlag() {
+    return GeneratedIntColumn(
+      'sync_flag',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _timestampFlagMeta =
+      const VerificationMeta('timestampFlag');
+  @override
+  late final GeneratedDateTimeColumn timestampFlag = _constructTimestampFlag();
+  GeneratedDateTimeColumn _constructTimestampFlag() {
+    return GeneratedDateTimeColumn(
+      'timestamp_flag',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioCreacionIdMeta =
+      const VerificationMeta('usuarioCreacionId');
+  @override
+  late final GeneratedIntColumn usuarioCreacionId =
+      _constructUsuarioCreacionId();
+  GeneratedIntColumn _constructUsuarioCreacionId() {
+    return GeneratedIntColumn(
+      'usuario_creacion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaCreacionMeta =
+      const VerificationMeta('fechaCreacion');
+  @override
+  late final GeneratedDateTimeColumn fechaCreacion = _constructFechaCreacion();
+  GeneratedDateTimeColumn _constructFechaCreacion() {
+    return GeneratedDateTimeColumn(
+      'fecha_creacion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioAccionIdMeta =
+      const VerificationMeta('usuarioAccionId');
+  @override
+  late final GeneratedIntColumn usuarioAccionId = _constructUsuarioAccionId();
+  GeneratedIntColumn _constructUsuarioAccionId() {
+    return GeneratedIntColumn(
+      'usuario_accion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaAccionMeta =
+      const VerificationMeta('fechaAccion');
+  @override
+  late final GeneratedDateTimeColumn fechaAccion = _constructFechaAccion();
+  GeneratedDateTimeColumn _constructFechaAccion() {
+    return GeneratedDateTimeColumn(
+      'fecha_accion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _rubroFormulaIdMeta =
+      const VerificationMeta('rubroFormulaId');
+  @override
+  late final GeneratedTextColumn rubroFormulaId = _constructRubroFormulaId();
+  GeneratedTextColumn _constructRubroFormulaId() {
+    return GeneratedTextColumn(
+      'rubro_formula_id',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _rubroEvaluacionPrimIdMeta =
+      const VerificationMeta('rubroEvaluacionPrimId');
+  @override
+  late final GeneratedTextColumn rubroEvaluacionPrimId =
+      _constructRubroEvaluacionPrimId();
+  GeneratedTextColumn _constructRubroEvaluacionPrimId() {
+    return GeneratedTextColumn(
+      'rubro_evaluacion_prim_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _rubroEvaluacionSecIdMeta =
+      const VerificationMeta('rubroEvaluacionSecId');
+  @override
+  late final GeneratedTextColumn rubroEvaluacionSecId =
+      _constructRubroEvaluacionSecId();
+  GeneratedTextColumn _constructRubroEvaluacionSecId() {
+    return GeneratedTextColumn(
+      'rubro_evaluacion_sec_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _estadoMeta = const VerificationMeta('estado');
+  @override
+  late final GeneratedIntColumn estado = _constructEstado();
+  GeneratedIntColumn _constructEstado() {
+    return GeneratedIntColumn(
+      'estado',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [
+        syncFlag,
+        timestampFlag,
+        usuarioCreacionId,
+        fechaCreacion,
+        usuarioAccionId,
+        fechaAccion,
+        rubroFormulaId,
+        rubroEvaluacionPrimId,
+        rubroEvaluacionSecId,
+        estado
+      ];
+  @override
+  $RubroEvalRNPFormulaTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'rubro_eval_r_n_p_formula';
+  @override
+  final String actualTableName = 'rubro_eval_r_n_p_formula';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<RubroEvalRNPFormulaData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('sync_flag')) {
+      context.handle(_syncFlagMeta,
+          syncFlag.isAcceptableOrUnknown(data['sync_flag']!, _syncFlagMeta));
+    }
+    if (data.containsKey('timestamp_flag')) {
+      context.handle(
+          _timestampFlagMeta,
+          timestampFlag.isAcceptableOrUnknown(
+              data['timestamp_flag']!, _timestampFlagMeta));
+    }
+    if (data.containsKey('usuario_creacion_id')) {
+      context.handle(
+          _usuarioCreacionIdMeta,
+          usuarioCreacionId.isAcceptableOrUnknown(
+              data['usuario_creacion_id']!, _usuarioCreacionIdMeta));
+    }
+    if (data.containsKey('fecha_creacion')) {
+      context.handle(
+          _fechaCreacionMeta,
+          fechaCreacion.isAcceptableOrUnknown(
+              data['fecha_creacion']!, _fechaCreacionMeta));
+    }
+    if (data.containsKey('usuario_accion_id')) {
+      context.handle(
+          _usuarioAccionIdMeta,
+          usuarioAccionId.isAcceptableOrUnknown(
+              data['usuario_accion_id']!, _usuarioAccionIdMeta));
+    }
+    if (data.containsKey('fecha_accion')) {
+      context.handle(
+          _fechaAccionMeta,
+          fechaAccion.isAcceptableOrUnknown(
+              data['fecha_accion']!, _fechaAccionMeta));
+    }
+    if (data.containsKey('rubro_formula_id')) {
+      context.handle(
+          _rubroFormulaIdMeta,
+          rubroFormulaId.isAcceptableOrUnknown(
+              data['rubro_formula_id']!, _rubroFormulaIdMeta));
+    } else if (isInserting) {
+      context.missing(_rubroFormulaIdMeta);
+    }
+    if (data.containsKey('rubro_evaluacion_prim_id')) {
+      context.handle(
+          _rubroEvaluacionPrimIdMeta,
+          rubroEvaluacionPrimId.isAcceptableOrUnknown(
+              data['rubro_evaluacion_prim_id']!, _rubroEvaluacionPrimIdMeta));
+    }
+    if (data.containsKey('rubro_evaluacion_sec_id')) {
+      context.handle(
+          _rubroEvaluacionSecIdMeta,
+          rubroEvaluacionSecId.isAcceptableOrUnknown(
+              data['rubro_evaluacion_sec_id']!, _rubroEvaluacionSecIdMeta));
+    }
+    if (data.containsKey('estado')) {
+      context.handle(_estadoMeta,
+          estado.isAcceptableOrUnknown(data['estado']!, _estadoMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {rubroFormulaId};
+  @override
+  RubroEvalRNPFormulaData map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return RubroEvalRNPFormulaData.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $RubroEvalRNPFormulaTable createAlias(String alias) {
+    return $RubroEvalRNPFormulaTable(_db, alias);
+  }
+}
+
 abstract class _$AppDataBase extends GeneratedDatabase {
   _$AppDataBase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
   late final $SessionUserTable sessionUser = $SessionUserTable(this);
@@ -24813,6 +29071,17 @@ abstract class _$AppDataBase extends GeneratedDatabase {
       $ValorTipoNotaRubroTable(this);
   late final $RubroEvaluacionProcesoTable rubroEvaluacionProceso =
       $RubroEvaluacionProcesoTable(this);
+  late final $ArchivoRubroTable archivoRubro = $ArchivoRubroTable(this);
+  late final $EquipoEvaluacionTable equipoEvaluacion =
+      $EquipoEvaluacionTable(this);
+  late final $EvaluacionProcesoTable evaluacionProceso =
+      $EvaluacionProcesoTable(this);
+  late final $RubroCampotematicoTable rubroCampotematico =
+      $RubroCampotematicoTable(this);
+  late final $RubroComentarioTable rubroComentario =
+      $RubroComentarioTable(this);
+  late final $RubroEvalRNPFormulaTable rubroEvalRNPFormula =
+      $RubroEvalRNPFormulaTable(this);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
@@ -24860,6 +29129,12 @@ abstract class _$AppDataBase extends GeneratedDatabase {
         tiposRubro,
         tipoNotaRubro,
         valorTipoNotaRubro,
-        rubroEvaluacionProceso
+        rubroEvaluacionProceso,
+        archivoRubro,
+        equipoEvaluacion,
+        evaluacionProceso,
+        rubroCampotematico,
+        rubroComentario,
+        rubroEvalRNPFormula
       ];
 }

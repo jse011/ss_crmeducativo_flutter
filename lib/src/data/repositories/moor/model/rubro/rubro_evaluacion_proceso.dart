@@ -18,7 +18,7 @@ class RubroEvaluacionProceso extends BaseSync{
   IntColumn get tipoRedondeoId => integer().nullable()();
   IntColumn get valorRedondeoId => integer().nullable()();
   IntColumn get rubroEvalResultadoId => integer().nullable()();
-  IntColumn get tipoNotaId => integer().nullable()();
+  TextColumn get tipoNotaId => text().nullable()();
   IntColumn get sesionAprendizajeId => integer().nullable()();
   IntColumn get desempenioIcdId => integer().nullable()();
   IntColumn get campoTematicoId => integer().nullable()();

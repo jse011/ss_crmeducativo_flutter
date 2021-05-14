@@ -1,11 +1,15 @@
 import 'package:moor_flutter/moor_flutter.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/rubro/rubro_evaluacion_proceso.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/tipo_evaluacion_rubro.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/tipo_nota_rubro.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/tipos_rubro.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/tools/estado_sync.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/tools/serializable_convert.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/capacidad_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/competencia_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/criterio_peso_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/criterio_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/criterio_valor_tipo_nota_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/forma_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tema_criterio_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_competencia_ui.dart';
@@ -15,6 +19,7 @@ import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/valor_tipo_nota_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/repositories/rubro_repository.dart';
 import 'package:collection/collection.dart';
+import 'package:ss_crmeducativo_2/src/domain/tools/id_generator.dart';
 
 
 import 'database/app_database.dart';
@@ -23,6 +28,10 @@ import 'model/criterios.dart';
 class MoorRubroRepository extends RubroRepository{
   static const int TN_VALOR_NUMERICO = 410, TN_SELECTOR_NUMERICO = 411, TN_SELECTOR_VALORES = 412, TN_SELECTOR_ICONOS = 409, TN_VALOR_ASISTENCIA= 474;
   static const int COMPETENCIA_BASE = 347, COMPETENCIA_TRANS = 348, COMPETENCIA_ENFQ = 349;
+  static const int TIPO_RUBRO_UNIDIMENCIONAL = 470, TIPO_RUBRO_BIMENSIONAL = 471, TIPO_RUBRO_BIDIMENCIONAL_DETALLE = 473;
+  static const int FORMA_EVAL_INDIVIDUAL = 477, FORMA_EVAL_GRUPAL = 478;
+  static const int ESTADO_ANCLADA=313, ESTADO_EVALUADO=314, ESTADO_CREADO =237, ESTADO_ACTUALIZADO = 239, ESTADO_ELIMINADO = 280;
+
   @override
   void saveDatosCrearRubros(Map<String, dynamic> crearRubro, int silaboEventoId, int calendarioPeriodoId) async {
     AppDataBase SQL = AppDataBase();
@@ -285,6 +294,63 @@ class MoorRubroRepository extends RubroRepository{
     }
    // print("competenciaUiList size "+competenciaUiList.length.toString());
     return competenciaUiList;
+  }
+
+  @override
+  saveRubroEvaluacion(String? rubroEvaluacionId, String? titulo, int? formaEvaluacionId, int? tipoEvaluacionId, String? promedioLogroId, int? calendarioPeriodoId, int? silaboEventoId, int? sesionAprendizajeId, String? tareaId, int? usuarioId, List<CriterioPesoUi>? criterioPesoUiList, List<CriterioValorTipoNotaUi>? criterioValorTipoNotaUiList) async {
+    AppDataBase SQL = AppDataBase();
+    try{
+      await SQL.batch((batch) async {
+        if((rubroEvaluacionId??"").isEmpty) {
+          rubroEvaluacionId = IdGenerator.generateId();
+          RubroEvaluacionProcesoData rubroEvaluacionProceso = RubroEvaluacionProcesoData(
+            rubroEvalProcesoId: rubroEvaluacionId!,
+            titulo: titulo,
+            formaEvaluacionId: formaEvaluacionId,
+            tipoEvaluacionId: tipoEvaluacionId,
+            tipoNotaId: promedioLogroId,
+            calendarioPeriodoId: calendarioPeriodoId,
+            silaboEventoId: silaboEventoId,
+            sesionAprendizajeId: sesionAprendizajeId,
+            tiporubroid: TIPO_RUBRO_BIMENSIONAL,
+            estadoId: ESTADO_CREADO,
+            countIndicador: criterioPesoUiList?.length,
+            //estrategiaEvaluacionId: Falta
+            tareaId: tareaId,
+            syncFlag: EstadoSync.FLAG_ADDED,
+            fechaCreacion: DateTime.now(),
+            fechaAccion: DateTime.now(),
+            usuarioAccionId: usuarioId,
+            usuarioCreacionId: usuarioId,
+          );
+
+          batch.insert(SQL.rubroEvaluacionProceso, rubroEvaluacionProceso,
+              mode: InsertMode.insertOrReplace);
+
+          if(formaEvaluacionId == FORMA_EVAL_INDIVIDUAL){
+            /*List<PersonaContratoQuery> personaList = personaDao.getAlumnosDeCargaCurso(cargaCursoId);
+            for (PersonaContratoQuery persona : personaList) {
+              EvaluacionProcesoC evaluacionProceso = new EvaluacionProcesoC();
+              evaluacionProceso.setRubroEvalProcesoId(rubroEvalProcesoId);
+              evaluacionProceso.setAlumnoId(persona.getPersonaId());
+              evaluacionProceso.setSyncFlag(EvaluacionProcesoC.FLAG_ADDED);
+              boolean successEvalProcesoAlumn = evaluacionProceso.save();
+              if (!successEvalProcesoAlumn) throw new Error("Error creating eval proceso for alumn!!!");
+            }*/
+          }
+
+
+        }
+
+
+
+      });
+
+    }catch(e){
+      throw Exception(e);
+    }
+
+
   }
 
 }

@@ -164,7 +164,10 @@ class RubroCrearController extends Controller{
         final List<dynamic> row = [];
         row.add(criterioUi);
         for (int i = 0; i < ( _tipoNotaUi?.valorTipoNotaList??[]).length; i++) {
-          row.add(CriterioValorTipoNotaUi());
+          CriterioValorTipoNotaUi criterioValorTipoNotaUi = CriterioValorTipoNotaUi();
+          criterioValorTipoNotaUi.criterioUi = criterioUi;
+          criterioValorTipoNotaUi.valorTipoNotaUi =  _tipoNotaUi?.valorTipoNotaList?[i];
+          row.add(criterioValorTipoNotaUi);
         }
         CriterioPesoUi criterioPesoUi = CriterioPesoUi();
         criterioPesoUi.peso = percentParts[i];
