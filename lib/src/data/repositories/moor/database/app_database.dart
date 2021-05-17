@@ -9,6 +9,7 @@ import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/carga_curso_c
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/carga_curso_docente.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/carga_curso_docente_det.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/carga_cursos.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/contacto_docente.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/criterios.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/cursos.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/cursos_det_horario.dart';
@@ -32,6 +33,7 @@ import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/plan_estudios
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/programas_educativo.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/rol.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/rubro/archivo_rubro.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/rubro/criterio_rubro_evaluacion.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/rubro/equipo_evaluacion.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/rubro/evaluacion_proceso.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/rubro/rubro_campotematico.dart';
@@ -56,7 +58,7 @@ part 'app_database.g.dart';
   CargaCursoDocente, CargaCursoDocenteDet, CargaCurso, Cursos, ParametrosDisenio, NivelAcademico, Periodos, PlanCursos, PlanEstudio, ProgramasEducativo, Seccion, SilaboEvento,
   CalendarioPeriodo, CalendarioPeriodoDetalle, CargaCursoCalendarioPeriodo, Tipos, Hora, HorarioPrograma, HorarioHora, DetalleHorario, Dia, HorarioDia, CursosDetHorario, Horario,
   CalendarioAcademico, Usuario, WebConfigs, Criterio, TipoEvaluacionRubro, TiposRubro, TipoNotaRubro, ValorTipoNotaRubro, RubroEvaluacionProceso, ArchivoRubro, EquipoEvaluacion,
-  EvaluacionProceso, RubroCampotematico, RubroComentario, RubroEvalRNPFormula, ])
+  EvaluacionProceso, RubroCampotematico, RubroComentario, RubroEvalRNPFormula, ContactoDocente, CriterioRubroEvaluacion])
 class AppDataBase extends _$AppDataBase {
   @override
   int get schemaVersion => 1;

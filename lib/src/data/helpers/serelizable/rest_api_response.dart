@@ -1124,3 +1124,73 @@ class ValorTipoNotaRubroSerial {
 
   Map<String, dynamic> toJson() => _$ValorTipoNotaRubroSerialToJson(this);
 }
+
+@JsonSerializable()
+class ContactoDocenteSerial{
+  int? personaId;
+  String? nombres;
+  String? apellidoPaterno;
+  String? apellidoMaterno;
+  String? ocupacion;
+  int? estadoId;
+  String? telefono;
+  String? celular;
+  String? fechaNac;
+  String? correo;
+  String? genero;
+  String? estadoCivil;
+  String? numDoc;
+  String? foto;
+  String? nombreTipo;
+  int? tipo;
+  int? hijoRelacionId;
+  String? relacion;
+  int? cargaCursoId;
+  int? cursoId;
+  String? cursoNombre;
+  int? periodoId;
+  String? periodoNombre;
+  int? grupoId;
+  String? grupoNombre;
+  int? aulaId;
+  String? aulaNombre;
+  int? contratoEstadoId;
+  bool? contratoVigente;
+  int? relacionId;
+
+  ContactoDocenteSerial(
+      this.personaId,
+      this.nombres,
+      this.apellidoPaterno,
+      this.apellidoMaterno,
+      this.ocupacion,
+      this.estadoId,
+      this.telefono,
+      this.celular,
+      this.fechaNac,
+      this.correo,
+      this.genero,
+      this.estadoCivil,
+      this.numDoc,
+      this.foto,
+      this.nombreTipo,
+      this.tipo,
+      this.hijoRelacionId,
+      this.relacion,
+      this.cargaCursoId,
+      this.cursoId,
+      this.cursoNombre,
+      this.periodoId,
+      this.periodoNombre,
+      this.grupoId,
+      this.grupoNombre,
+      this.aulaId,
+      this.aulaNombre,
+      this.contratoEstadoId,
+      this.contratoVigente,
+      this.relacionId);
+
+  factory ContactoDocenteSerial.fromJson(Map<String, dynamic> json) => _$ContactoDocenteSerialFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ContactoDocenteSerialToJson(this);
+}

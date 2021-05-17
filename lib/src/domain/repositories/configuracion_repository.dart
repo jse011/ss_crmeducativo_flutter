@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:ss_crmeducativo_2/src/domain/entities/anio_acemico_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/contacto_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/login_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/programa_educativo_ui.dart';
@@ -27,4 +28,7 @@ abstract class ConfiguracionRepository{
   Future<List<ProgramaEducativoUi>> getListProgramaEducativo(int empleadoId, int anioAcademicoId);
   Future<List<CursosUi>> getListCursos(int empleadoId, int anioAcademicoId, int programaEducativoId);
   Future<CursosUi?> getCurso(int cargaCursoId);
+  Future<void> saveContactoDocente(Map<String, dynamic> contactoDocente, int empleadoId, int anioAcademicoIdSelect);
+  Future<List<ContactoUi>> getListContacto(int empleadoId, int anioAcademicoIdSelect);
+  
 }

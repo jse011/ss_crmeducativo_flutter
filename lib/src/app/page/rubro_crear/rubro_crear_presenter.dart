@@ -1,6 +1,11 @@
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/calendario_periodio_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/criterio_peso_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/criterio_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/criterio_valor_tipo_nota_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/forma_evaluacion_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/tipo_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/repositories/configuracion_repository.dart';
 import 'package:ss_crmeducativo_2/src/domain/repositories/rubro_repository.dart';
@@ -8,6 +13,7 @@ import 'package:ss_crmeducativo_2/src/domain/usecase/get_forma_evaluacion.dart';
 import 'package:ss_crmeducativo_2/src/domain/usecase/get_temas_criterio.dart';
 import 'package:ss_crmeducativo_2/src/domain/usecase/get_tipo_evaluacion.dart';
 import 'package:ss_crmeducativo_2/src/domain/usecase/get_tipo_nota.dart';
+import 'package:ss_crmeducativo_2/src/domain/usecase/save_rubro_evaluacion.dart';
 
 class RubroCrearPresenter extends Presenter{
 
@@ -19,12 +25,15 @@ class RubroCrearPresenter extends Presenter{
   late Function getTipoNotaOnNext, getTipoNotaOnError;
   GetTemaCriterios _getTemaCriterios;
   late Function getTemaCriteriosOnNext, getTemaCriteriosOnError;
+  SaveRubroEvaluacion _saveRubroEvaluacion;
+  late Function saveRubroEvaluacionOnNext, saveRubroEvaluacionOnError;
 
   RubroCrearPresenter(RubroRepository rubroRepo, ConfiguracionRepository configuracionRepo):
       _getFormaEvaluacion = new GetFormaEvaluacion(rubroRepo),
       _getTipoEvaluacion = new GetTipoEvaluacion(rubroRepo),
       _getTipoNota = new GetTipoNota(configuracionRepo, rubroRepo),
         _getTemaCriterios = new GetTemaCriterios(rubroRepo),
+        _saveRubroEvaluacion = SaveRubroEvaluacion(configuracionRepo, rubroRepo),
         super();
 
   getFormaEvaluacion(){
@@ -37,6 +46,7 @@ class RubroCrearPresenter extends Presenter{
    _getTipoEvaluacion.dispose();
    _getTipoNota.dispose();
    _getTemaCriterios.dispose();
+   _saveRubroEvaluacion.dispose();
   }
 
   void getTipoEvaluacion() {
@@ -49,6 +59,10 @@ class RubroCrearPresenter extends Presenter{
 
   void getTemaCriterios(CursosUi? cursosUi, CalendarioPeriodoUI? calendarioPeriodoUI){
     _getTemaCriterios.execute(_GetTemaCriteriosCase(this), GetTemaCriteriosParms(calendarioPeriodoUI?.id, cursosUi?.silaboEventoId));
+  }
+
+  void save(CursosUi? cursosUi, CalendarioPeriodoUI? calendarioPeriodoUI, String? tituloRubrica, FormaEvaluacionUi? formaEvaluacionUi, TipoEvaluacionUi? tipoEvaluacionUi, TipoNotaUi? tipoNotaUi, List<CriterioPesoUi> criterioPesoUiList, List<CriterioValorTipoNotaUi> criterioValorTipoNotaUiList) {
+    _saveRubroEvaluacion.execute(_SaveRubroEvaluacionCase(this), SaveRubroEvaluacionParms(null, tituloRubrica, formaEvaluacionUi?.id, tipoEvaluacionUi?.id, tipoNotaUi?.tipoNotaId, calendarioPeriodoUI?.id, cursosUi?.silaboEventoId, cursosUi?.cargaCursoId, null, null, criterioPesoUiList, criterioValorTipoNotaUiList, tipoNotaUi));
   }
 
 }
@@ -146,6 +160,30 @@ class _GetTemaCriteriosCase extends Observer<GetTemaCriteriosResponse>{
   void onNext(GetTemaCriteriosResponse? response) {
     assert(presenter.getTemaCriteriosOnNext!=null);
     presenter.getTemaCriteriosOnNext(response?.competenciaUiList);
+  }
+
+}
+
+class _SaveRubroEvaluacionCase extends Observer<SaveRubroEvaluacionResponse>{
+  RubroCrearPresenter presenter;
+
+  _SaveRubroEvaluacionCase(this.presenter);
+
+  @override
+  void onComplete() {
+    // TODO: implement onComplete
+  }
+
+  @override
+  void onError(e) {
+    assert(presenter.saveRubroEvaluacionOnError!=null);
+    presenter.saveRubroEvaluacionOnError(e);
+  }
+
+  @override
+  void onNext(SaveRubroEvaluacionResponse? response) {
+    assert(presenter.saveRubroEvaluacionOnNext!=null);
+    presenter.saveRubroEvaluacionOnNext();
   }
 
 }

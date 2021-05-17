@@ -156,6 +156,31 @@ class DeviceHttpDatosRepositorio extends HttpDatosRepository{
     return _DeviceHttpStream(listen);
   }
 
+  @override
+  Future<Map<String, dynamic>?> getContactoDocente(String urlServidorLocal, int empleadoId, int anioAcademicoId) async{
+    Map<String, dynamic> parameters = Map<String, dynamic>();
+    parameters["vint_EmpleadoId"] = empleadoId;
+    parameters["vint_AnioAcademicoId"] = anioAcademicoId;
+    final response = await http.post(Uri.parse(urlServidorLocal), body: getBody("getContactoDocenteFlutter",parameters));
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      Map<String,dynamic> body = json.decode(response.body);
+      if(body.containsKey("Successful")&&body.containsKey("Value")){
+        Map<String, dynamic> salida = new  Map<String, dynamic>();
+        List<dynamic> lista = body["Value"];
+        salida["contactos"] = lista;
+      }else{
+        throw Exception('Failed to load');
+      }
+
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load');
+    }
+  }
+
 
 }
 

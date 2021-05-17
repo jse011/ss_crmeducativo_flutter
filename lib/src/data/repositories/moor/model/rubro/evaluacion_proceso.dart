@@ -18,7 +18,11 @@ class EvaluacionProceso extends BaseSync {
     bool? formulaSinc;
     int? msje;
     int? publicado;
-    int? visto;]*/
+    int? visto;
+      final String? nombres;
+  final String? apellidoPaterno;
+  final String? apellidoMaterno;
+  final String? foto;]*/
 
     TextColumn get evaluacionProcesoId => text()();
     IntColumn get evaluacionResultadoId => integer().nullable()();
@@ -29,6 +33,10 @@ class EvaluacionProceso extends BaseSync {
     TextColumn get valorTipoNotaId => text().nullable()();
     TextColumn get equipoId => text().nullable()();
     IntColumn get alumnoId => integer().nullable()();
+    TextColumn get nombres => text().nullable()();
+    TextColumn get apellidoPaterno => text().nullable()();
+    TextColumn get apellidoMaterno => text().nullable()();
+    TextColumn get foto => text().nullable()();
     IntColumn get calendarioPeriodoId => integer().nullable()();
     BoolColumn get formulaSinc => boolean().nullable()();
     IntColumn get msje => integer().nullable()();

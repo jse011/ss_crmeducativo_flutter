@@ -5,6 +5,7 @@ import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/aula.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/carga_cursos.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/tools/serializable_convert.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/anio_acemico_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/contacto_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/login_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/programa_educativo_ui.dart';
@@ -743,6 +744,79 @@ class MoorConfiguracionRepository extends ConfiguracionRepository{
     }catch(e){
       throw Exception(e);
     }
+  }
+
+  @override
+  Future<void> saveContactoDocente(Map<String, dynamic> contactoDocente, int empleadoId, int anioAcademicoIdSelect) async {
+
+    AppDataBase SQL = AppDataBase();
+    try{
+      await SQL.batch((batch) async {
+        // functions in a batch don't have to be awaited - just
+        // await the whole batch afterwards.
+        //rubroEvalList.add(SerializableConvert.converSerializeRubroEvalDesempenio(item));
+        batch.deleteWhere(SQL.contactoDocente, (row) => const Constant(true));
+        batch.insertAll(SQL.contactoDocente, SerializableConvert.converListSerializeContactoDocente(contactoDocente["contactos"]), mode: InsertMode.insertOrReplace );
+
+      });
+    }catch(e){
+      throw Exception(e);
+    }
+
+
+  }
+
+  @override
+  Future<List<ContactoUi>> getListContacto(int empleadoId, int anioAcademicoIdSelect) async{
+    AppDataBase SQL = AppDataBase();
+      List<ContactoUi> contactoUiList = [];
+
+      final padre = SQL.alias(SQL.contactoDocente, 'padre');
+      final apoderado = SQL.alias(SQL.contactoDocente, 'apoderado');
+
+      var query = SQL.select(SQL.contactoDocente).join([
+        leftOuterJoin(padre, padre.hijoRelacionId.equalsExp(SQL.contactoDocente.personaId)),
+        leftOuterJoin(apoderado, apoderado.hijoRelacionId.equalsExp(SQL.contactoDocente.personaId))
+      ]);
+
+      query.groupBy([SQL.contactoDocente.personaId, SQL.contactoDocente.tipo]);
+      var rows = await query.get();
+
+      for(var row  in rows){
+        ContactoDocenteData contactoData = row.readTable(SQL.contactoDocente);
+        ContactoDocenteData padreData = row.readTable(padre);
+        ContactoDocenteData apoderadoData = row.readTable(padre);
+        ContactoUi? contactoUi = contactoUiList.firstWhereOrNull((element) => element.personaId == contactoData.personaId && element.tipo == contactoData.tipo);
+        if(contactoUi == null){
+          contactoUi = new ContactoUi();
+          contactoUi.personaId = contactoData.personaId;
+          contactoUi.relacionList = [];
+          contactoUi.foto = contactoData.foto;
+          contactoUi.nombre = '${AppTools.capitalize(contactoData.nombres??"")} ${AppTools.capitalize(contactoData.apellidoPaterno??"")} ${AppTools.capitalize(contactoData.apellidoMaterno??"")}';
+          contactoUi.relacion = contactoData.relacion;
+          contactoUi.telefono = contactoData.celular!=null?contactoData.celular: contactoData.telefono??"";
+
+        }
+
+        if(padreData!=null){
+          ContactoUi padreUi = new ContactoUi();
+          padreUi.personaId = padreData.personaId;
+          padreUi.relacion = padreData.relacion;
+          contactoUi.relacionList?.add(padreUi);
+        }
+
+        if(apoderadoData!=null){
+          contactoUi.apoderadoTelfono = apoderadoData.celular!=null?apoderadoData.celular: apoderadoData.telefono??"";
+        }
+
+        contactoUi.tipo = contactoData.tipo;
+        contactoUiList.add(contactoUi);
+
+      }
+
+      print("getContactos: "+contactoUiList.length.toString());
+      return contactoUiList;
+
   }
 
 

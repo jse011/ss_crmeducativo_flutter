@@ -2,6 +2,7 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:ss_crmeducativo_2/src/domain/repositories/configuracion_repository.dart';
 import 'package:ss_crmeducativo_2/src/domain/repositories/http_datos_repository.dart';
 import 'package:ss_crmeducativo_2/src/domain/usecase/get_usuario.dart';
+import 'package:ss_crmeducativo_2/src/domain/usecase/update_contacto_docente.dart';
 import 'package:ss_crmeducativo_2/src/domain/usecase/validar_usuario.dart';
 
 class HomePresenter extends Presenter{
@@ -10,14 +11,17 @@ class HomePresenter extends Presenter{
   late Function validarUsuarioOnError, validarUsuarioOnComplete;
   ValidarUsuario _validarUsuario;
   late Function cerrarCesionOnError, cerrarCesionOnComplete;
+  UpdateContactoDocente _updateContactoDocente;
 
   HomePresenter(ConfiguracionRepository configuracionRepo, HttpDatosRepository httpDatosRepo)
-      :  _validarUsuario = ValidarUsuario(configuracionRepo), getSessionUsuario = new GetSessionUsuarioCase(configuracionRepo);
+      :  _validarUsuario = ValidarUsuario(configuracionRepo), getSessionUsuario = new GetSessionUsuarioCase(configuracionRepo),
+        _updateContactoDocente = UpdateContactoDocente(configuracionRepo, httpDatosRepo);
 
   @override
   void dispose() {
     getSessionUsuario.dispose();
     _validarUsuario.dispose();
+    _updateContactoDocente.dispose();
   }
 
 
@@ -27,6 +31,10 @@ class HomePresenter extends Presenter{
 
   void getUserSession() {
     getSessionUsuario.execute(_GetSessionUsuarioCase(this), GetSessionUsuarioCaseParams());
+  }
+
+  void updateContactoDocente(){
+    _updateContactoDocente.execute(_UpdateContactoDocenteCase(this), UpdateContactoDocenteParams());
   }
 
 
@@ -78,6 +86,27 @@ class _GetSessionUsuarioCase extends Observer<GetSessionUsuarioCaseResponse>{
   void onNext(GetSessionUsuarioCaseResponse? response) {
     assert(presenter.getUserOnNext != null);
     presenter.getUserOnNext(response?.usurio);
+  }
+
+}
+class _UpdateContactoDocenteCase extends Observer<UpdateContactoDocenteResponse>{
+  final HomePresenter presenter;
+
+  _UpdateContactoDocenteCase(this.presenter);
+
+  @override
+  void onComplete() {
+
+  }
+
+  @override
+  void onError(e) {
+
+  }
+
+  @override
+  void onNext(UpdateContactoDocenteResponse? response) {
+
   }
 
 }

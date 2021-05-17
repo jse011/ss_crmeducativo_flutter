@@ -12,8 +12,7 @@ class RubroEvalRNPFormula extends BaseSync {
     TextColumn get rubroFormulaId => text()();
     TextColumn get rubroEvaluacionPrimId => text().nullable()();
     TextColumn get rubroEvaluacionSecId => text().nullable()();
-    IntColumn get estado => integer().nullable()();
-
+    RealColumn get peso => real().nullable()();
     @override
   Set<Column> get primaryKey => {rubroFormulaId};
 }

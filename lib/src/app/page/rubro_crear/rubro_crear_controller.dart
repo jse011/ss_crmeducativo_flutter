@@ -125,6 +125,9 @@ class RubroCrearController extends Controller{
       refreshUI();
     };
 
+    presenter.saveRubroEvaluacionOnNext = (){};
+
+    presenter.saveRubroEvaluacionOnError = (e){};
   }
 
 
@@ -262,8 +265,19 @@ class RubroCrearController extends Controller{
       refreshUI();
     }
 
+    List<CriterioValorTipoNotaUi> criterioValorTipoNotaUiList = [];
+    List<CriterioPesoUi> criterioPesoUiList = [];
+    for(List<dynamic> list in _tableTipoNotaCells){
+       for(dynamic o in list){
+          if(o is CriterioValorTipoNotaUi){
+            criterioValorTipoNotaUiList.add(o);
+          }else if(o is CriterioPesoUi){
+            criterioPesoUiList.add(o);
+          }
+       }
+    }
 
-
+    presenter.save(cursosUi, calendarioPeriodoUI, tituloRubrica, formaEvaluacionUi, tipoEvaluacionUi, tipoNotaUi, criterioPesoUiList, criterioValorTipoNotaUiList);
 
   }
 

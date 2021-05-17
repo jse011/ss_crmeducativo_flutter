@@ -1,11 +1,6 @@
 import 'package:moor/src/runtime/data_class.dart';
 import 'package:ss_crmeducativo_2/src/data/helpers/serelizable/rest_api_response.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/database/app_database.dart';
-import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/horario_hora.dart';
-import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/tipo_evaluacion_rubro.dart';
-import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/tipo_nota_rubro.dart';
-import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/tipos_rubro.dart';
-import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/valor_tipo_nota_rubro.dart';
 
 class SerializableConvert{
   static EntidadData converSerializeEntidad(Map<String,dynamic> model){
@@ -955,6 +950,51 @@ class SerializableConvert{
     Iterable l = model;
     for(var item in l){
       items.add(converSerializeValorTipoNotaRubro(item));
+    }
+    return items;
+  }
+
+  static ContactoDocenteData converSerializeContactoDocente(Map<String,dynamic> model){
+    ContactoDocenteSerial serial = ContactoDocenteSerial.fromJson(model);
+    return ContactoDocenteData(
+        personaId: serial.personaId??0,
+       tipo: serial.tipo??0,
+       cargaCursoId: serial.cargaCursoId??0,
+       nombreTipo: serial.nombres,
+       cursoId: serial.cursoId,
+       cursoNombre: serial.cursoNombre,
+       aulaId: serial.aulaId,
+       aulaNombre: serial.aulaNombre,
+       grupoId: serial.grupoId,
+       grupoNombre: serial.grupoNombre,
+       contratoEstadoId: serial.contratoEstadoId,
+       contratoVigente: serial.contratoVigente,
+       periodoId: serial.periodoId,
+       periodoNombre: serial.periodoNombre,
+       hijoRelacionId: serial.hijoRelacionId,
+       relacionId: serial.relacionId,
+       relacion: serial.relacion,
+       estadoId: serial.estadoId,
+       nombres: serial.nombres,
+       apellidoPaterno: serial.apellidoPaterno,
+       apellidoMaterno: serial.apellidoMaterno,
+      celular: serial.celular,
+      telefono: serial.telefono,
+      correo: serial.correo,
+      estadoCivil: serial.estadoCivil,
+      fechaNac: serial.fechaNac,
+      ocupacion: serial.ocupacion,
+      numDoc: serial.numDoc,
+      genero: serial.genero,
+      foto: serial.foto
+    );
+  }
+
+  static List<ContactoDocenteData> converListSerializeContactoDocente(dynamic model){
+    List<ContactoDocenteData> items = [];
+    Iterable l = model;
+    for(var item in l){
+      items.add(converSerializeContactoDocente(item));
     }
     return items;
   }
