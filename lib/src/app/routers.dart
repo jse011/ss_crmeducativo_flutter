@@ -9,7 +9,8 @@ import 'package:ss_crmeducativo_2/src/app/page/rubros/rubro_view.dart';
 import 'package:ss_crmeducativo_2/src/app/widgets/wrap_widget_demo.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/calendario_periodio_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
-import 'package:ss_crmeducativo_2/src/domain/entities/rubro_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/rubrica_evaluacion_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/response/respuesta_crear_rubro.dart';
 class AppRouter {
   AppRouter._();
 
@@ -47,7 +48,7 @@ class AppRouter {
       return MaterialPageRoute(
         builder: (context) {
           CursosUi cursosUi = arguments['cursoUi'];
-          RubroUi? rubroUi = null;
+          RubricaEvaluacionUi? rubroUi = null;
           CalendarioPeriodoUI? calendarioPeriodoUI = null;
           if(arguments.containsKey('rubroUi')){
             rubroUi  = arguments['rubroUi'];
@@ -104,12 +105,26 @@ class AppRouter {
         SESION,
     );
   }
-  static void createRouteRubroCrearRouter(BuildContext context, CursosUi? cursosUi,CalendarioPeriodoUI? calendarioPeriodoUI, RubroUi? rubroUi) {
-    Navigator.pushNamed(context,
+  static Future<RespuestaCrearRubro?> createRouteRubroCrearRouter(BuildContext context, CursosUi? cursosUi,CalendarioPeriodoUI? calendarioPeriodoUI, RubricaEvaluacionUi? rubroUi) async{
+    dynamic? object = await Navigator.pushNamed(context,
         RUBROCREAR,
         arguments: {'cursoUi': cursosUi, 'calendarioPeriodoUI':calendarioPeriodoUI ,'rubroUi': rubroUi}
     );
+    RespuestaCrearRubro? respuestaCrearRubro = null;
+    if(object is RespuestaCrearRubro){
+      respuestaCrearRubro = object;
+    }
+    return respuestaCrearRubro;
   }
+
+  static void cerrarCreateRouteRubroCrearRouter(BuildContext context, RespuestaCrearRubro? respuestaCrearRubro) {
+    Future.delayed(const Duration(milliseconds: 300), () {
+      Navigator.pop(context, respuestaCrearRubro);
+    });
+  }
+
+
+
 
 }
 

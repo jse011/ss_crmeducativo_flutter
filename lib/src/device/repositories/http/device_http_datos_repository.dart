@@ -181,6 +181,32 @@ class DeviceHttpDatosRepositorio extends HttpDatosRepository{
     }
   }
 
+  @override
+  Future<Map<String, dynamic>?> getEventoAgenda(String urlServidorLocal, int usuarioId, int georeferenciaId, int tipoEventoId) async {
+
+    Map<String, dynamic> parameters = Map<String, dynamic>();
+    parameters["vint_UsuarioId"] = usuarioId;
+    parameters["vint_GeoreferenciaId"] = georeferenciaId;
+    parameters["vint_tipoEventoId"] = tipoEventoId;
+    final response = await http.post(Uri.parse(urlServidorLocal), body: getBody("getCalendarioEventoDocenteFlutter",parameters));
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      Map<String,dynamic> body = json.decode(response.body);
+      if(body.containsKey("Successful")&&body.containsKey("Value")){
+        return body["Value"];
+      }else{
+        return null;
+      }
+
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load agenda 0');
+    }
+
+  }
+
 
 }
 

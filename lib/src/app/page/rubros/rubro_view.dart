@@ -18,6 +18,9 @@ import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_rubro_reposito
 import 'package:ss_crmeducativo_2/src/device/repositories/http/device_http_datos_repository.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
 import 'package:ss_crmeducativo_2/libs/flutter-sized-context/sized_context.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/origen_rubro_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/rubrica_evaluacion_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/response/respuesta_crear_rubro.dart';
 
 class RubroView extends View {
   CursosUi cursosUi;
@@ -137,82 +140,87 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                             right: 8,
                             top: 16 - 8.0 * topBarOpacity,
                             bottom: 12 - 8.0 * topBarOpacity),
-                        child: Stack(
-                          children: <Widget>[
-                            Positioned(
-                              child:  IconButton(
-                                icon: Icon(Ionicons.arrow_back, color: AppTheme.nearlyBlack, size: 22 + 6 - 6 * topBarOpacity,),
-                                onPressed: () {
-                                  animationController.reverse().then<dynamic>((data) {
-                                    if (!mounted) {
-                                      return;
-                                    }
-                                    Navigator.of(context).pop();
-                                  });
-                                },
-                              )
-                            ),
-                            Center(
-                              child: Container(
-                                margin: const EdgeInsets.only(top: 8, bottom: 8, left: 8, right: 32),
-                                child: topBarOpacity >= 1 ? Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text("Mostrar Todos",
-                                        textAlign: TextAlign.left,
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 1,
-                                        style: TextStyle(
-                                          fontFamily: AppTheme.fontTTNorms,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 16 + 6 - 1 * topBarOpacity,
-                                          color: HexColor("#35377A"),
-                                        )
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(right: 8),
-                                    ),
-                                    Icon(Icons.keyboard_arrow_down_rounded,
-                                      color: HexColor("#35377A"),
-                                      size: 18 + 4 - 1 * topBarOpacity,)
-                                  ],
-                                ) :Text(
-                                  'Mis evaluaciones',
-                                  textAlign: TextAlign.center,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontFamily: AppTheme.fontTTNormsMedium,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 20 + 6 - 6 * topBarOpacity,
-                                    letterSpacing: 1.2,
-                                    color: AppTheme.darkerText,
-                                  ),
+                        child:   ControlledWidgetBuilder<RubroController>(
+                          builder: (context, controller) {
+                            return Stack(
+                              children: <Widget>[
+                                Positioned(
+                                    child:  IconButton(
+                                      icon: Icon(Ionicons.arrow_back, color: AppTheme.nearlyBlack, size: 22 + 6 - 6 * topBarOpacity,),
+                                      onPressed: () {
+                                        animationController.reverse().then<dynamic>((data) {
+                                          if (!mounted) {
+                                            return;
+                                          }
+                                          Navigator.of(context).pop();
+                                        });
+                                      },
+                                    )
                                 ),
-                              ),
-                            ),
-                            ControlledWidgetBuilder<RubroController>(
-                                builder: (context, controller) {
-                                  return Positioned(
-                                    right: 10,
-                                    child: ClipOval(
-                                      child: Material(
-                                        color: AppTheme.colorPrimary.withOpacity(0.1), // button color
-                                        child: InkWell(
-                                          splashColor: AppTheme.colorPrimary, // inkwell color
-                                          child: SizedBox(width: 43 + 6 - 8 * topBarOpacity, height: 43 + 6 - 8 * topBarOpacity,
-                                            child: Icon(Ionicons.sync, size: 24 + 6 - 8 * topBarOpacity,color: AppTheme.colorPrimary, ),
-                                          ),
-                                          onTap: () {
-                                            controller.onSyncronizarCurso();
+                                Center(
+                                  child: Container(
+                                    margin: const EdgeInsets.only(top: 8, bottom: 8, left: 8, right: 32),
+                                    child: topBarOpacity >= 1 ? Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      children: [
+                                        InkWell(
+                                          onTap: (){
+                                            showDialogButtom(controller);
                                           },
+                                          child: Text(_getnombreFiltro(controller.origenRubroUi),
+                                              textAlign: TextAlign.left,
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              style: TextStyle(
+                                                fontFamily: AppTheme.fontTTNorms,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 16 + 6 - 1 * topBarOpacity,
+                                                color: HexColor("#35377A"),
+                                              )
+                                          ),
                                         ),
+                                        Padding(
+                                          padding: EdgeInsets.only(right: 8),
+                                        ),
+                                        Icon(Icons.keyboard_arrow_down_rounded,
+                                          color: HexColor("#35377A"),
+                                          size: 18 + 4 - 1 * topBarOpacity,)
+                                      ],
+                                    ) :Text(
+                                      'Mis evaluaciones',
+                                      textAlign: TextAlign.center,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontFamily: AppTheme.fontTTNormsMedium,
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 20 + 6 - 6 * topBarOpacity,
+                                        letterSpacing: 1.2,
+                                        color: AppTheme.darkerText,
                                       ),
                                     ),
-                                  );
-                                },
-                            ),
-                          ],
+                                  ),
+                                ),
+                                Positioned(
+                                  right: 10,
+                                  child: ClipOval(
+                                    child: Material(
+                                      color: AppTheme.colorPrimary.withOpacity(0.1), // button color
+                                      child: InkWell(
+                                        splashColor: AppTheme.colorPrimary, // inkwell color
+                                        child: SizedBox(width: 43 + 6 - 8 * topBarOpacity, height: 43 + 6 - 8 * topBarOpacity,
+                                          child: Icon(Ionicons.sync, size: 24 + 6 - 8 * topBarOpacity,color: AppTheme.colorPrimary, ),
+                                        ),
+                                        onTap: () {
+                                          controller.onSyncronizarCurso();
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            );
+                          },
                         ),
                       )
                     ],
@@ -350,17 +358,22 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
-                                      Text("Mostrar Todos",
-                                          textAlign: TextAlign.left,
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                          style: TextStyle(
-                                            fontFamily: AppTheme.fontTTNorms,
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 10 + 6 - 3 * topBarOpacity,
-                                            color: HexColor("#35377A"),
-                                          )
-                                      ),
+                                     InkWell(
+                                       onTap: (){
+                                         showDialogButtom(controller);
+                                       },
+                                       child:  Text(_getnombreFiltro(controller.origenRubroUi),
+                                           textAlign: TextAlign.left,
+                                           overflow: TextOverflow.ellipsis,
+                                           maxLines: 1,
+                                           style: TextStyle(
+                                             fontFamily: AppTheme.fontTTNorms,
+                                             fontWeight: FontWeight.w500,
+                                             fontSize: 10 + 6 - 3 * topBarOpacity,
+                                             color: HexColor("#35377A"),
+                                           )
+                                       ),
+                                     ),
                                       Padding(
                                         padding: EdgeInsets.only(right: 8),
                                       ),
@@ -382,6 +395,35 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                           ),
                           delegate: SliverChildBuilderDelegate(
                               (BuildContext context, int index){
+
+                                RubricaEvaluacionUi rubricaEvalProcesoUi = controller.rubricaEvaluacionUiList[index];
+                                String origen = "";
+                                switch(rubricaEvalProcesoUi.origenRubroUi??OrigenRubroUi.CREADO_DOCENTE){
+                                  case OrigenRubroUi.GENERADO_INSTRUMENTO:
+                                    origen = "Instrumento";
+                                    break;
+                                  case OrigenRubroUi.GENERADO_TAREA:
+                                    origen = "Tarea";
+                                    break;
+                                  case OrigenRubroUi.GENERADO_PREGUNTA:
+                                    origen = "Pregunta";
+                                    break;
+                                  case OrigenRubroUi.CREADO_DOCENTE:
+                                    origen = "";
+                                    break;
+                                  case OrigenRubroUi.TODOS:
+                                    origen = "";
+                                    break;
+                                }
+
+                                String origen2 = "";
+                                if((rubricaEvalProcesoUi.sesionAprendizajeId??0) > 0){
+                                  origen2 =  "Sesion";
+                                }else{
+                                  origen2 =  "Mi Registro";
+                                }
+
+
                                 return Container(
                                   decoration: BoxDecoration(
                                       color: HexColor(controller.cursosUi.color1??"#FEFAE2").withOpacity(0.1),
@@ -407,7 +449,7 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                                               children: [
                                                 Padding(
                                                   padding: EdgeInsets.only(top: 10, right: 0),
-                                                  child: Text((index + 1).toString() +". Instrumento",
+                                                  child: Text("${index+1}.${origen} ${origen2}",
                                                       maxLines: 1,
                                                       overflow: TextOverflow.ellipsis,
                                                       style: TextStyle(
@@ -420,7 +462,7 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                                                 ),
                                                 Padding(
                                                   padding: EdgeInsets.only(bottom: 8, top: 4),
-                                                  child: Text("Media: 3.18 (0.92)",
+                                                  child: Text("Media: ${rubricaEvalProcesoUi.mediaDesvicion}",
                                                       style: TextStyle(
                                                         fontFamily: AppTheme.fontTTNormsLigth,
                                                         fontWeight: FontWeight.w700,
@@ -450,6 +492,8 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                                               ),
                                             ),
                                             Column(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Padding(
                                                   padding: EdgeInsets.only(left: 14, top: 10, right: 14),
@@ -460,7 +504,7 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                                                       Icon(Ionicons.time, color: HexColor("#45D8B8"), size: 12,),
                                                       Padding(padding: EdgeInsets.only(left: 4)),
                                                       Expanded(
-                                                        child:  Text("Viernes 21 Abr.",
+                                                        child:  Text(rubricaEvalProcesoUi.efechaCreacion??"",
                                                             style: TextStyle(
                                                               fontFamily: AppTheme.fontTTNormsLigth,
                                                               fontWeight: FontWeight.w700,
@@ -470,22 +514,24 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                                                             )
                                                         ),
                                                       ),
-                                                      Icon(Ionicons.people, color: HexColor(controller.cursosUi.color2??"#8767EB"), size: 14,),
+                                                      if(rubricaEvalProcesoUi.rubroGrupal??false)
+                                                        Icon(Ionicons.people, color: HexColor(controller.cursosUi.color2??"#8767EB"), size: 14,),
                                                       Padding(padding: EdgeInsets.only(left: 4)),
+                                                      if(rubricaEvalProcesoUi.publicado??false)
                                                       Icon(Ionicons.earth, color: HexColor(controller.cursosUi.color2??"#8767EB"), size: 14,)
                                                     ],
                                                   ),
                                                 ),
                                                 Padding(
                                                   padding: EdgeInsets.only(left: 14, top: 8, right: 14),
-                                                  child: Text("Examen parcial bimestre I",
+                                                  child: Text(rubricaEvalProcesoUi.titulo??"",
                                                       maxLines: 4,
                                                       overflow: TextOverflow.ellipsis,
                                                       style: TextStyle(
                                                         fontFamily: AppTheme.fontTTNormsMedium,
                                                         fontWeight: FontWeight.w700,
                                                         fontSize: 12,
-                                                        letterSpacing: 0.5,
+                                                        letterSpacing: 1,
                                                         color: AppTheme.darkerText.withOpacity(0.8),
                                                       )
                                                   ),
@@ -500,7 +546,7 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                                   ),
                                 );
                               },
-                            childCount: 45
+                            childCount: controller.rubricaEvaluacionUiList.length
                           ),
                         )
                       ],
@@ -573,7 +619,7 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                   backgroundColor: controller.cursosUi.color2!=null?HexColor(controller.cursosUi.color2):AppTheme.colorAccent,
                   foregroundColor: Colors.white,
                   onPressed: () {
-                    AppRouter.createRouteRubroCrearRouter(context, controller.cursosUi, controller.calendarioPeriodoUI, null);
+                    _guardarRubroyRetornar(context, controller);
                   },
                   child: Icon(Ionicons.add),
                 ),
@@ -598,6 +644,91 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
             ],
           );
         });
+  }
+
+  void _guardarRubroyRetornar(BuildContext context, RubroController controller) async {
+    // Navigator.push returns a Future that completes after calling
+    // Navigator.pop on the Selection Screen.
+    RespuestaCrearRubro? response = await AppRouter.createRouteRubroCrearRouter(context, controller.cursosUi, controller.calendarioPeriodoUI, null);
+    controller.respuestaFormularioCrearRubro(response);
+  }
+
+  void showDialogButtom(RubroController controller) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoActionSheet(
+            title: const Text('Mis evaluaciones'),
+            message: const Text('Reduzca su busqueda con las opciones a continuación'),
+            actions: [
+              CupertinoActionSheetAction(
+                child: Text(_getnombreFiltro(OrigenRubroUi.GENERADO_TAREA)),
+                onPressed: () {
+                  controller.clicMostrarSolo(OrigenRubroUi.GENERADO_TAREA);
+                  Navigator.pop(context);
+                },
+              ),
+              CupertinoActionSheetAction(
+                child: Text(_getnombreFiltro(OrigenRubroUi.GENERADO_INSTRUMENTO)),
+                onPressed: () {
+                  controller.clicMostrarSolo(OrigenRubroUi.GENERADO_INSTRUMENTO);
+                  Navigator.pop(context);
+                },
+              ),
+              CupertinoActionSheetAction(
+                child: Text(_getnombreFiltro(OrigenRubroUi.GENERADO_PREGUNTA)),
+                onPressed: () {
+                  controller.clicMostrarSolo(OrigenRubroUi.GENERADO_PREGUNTA);
+                  Navigator.pop(context);
+                },
+              ),
+              CupertinoActionSheetAction(
+                child: Text(_getnombreFiltro(OrigenRubroUi.CREADO_DOCENTE)),
+                onPressed: () {
+                  controller.clicMostrarSolo(OrigenRubroUi.CREADO_DOCENTE);
+                  Navigator.pop(context);
+                },
+              ),
+              CupertinoActionSheetAction(
+                child: Text(_getnombreFiltro(OrigenRubroUi.TODOS)),
+                onPressed: () {
+                  controller.clicMostrarSolo(OrigenRubroUi.TODOS);
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+            cancelButton: CupertinoActionSheetAction(
+              child: Text('Cancelar'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            )
+        );
+      },
+    );
+  }
+
+
+  String _getnombreFiltro(OrigenRubroUi origenRubroUi){
+    String nombre = "";
+    switch(origenRubroUi){
+      case OrigenRubroUi.GENERADO_INSTRUMENTO:
+        nombre = "Mostrar solo Instrumentos";
+        break;
+      case OrigenRubroUi.GENERADO_TAREA:
+        nombre = "Mostrar solo Tareas";
+        break;
+      case OrigenRubroUi.GENERADO_PREGUNTA:
+        nombre = "Mostrar solo Preguntas";
+        break;
+      case OrigenRubroUi.CREADO_DOCENTE:
+        nombre = "Mostrar solo Registro";
+        break;
+      case OrigenRubroUi.TODOS:
+        nombre = "Mostrar Todos";
+        break;
+    }
+    return nombre;
   }
 
 }

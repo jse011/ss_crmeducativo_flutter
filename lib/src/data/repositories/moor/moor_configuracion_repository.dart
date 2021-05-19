@@ -7,8 +7,10 @@ import 'package:ss_crmeducativo_2/src/data/repositories/moor/tools/serializable_
 import 'package:ss_crmeducativo_2/src/domain/entities/anio_acemico_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/contacto_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/evento_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/login_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/programa_educativo_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/tipo_eventoUi.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/usuario_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/repositories/configuracion_repository.dart';
 import 'package:ss_crmeducativo_2/src/domain/tools/app_tools.dart';
@@ -817,6 +819,37 @@ class MoorConfiguracionRepository extends ConfiguracionRepository{
       print("getContactos: "+contactoUiList.length.toString());
       return contactoUiList;
 
+  }
+
+  @override
+  Future<List<EventoUi>> getEventosAgenda(int usuarioId, int anioAcademicoId, int tipoEventoId) {
+    // TODO: implement getEventosAgenda
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<TipoEventoUi>> getTiposEvento() {
+    // TODO: implement getTiposEvento
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> saveEventoAgenda(Map<String, dynamic> eventoAgenda, int usuarioId, int anioAcademicoId, int tipoEventoId) {
+    // TODO: implement saveEventoAgenda
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<int> getGeoreferenciaId() async {
+    AppDataBase SQL = AppDataBase();
+    try{
+      SessionUserData sessionUserData =  await SQL.selectSingle(SQL.sessionUser).getSingle();
+       int anioAcademicoId = sessionUserData!=null?sessionUserData.anioAcademicoId??0:0;
+       AnioAcademicoData academicoData = await (SQL.selectSingle(SQL.anioAcademico)..where((tbl) => tbl.idAnioAcademico.equals(anioAcademicoId))).getSingle();
+       return academicoData.georeferenciaId??0;
+    }catch(e){
+      throw Exception(e);
+    }
   }
 
 

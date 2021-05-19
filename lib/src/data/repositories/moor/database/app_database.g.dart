@@ -22771,6 +22771,8 @@ class RubroEvaluacionProcesoData extends DataClass
   final int? estrategiaEvaluacionId;
   final String? tareaId;
   final String? resultadoTipoNotaId;
+  final String? instrumentoEvalId;
+  final String? preguntaEvalId;
   RubroEvaluacionProcesoData(
       {this.syncFlag,
       this.timestampFlag,
@@ -22811,7 +22813,9 @@ class RubroEvaluacionProcesoData extends DataClass
       this.unidadAprendizajeId,
       this.estrategiaEvaluacionId,
       this.tareaId,
-      this.resultadoTipoNotaId});
+      this.resultadoTipoNotaId,
+      this.instrumentoEvalId,
+      this.preguntaEvalId});
   factory RubroEvaluacionProcesoData.fromData(
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
@@ -22901,6 +22905,10 @@ class RubroEvaluacionProcesoData extends DataClass
           .mapFromDatabaseResponse(data['${effectivePrefix}tarea_id']),
       resultadoTipoNotaId: stringType.mapFromDatabaseResponse(
           data['${effectivePrefix}resultado_tipo_nota_id']),
+      instrumentoEvalId: stringType.mapFromDatabaseResponse(
+          data['${effectivePrefix}instrumento_eval_id']),
+      preguntaEvalId: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}pregunta_eval_id']),
     );
   }
   @override
@@ -23024,6 +23032,12 @@ class RubroEvaluacionProcesoData extends DataClass
     if (!nullToAbsent || resultadoTipoNotaId != null) {
       map['resultado_tipo_nota_id'] = Variable<String?>(resultadoTipoNotaId);
     }
+    if (!nullToAbsent || instrumentoEvalId != null) {
+      map['instrumento_eval_id'] = Variable<String?>(instrumentoEvalId);
+    }
+    if (!nullToAbsent || preguntaEvalId != null) {
+      map['pregunta_eval_id'] = Variable<String?>(preguntaEvalId);
+    }
     return map;
   }
 
@@ -23144,6 +23158,12 @@ class RubroEvaluacionProcesoData extends DataClass
       resultadoTipoNotaId: resultadoTipoNotaId == null && nullToAbsent
           ? const Value.absent()
           : Value(resultadoTipoNotaId),
+      instrumentoEvalId: instrumentoEvalId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(instrumentoEvalId),
+      preguntaEvalId: preguntaEvalId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(preguntaEvalId),
     );
   }
 
@@ -23201,6 +23221,9 @@ class RubroEvaluacionProcesoData extends DataClass
       tareaId: serializer.fromJson<String?>(json['tareaId']),
       resultadoTipoNotaId:
           serializer.fromJson<String?>(json['resultadoTipoNotaId']),
+      instrumentoEvalId:
+          serializer.fromJson<String?>(json['instrumentoEvalId']),
+      preguntaEvalId: serializer.fromJson<String?>(json['preguntaEvalId']),
     );
   }
   @override
@@ -23247,6 +23270,8 @@ class RubroEvaluacionProcesoData extends DataClass
       'estrategiaEvaluacionId': serializer.toJson<int?>(estrategiaEvaluacionId),
       'tareaId': serializer.toJson<String?>(tareaId),
       'resultadoTipoNotaId': serializer.toJson<String?>(resultadoTipoNotaId),
+      'instrumentoEvalId': serializer.toJson<String?>(instrumentoEvalId),
+      'preguntaEvalId': serializer.toJson<String?>(preguntaEvalId),
     };
   }
 
@@ -23290,7 +23315,9 @@ class RubroEvaluacionProcesoData extends DataClass
           int? unidadAprendizajeId,
           int? estrategiaEvaluacionId,
           String? tareaId,
-          String? resultadoTipoNotaId}) =>
+          String? resultadoTipoNotaId,
+          String? instrumentoEvalId,
+          String? preguntaEvalId}) =>
       RubroEvaluacionProcesoData(
         syncFlag: syncFlag ?? this.syncFlag,
         timestampFlag: timestampFlag ?? this.timestampFlag,
@@ -23335,6 +23362,8 @@ class RubroEvaluacionProcesoData extends DataClass
             estrategiaEvaluacionId ?? this.estrategiaEvaluacionId,
         tareaId: tareaId ?? this.tareaId,
         resultadoTipoNotaId: resultadoTipoNotaId ?? this.resultadoTipoNotaId,
+        instrumentoEvalId: instrumentoEvalId ?? this.instrumentoEvalId,
+        preguntaEvalId: preguntaEvalId ?? this.preguntaEvalId,
       );
   @override
   String toString() {
@@ -23378,7 +23407,9 @@ class RubroEvaluacionProcesoData extends DataClass
           ..write('unidadAprendizajeId: $unidadAprendizajeId, ')
           ..write('estrategiaEvaluacionId: $estrategiaEvaluacionId, ')
           ..write('tareaId: $tareaId, ')
-          ..write('resultadoTipoNotaId: $resultadoTipoNotaId')
+          ..write('resultadoTipoNotaId: $resultadoTipoNotaId, ')
+          ..write('instrumentoEvalId: $instrumentoEvalId, ')
+          ..write('preguntaEvalId: $preguntaEvalId')
           ..write(')'))
         .toString();
   }
@@ -23427,7 +23458,7 @@ class RubroEvaluacionProcesoData extends DataClass
                                                                               .hashCode,
                                                                           $mrjc(
                                                                               tipoRedondeoId.hashCode,
-                                                                              $mrjc(valorRedondeoId.hashCode, $mrjc(rubroEvalResultadoId.hashCode, $mrjc(tipoNotaId.hashCode, $mrjc(sesionAprendizajeId.hashCode, $mrjc(desempenioIcdId.hashCode, $mrjc(campoTematicoId.hashCode, $mrjc(tipoEvaluacionId.hashCode, $mrjc(estadoId.hashCode, $mrjc(tipoEscalaEvaluacionId.hashCode, $mrjc(tipoColorRubroProceso.hashCode, $mrjc(tiporubroid.hashCode, $mrjc(formaEvaluacionId.hashCode, $mrjc(countIndicador.hashCode, $mrjc(rubroFormal.hashCode, $mrjc(msje.hashCode, $mrjc(promedio.hashCode, $mrjc(desviacionEstandar.hashCode, $mrjc(unidadAprendizajeId.hashCode, $mrjc(estrategiaEvaluacionId.hashCode, $mrjc(tareaId.hashCode, resultadoTipoNotaId.hashCode))))))))))))))))))))))))))))))))))))))));
+                                                                              $mrjc(valorRedondeoId.hashCode, $mrjc(rubroEvalResultadoId.hashCode, $mrjc(tipoNotaId.hashCode, $mrjc(sesionAprendizajeId.hashCode, $mrjc(desempenioIcdId.hashCode, $mrjc(campoTematicoId.hashCode, $mrjc(tipoEvaluacionId.hashCode, $mrjc(estadoId.hashCode, $mrjc(tipoEscalaEvaluacionId.hashCode, $mrjc(tipoColorRubroProceso.hashCode, $mrjc(tiporubroid.hashCode, $mrjc(formaEvaluacionId.hashCode, $mrjc(countIndicador.hashCode, $mrjc(rubroFormal.hashCode, $mrjc(msje.hashCode, $mrjc(promedio.hashCode, $mrjc(desviacionEstandar.hashCode, $mrjc(unidadAprendizajeId.hashCode, $mrjc(estrategiaEvaluacionId.hashCode, $mrjc(tareaId.hashCode, $mrjc(resultadoTipoNotaId.hashCode, $mrjc(instrumentoEvalId.hashCode, preguntaEvalId.hashCode))))))))))))))))))))))))))))))))))))))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
@@ -23471,7 +23502,9 @@ class RubroEvaluacionProcesoData extends DataClass
           other.unidadAprendizajeId == this.unidadAprendizajeId &&
           other.estrategiaEvaluacionId == this.estrategiaEvaluacionId &&
           other.tareaId == this.tareaId &&
-          other.resultadoTipoNotaId == this.resultadoTipoNotaId);
+          other.resultadoTipoNotaId == this.resultadoTipoNotaId &&
+          other.instrumentoEvalId == this.instrumentoEvalId &&
+          other.preguntaEvalId == this.preguntaEvalId);
 }
 
 class RubroEvaluacionProcesoCompanion
@@ -23516,6 +23549,8 @@ class RubroEvaluacionProcesoCompanion
   final Value<int?> estrategiaEvaluacionId;
   final Value<String?> tareaId;
   final Value<String?> resultadoTipoNotaId;
+  final Value<String?> instrumentoEvalId;
+  final Value<String?> preguntaEvalId;
   const RubroEvaluacionProcesoCompanion({
     this.syncFlag = const Value.absent(),
     this.timestampFlag = const Value.absent(),
@@ -23557,6 +23592,8 @@ class RubroEvaluacionProcesoCompanion
     this.estrategiaEvaluacionId = const Value.absent(),
     this.tareaId = const Value.absent(),
     this.resultadoTipoNotaId = const Value.absent(),
+    this.instrumentoEvalId = const Value.absent(),
+    this.preguntaEvalId = const Value.absent(),
   });
   RubroEvaluacionProcesoCompanion.insert({
     this.syncFlag = const Value.absent(),
@@ -23599,6 +23636,8 @@ class RubroEvaluacionProcesoCompanion
     this.estrategiaEvaluacionId = const Value.absent(),
     this.tareaId = const Value.absent(),
     this.resultadoTipoNotaId = const Value.absent(),
+    this.instrumentoEvalId = const Value.absent(),
+    this.preguntaEvalId = const Value.absent(),
   }) : rubroEvalProcesoId = Value(rubroEvalProcesoId);
   static Insertable<RubroEvaluacionProcesoData> custom({
     Expression<int?>? syncFlag,
@@ -23641,6 +23680,8 @@ class RubroEvaluacionProcesoCompanion
     Expression<int?>? estrategiaEvaluacionId,
     Expression<String?>? tareaId,
     Expression<String?>? resultadoTipoNotaId,
+    Expression<String?>? instrumentoEvalId,
+    Expression<String?>? preguntaEvalId,
   }) {
     return RawValuesInsertable({
       if (syncFlag != null) 'sync_flag': syncFlag,
@@ -23692,6 +23733,8 @@ class RubroEvaluacionProcesoCompanion
       if (tareaId != null) 'tarea_id': tareaId,
       if (resultadoTipoNotaId != null)
         'resultado_tipo_nota_id': resultadoTipoNotaId,
+      if (instrumentoEvalId != null) 'instrumento_eval_id': instrumentoEvalId,
+      if (preguntaEvalId != null) 'pregunta_eval_id': preguntaEvalId,
     });
   }
 
@@ -23735,7 +23778,9 @@ class RubroEvaluacionProcesoCompanion
       Value<int?>? unidadAprendizajeId,
       Value<int?>? estrategiaEvaluacionId,
       Value<String?>? tareaId,
-      Value<String?>? resultadoTipoNotaId}) {
+      Value<String?>? resultadoTipoNotaId,
+      Value<String?>? instrumentoEvalId,
+      Value<String?>? preguntaEvalId}) {
     return RubroEvaluacionProcesoCompanion(
       syncFlag: syncFlag ?? this.syncFlag,
       timestampFlag: timestampFlag ?? this.timestampFlag,
@@ -23780,6 +23825,8 @@ class RubroEvaluacionProcesoCompanion
           estrategiaEvaluacionId ?? this.estrategiaEvaluacionId,
       tareaId: tareaId ?? this.tareaId,
       resultadoTipoNotaId: resultadoTipoNotaId ?? this.resultadoTipoNotaId,
+      instrumentoEvalId: instrumentoEvalId ?? this.instrumentoEvalId,
+      preguntaEvalId: preguntaEvalId ?? this.preguntaEvalId,
     );
   }
 
@@ -23911,6 +23958,12 @@ class RubroEvaluacionProcesoCompanion
       map['resultado_tipo_nota_id'] =
           Variable<String?>(resultadoTipoNotaId.value);
     }
+    if (instrumentoEvalId.present) {
+      map['instrumento_eval_id'] = Variable<String?>(instrumentoEvalId.value);
+    }
+    if (preguntaEvalId.present) {
+      map['pregunta_eval_id'] = Variable<String?>(preguntaEvalId.value);
+    }
     return map;
   }
 
@@ -23956,7 +24009,9 @@ class RubroEvaluacionProcesoCompanion
           ..write('unidadAprendizajeId: $unidadAprendizajeId, ')
           ..write('estrategiaEvaluacionId: $estrategiaEvaluacionId, ')
           ..write('tareaId: $tareaId, ')
-          ..write('resultadoTipoNotaId: $resultadoTipoNotaId')
+          ..write('resultadoTipoNotaId: $resultadoTipoNotaId, ')
+          ..write('instrumentoEvalId: $instrumentoEvalId, ')
+          ..write('preguntaEvalId: $preguntaEvalId')
           ..write(')'))
         .toString();
   }
@@ -24450,6 +24505,31 @@ class $RubroEvaluacionProcesoTable extends RubroEvaluacionProceso
     );
   }
 
+  final VerificationMeta _instrumentoEvalIdMeta =
+      const VerificationMeta('instrumentoEvalId');
+  @override
+  late final GeneratedTextColumn instrumentoEvalId =
+      _constructInstrumentoEvalId();
+  GeneratedTextColumn _constructInstrumentoEvalId() {
+    return GeneratedTextColumn(
+      'instrumento_eval_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _preguntaEvalIdMeta =
+      const VerificationMeta('preguntaEvalId');
+  @override
+  late final GeneratedTextColumn preguntaEvalId = _constructPreguntaEvalId();
+  GeneratedTextColumn _constructPreguntaEvalId() {
+    return GeneratedTextColumn(
+      'pregunta_eval_id',
+      $tableName,
+      true,
+    );
+  }
+
   @override
   List<GeneratedColumn> get $columns => [
         syncFlag,
@@ -24491,7 +24571,9 @@ class $RubroEvaluacionProcesoTable extends RubroEvaluacionProceso
         unidadAprendizajeId,
         estrategiaEvaluacionId,
         tareaId,
-        resultadoTipoNotaId
+        resultadoTipoNotaId,
+        instrumentoEvalId,
+        preguntaEvalId
       ];
   @override
   $RubroEvaluacionProcesoTable get asDslTable => this;
@@ -24732,6 +24814,18 @@ class $RubroEvaluacionProcesoTable extends RubroEvaluacionProceso
           _resultadoTipoNotaIdMeta,
           resultadoTipoNotaId.isAcceptableOrUnknown(
               data['resultado_tipo_nota_id']!, _resultadoTipoNotaIdMeta));
+    }
+    if (data.containsKey('instrumento_eval_id')) {
+      context.handle(
+          _instrumentoEvalIdMeta,
+          instrumentoEvalId.isAcceptableOrUnknown(
+              data['instrumento_eval_id']!, _instrumentoEvalIdMeta));
+    }
+    if (data.containsKey('pregunta_eval_id')) {
+      context.handle(
+          _preguntaEvalIdMeta,
+          preguntaEvalId.isAcceptableOrUnknown(
+              data['pregunta_eval_id']!, _preguntaEvalIdMeta));
     }
     return context;
   }

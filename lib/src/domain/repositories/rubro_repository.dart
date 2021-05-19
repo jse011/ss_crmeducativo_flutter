@@ -2,6 +2,8 @@ import 'package:ss_crmeducativo_2/src/domain/entities/competencia_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/criterio_peso_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/criterio_valor_tipo_nota_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/forma_evaluacion_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/origen_rubro_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/rubrica_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_ui.dart';
 
@@ -18,7 +20,7 @@ abstract class RubroRepository{
 
   Future<void> saveRubroEvaluacion(String? rubroEvaluacionId, String? titulo, int? formaEvaluacionId, int? tipoEvaluacionId, String? promedioLogroId, int? calendarioPeriodoId, int? silaboEventoId, int? cargaCursoId, int? sesionAprendizajeId, String? tareaId, int? usuarioId, List<CriterioPesoUi>? criterioPesoUiList, List<CriterioValorTipoNotaUi>? criterioValorTipoNotaUiList, TipoNotaUi? tipoNotaUi);
 
-  Future<List<CompetenciaUi>> getRubroEvaluacion(int calendarioPeriodoId, int silaboEventoId);
+  Future<List<RubricaEvaluacionUi>> getRubroEvaluacion(int calendarioPeriodoId, int silaboEventoId, OrigenRubroUi origenRubroUi);
 
 
 }

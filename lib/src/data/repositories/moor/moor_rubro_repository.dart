@@ -13,6 +13,7 @@ import 'package:ss_crmeducativo_2/src/domain/entities/criterio_peso_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/criterio_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/criterio_valor_tipo_nota_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/forma_evaluacion_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/origen_rubro_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/rubrica_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tema_criterio_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_competencia_ui.dart';
@@ -22,6 +23,7 @@ import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/valor_tipo_nota_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/repositories/rubro_repository.dart';
 import 'package:collection/collection.dart';
+import 'package:ss_crmeducativo_2/src/domain/tools/app_tools.dart';
 import 'package:ss_crmeducativo_2/src/domain/tools/id_generator.dart';
 
 
@@ -475,11 +477,58 @@ class MoorRubroRepository extends RubroRepository{
   }
 
   @override
-  Future<List<RubricaEvaluacionUi>> getRubroEvaluacion(int calendarioPeriodoId, int silaboEventoId) {
+  Future<List<RubricaEvaluacionUi>> getRubroEvaluacion(int calendarioPeriodoId, int silaboEventoId, OrigenRubroUi origenRubroUi) async {
     AppDataBase SQL = AppDataBase();
+    var query = SQL.select(SQL.rubroEvaluacionProceso)..where((tbl) => tbl.calendarioPeriodoId.equals(calendarioPeriodoId));
+    query.where((tbl) => tbl.silaboEventoId.equals(silaboEventoId));
+    query.where((tbl) => tbl.tiporubroid.isIn([TIPO_RUBRO_BIMENSIONAL, TIPO_RUBRO_UNIDIMENCIONAL]));
+    query.orderBy([(tbl)=> OrderingTerm.desc(tbl.fechaCreacion)]);
+    
+    List<RubricaEvaluacionUi> rubricaEvalProcesoUiList = [];
+    List<RubroEvaluacionProcesoData> rubroEvalProcesoList = await query.get();
+    for(RubroEvaluacionProcesoData rubroEvaluacionProcesoData in  rubroEvalProcesoList){
+        RubricaEvaluacionUi rubricaEvaluacionUi = RubricaEvaluacionUi();
+        rubricaEvaluacionUi.rubricaId = rubroEvaluacionProcesoData.rubroEvalProcesoId;
+        rubricaEvaluacionUi.titulo = rubroEvaluacionProcesoData.titulo;
+        print("titulorubro " + rubroEvaluacionProcesoData.titulo.toString());
+        rubricaEvaluacionUi.efechaCreacion = AppTools.f_fecha_letras(rubroEvaluacionProcesoData.fechaCreacion);
+        rubricaEvaluacionUi.fechaCreacion = rubroEvaluacionProcesoData.fechaCreacion;
+        rubricaEvaluacionUi.mediaDesvicion = '${(rubroEvaluacionProcesoData.promedio??0).toStringAsFixed(1)} (${(rubroEvaluacionProcesoData.desviacionEstandar??0).toStringAsFixed(1)})';
+        rubricaEvaluacionUi.rubroGrupal = rubroEvaluacionProcesoData.formaEvaluacionId == FORMA_EVAL_GRUPAL;
+        rubricaEvaluacionUi.sesionAprendizajeId = rubroEvaluacionProcesoData.sesionAprendizajeId;
+        if((rubroEvaluacionProcesoData.tareaId??"").isNotEmpty)rubricaEvaluacionUi.origenRubroUi = OrigenRubroUi.GENERADO_TAREA;
+        else if((rubroEvaluacionProcesoData.instrumentoEvalId??"").isNotEmpty)rubricaEvaluacionUi.origenRubroUi = OrigenRubroUi.GENERADO_INSTRUMENTO;
+        else if((rubroEvaluacionProcesoData.preguntaEvalId??"").isNotEmpty)rubricaEvaluacionUi.origenRubroUi = OrigenRubroUi.GENERADO_PREGUNTA;
+        else rubricaEvaluacionUi.origenRubroUi = OrigenRubroUi.CREADO_DOCENTE;
+
+        if(origenRubroUi == OrigenRubroUi.TODOS){
+          rubricaEvalProcesoUiList.add(rubricaEvaluacionUi);
+        }else if(origenRubroUi == rubricaEvaluacionUi.origenRubroUi){
+          rubricaEvalProcesoUiList.add(rubricaEvaluacionUi);
+        }
+    }
+
+    var queryEval = SQL.select(SQL.evaluacionProceso).join([
+        innerJoin(SQL.rubroEvaluacionProceso, SQL.evaluacionProceso.rubroEvalProcesoId.equalsExp(SQL.rubroEvaluacionProceso.rubroEvalProcesoId))
+    ]);
+    
+    queryEval.where(SQL.rubroEvaluacionProceso.silaboEventoId.equals(silaboEventoId));
+    queryEval.where(SQL.rubroEvaluacionProceso.calendarioPeriodoId.equals(calendarioPeriodoId));
+
+    for(var row in await queryEval.get()){
+      EvaluacionProcesoData evalRubroEvalProceso = row.readTable(SQL.evaluacionProceso);
+      for(RubricaEvaluacionUi rubricaEvaluacionUi in rubricaEvalProcesoUiList){
+        if(rubricaEvaluacionUi.rubricaId == evalRubroEvalProceso.rubroEvalProcesoId){
+          rubricaEvaluacionUi.cantEvaluaciones = (rubricaEvaluacionUi.cantEvaluaciones??0) + 1;
+          if((evalRubroEvalProceso.publicado??0) == 1){
+            rubricaEvaluacionUi.cantEvalPublicadas = (rubricaEvaluacionUi.cantEvalPublicadas??0) + 1;
+          }
+        }
+      }
+    }
 
 
-
+    return rubricaEvalProcesoUiList;
   }
 
 }

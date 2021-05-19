@@ -10,14 +10,15 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:lottie/lottie.dart';
 import 'package:ss_crmeducativo_2/libs/sticky-headers-table/example/main.dart';
 import 'package:ss_crmeducativo_2/libs/sticky-headers-table/table_sticky_headers_not_expanded_custom.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubro_crear/rubro_crear_controller.dart';
+import 'package:ss_crmeducativo_2/src/app/routers.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_icon.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_theme.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/hex_color.dart';
 import 'package:ss_crmeducativo_2/src/app/widgets/ars_progress.dart';
-import 'package:ss_crmeducativo_2/src/app/widgets/dropdown_formfield.dart';
 import 'package:ss_crmeducativo_2/src/app/widgets/dropdown_formfield_2.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_configuracion_repository.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_rubro_repository.dart';
@@ -28,7 +29,7 @@ import 'package:ss_crmeducativo_2/src/domain/entities/criterio_peso_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/criterio_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/forma_evaluacion_ui.dart';
-import 'package:ss_crmeducativo_2/src/domain/entities/rubro_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/rubrica_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tema_criterio_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_competencia_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_evaluacion_ui.dart';
@@ -36,10 +37,11 @@ import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_tipos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/valor_tipo_nota_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/response/respuesta_crear_rubro.dart';
 
 class RubroCrearView extends View{
   CursosUi cursosUi;
-  RubroUi? rubroUi;
+  RubricaEvaluacionUi? rubroUi;
   CalendarioPeriodoUI? calendarioPeriodoUI;
 
   RubroCrearView(this.cursosUi, this.calendarioPeriodoUI, this.rubroUi);
@@ -141,7 +143,129 @@ class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController
                     return controller.showDialog?ArsProgressWidget(
                         blur: 2,
                         backgroundColor: Color(0x33000000),
-                        animationDuration: Duration(milliseconds: 500)
+                        animationDuration: Duration(milliseconds: 500),
+                        loadingWidget:  Container(
+                          margin: EdgeInsets.only(bottom: 32),
+                          height: 160,
+                          decoration: BoxDecoration(
+                              color: HexColor("#4987F3"),
+                              borderRadius: BorderRadius.circular(24) // use instead of BorderRadius.all(Radius.circular(20))
+                          ),
+                          child: Stack(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(left: 24, right: 36, top: 24, bottom: 16),
+                                child:   Row(
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text("Enviando su evaluación",
+                                            style: TextStyle(
+                                              fontFamily: AppTheme.fontTTNormsMedium,
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 18,
+                                              letterSpacing: 0.5,
+                                              color: AppTheme.white,
+                                            ),
+                                          ),
+                                          Padding(padding: EdgeInsets.only(top: 8)),
+                                          Text("Congrats! Your progress are growing up",
+                                            style: TextStyle(
+                                              fontFamily: AppTheme.fontTTNormsLigth,
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 12,
+                                              letterSpacing: 0.5,
+                                              color: AppTheme.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(padding: EdgeInsets.only(left: 8)),
+                                    Container(
+                                      width: 72,
+                                      height: 72,
+                                      padding: EdgeInsets.all(16),
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: HexColor("#3C7BE9")),
+                                      child:Container(
+                                        child: Center(
+                                          child: Text("0%",
+                                            style: TextStyle(
+                                              fontFamily: AppTheme.fontTTNormsMedium,
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 11,
+                                              letterSpacing: 0.5,
+                                              color: AppTheme.white,
+                                            ),
+                                          ),
+                                        ),
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: HexColor("#4987F3")),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Positioned(
+                                top: 24,
+                                right: -90,
+                                child: Container(
+                                  width: 280,
+                                  child: Lottie.asset('assets/lottie/progress_portal_alumno.json',
+                                      fit: BoxFit.fill
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                bottom: 24,
+                                left: 24,
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 16),
+                                      child: Material(
+                                        color: AppTheme.white,
+                                        borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                                        child: InkWell(
+                                          focusColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                                          splashColor: AppTheme.colorPrimary.withOpacity(0.4),
+                                          onTap: () {
+                                             controller.enviarMastardeRubrica();
+                                          },
+                                          child:
+                                          Container(
+                                              padding: const EdgeInsets.only(top: 10, left: 8, bottom: 8, right: 8),
+                                              child: Row(
+                                                children: [
+                                                  Text("ENVIAR MÁS TARDE",
+                                                    style: TextStyle(
+                                                      fontFamily: AppTheme.fontTTNormsLigth,
+                                                      fontWeight: FontWeight.w700,
+                                                      fontSize: 12,
+                                                      letterSpacing: 0.5,
+                                                      color: AppTheme.darkText,
+                                                    ),)
+                                                ],
+                                              )
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
                     ):Container();
                   }
               )
@@ -196,7 +320,7 @@ class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController
                                   if (!mounted) {
                                     return;
                                   }
-                                  Navigator.pop(context, false);
+                                  AppRouter.cerrarCreateRouteRubroCrearRouter(context, RespuestaCrearRubro.CERRAR_NO_CAMBIO);
                                 });
                               },
                             ),
@@ -286,7 +410,10 @@ class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController
 
     return ControlledWidgetBuilder<RubroCrearController>(
         builder: (context, controller) {
-
+          if(controller.respuestaCrearRubro!=null) {
+             AppRouter.cerrarCreateRouteRubroCrearRouter(context, controller.respuestaCrearRubro);
+            return Container();
+          }
           return Container(
               padding: EdgeInsets.only(
                 top: AppBar().preferredSize.height +

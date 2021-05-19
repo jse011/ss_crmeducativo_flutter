@@ -2,8 +2,13 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubros/rubro_presenter.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/calendario_periodio_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/origen_rubro_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/rubrica_evaluacion_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/response/respuesta_crear_rubro.dart';
 
 class RubroController extends Controller{
+  OrigenRubroUi _origenRubroUi = OrigenRubroUi.TODOS;
+  OrigenRubroUi get origenRubroUi => _origenRubroUi;
   CursosUi cursosUi;
   List<CalendarioPeriodoUI> _calendarioPeriodoList = [];
   bool _contenedorSyncronizar = false;
@@ -14,6 +19,8 @@ class RubroController extends Controller{
   RubroPresenter presenter;
   int _progresoSyncronizar = 0;
   int get progresoSyncronizar => _progresoSyncronizar;
+  List<RubricaEvaluacionUi> _rubricaEvaluacionUiList = [];
+  List<RubricaEvaluacionUi> get rubricaEvaluacionUiList => _rubricaEvaluacionUiList;
 
   RubroController(this.cursosUi, calendarioPeriodoRepo, configuracionRepo, httpDatosRepo, rubroRepo)
       :this.presenter = RubroPresenter(calendarioPeriodoRepo, configuracionRepo, httpDatosRepo, rubroRepo)
@@ -24,13 +31,14 @@ class RubroController extends Controller{
       presenter.getCalendarioPeridoOnComplete = (List<CalendarioPeriodoUI>? calendarioPeridoList, CalendarioPeriodoUI? calendarioPeriodoUI){
         _calendarioPeriodoList = calendarioPeridoList??[];
         _calendarioPeriodoUI = calendarioPeriodoUI;
-        print("getCalendarioPeridoOnComplete "+_calendarioPeriodoList.length.toString());
-        refreshUI();
+        _origenRubroUi = OrigenRubroUi.TODOS;
+        presenter.onGetRubricaList(cursosUi, calendarioPeriodoUI, _origenRubroUi);
       };
 
       presenter.getCalendarioPeridoOnError = (e){
         _calendarioPeriodoList = [];
         _calendarioPeriodoUI = null;
+        _origenRubroUi = OrigenRubroUi.TODOS;
         refreshUI();
       };
 
@@ -51,6 +59,17 @@ class RubroController extends Controller{
       presenter.getDatosCrearRubroOnError = (e){
 
       };
+
+      presenter.getRubroEvaluacionOnNext = (List<RubricaEvaluacionUi> rubricaEvalUiList){
+        _rubricaEvaluacionUiList = rubricaEvalUiList;
+        refreshUI();
+      };
+
+      presenter.getRubroEvaluacionOnError = (e){
+        _rubricaEvaluacionUiList = [];
+        refreshUI();
+      };
+
   }
 
 
@@ -66,9 +85,11 @@ class RubroController extends Controller{
       item.selected = false;
     }
     calendarioPeriodoUI?.selected = true;
+    _origenRubroUi = OrigenRubroUi.TODOS;
     //showProgress();
     //presenter.getEvaluacion(calendarioPeriodoUi);
     refreshUI();
+    presenter.onGetRubricaList(cursosUi, calendarioPeriodoUI, _origenRubroUi);
   }
 
   void onSyncronizarCurso() {
@@ -78,6 +99,33 @@ class RubroController extends Controller{
       refreshUI();
     }
 
+  }
+
+  void respuestaFormularioCrearRubro(RespuestaCrearRubro? response) {
+    if(response!=null){
+        switch(response){
+          case RespuestaCrearRubro.CERRAR_ENVIO_TERMINADO:
+            presenter.onGetRubricaList(cursosUi, calendarioPeriodoUI, null);
+            break;
+          case RespuestaCrearRubro.CERRAR_ENVIO_MAS_TARDE:
+            presenter.onGetRubricaList(cursosUi, calendarioPeriodoUI, null);
+            break;
+          case RespuestaCrearRubro.CERRAR_ENVIO_ERROR:
+            presenter.onGetRubricaList(cursosUi, calendarioPeriodoUI, null);
+            break;
+          case RespuestaCrearRubro.CERRAR_NO_CAMBIO:
+
+            break;
+        }
+    }else{
+
+    }
+  }
+
+  void clicMostrarSolo(OrigenRubroUi origenRubroUi) {
+    _origenRubroUi = origenRubroUi;
+    presenter.onGetRubricaList(cursosUi, calendarioPeriodoUI, _origenRubroUi);
+    refreshUI();
   }
 
 }

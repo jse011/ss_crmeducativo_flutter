@@ -7,6 +7,8 @@ abstract class HttpDatosRepository{
   Future<HttpStream> getDatosParaCrearRubro(String urlServidorLocal, int anioAcademicoId, int programaEducativoId, int calendarioPeriodoId, int cargaCursoId, int empleadoId, { required HttpStreamListen onListen , onSucces: Function, onError: Function });
   Future<Map<String, dynamic>?> getContactoDocente(String urlServidorLocal, int empleadoId, int anioAcademicoId);
 
+  Future<Map<String, dynamic>?> getEventoAgenda(String urlServidorLocal, int usuarioId, int anioAcademicoId, int tipoEventoId);
+
 }
 
 abstract class HttpStream {

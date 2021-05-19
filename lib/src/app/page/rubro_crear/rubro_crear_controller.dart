@@ -8,21 +8,22 @@ import 'package:ss_crmeducativo_2/src/domain/entities/criterio_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/criterio_valor_tipo_nota_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/forma_evaluacion_ui.dart';
-import 'package:ss_crmeducativo_2/src/domain/entities/rubro_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/rubrica_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tema_criterio_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_competencia_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/valor_tipo_nota_ui.dart';
-import 'package:collection/collection.dart';
+import 'package:ss_crmeducativo_2/src/domain/response/respuesta_crear_rubro.dart';
 
 class RubroCrearController extends Controller{
 
   RubroCrearPresenter presenter;
-
+  RespuestaCrearRubro? _respuestaCrearRubro = null;//si hay respuesta cerrar el formulario
+  RespuestaCrearRubro? get respuestaCrearRubro => _respuestaCrearRubro;
   CursosUi? cursosUi;
   CalendarioPeriodoUI? calendarioPeriodoUI;
-  RubroUi? rubroUi;
+  RubricaEvaluacionUi? rubroUi;
   bool _showDialog = false;
   bool get showDialog => _showDialog;
   String? _mensaje = null;
@@ -125,18 +126,20 @@ class RubroCrearController extends Controller{
       refreshUI();
     };
 
-    presenter.saveRubroEvaluacionOnNext = (){};
+    presenter.saveRubroEvaluacionOnNext = (){
+      refreshUI();
+    };
 
-    presenter.saveRubroEvaluacionOnError = (e){};
+    presenter.saveRubroEvaluacionOnError = (e){
+      refreshUI();
+    };
   }
 
 
   void iniciarTablaTipoNota(){
-
     _tableTipoNotaColumns.clear();
     _tableTipoNotacolumnWidths.clear();
     _tableTipoNotaCells.clear();
-
     _criterioUiList.clear();
 
     List<CompetenciaUi> competenciaUiList = [];
@@ -277,7 +280,12 @@ class RubroCrearController extends Controller{
        }
     }
 
-    presenter.save(cursosUi, calendarioPeriodoUI, tituloRubrica, formaEvaluacionUi, tipoEvaluacionUi, tipoNotaUi, criterioPesoUiList, criterioValorTipoNotaUiList);
+    if(!_showDialog){
+      presenter.save(cursosUi, calendarioPeriodoUI, tituloRubrica, formaEvaluacionUi, tipoEvaluacionUi, tipoNotaUi, criterioPesoUiList, criterioValorTipoNotaUiList);
+    }
+    _showDialog = true;
+    refreshUI();
+
 
   }
 
@@ -441,6 +449,11 @@ class RubroCrearController extends Controller{
       return false;
     }
 
+  }
+
+  void enviarMastardeRubrica() {
+      _respuestaCrearRubro = RespuestaCrearRubro.CERRAR_ENVIO_MAS_TARDE;
+      refreshUI();
   }
 
 

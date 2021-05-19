@@ -9,4 +9,19 @@ class AppIcon {
   static const String ic_transversal = "assets/icons/ic_transversal.svg";
   static const String ic_enfoque = "assets/icons/ic_enfoque.svg";
   static const String ic_criterio_2 = "assets/icons/ic_speedometer.svg";
+  static const String ic_tipo_evento_todos = "assets/icons/ic_atras.svg";
+  static const String ic_tipo_evento_agenda = "assets/icons/ic_libro.svg";
+  static const String ic_tipo_evento_cita = "assets/icons/ic_calendario_1.svg";
+  static const String ic_tipo_evento_tarea = "assets/icons/ic_portapapeles.svg";
+  static const String ic_tipo_evento_actividad = "assets/icons/ic_calendario.svg";
+  static const String ic_tipo_evento_noticia = "assets/icons/ic_sol.svg";
+  static const String ic_tipo_evento_evento = "assets/icons/ic_nubes_sol.svg";
+
+  //#region Imagenes
+  static const String img_evento_megusta = "assets/icons/img_evento_like2.png";
+  static const String img_evento_compartir = "assets/icons/img_evento_shared.png";
+  static const String img_evento_megusta_1 = "assets/icons/img_evento_like.png";
+
+
+
 }

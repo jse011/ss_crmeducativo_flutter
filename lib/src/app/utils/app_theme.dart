@@ -76,6 +76,9 @@ class AppTheme  {
   static const Color colorPrimaryDark = Color(0xFF192B46);
   static const Color colorAccent = Color(0xFF0277BD);
 
+  static const Color colorCard = Color(0xFFFAFAFA);
+  static const Color colorShimmer = Color(0xFFDFDFDF);
+
   static const String fontName = 'Roboto';
   static const String fontGotham = 'Gotham';
   static const String fontTTNormsLigth = 'TT-Norms-Ligth';
