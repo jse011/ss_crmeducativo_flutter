@@ -15,8 +15,8 @@ class EventoAgendaController extends Controller{
   EventoUi? get selectedEventoUi => _selectedEventoUi;
   List<TipoEventoUi> _tipoEventoList = [];
   List<TipoEventoUi> get tipoEventoList => _tipoEventoList;
-  TipoEventoUi _selectedTipoEventoUi;
-  TipoEventoUi get selectedTipoEventoUi => _selectedTipoEventoUi;
+  TipoEventoUi? _selectedTipoEventoUi = null;
+  TipoEventoUi? get selectedTipoEventoUi => _selectedTipoEventoUi;
   List<EventoUi> _eventoUilIst = [];
   List<EventoUi> get eventoUiList => _eventoUilIst;
   bool _isLoading = false;
@@ -24,20 +24,11 @@ class EventoAgendaController extends Controller{
 
   EventoAgendaPresenter presenter;
 
-  EventoAgendaController():this.presenter = new EventoAgendaPresenter();
+  EventoAgendaController(httpRepo, configuracionRepo):this.presenter = new EventoAgendaPresenter(httpRepo, configuracionRepo);
 
   @override
   void initListeners() {
 
-    // On error, show a snackbar, remove the user, and refresh the UI
-    presenter.getSesionUsuarioOnError = (e) {
-      print('Could not retrieve user.');
-      refreshUI(); // Refreshes the UI manually
-    };
-
-    presenter.getEventoAgendaOnComplete = () {
-      print('Could on Complete.');
-    };
     presenter.getEventoAgendaOnError = (e) {
       print('evento error');
       if(tipoEventoList!=null){
@@ -66,7 +57,7 @@ class EventoAgendaController extends Controller{
         }
       }else{
         for(TipoEventoUi tipoEventoUi in tipoEventoList){
-          if(_selectedTipoEventoUi.id == tipoEventoUi.id){
+          if(_selectedTipoEventoUi?.id == tipoEventoUi.id){
             tipoEventoUi.toogle = true;
             _selectedTipoEventoUi = tipoEventoUi;
           }
@@ -79,8 +70,6 @@ class EventoAgendaController extends Controller{
       }else{
         _eventoUilIst = [];
       }
-
-      print('evento next');
       refreshUI();
     };
   }
@@ -107,7 +96,7 @@ class EventoAgendaController extends Controller{
     refreshUI();
     if(selectedTipoEventoTimer!=null)selectedTipoEventoTimer.cancel();
     selectedTipoEventoTimer = Timer(Duration(milliseconds: 1000), () {
-
+      presenter.getEventoAgenda(tipoEvento);
     });
 
   }

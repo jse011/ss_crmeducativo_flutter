@@ -62,7 +62,7 @@ dependencies:
   #fancy_shimmer_image: ^1.2.0
   shimmer: ^2.0.0
   #fancy_shimmer_image: ^1.2.0
-  moor_db_viewer: ^3.0.1
+  moor_db_viewer: ^4.0.0
   #sized_context: ^0.2.1+1
   #table_sticky_headers: ^2.0.0 // se modifo esta version para funcione con un solo scroling quitando la etiqueta Expande
 

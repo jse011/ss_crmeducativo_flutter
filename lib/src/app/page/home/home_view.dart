@@ -5,6 +5,7 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:moor_db_viewer/moor_db_viewer.dart';
 //import 'package:sqlite_viewer/sqlite_viewer.dart';
 import 'package:ss_crmeducativo_2/libs/new_version.dart';
+import 'package:ss_crmeducativo_2/src/app/page/eventos_agenda/evento_agenda_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/portal_docente/portal_docente_view.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_theme.dart';
 import 'package:ss_crmeducativo_2/src/app/widgets/barra_navegacion.dart';
@@ -133,6 +134,8 @@ class _HomePageState extends ViewState<HomeView, HomeController> with TickerProv
                     switch(position){
                       case 1:
                         return PortalDocenteView(animationController: animationController!,);
+                      case 0:
+                        return EventoAgendaView(animationController: animationController!,);
                       default:
                         return Container(
                           color: Colors.red,

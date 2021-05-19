@@ -13,6 +13,8 @@ import 'package:ss_crmeducativo_2/libs/fancy_shimer_image/fancy_shimmer_image.da
 import 'package:ss_crmeducativo_2/src/app/utils/app_icon.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_theme.dart';
 import 'package:ss_crmeducativo_2/src/app/widgets/animation_view.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_configuracion_repository.dart';
+import 'package:ss_crmeducativo_2/src/device/repositories/http/device_http_datos_repository.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/evento_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_eventoUi.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -31,9 +33,9 @@ class EventoAgendaView extends View{
 
 class _EventoAgendaViewState extends ViewState<EventoAgendaView, EventoAgendaController> with TickerProviderStateMixin{
 
-  _EventoAgendaViewState() : super(EventoAgendaController(DeviceCheckConexRepository(), DataUsuarioAndRepository(), DeviceHttpDatosRepositorio()));
+  _EventoAgendaViewState() : super(EventoAgendaController(DeviceHttpDatosRepositorio(), MoorConfiguracionRepository()));
 
-  Animation<double> topBarAnimation;
+  late Animation<double> topBarAnimation;
 
   final ScrollController scrollController = ScrollController();
   double topBarOpacity = 0.0;
@@ -107,7 +109,7 @@ class _EventoAgendaViewState extends ViewState<EventoAgendaView, EventoAgendaCon
                             ),
                             child: Padding(
                               padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-                              child: Text(controller.msgConexion, style: TextStyle(color: AppTheme.white),),
+                              child: Text(controller.msgConexion??"", style: TextStyle(color: AppTheme.white),),
                             ),
                           )
                         ],
@@ -152,7 +154,7 @@ class _EventoAgendaViewState extends ViewState<EventoAgendaView, EventoAgendaCon
         break;
       case EventoIconoEnumUI.CITA:
         color = Color(0xFF00BCD4);
-        imagepath = AppIcon.ic_tipo_evento_agenda;
+        imagepath = AppIcon.ic_tipo_evento_cita;
         break;
       case EventoIconoEnumUI.AGENDA:
         color = Color(0xFFAD3FF8);
@@ -275,42 +277,7 @@ class _EventoAgendaViewState extends ViewState<EventoAgendaView, EventoAgendaCon
                               ),
                             ),
                           ),
-                          ControlledWidgetBuilder<EventoAgendaController>(
-                              builder: (context, controller) {
-                                if(controller.hijoSelected==null){
-                                  return Padding(
-                                    padding: EdgeInsets.fromLTRB (00.0, 00.0, 00.0, 00.0),
-                                  );
-                                }else{
-                                  return  InkWell(
-                                    focusColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                                    splashColor: AppTheme.nearlyDarkBlue.withOpacity(0.2),
-                                    onTap: () {
-                                      controller.onChagenHijo();
-                                    },
-                                    child:  CachedNetworkImage(
-                                        placeholder: (context, url) => CircularProgressIndicator(),
-                                        imageUrl: controller.hijoSelected == null ? '' : '${controller.hijoSelected.foto}',
-                                        imageBuilder: (context, imageProvider) => Container(
-                                            height: 45 + 6 - 6 * topBarOpacity,
-                                            width: 45 + 6 - 6 * topBarOpacity,
-                                            decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.all(Radius.circular(50)),
-                                                image: DecorationImage(
-                                                  image: imageProvider,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                                boxShadow: <BoxShadow>[
-                                                  BoxShadow(color: AppTheme.grey.withOpacity(0.4), offset: const Offset(2.0, 2.0), blurRadius: 6),
-                                                ]
-                                            )
-                                        )
-                                    ),);
 
-                                }})
 
                         ],
                       ),

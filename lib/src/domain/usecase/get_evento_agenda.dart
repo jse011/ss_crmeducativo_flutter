@@ -17,12 +17,11 @@ class GetEventoAgenda extends UseCase<GetEvaluacionCaseResponse, GetEventoAgenda
   Future<Stream<GetEvaluacionCaseResponse?>> buildUseCaseStream(GetEventoAgendaParams? params) async{
     final controller = StreamController<GetEvaluacionCaseResponse>();
     try {
-      //printTime();
+
       List<TipoEventoUi> tiposUiList = await repository.getTiposEvento();
       for(TipoEventoUi tipoEventoUi in tiposUiList)tipoEventoUi.disable = false;
       controller.add(GetEvaluacionCaseResponse(tiposUiList, null, false, false));
-      //printTime();
-      print("EventoAgenda executeServidor init");
+
       int georeferenciaId =  await repository.getGeoreferenciaId();
       int usuarioId = await repository.getSessionUsuarioId();
        executeServidor() async{
@@ -33,19 +32,18 @@ class GetEventoAgenda extends UseCase<GetEvaluacionCaseResponse, GetEventoAgenda
           Map<String, dynamic>? eventoAgenda = await httpRepository.getEventoAgenda(urlServidorLocal, usuarioId,  georeferenciaId,  params?.tipoEventoId??0);
           errorServidor = eventoAgenda==null;
           if(!errorServidor){
-            //printTime();
+
             await repository.saveEventoAgenda(eventoAgenda, usuarioId, georeferenciaId, params?.tipoEventoId??0);
-            //printTime();
+
           }
         }catch(e){
           offlineServidor = true;
         }
 
         List<TipoEventoUi> tiposUiList = await repository.getTiposEvento();
-        //printTime();
+
         for(TipoEventoUi tipoEventoUi in tiposUiList)tipoEventoUi.disable = false;
         List<EventoUi> eventoUIList = await repository.getEventosAgenda(usuarioId, georeferenciaId,params?.tipoEventoId??0);
-        //printTime();
 
         for(var eventosUi in eventoUIList){
           DateTime fechaEntrega =  eventosUi.fecha??DateTime(1950);
@@ -86,16 +84,10 @@ class GetEventoAgenda extends UseCase<GetEvaluacionCaseResponse, GetEventoAgenda
     }
     return controller.stream;
   }
-
-/*static void  printTime(){
-    DateTime now = DateTime.now();
-    print("GetEventoAgenda Hola Jse timer: " + now.hour.toString() + ":" + now.minute.toString() + ":" + now.second.toString()+" "+ now.millisecond.toString());
-  }*/
-
 }
 
 class GetEventoAgendaParams {
-  int tipoEventoId;
+  int? tipoEventoId;
 
   GetEventoAgendaParams(this.tipoEventoId);
 }

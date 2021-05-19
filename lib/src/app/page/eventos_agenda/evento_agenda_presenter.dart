@@ -1,28 +1,23 @@
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
-import 'package:padre_mentor/src/domain/entities/hijos_ui.dart';
-import 'package:padre_mentor/src/domain/entities/tipo_evento_ui.dart';
-import 'package:padre_mentor/src/domain/entities/usuario_ui.dart';
-import 'package:padre_mentor/src/domain/repositories/check_conex_repository.dart';
-import 'package:padre_mentor/src/domain/repositories/http_datos_repository.dart';
-import 'package:padre_mentor/src/domain/repositories/usuario_configuarion_repository.dart';
-import 'package:padre_mentor/src/domain/usecases/get_evento_agenda.dart';
-import 'package:padre_mentor/src/domain/usecases/get_usuario_usecase.dart';
-import 'package:padre_mentor/src/domain/usecases/update_session_usuario.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_eventoUi.dart';
+import 'package:ss_crmeducativo_2/src/domain/repositories/configuracion_repository.dart';
+import 'package:ss_crmeducativo_2/src/domain/repositories/http_datos_repository.dart';
+import 'package:ss_crmeducativo_2/src/domain/usecase/get_evento_agenda.dart';
 
 class EventoAgendaPresenter extends Presenter{
 
   GetEventoAgenda _getEventoAgenda;
   late Function getEventoAgendaOnNext, getEventoAgendaOnError;
 
-  EventoAgendaPresenter(CheckConexRepository checkConext, UsuarioAndConfiguracionRepository usuarioRepo, HttpDatosRepository httpRepo): this._getEventoAgenda = GetEventoAgenda(checkConext ,usuarioRepo, httpRepo), this.getSessionUsuarioCase = GetSessionUsuarioCase(usuarioRepo), updateSession = UpdateSession(usuarioRepo);
+  EventoAgendaPresenter(HttpDatosRepository httpRepo, ConfiguracionRepository configuracionRepo):
+        this._getEventoAgenda = GetEventoAgenda(configuracionRepo, httpRepo);
 
-  void getEventoAgenda(int usuarioId, int tipoEventoId, List<int> hijoIdList){
-    _getEventoAgenda.execute(_GetEventoAgendaCase(this), GetEventoAgendaParams(usuarioId, tipoEventoId, hijoIdList));
+  void getEventoAgenda(TipoEventoUi? tipoEventoUi){
+    _getEventoAgenda.execute(_GetEventoAgendaCase(this), GetEventoAgendaParams(tipoEventoUi?.id));
   }
 
   void onInitState() {
-    getDatosGenerales();
+    getEventoAgenda(null);
   }
 
   @override
@@ -39,8 +34,7 @@ class _GetEventoAgendaCase extends Observer<GetEvaluacionCaseResponse>{
 
   @override
   void onComplete() {
-    assert(presenter.getEventoAgendaOnComplete != null);
-    presenter.getEventoAgendaOnComplete();
+
   }
 
   @override
@@ -50,9 +44,9 @@ class _GetEventoAgendaCase extends Observer<GetEvaluacionCaseResponse>{
   }
 
   @override
-  void onNext(GetEvaluacionCaseResponse response) {
+  void onNext(GetEvaluacionCaseResponse? response) {
     assert(presenter.getEventoAgendaOnNext != null);
-    presenter.getEventoAgendaOnNext(response.tipoEventoUiList, response.eventoUiList, response.errorServidor, response.datosOffline);
+    presenter.getEventoAgendaOnNext(response?.tipoEventoUiList, response?.eventoUiList, response?.errorServidor, response?.datosOffline);
   }
 
 }
