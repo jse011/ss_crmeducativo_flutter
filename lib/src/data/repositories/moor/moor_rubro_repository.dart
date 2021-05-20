@@ -83,6 +83,34 @@ class MoorRubroRepository extends RubroRepository{
           batch.insertAll(SQL.tipoNotaRubro, SerializableConvert.converListSerializeTipoNotaRubro(crearRubro["tipoNotaEscala"]), mode: InsertMode.insertOrReplace );
         }
 
+        if(crearRubro.containsKey("rubroEvaluaciones")){
+
+
+          var queryRubro = SQL.select(SQL.rubroEvaluacionProceso)..where((tbl) => tbl.silaboEventoId.equals(silaboEventoId));
+          queryRubro.where((tbl) => tbl.calendarioPeriodoId.equals(calendarioPeriodoId));
+
+          var queryEval = SQL.select(SQL.evaluacionProceso).join([
+            innerJoin(SQL.rubroEvaluacionProceso, SQL.evaluacionProceso.rubroEvalProcesoId.equalsExp(SQL.rubroEvaluacionProceso.rubroEvalProcesoId))
+          ]);
+          queryEval.where(SQL.rubroEvaluacionProceso.silaboEventoId.equals(silaboEventoId));
+          queryEval.where(SQL.rubroEvaluacionProceso.calendarioPeriodoId.equals(calendarioPeriodoId));
+
+          (SQL.delete(SQL.evaluacionProceso)..where((tbl) => tbl.rubroEvalProcesoId.isInQuery(queryRubro))).go();
+          (SQL.delete(SQL.rubroEvaluacionProceso)..where((tbl) => tbl.rubroEvalProcesoId.isInQuery(queryRubro))).go();
+          (SQL.delete(SQL.rubroCampotematico)..where((tbl) => tbl.rubroEvalProcesoId.isInQuery(queryEval))).go();
+          (SQL.delete(SQL.archivoRubro)..where((tbl) => tbl.evaluacionProcesoId.isInQuery(queryEval))).go();
+          (SQL.delete(SQL.rubroCampotematico)..where((tbl) => tbl.rubroEvalProcesoId.isInQuery(queryRubro))).go();
+          (SQL.delete(SQL.rubroEvalRNPFormula)..where((tbl) => tbl.rubroEvaluacionPrimId.isInQuery(queryRubro))).go();
+          (SQL.delete(SQL.equipoEvaluacion)..where((tbl) => tbl.rubroEvalProcesoId.isInQuery(queryRubro))).go();
+          //(SQL.delete(SQL.equipoEvaluacion)..where((tbl) => tbl.rubroEvalProcesoId.isInQuery(queryRubro))).go();
+
+          batch.insertAll(SQL.rubroEvaluacionProceso, SerializableConvert.converListSerializeRubroEvaluacionProceso(crearRubro["rubroEvaluaciones"]), mode: InsertMode.insertOrReplace );
+
+
+
+        }
+
+
       });
 
     }catch(e){
@@ -482,6 +510,8 @@ class MoorRubroRepository extends RubroRepository{
     var query = SQL.select(SQL.rubroEvaluacionProceso)..where((tbl) => tbl.calendarioPeriodoId.equals(calendarioPeriodoId));
     query.where((tbl) => tbl.silaboEventoId.equals(silaboEventoId));
     query.where((tbl) => tbl.tiporubroid.isIn([TIPO_RUBRO_BIMENSIONAL, TIPO_RUBRO_UNIDIMENCIONAL]));
+    //query.where((tbl) => tbl.tipoFormulaId.isNull());
+    query.where((tbl) => tbl.tipoFormulaId.equals(0));
     query.orderBy([(tbl)=> OrderingTerm.desc(tbl.fechaCreacion)]);
     
     List<RubricaEvaluacionUi> rubricaEvalProcesoUiList = [];

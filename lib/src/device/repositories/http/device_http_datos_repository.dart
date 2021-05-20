@@ -126,6 +126,7 @@ class DeviceHttpDatosRepositorio extends HttpDatosRepository{
     parameters["vint_CargaCursoId"] = cargaCursoId;
     parameters["vint_EmpleadoId"] = empleadoId;
     //Uri.parse(urlServidorLocal), body: getBody("getDatosParaCrearRubro",parameters)
+    print(TAG + " "+urlServidorLocal);
     var request = http.Request('POST', Uri.parse(urlServidorLocal));
     request.body = getBody("getDatosParaCrearRubro",parameters);
     var response = await http.Client().send(request);

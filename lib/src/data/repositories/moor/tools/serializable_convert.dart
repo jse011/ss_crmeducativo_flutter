@@ -1277,5 +1277,62 @@ class SerializableConvert{
     return items;
   }
 
+  static RubroEvaluacionProcesoData converSerializeListaRubroEvaluacionProceso(Map<String,dynamic> model){
+    RubroEvaluacionProcesoSerial serial = RubroEvaluacionProcesoSerial.fromJson(model);
+    return RubroEvaluacionProcesoData(
+        usuarioCreacionId: serial.usuarioCreacionId,
+        fechaCreacion: DateTime.fromMillisecondsSinceEpoch(serial.fechaCreacion??0),
+        usuarioAccionId: serial.usuarioAccionId,
+        fechaAccion: DateTime.fromMillisecondsSinceEpoch(serial.fechaAccion??0),
+        rubroEvalProcesoId: serial.rubroEvalProcesoId??"",
+        titulo: serial.titulo,
+        subtitulo: serial.subtitulo,
+        colorFondo: serial.colorFondo,
+        mColorFondo: serial.mColorFondo,
+        valorDefecto: serial.valorDefecto,
+        competenciaId: serial.competenciaId,
+        calendarioPeriodoId: serial.calendarioPeriodoId,
+        anchoColumna: serial.anchoColumna,
+        ocultarColumna: serial.ocultarColumna,
+        tipoFormulaId: serial.tipoFormulaId,
+        silaboEventoId: serial.silaboEventoId,
+        tipoRedondeoId: serial.tipoRedondeoId,
+        valorRedondeoId: serial.valorRedondeoId,
+        rubroEvalResultadoId: serial.rubroEvalResultadoId,
+        tipoNotaId: serial.tipoNotaId,
+        sesionAprendizajeId: serial.sesionAprendizajeId,
+        desempenioIcdId: serial.desempenioIcdId,
+        campoTematicoId: serial.campoTematicoId,
+        tipoEvaluacionId: serial.tipoEvaluacionId,
+        estadoId: serial.estadoId,
+        tipoEscalaEvaluacionId: serial.tipoEscalaEvaluacionId,
+        tipoColorRubroProceso: serial.tipoColorRubroProceso,
+        tiporubroid: serial.tiporubroid,
+        formaEvaluacionId: serial.formaEvaluacionId,
+        countIndicador: serial.countIndicador,
+        rubroFormal: serial.rubroFormal,
+        msje: serial.msje,
+        promedio: serial.promedio,
+        desviacionEstandar: serial.desviacionEstandar,
+        unidadAprendizajeId: serial.unidadAprendizajeId,
+        estrategiaEvaluacionId: serial.estrategiaEvaluacionId,
+        tareaId: serial.tareaId,
+        resultadoTipoNotaId: serial.resultadoTipoNotaId,
+        instrumentoEvalId: serial.instrumentoEvalId,
+        preguntaEvalId: serial.preguntaEvalId
+    );
+  }
+
+  static List<RubroEvaluacionProcesoData> converListSerializeRubroEvaluacionProceso(dynamic model){
+    List<RubroEvaluacionProcesoData> items = [];
+    Iterable l = model;
+    for(var item in l){
+      items.add(converSerializeListaRubroEvaluacionProceso(item));
+    }
+    return items;
+  }
+  
+  
+
 }
 

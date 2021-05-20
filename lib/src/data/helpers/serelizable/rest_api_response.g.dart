@@ -1214,6 +1214,8 @@ RubroEvaluacionProcesoSerial _$RubroEvaluacionProcesoSerialFromJson(
     json['usuarioAccionId'] as int?,
     json['fechaAccion'] as int?,
     json['key'] as String?,
+    json['instrumentoEvalId'] as String?,
+    json['preguntaEvalId'] as String?,
   );
 }
 
@@ -1254,6 +1256,276 @@ Map<String, dynamic> _$RubroEvaluacionProcesoSerialToJson(
       'estrategiaEvaluacionId': instance.estrategiaEvaluacionId,
       'tareaId': instance.tareaId,
       'resultadoTipoNotaId': instance.resultadoTipoNotaId,
+      'usuarioCreacionId': instance.usuarioCreacionId,
+      'fechaCreacion': instance.fechaCreacion,
+      'usuarioAccionId': instance.usuarioAccionId,
+      'fechaAccion': instance.fechaAccion,
+      'key': instance.key,
+      'instrumentoEvalId': instance.instrumentoEvalId,
+      'preguntaEvalId': instance.preguntaEvalId,
+    };
+
+EvaluacionProcesoSerial _$EvaluacionProcesoSerialFromJson(
+    Map<String, dynamic> json) {
+  return EvaluacionProcesoSerial(
+    json['evaluacionProcesoId'] as String?,
+    json['evaluacionResultadoId'] as int?,
+    (json['nota'] as num?)?.toDouble(),
+    json['escala'] as String?,
+    json['rubroEvalProcesoId'] as String?,
+    json['sesionAprendizajeId'] as int?,
+    json['valorTipoNotaId'] as String?,
+    json['equipoId'] as String?,
+    json['alumnoId'] as int?,
+    json['calendarioPeriodoId'] as int?,
+    json['formulaSinc'] as bool?,
+    json['msje'] as int?,
+    json['publicado'] as int?,
+    json['visto'] as int?,
+    json['usuarioCreacionId'] as int?,
+    json['fechaCreacion'] as int?,
+    json['usuarioAccionId'] as int?,
+    json['fechaAccion'] as int?,
+    json['key'] as String?,
+  );
+}
+
+Map<String, dynamic> _$EvaluacionProcesoSerialToJson(
+        EvaluacionProcesoSerial instance) =>
+    <String, dynamic>{
+      'evaluacionProcesoId': instance.evaluacionProcesoId,
+      'evaluacionResultadoId': instance.evaluacionResultadoId,
+      'nota': instance.nota,
+      'escala': instance.escala,
+      'rubroEvalProcesoId': instance.rubroEvalProcesoId,
+      'sesionAprendizajeId': instance.sesionAprendizajeId,
+      'valorTipoNotaId': instance.valorTipoNotaId,
+      'equipoId': instance.equipoId,
+      'alumnoId': instance.alumnoId,
+      'calendarioPeriodoId': instance.calendarioPeriodoId,
+      'formulaSinc': instance.formulaSinc,
+      'msje': instance.msje,
+      'publicado': instance.publicado,
+      'visto': instance.visto,
+      'usuarioCreacionId': instance.usuarioCreacionId,
+      'fechaCreacion': instance.fechaCreacion,
+      'usuarioAccionId': instance.usuarioAccionId,
+      'fechaAccion': instance.fechaAccion,
+      'key': instance.key,
+    };
+
+RubroEvaluacionProcesoCampotematicoSerial
+    _$RubroEvaluacionProcesoCampotematicoSerialFromJson(
+        Map<String, dynamic> json) {
+  return RubroEvaluacionProcesoCampotematicoSerial(
+    json['rubroEvalProcesoId'] as String?,
+    json['campoTematicoId'] as int?,
+  );
+}
+
+Map<String, dynamic> _$RubroEvaluacionProcesoCampotematicoSerialToJson(
+        RubroEvaluacionProcesoCampotematicoSerial instance) =>
+    <String, dynamic>{
+      'rubroEvalProcesoId': instance.rubroEvalProcesoId,
+      'campoTematicoId': instance.campoTematicoId,
+    };
+
+RubroEvaluacionProcesoComentarioSerial
+    _$RubroEvaluacionProcesoComentarioSerialFromJson(
+        Map<String, dynamic> json) {
+  return RubroEvaluacionProcesoComentarioSerial(
+    json['evaluacionProcesoComentarioId'] as String?,
+    json['evaluacionProcesoId'] as String?,
+    json['comentarioId'] as String?,
+    json['descripcion'] as String?,
+    json['delete'] as int?,
+    json['usuarioCreacionId'] as int?,
+    json['fechaCreacion'] as int?,
+    json['usuarioAccionId'] as int?,
+    json['fechaAccion'] as int?,
+    json['key'] as String?,
+  );
+}
+
+Map<String, dynamic> _$RubroEvaluacionProcesoComentarioSerialToJson(
+        RubroEvaluacionProcesoComentarioSerial instance) =>
+    <String, dynamic>{
+      'evaluacionProcesoComentarioId': instance.evaluacionProcesoComentarioId,
+      'evaluacionProcesoId': instance.evaluacionProcesoId,
+      'comentarioId': instance.comentarioId,
+      'descripcion': instance.descripcion,
+      'delete': instance.delete,
+      'usuarioCreacionId': instance.usuarioCreacionId,
+      'fechaCreacion': instance.fechaCreacion,
+      'usuarioAccionId': instance.usuarioAccionId,
+      'fechaAccion': instance.fechaAccion,
+      'key': instance.key,
+    };
+
+ArchivosRubroProcesoSerial _$ArchivosRubroProcesoSerialFromJson(
+    Map<String, dynamic> json) {
+  return ArchivosRubroProcesoSerial(
+    json['archivoRubroId'] as String?,
+    json['url'] as String?,
+    json['tipoArchivoId'] as int?,
+    json['evaluacionProcesoId'] as String?,
+    json['localpath'] as String?,
+    json['delete'] as int?,
+    json['usuarioCreacionId'] as int?,
+    json['fechaCreacion'] as int?,
+    json['usuarioAccionId'] as int?,
+    json['fechaAccion'] as int?,
+    json['key'] as String?,
+  );
+}
+
+Map<String, dynamic> _$ArchivosRubroProcesoSerialToJson(
+        ArchivosRubroProcesoSerial instance) =>
+    <String, dynamic>{
+      'archivoRubroId': instance.archivoRubroId,
+      'url': instance.url,
+      'tipoArchivoId': instance.tipoArchivoId,
+      'evaluacionProcesoId': instance.evaluacionProcesoId,
+      'localpath': instance.localpath,
+      'delete': instance.delete,
+      'usuarioCreacionId': instance.usuarioCreacionId,
+      'fechaCreacion': instance.fechaCreacion,
+      'usuarioAccionId': instance.usuarioAccionId,
+      'fechaAccion': instance.fechaAccion,
+      'key': instance.key,
+    };
+
+RubroEvalRNPFormulaSerial _$RubroEvalRNPFormulaSerialFromJson(
+    Map<String, dynamic> json) {
+  return RubroEvalRNPFormulaSerial(
+    json['rubroFormulaId'] as String?,
+    json['rubroEvaluacionPrimId'] as String?,
+    json['rubroEvaluacionSecId'] as String?,
+    (json['peso'] as num?)?.toDouble(),
+    json['usuarioCreacionId'] as int?,
+    json['fechaCreacion'] as int?,
+    json['usuarioAccionId'] as int?,
+    json['fechaAccion'] as int?,
+    json['key'] as String?,
+  );
+}
+
+Map<String, dynamic> _$RubroEvalRNPFormulaSerialToJson(
+        RubroEvalRNPFormulaSerial instance) =>
+    <String, dynamic>{
+      'rubroFormulaId': instance.rubroFormulaId,
+      'rubroEvaluacionPrimId': instance.rubroEvaluacionPrimId,
+      'rubroEvaluacionSecId': instance.rubroEvaluacionSecId,
+      'peso': instance.peso,
+      'usuarioCreacionId': instance.usuarioCreacionId,
+      'fechaCreacion': instance.fechaCreacion,
+      'usuarioAccionId': instance.usuarioAccionId,
+      'fechaAccion': instance.fechaAccion,
+      'key': instance.key,
+    };
+
+CriterioRubroEvaluacionSerial _$CriterioRubroEvaluacionSerialFromJson(
+    Map<String, dynamic> json) {
+  return CriterioRubroEvaluacionSerial(
+    json['criteriosEvaluacionId'] as String?,
+    json['rubroEvalProcesoId'] as String?,
+    json['valorTipoNotaId'] as String?,
+    json['descripcion'] as String?,
+    json['usuarioCreacionId'] as int?,
+    json['fechaCreacion'] as int?,
+    json['usuarioAccionId'] as int?,
+    json['fechaAccion'] as int?,
+    json['key'] as String?,
+  );
+}
+
+Map<String, dynamic> _$CriterioRubroEvaluacionSerialToJson(
+        CriterioRubroEvaluacionSerial instance) =>
+    <String, dynamic>{
+      'criteriosEvaluacionId': instance.criteriosEvaluacionId,
+      'rubroEvalProcesoId': instance.rubroEvalProcesoId,
+      'valorTipoNotaId': instance.valorTipoNotaId,
+      'descripcion': instance.descripcion,
+      'usuarioCreacionId': instance.usuarioCreacionId,
+      'fechaCreacion': instance.fechaCreacion,
+      'usuarioAccionId': instance.usuarioAccionId,
+      'fechaAccion': instance.fechaAccion,
+      'key': instance.key,
+    };
+
+EquipoEvaluacionProcesoSerial _$EquipoEvaluacionProcesoSerialFromJson(
+    Map<String, dynamic> json) {
+  return EquipoEvaluacionProcesoSerial(
+    json['equipoEvaluacionProcesoId'] as String?,
+    json['rubroEvalProcesoId'] as String?,
+    json['sesionAprendizajeId'] as int?,
+    json['equipoId'] as String?,
+    (json['nota'] as num?)?.toDouble(),
+    json['escala'] as String?,
+    json['valorTipoNotaId'] as String?,
+    json['usuarioCreacionId'] as int?,
+    json['fechaCreacion'] as int?,
+    json['usuarioAccionId'] as int?,
+    json['fechaAccion'] as int?,
+    json['key'] as String?,
+  );
+}
+
+Map<String, dynamic> _$EquipoEvaluacionProcesoSerialToJson(
+        EquipoEvaluacionProcesoSerial instance) =>
+    <String, dynamic>{
+      'equipoEvaluacionProcesoId': instance.equipoEvaluacionProcesoId,
+      'rubroEvalProcesoId': instance.rubroEvalProcesoId,
+      'sesionAprendizajeId': instance.sesionAprendizajeId,
+      'equipoId': instance.equipoId,
+      'nota': instance.nota,
+      'escala': instance.escala,
+      'valorTipoNotaId': instance.valorTipoNotaId,
+      'usuarioCreacionId': instance.usuarioCreacionId,
+      'fechaCreacion': instance.fechaCreacion,
+      'usuarioAccionId': instance.usuarioAccionId,
+      'fechaAccion': instance.fechaAccion,
+      'key': instance.key,
+    };
+
+RubroEvaluacionProcesoIntegranteSerial
+    _$RubroEvaluacionProcesoIntegranteSerialFromJson(
+        Map<String, dynamic> json) {
+  return RubroEvaluacionProcesoIntegranteSerial(
+    json['rubroEvaluacionEquipoId'] as String?,
+    json['personaId'] as int?,
+  );
+}
+
+Map<String, dynamic> _$RubroEvaluacionProcesoIntegranteSerialToJson(
+        RubroEvaluacionProcesoIntegranteSerial instance) =>
+    <String, dynamic>{
+      'rubroEvaluacionEquipoId': instance.rubroEvaluacionEquipoId,
+      'personaId': instance.personaId,
+    };
+
+RubroEvaluacionProcesoEquipoSerial _$RubroEvaluacionProcesoEquipoSerialFromJson(
+    Map<String, dynamic> json) {
+  return RubroEvaluacionProcesoEquipoSerial(
+    json['rubroEvaluacionEquipoId'] as String?,
+    json['equipoId'] as String?,
+    json['nombreEquipo'] as String?,
+    json['rubroEvalProcesoId'] as String?,
+    json['usuarioCreacionId'] as int?,
+    json['fechaCreacion'] as int?,
+    json['usuarioAccionId'] as int?,
+    json['fechaAccion'] as int?,
+    json['key'] as String?,
+  );
+}
+
+Map<String, dynamic> _$RubroEvaluacionProcesoEquipoSerialToJson(
+        RubroEvaluacionProcesoEquipoSerial instance) =>
+    <String, dynamic>{
+      'rubroEvaluacionEquipoId': instance.rubroEvaluacionEquipoId,
+      'equipoId': instance.equipoId,
+      'nombreEquipo': instance.nombreEquipo,
+      'rubroEvalProcesoId': instance.rubroEvalProcesoId,
       'usuarioCreacionId': instance.usuarioCreacionId,
       'fechaCreacion': instance.fechaCreacion,
       'usuarioAccionId': instance.usuarioAccionId,

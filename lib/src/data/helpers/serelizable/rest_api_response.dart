@@ -4,6 +4,7 @@ part 'rest_api_response.g.dart';
 /*
 Mac OS important
 export PATH="$PATH:/Users/edwinrubenpuente/SDKFlutter/flutter/bin"
+export PATH="$PATH:/Users/jose/flutter/bin"
 
 * One-time code generation
 By running flutter pub run build_runner build in the project root, you generate JSON serialization code for your models whenever they are needed. This triggers a one-time build that goes through the source files, picks the relevant ones, and generates the necessary serialization code for them.
@@ -1171,6 +1172,9 @@ class RubroEvaluacionProcesoSerial {
   int?fechaAccion;
   String? key;
 
+  String? instrumentoEvalId;
+  String? preguntaEvalId;
+
   RubroEvaluacionProcesoSerial(
       this.rubroEvalProcesoId,
       this.titulo,
@@ -1210,17 +1214,261 @@ class RubroEvaluacionProcesoSerial {
       this.fechaCreacion,
       this.usuarioAccionId,
       this.fechaAccion,
-      this.key);
+      this.key,
+      this.instrumentoEvalId,
+      this.preguntaEvalId);
 
   factory RubroEvaluacionProcesoSerial.fromJson(Map<String, dynamic> json) => _$RubroEvaluacionProcesoSerialFromJson(json);
 
   Map<String, dynamic> toJson() => _$RubroEvaluacionProcesoSerialToJson(this);
 
 }
+@JsonSerializable()
+class EvaluacionProcesoSerial {
+  String? evaluacionProcesoId;
+  int? evaluacionResultadoId;
+  double? nota;
+  String? escala;
+  String? rubroEvalProcesoId;
+  int? sesionAprendizajeId;
+  String? valorTipoNotaId;
+  String? equipoId;
+  int? alumnoId;
+  int? calendarioPeriodoId;
+  bool? formulaSinc;
+  int? msje;
+  int? publicado;
+  int? visto;
+
+  int? usuarioCreacionId;
+  int?fechaCreacion;
+  int? usuarioAccionId;
+  int?fechaAccion;
+  String? key;
 
 
-//#region Rubro Evaluacion
+  EvaluacionProcesoSerial(this.evaluacionProcesoId, this.evaluacionResultadoId,
+      this.nota, this.escala, this.rubroEvalProcesoId, this.sesionAprendizajeId,
+      this.valorTipoNotaId, this.equipoId, this.alumnoId,
+      this.calendarioPeriodoId, this.formulaSinc, this.msje, this.publicado,
+      this.visto, this.usuarioCreacionId, this.fechaCreacion,
+      this.usuarioAccionId, this.fechaAccion, this.key);
 
+  factory EvaluacionProcesoSerial.fromJson(Map<String, dynamic> json) => _$EvaluacionProcesoSerialFromJson(json);
+
+  Map<String, dynamic> toJson() => _$EvaluacionProcesoSerialToJson(this);
+}
+@JsonSerializable()
+class RubroEvaluacionProcesoCampotematicoSerial{
+  String? rubroEvalProcesoId;
+  int? campoTematicoId;
+
+  RubroEvaluacionProcesoCampotematicoSerial(
+      this.rubroEvalProcesoId, this.campoTematicoId);
+
+  factory RubroEvaluacionProcesoCampotematicoSerial.fromJson(Map<String, dynamic> json) => _$RubroEvaluacionProcesoCampotematicoSerialFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RubroEvaluacionProcesoCampotematicoSerialToJson(this);
+  
+}
+@JsonSerializable()
+class RubroEvaluacionProcesoComentarioSerial {
+  String? evaluacionProcesoComentarioId;
+  String? evaluacionProcesoId;
+  String? comentarioId;
+  String? descripcion;
+  int? delete;
+
+  int? usuarioCreacionId;
+  int?fechaCreacion;
+  int? usuarioAccionId;
+  int?fechaAccion;
+  String? key;
+
+
+  RubroEvaluacionProcesoComentarioSerial(
+      this.evaluacionProcesoComentarioId,
+      this.evaluacionProcesoId,
+      this.comentarioId,
+      this.descripcion,
+      this.delete,
+      this.usuarioCreacionId,
+      this.fechaCreacion,
+      this.usuarioAccionId,
+      this.fechaAccion,
+      this.key);
+
+  factory RubroEvaluacionProcesoComentarioSerial.fromJson(Map<String, dynamic> json) => _$RubroEvaluacionProcesoComentarioSerialFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RubroEvaluacionProcesoComentarioSerialToJson(this);
+}
+@JsonSerializable()
+class ArchivosRubroProcesoSerial {
+  String? archivoRubroId;
+  String? url;
+  int? tipoArchivoId;
+  String? evaluacionProcesoId;
+  String? localpath;
+  int? delete;
+
+  int? usuarioCreacionId;
+  int?fechaCreacion;
+  int? usuarioAccionId;
+  int?fechaAccion;
+  String? key;
+
+  ArchivosRubroProcesoSerial(
+      this.archivoRubroId,
+      this.url,
+      this.tipoArchivoId,
+      this.evaluacionProcesoId,
+      this.localpath,
+      this.delete,
+      this.usuarioCreacionId,
+      this.fechaCreacion,
+      this.usuarioAccionId,
+      this.fechaAccion,
+      this.key);
+
+  factory ArchivosRubroProcesoSerial.fromJson(Map<String, dynamic> json) => _$ArchivosRubroProcesoSerialFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ArchivosRubroProcesoSerialToJson(this);
+}
+@JsonSerializable()
+class RubroEvalRNPFormulaSerial {
+
+  String? rubroFormulaId;
+  String? rubroEvaluacionPrimId;
+  String? rubroEvaluacionSecId;
+  double? peso;
+
+  int? usuarioCreacionId;
+  int?fechaCreacion;
+  int? usuarioAccionId;
+  int?fechaAccion;
+  String? key;
+
+  RubroEvalRNPFormulaSerial(
+      this.rubroFormulaId,
+      this.rubroEvaluacionPrimId,
+      this.rubroEvaluacionSecId,
+      this.peso,
+      this.usuarioCreacionId,
+      this.fechaCreacion,
+      this.usuarioAccionId,
+      this.fechaAccion,
+      this.key);
+
+  factory RubroEvalRNPFormulaSerial.fromJson(Map<String, dynamic> json) => _$RubroEvalRNPFormulaSerialFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RubroEvalRNPFormulaSerialToJson(this);
+}
+@JsonSerializable()
+class CriterioRubroEvaluacionSerial {
+
+  String? criteriosEvaluacionId;
+  String? rubroEvalProcesoId;
+  String? valorTipoNotaId;
+  String? descripcion;
+
+  int? usuarioCreacionId;
+  int?fechaCreacion;
+  int? usuarioAccionId;
+  int?fechaAccion;
+  String? key;
+
+  CriterioRubroEvaluacionSerial(
+      this.criteriosEvaluacionId,
+      this.rubroEvalProcesoId,
+      this.valorTipoNotaId,
+      this.descripcion,
+      this.usuarioCreacionId,
+      this.fechaCreacion,
+      this.usuarioAccionId,
+      this.fechaAccion,
+      this.key);
+
+  factory CriterioRubroEvaluacionSerial.fromJson(Map<String, dynamic> json) => _$CriterioRubroEvaluacionSerialFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CriterioRubroEvaluacionSerialToJson(this);
+}
+@JsonSerializable()
+class EquipoEvaluacionProcesoSerial {
+
+  String? equipoEvaluacionProcesoId;
+  String? rubroEvalProcesoId;
+  int? sesionAprendizajeId;
+  String? equipoId;
+  double? nota;
+  String? escala;
+  String? valorTipoNotaId;
+
+  int? usuarioCreacionId;
+  int?fechaCreacion;
+  int? usuarioAccionId;
+  int?fechaAccion;
+  String? key;
+
+  EquipoEvaluacionProcesoSerial(
+      this.equipoEvaluacionProcesoId,
+      this.rubroEvalProcesoId,
+      this.sesionAprendizajeId,
+      this.equipoId,
+      this.nota,
+      this.escala,
+      this.valorTipoNotaId,
+      this.usuarioCreacionId,
+      this.fechaCreacion,
+      this.usuarioAccionId,
+      this.fechaAccion,
+      this.key);
+
+  factory EquipoEvaluacionProcesoSerial.fromJson(Map<String, dynamic> json) => _$EquipoEvaluacionProcesoSerialFromJson(json);
+
+  Map<String, dynamic> toJson() => _$EquipoEvaluacionProcesoSerialToJson(this);
+}
+@JsonSerializable()
+class RubroEvaluacionProcesoIntegranteSerial {
+
+  String? rubroEvaluacionEquipoId;
+  int? personaId;
+
+  RubroEvaluacionProcesoIntegranteSerial(
+      this.rubroEvaluacionEquipoId, this.personaId);
+
+  factory RubroEvaluacionProcesoIntegranteSerial.fromJson(Map<String, dynamic> json) => _$RubroEvaluacionProcesoIntegranteSerialFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RubroEvaluacionProcesoIntegranteSerialToJson(this);
+}
+@JsonSerializable()
+class RubroEvaluacionProcesoEquipoSerial {
+  String? rubroEvaluacionEquipoId;
+  String? equipoId;
+  String? nombreEquipo;
+  String? rubroEvalProcesoId;
+
+  int? usuarioCreacionId;
+  int?fechaCreacion;
+  int? usuarioAccionId;
+  int?fechaAccion;
+  String? key;
+
+  RubroEvaluacionProcesoEquipoSerial(
+      this.rubroEvaluacionEquipoId,
+      this.equipoId,
+      this.nombreEquipo,
+      this.rubroEvalProcesoId,
+      this.usuarioCreacionId,
+      this.fechaCreacion,
+      this.usuarioAccionId,
+      this.fechaAccion,
+      this.key);
+
+  factory RubroEvaluacionProcesoEquipoSerial.fromJson(Map<String, dynamic> json) => _$RubroEvaluacionProcesoEquipoSerialFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RubroEvaluacionProcesoEquipoSerialToJson(this);
+}
+//#endregrion
 @JsonSerializable()
 class ContactoDocenteSerial{
   int? personaId;
@@ -1290,6 +1538,7 @@ class ContactoDocenteSerial{
 
   Map<String, dynamic> toJson() => _$ContactoDocenteSerialToJson(this);
 }
+
 
 //#region  AgendaCalendario
 @JsonSerializable()
