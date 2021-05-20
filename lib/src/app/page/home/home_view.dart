@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:moor_db_viewer/moor_db_viewer.dart';
@@ -34,7 +37,6 @@ class _HomePageState extends ViewState<HomeView, HomeController> with TickerProv
 
   @override
   void initState() {
-
     super.initState();
   }
   double scrolloffset = 0.0;
@@ -62,13 +64,13 @@ class _HomePageState extends ViewState<HomeView, HomeController> with TickerProv
   @override
   Widget get view =>
       Container(
-        color: AppTheme.nearlyWhite,
+        //color: AppTheme.nearlyWhite,
         child: SafeArea(
           top: false,
           bottom: false,
           child: Scaffold(
-            backgroundColor: AppTheme.nearlyWhite,
-           appBar: AppBar(
+          //  backgroundColor: AppTheme.nearlyWhite,
+/*           appBar: AppBar(
                 title: Text('DBDEBUG'),
                 actions: <Widget>[
                   new IconButton(
@@ -80,7 +82,7 @@ class _HomePageState extends ViewState<HomeView, HomeController> with TickerProv
                       }
                   ),
                 ]
-            ),
+            ),*/
             body: ControlledWidgetBuilder<HomeController>(
                 builder: (context, controller) {
                   if(controller.showLoggin == 0){

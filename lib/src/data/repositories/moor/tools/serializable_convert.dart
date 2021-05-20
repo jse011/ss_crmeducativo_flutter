@@ -1,6 +1,10 @@
 import 'package:moor/src/runtime/data_class.dart';
 import 'package:ss_crmeducativo_2/src/data/helpers/serelizable/rest_api_response.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/database/app_database.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/agenda_evento/calendario_lista_usuario.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/agenda_evento/lista_usuario_detalle.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/agenda_evento/relaciones_persona.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/agenda_evento/usuario_evento.dart';
 
 class SerializableConvert{
   static EntidadData converSerializeEntidad(Map<String,dynamic> model){
@@ -995,6 +999,280 @@ class SerializableConvert{
     Iterable l = model;
     for(var item in l){
       items.add(converSerializeContactoDocente(item));
+    }
+    return items;
+  }
+
+
+  static CalendarioData converSerializeCalendario(Map<String,dynamic> model){
+    CalendarioSerial serial = CalendarioSerial.fromJson(model);
+    return CalendarioData(
+        calendarioId: serial.calendarioId??"",
+        cargaAcademicaId: serial.cargaAcademicaId,
+        cargaCursoId: serial.cargaCursoId,
+        cargo: serial.cargo,
+        descripcion: serial.descripcion,
+        entidadId: serial.entidadId,
+        estado: serial.estado,
+        estadoPublicaciN: serial.estadoPublicaciN,
+        estadoPublicacion: serial.estadoPublicacion,
+        fechaAccion: serial.fechaAccion,
+        fechaCreacion: serial.fechaCreacion,
+        fechaEntrega: serial.fechaEntrega,
+        fechaEnvio: serial.fechaEnvio,
+        fechaRecibido: serial.fechaRecibido,
+        fechaRespuesta: serial.fechaRespuesta,
+        fechaVisto: serial.fechaVisto,
+        georeferenciaId: serial.georeferenciaId,
+        nombre: serial.nombre,
+        rolId: serial.rolId,
+        nUsuario: serial.nUsuario,
+        usuarioId: serial.usuarioId,
+        getSTime: serial.getSTime,
+        usuarioAccionId: serial.usuarioAccionId,
+        usuarioCreacionId: serial.usuarioCreacionId,
+        usuarioCreadorId: serial.usuarioCreadorId
+    );
+  }
+
+  static List<CalendarioData> converListSerializeCalendario(dynamic model){
+    List<CalendarioData> items = [];
+    Iterable l = model;
+    for(var item in l){
+      items.add(converSerializeCalendario(item));
+    }
+    return items;
+  }
+
+  static CalendarioListaUsuarioData converSerializeCalendarioListaUsuario(Map<String,dynamic> model){
+    CalendarioListaUsuarioSerial serial = CalendarioListaUsuarioSerial.fromJson(model);
+    return CalendarioListaUsuarioData(
+        listaUsuarioId: serial.listaUsuarioId??0, 
+        calendarioId: serial.calendarioId??""
+      
+    );
+  }
+
+  static List<CalendarioListaUsuarioData> converListSerializeCalendarioListaUsuario(dynamic model){
+    List<CalendarioListaUsuarioData> items = [];
+    Iterable l = model;
+    for(var item in l){
+      items.add(converSerializeCalendarioListaUsuario(item));
+    }
+    return items;
+  }
+  
+  static EventoData converSerializeEvento(Map<String,dynamic> model){
+    EventoSerial serial = EventoSerial.fromJson(model);
+    return EventoData(
+        eventoId: serial.eventoId??"",
+        titulo: serial.titulo,
+        descripcion: serial.descripcion,
+        horaEvento: serial.horaEvento,
+        fechaEvento: serial.fechaEvento,
+        calendarioId: serial.calendarioId,
+        entidadId: serial.entidadId,
+        envioPersonalizado: serial.envioPersonalizado,
+        estadoId: serial.estadoId,
+        estadoPublicacion: serial.estadoPublicacion,
+        eventoHijoId: serial.eventoHijoId,
+        georeferenciaId: serial.georeferenciaId,
+        tipoEventoId: serial.tipoEventoId,
+        key: serial.key,
+        fechaAccion: serial.fechaAccion,
+        fechaCreacion: serial.fechaCreacion,
+        fechaEntrega: serial.fechaEntrega,
+        fechaEnvio: serial.fechaEnvio,
+        fechaRecibido: serial.fechaRecibido,
+        fechaRespuesta: serial.fechaRespuesta,
+        fechaVisto: serial.fechaVisto,
+        pathImagen: serial.pathImagen,
+        usuarioReceptorId: serial.usuarioReceptorId,
+        usuarioAccionId: serial.usuarioAccionId,
+        usuarioCreadorId: serial.usuarioCreadorId,
+        usuarioCreacionId: serial.usuarioCreacionId,
+        nombreEntidad: serial.nombreEntidad,
+        fotoEntidad: serial.fotoEntidad
+    );
+  }
+
+  static List<EventoData> converListSerializeEvento(dynamic model){
+    List<EventoData> items = [];
+    Iterable l = model;
+    for(var item in l){
+      items.add(converSerializeEvento(item));
+    }
+    return items;
+  }
+
+  static EventoPersonaData converSerializeEventoPersona(Map<String,dynamic> model){
+    EventoPersonaSerial serial = EventoPersonaSerial.fromJson(model);
+    return EventoPersonaData(
+        eventoPersonaId: serial.eventoPersonaId??"",
+        eventoId: serial.eventoId,
+        personaId: serial.personaId,
+        estado: serial.estado,
+        rolId: serial.rolId,
+        apoderadoId: serial.apoderadoId,
+        key: serial.key,
+        usuarioCreacionId: serial.usuarioCreacionId,
+        usuarioCreadorId: serial.usuarioCreadorId,
+        fechaCreacion: serial.fechaCreacion,
+        usuarioAccionId: serial.usuarioAccionId,
+        fechaAccion: serial.fechaAccion,
+        fechaEnvio: serial.fechaEnvio,
+        fechaEntrega: serial.fechaEntrega,
+        fechaRecibido: serial.fechaRecibido,
+        fechaVisto: serial.fechaVisto,
+        fechaRespuesta: serial.fechaRespuesta,
+    );
+  }
+
+  static List<EventoPersonaData> converListSerializeEventoPersona(dynamic model){
+    List<EventoPersonaData> items = [];
+    Iterable l = model;
+    for(var item in l){
+      items.add(converSerializeEventoPersona(item));
+    }
+    return items;
+  }
+
+  static ListaUsuario converSerializeCalendarioListaUsuarios(Map<String,dynamic> model){
+    ListaUsuariosSerial serial = ListaUsuariosSerial.fromJson(model);
+    return ListaUsuario(
+        listaUsuarioId: serial.listaUsuarioId??0,
+        nombre: serial.nombre,
+        descripcion: serial.descripcion,
+        entidadId: serial.entidadId,
+        georeferenciaId: serial.georeferenciaId,
+        organigramaId: serial.organigramaId,
+        estado: serial.estado,
+        usuarioCreacionId: serial.usuarioCreacionId,
+        usuarioCreadorId: serial.usuarioCreadorId,
+        fechaCreacion: serial.fechaCreacion,
+        usuarioAccionId: serial.usuarioAccionId,
+        fechaAccion: serial.fechaAccion,
+        fechaEnvio: serial.fechaEnvio,
+        fechaEntrega: serial.fechaEntrega,
+        fechaRecibido: serial.fechaRecibido,
+        fechaVisto: serial.fechaVisto,
+        fechaRespuesta: serial.fechaRespuesta
+
+    );
+  }
+
+  static List<ListaUsuario> converListSerializeCalendarioListaUsuarios(dynamic model){
+    List<ListaUsuario> items = [];
+    Iterable l = model;
+    for(var item in l){
+      items.add(converSerializeCalendarioListaUsuarios(item));
+    }
+    return items;
+  }
+
+  static PersonaEventoData converSerializePersonaEvento(Map<String,dynamic> model){
+    PersonaEventoSerial serial = PersonaEventoSerial.fromJson(model);
+    return PersonaEventoData(
+        personaId: serial.personaId??0,
+        nombres: serial.nombres,
+        apellidoPaterno: serial.apellidoPaterno,
+        apellidoMaterno: serial.apellidoMaterno,
+        celular: serial.celular,
+        telefono: serial.telefono,
+        foto: serial.foto,
+        fechaNac: serial.fechaNac,
+        genero: serial.genero,
+        estadoCivil: serial.estadoCivil,
+        numDoc: serial.numDoc,
+        ocupacion: serial.ocupacion,
+        estadoId: serial.estadoId,
+        correo: serial.correo,
+        empleadoId: serial.empleadoId
+    );
+  }
+
+  static List<PersonaEventoData> converListSerializePersonaEvento(dynamic model){
+    List<PersonaEventoData> items = [];
+    Iterable l = model;
+    for(var item in l){
+      items.add(converSerializePersonaEvento(item));
+    }
+    return items;
+  }
+
+  static RelacionesEventoData converSerializeRelacionesEvento(Map<String,dynamic> model){
+    RelacionesEventoSerial serial = RelacionesEventoSerial.fromJson(model);
+    return RelacionesEventoData(
+        idRelacion: serial.idRelacion??0,
+        personaPrincipalId: serial.personaPrincipalId,
+        personaVinculadaId: serial.personaVinculadaId,
+        tipoId: serial.tipoId,
+        activo: serial.activo
+    );
+  }
+
+  static List<RelacionesEventoData> converListSerializeRelacionesEvento(dynamic model){
+    List<RelacionesEventoData> items = [];
+    Iterable l = model;
+    for(var item in l){
+      items.add(converSerializeRelacionesEvento(item));
+    }
+    return items;
+  }
+  static TipoEventoData converSerializeTipoEvento(Map<String,dynamic> model){
+    TiposEventoSerial serial = TiposEventoSerial.fromJson(model);
+    return TipoEventoData(
+        tipoId: serial.tipoId??0,
+        objeto: serial.objeto,
+        concepto: serial.concepto,
+        nombre: serial.nombre,
+        codigo: serial.codigo,
+        estado: serial.estado,
+        parentId: serial.parentId
+    );
+  }
+
+  static List<TipoEventoData> converListSerializeTipoEvento(dynamic model){
+    List<TipoEventoData> items = [];
+    Iterable l = model;
+    for(var item in l){
+      items.add(converSerializeTipoEvento(item));
+    }
+    return items;
+  }
+  static UsuarioEventoData converSerializeUsuarioEvento(Map<String,dynamic> model){
+    UsuarioEventoSerial serial = UsuarioEventoSerial.fromJson(model);
+    return UsuarioEventoData(
+       usuarioId: serial.usuarioId??0,
+       personaId: serial.personaId,
+       estado: serial.estado,
+       entidadId: serial.entidadId,
+       georeferenciaId: serial.georeferenciaId
+    );
+  }
+
+  static List<UsuarioEventoData> converListSerializeUsuarioEvento(dynamic model){
+    List<UsuarioEventoData> items = [];
+    Iterable l = model;
+    for(var item in l){
+      items.add(converSerializeUsuarioEvento(item));
+    }
+    return items;
+  }
+
+  static ListaUsuarioDetalleData converSerializeListaUsuarioDetalle(Map<String,dynamic> model){
+    ListUsuarioDetalleSerial serial = ListUsuarioDetalleSerial.fromJson(model);
+    return ListaUsuarioDetalleData(
+        listaUsuarioId: serial.listaUsuarioId??0,
+        usuarioId: serial.usuarioId??0
+    );
+  }
+
+  static List<ListaUsuarioDetalleData> converListSerializeListaUsuarioDetalle(dynamic model){
+    List<ListaUsuarioDetalleData> items = [];
+    Iterable l = model;
+    for(var item in l){
+      items.add(converSerializeListaUsuarioDetalle(item));
     }
     return items;
   }

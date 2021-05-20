@@ -34,12 +34,5 @@ abstract class ConfiguracionRepository{
   Future<void> saveContactoDocente(Map<String, dynamic> contactoDocente, int empleadoId, int anioAcademicoIdSelect);
   Future<List<ContactoUi>> getListContacto(int empleadoId, int anioAcademicoIdSelect);
 
-  Future<List<TipoEventoUi>> getTiposEvento();
-
-  Future<void> saveEventoAgenda(Map<String, dynamic> eventoAgenda, int usuarioId, int georeferenciaId, int tipoEventoId);
-
-  Future<List<EventoUi>> getEventosAgenda(int usuarioId, int georeferenciaId, int tipoEventoId);
-
-
   
 }

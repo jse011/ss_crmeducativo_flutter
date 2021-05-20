@@ -24,7 +24,7 @@ class EventoAgendaController extends Controller{
 
   EventoAgendaPresenter presenter;
 
-  EventoAgendaController(httpRepo, configuracionRepo):this.presenter = new EventoAgendaPresenter(httpRepo, configuracionRepo);
+  EventoAgendaController(httpRepo, configuracionRepo, agendaEventoRepo):this.presenter = new EventoAgendaPresenter(httpRepo, configuracionRepo, agendaEventoRepo);
 
   @override
   void initListeners() {
@@ -42,9 +42,10 @@ class EventoAgendaController extends Controller{
       _msgConexion = "!Oops! Al parecer ocurrió un error involuntario.";
       refreshUI();
     };
-    presenter.getEventoAgendaOnNext = (List<TipoEventoUi> tipoEvantoList, List<EventoUi> eventoList, bool errorServidor, bool datosOffline) {
-
-      _tipoEventoList = tipoEvantoList;
+    presenter.getEventoAgendaOnNext = (List<TipoEventoUi>? tipoEvantoList, List<EventoUi>? eventoList, bool errorServidor, bool datosOffline) {
+      print("tipoEventoUiList :3 size: " + (tipoEvantoList?.length??0).toString());
+      print("eventoUIList :3 size: " + (eventoList?.length??0).toString());
+      _tipoEventoList = tipoEvantoList??[];
       _msgConexion = errorServidor? "!Oops! Al parecer ocurrió un error involuntario.":null;
       _msgConexion = datosOffline? "No hay Conexión a Internet...":null;
 
@@ -64,12 +65,8 @@ class EventoAgendaController extends Controller{
         }
       }
 
-      if(eventoList!=null){
-        _eventoUilIst = eventoList;
-        hideProgress();
-      }else{
-        _eventoUilIst = [];
-      }
+      _eventoUilIst = eventoList??[];
+      hideProgress();
       refreshUI();
     };
   }

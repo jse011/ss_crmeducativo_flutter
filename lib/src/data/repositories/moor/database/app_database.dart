@@ -1,4 +1,14 @@
 import 'package:moor_flutter/moor_flutter.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/agenda_evento/calendario.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/agenda_evento/calendario_lista_usuario.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/agenda_evento/evento.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/agenda_evento/evento_persona.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/agenda_evento/lista_usuario_detalle.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/agenda_evento/lista_usuarios.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/agenda_evento/persona_evento.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/agenda_evento/relaciones_persona.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/agenda_evento/tipo_evento.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/agenda_evento/usuario_evento.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/anio_academico.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/aula.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/calendario_academico.dart';
@@ -58,7 +68,8 @@ part 'app_database.g.dart';
   CargaCursoDocente, CargaCursoDocenteDet, CargaCurso, Cursos, ParametrosDisenio, NivelAcademico, Periodos, PlanCursos, PlanEstudio, ProgramasEducativo, Seccion, SilaboEvento,
   CalendarioPeriodo, CalendarioPeriodoDetalle, CargaCursoCalendarioPeriodo, Tipos, Hora, HorarioPrograma, HorarioHora, DetalleHorario, Dia, HorarioDia, CursosDetHorario, Horario,
   CalendarioAcademico, Usuario, WebConfigs, Criterio, TipoEvaluacionRubro, TiposRubro, TipoNotaRubro, ValorTipoNotaRubro, RubroEvaluacionProceso, ArchivoRubro, EquipoEvaluacion,
-  EvaluacionProceso, RubroCampotematico, RubroComentario, RubroEvalRNPFormula, ContactoDocente, CriterioRubroEvaluacion])
+  EvaluacionProceso, RubroCampotematico, RubroComentario, RubroEvalRNPFormula, ContactoDocente, CriterioRubroEvaluacion, Calendario, CalendarioListaUsuario, Evento, EventoPersona,
+  ListaUsuarioDetalle, ListaUsuarios, PersonaEvento, RelacionesEvento, TipoEvento, UsuarioEvento])
 class AppDataBase extends _$AppDataBase {
   @override
   int get schemaVersion => 1;

@@ -822,24 +822,6 @@ class MoorConfiguracionRepository extends ConfiguracionRepository{
   }
 
   @override
-  Future<List<EventoUi>> getEventosAgenda(int usuarioId, int anioAcademicoId, int tipoEventoId) {
-    // TODO: implement getEventosAgenda
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<List<TipoEventoUi>> getTiposEvento() {
-    // TODO: implement getTiposEvento
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> saveEventoAgenda(Map<String, dynamic> eventoAgenda, int usuarioId, int anioAcademicoId, int tipoEventoId) {
-    // TODO: implement saveEventoAgenda
-    throw UnimplementedError();
-  }
-
-  @override
   Future<int> getGeoreferenciaId() async {
     AppDataBase SQL = AppDataBase();
     try{

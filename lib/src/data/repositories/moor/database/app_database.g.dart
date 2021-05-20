@@ -23,20 +23,17 @@ class SessionUserData extends DataClass implements Insertable<SessionUserData> {
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final boolType = db.typeSystem.forDartType<bool>();
     return SessionUserData(
-      userId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}user_id'])!,
-      anioAcademicoId: intType
+      userId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}user_id'])!,
+      anioAcademicoId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}anio_academico_id']),
-      programaEducativoId: intType.mapFromDatabaseResponse(
+      programaEducativoId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}programa_educativo_id']),
-      urlServerLocal: stringType
+      urlServerLocal: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}url_server_local']),
-      complete:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}complete']),
+      complete: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}complete']),
     );
   }
   @override
@@ -133,7 +130,7 @@ class SessionUserData extends DataClass implements Insertable<SessionUserData> {
           $mrjc(programaEducativoId.hashCode,
               $mrjc(urlServerLocal.hashCode, complete.hashCode)))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is SessionUserData &&
           other.userId == this.userId &&
@@ -367,17 +364,17 @@ class UsuarioRolGeoreferenciaData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
     return UsuarioRolGeoreferenciaData(
-      usuarioRolGeoreferenciaId: intType.mapFromDatabaseResponse(
+      usuarioRolGeoreferenciaId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}usuario_rol_georeferencia_id'])!,
-      usuarioId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}usuario_id']),
-      rolId: intType.mapFromDatabaseResponse(data['${effectivePrefix}rol_id']),
-      geoReferenciaId: intType
+      usuarioId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}usuario_id']),
+      rolId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}rol_id']),
+      geoReferenciaId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}geo_referencia_id']),
-      entidadId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}entidad_id']),
+      entidadId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}entidad_id']),
     );
   }
   @override
@@ -476,7 +473,7 @@ class UsuarioRolGeoreferenciaData extends DataClass
           $mrjc(rolId.hashCode,
               $mrjc(geoReferenciaId.hashCode, entidadId.hashCode)))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is UsuarioRolGeoreferenciaData &&
           other.usuarioRolGeoreferenciaId == this.usuarioRolGeoreferenciaId &&
@@ -706,17 +703,15 @@ class RolData extends DataClass implements Insertable<RolData> {
   factory RolData.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final boolType = db.typeSystem.forDartType<bool>();
     return RolData(
-      rolId: intType.mapFromDatabaseResponse(data['${effectivePrefix}rol_id'])!,
-      nombre:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
-      parentId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}parent_id']),
-      estado:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}estado']),
+      rolId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}rol_id'])!,
+      nombre: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
+      parentId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}parent_id']),
+      estado: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado']),
     );
   }
   @override
@@ -791,7 +786,7 @@ class RolData extends DataClass implements Insertable<RolData> {
   int get hashCode => $mrjf($mrjc(rolId.hashCode,
       $mrjc(nombre.hashCode, $mrjc(parentId.hashCode, estado.hashCode))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is RolData &&
           other.rolId == this.rolId &&
@@ -985,19 +980,17 @@ class GeoreferenciaData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
     return GeoreferenciaData(
-      georeferenciaId: intType
+      georeferenciaId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}georeferencia_id'])!,
-      nombre:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
-      entidadId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}entidad_id']),
-      geoAlias: stringType
+      nombre: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
+      entidadId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}entidad_id']),
+      geoAlias: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}geo_alias']),
-      estadoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
+      estadoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
     );
   }
   @override
@@ -1092,7 +1085,7 @@ class GeoreferenciaData extends DataClass
           $mrjc(entidadId.hashCode,
               $mrjc(geoAlias.hashCode, estadoId.hashCode)))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is GeoreferenciaData &&
           other.georeferenciaId == this.georeferenciaId &&
@@ -1326,26 +1319,27 @@ class EntidadData extends DataClass implements Insertable<EntidadData> {
   factory EntidadData.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
     return EntidadData(
-      entidadId: intType
+      entidadId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}entidad_id'])!,
-      tipoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}tipo_id']),
-      parentId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}parent_id']),
-      nombre:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
-      ruc: stringType.mapFromDatabaseResponse(data['${effectivePrefix}ruc']),
-      site: stringType.mapFromDatabaseResponse(data['${effectivePrefix}site']),
-      telefono: stringType
+      tipoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}tipo_id']),
+      parentId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}parent_id']),
+      nombre: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
+      ruc: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}ruc']),
+      site: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}site']),
+      telefono: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}telefono']),
-      correo:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}correo']),
-      foto: stringType.mapFromDatabaseResponse(data['${effectivePrefix}foto']),
-      estadoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
+      correo: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}correo']),
+      foto: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}foto']),
+      estadoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
     );
   }
   @override
@@ -1499,7 +1493,7 @@ class EntidadData extends DataClass implements Insertable<EntidadData> {
                                   $mrjc(foto.hashCode,
                                       estadoId.hashCode))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is EntidadData &&
           other.entidadId == this.entidadId &&
@@ -1886,39 +1880,39 @@ class PersonaData extends DataClass implements Insertable<PersonaData> {
   factory PersonaData.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
     return PersonaData(
-      personaId: intType
+      personaId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}persona_id'])!,
-      nombres:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}nombres']),
-      apellidoPaterno: stringType
+      nombres: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nombres']),
+      apellidoPaterno: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}apellido_paterno']),
-      apellidoMaterno: stringType
+      apellidoMaterno: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}apellido_materno']),
-      celular:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}celular']),
-      telefono: stringType
+      celular: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}celular']),
+      telefono: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}telefono']),
-      foto: stringType.mapFromDatabaseResponse(data['${effectivePrefix}foto']),
-      fechaNac: stringType
+      foto: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}foto']),
+      fechaNac: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_nac']),
-      genero:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}genero']),
-      estadoCivil: stringType
+      genero: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}genero']),
+      estadoCivil: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}estado_civil']),
-      numDoc:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}num_doc']),
-      ocupacion: stringType
+      numDoc: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}num_doc']),
+      ocupacion: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}ocupacion']),
-      estadoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
-      correo:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}correo']),
-      direccion: stringType
+      estadoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
+      correo: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}correo']),
+      direccion: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}direccion']),
-      path: stringType.mapFromDatabaseResponse(data['${effectivePrefix}path']),
+      path: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}path']),
     );
   }
   @override
@@ -2154,7 +2148,7 @@ class PersonaData extends DataClass implements Insertable<PersonaData> {
                                                                   .hashCode,
                                                               path.hashCode))))))))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is PersonaData &&
           other.personaId == this.personaId &&
@@ -2698,21 +2692,19 @@ class EmpleadoData extends DataClass implements Insertable<EmpleadoData> {
   factory EmpleadoData.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final boolType = db.typeSystem.forDartType<bool>();
     return EmpleadoData(
-      empleadoId: intType
+      empleadoId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}empleado_id'])!,
-      personaId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}persona_id']),
-      linkURL: stringType
+      personaId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}persona_id']),
+      linkURL: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}link_u_r_l']),
-      estado:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}estado']),
-      tipoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}tipo_id']),
-      web: stringType.mapFromDatabaseResponse(data['${effectivePrefix}web']),
+      estado: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado']),
+      tipoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}tipo_id']),
+      web: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}web']),
     );
   }
   @override
@@ -2815,7 +2807,7 @@ class EmpleadoData extends DataClass implements Insertable<EmpleadoData> {
           $mrjc(linkURL.hashCode,
               $mrjc(estado.hashCode, $mrjc(tipoId.hashCode, web.hashCode))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is EmpleadoData &&
           other.empleadoId == this.empleadoId &&
@@ -3077,30 +3069,27 @@ class AnioAcademicoData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final boolType = db.typeSystem.forDartType<bool>();
     return AnioAcademicoData(
-      idAnioAcademico: intType.mapFromDatabaseResponse(
+      idAnioAcademico: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}id_anio_academico'])!,
-      nombre:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
-      fechaInicio: stringType
+      nombre: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
+      fechaInicio: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_inicio']),
-      fechaFin: stringType
+      fechaFin: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_fin']),
-      denominacion: stringType
+      denominacion: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}denominacion']),
-      georeferenciaId: intType
+      georeferenciaId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}georeferencia_id']),
-      organigramaId: intType
+      organigramaId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}organigrama_id']),
-      estadoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
-      tipoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}tipo_id']),
-      toogle:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}toogle']),
+      estadoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
+      tipoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}tipo_id']),
+      toogle: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}toogle']),
     );
   }
   @override
@@ -3260,7 +3249,7 @@ class AnioAcademicoData extends DataClass
                                   $mrjc(tipoId.hashCode,
                                       toogle.hashCode))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is AnioAcademicoData &&
           other.idAnioAcademico == this.idAnioAcademico &&
@@ -3643,17 +3632,17 @@ class ParametroConfiguracionData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
     return ParametroConfiguracionData(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      concepto: stringType
+      id: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
+      concepto: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}concepto']),
-      parametro: stringType
+      parametro: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}parametro']),
-      entidadId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}entidad_id']),
-      orden: intType.mapFromDatabaseResponse(data['${effectivePrefix}orden']),
+      entidadId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}entidad_id']),
+      orden: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}orden']),
     );
   }
   @override
@@ -3748,7 +3737,7 @@ class ParametroConfiguracionData extends DataClass
           $mrjc(
               parametro.hashCode, $mrjc(entidadId.hashCode, orden.hashCode)))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is ParametroConfiguracionData &&
           other.id == this.id &&
@@ -3972,18 +3961,17 @@ class AulaData extends DataClass implements Insertable<AulaData> {
   factory AulaData.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
     return AulaData(
-      aulaId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}aula_id'])!,
-      descripcion: stringType
+      aulaId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}aula_id'])!,
+      descripcion: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}descripcion']),
-      numero:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}numero']),
-      capacidad:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}capacidad']),
-      estado: intType.mapFromDatabaseResponse(data['${effectivePrefix}estado']),
+      numero: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}numero']),
+      capacidad: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}capacidad']),
+      estado: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado']),
     );
   }
   @override
@@ -4075,7 +4063,7 @@ class AulaData extends DataClass implements Insertable<AulaData> {
       $mrjc(descripcion.hashCode,
           $mrjc(numero.hashCode, $mrjc(capacidad.hashCode, estado.hashCode)))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is AulaData &&
           other.aulaId == this.aulaId &&
@@ -4316,33 +4304,32 @@ class CargaAcademicaData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
     return CargaAcademicaData(
-      cargaAcademicaId: intType.mapFromDatabaseResponse(
+      cargaAcademicaId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}carga_academica_id'])!,
-      seccionId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}seccion_id']),
-      periodoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}periodo_id']),
-      aulaId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}aula_id']),
-      idPlanEstudio: intType
+      seccionId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}seccion_id']),
+      periodoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}periodo_id']),
+      aulaId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}aula_id']),
+      idPlanEstudio: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_plan_estudio']),
-      idPlanEstudioVersion: intType.mapFromDatabaseResponse(
+      idPlanEstudioVersion: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}id_plan_estudio_version']),
-      idAnioAcademico: intType
+      idAnioAcademico: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_anio_academico']),
-      idEmpleadoTutor: intType
+      idEmpleadoTutor: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_empleado_tutor']),
-      estadoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
-      idPeriodoAcad: intType
+      estadoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
+      idPeriodoAcad: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_periodo_acad']),
-      idGrupo:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_grupo']),
-      capacidadVacante: intType
+      idGrupo: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_grupo']),
+      capacidadVacante: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}capacidad_vacante']),
-      capacidadVacanteD: intType.mapFromDatabaseResponse(
+      capacidadVacanteD: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}capacidad_vacante_d']),
     );
   }
@@ -4547,7 +4534,7 @@ class CargaAcademicaData extends DataClass
                                                   capacidadVacanteD
                                                       .hashCode)))))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is CargaAcademicaData &&
           other.cargaAcademicaId == this.cargaAcademicaId &&
@@ -5025,16 +5012,14 @@ class CargaCursoDocenteData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final boolType = db.typeSystem.forDartType<bool>();
     return CargaCursoDocenteData(
-      cargaCursoDocenteId: intType.mapFromDatabaseResponse(
+      cargaCursoDocenteId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}carga_curso_docente_id'])!,
-      cargaCursoId: intType
+      cargaCursoId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}carga_curso_id']),
-      docenteId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}docente_id']),
-      responsable: boolType
+      docenteId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}docente_id']),
+      responsable: const BoolType()
           .mapFromDatabaseResponse(data['${effectivePrefix}responsable']),
     );
   }
@@ -5119,7 +5104,7 @@ class CargaCursoDocenteData extends DataClass
       $mrjc(cargaCursoId.hashCode,
           $mrjc(docenteId.hashCode, responsable.hashCode))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is CargaCursoDocenteData &&
           other.cargaCursoDocenteId == this.cargaCursoDocenteId &&
@@ -5320,12 +5305,11 @@ class CargaCursoDocenteDetData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
     return CargaCursoDocenteDetData(
-      cargaCursoDocenteId: intType.mapFromDatabaseResponse(
+      cargaCursoDocenteId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}carga_curso_docente_id']),
-      alumnoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}alumno_id']),
+      alumnoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}alumno_id']),
     );
   }
   @override
@@ -5388,7 +5372,7 @@ class CargaCursoDocenteDetData extends DataClass
   int get hashCode =>
       $mrjf($mrjc(cargaCursoDocenteId.hashCode, alumnoId.hashCode));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is CargaCursoDocenteDetData &&
           other.cargaCursoDocenteId == this.cargaCursoDocenteId &&
@@ -5572,53 +5556,52 @@ class CargaCursoData extends DataClass implements Insertable<CargaCursoData> {
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
     return CargaCursoData(
-      cargaCursoId: intType
+      cargaCursoId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}carga_curso_id'])!,
-      planCursoId: intType
+      planCursoId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}plan_curso_id']),
-      empleadoId: intType
+      empleadoId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}empleado_id']),
-      cargaAcademicaId: intType.mapFromDatabaseResponse(
+      cargaAcademicaId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}carga_academica_id']),
-      complejo:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}complejo']),
-      evaluable:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}evaluable']),
-      idempleado:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}idempleado']),
-      idTipoHora: intType
+      complejo: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}complejo']),
+      evaluable: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}evaluable']),
+      idempleado: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}idempleado']),
+      idTipoHora: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_tipo_hora']),
-      descripcion: stringType
+      descripcion: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}descripcion']),
-      fechaInicio: dateTimeType
+      fechaInicio: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_inicio']),
-      fechafin: dateTimeType
+      fechafin: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fechafin']),
-      modo: stringType.mapFromDatabaseResponse(data['${effectivePrefix}modo']),
-      estado: intType.mapFromDatabaseResponse(data['${effectivePrefix}estado']),
-      anioAcademicoId: intType
+      modo: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}modo']),
+      estado: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado']),
+      anioAcademicoId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}anio_academico_id']),
-      aulaId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}aula_id']),
-      grupoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}grupo_id']),
-      idPlanEstudio: intType
+      aulaId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}aula_id']),
+      grupoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}grupo_id']),
+      idPlanEstudio: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_plan_estudio']),
-      idPlanEstudioVersion: intType.mapFromDatabaseResponse(
+      idPlanEstudioVersion: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}id_plan_estudio_version']),
-      CapacidadVacanteP: intType.mapFromDatabaseResponse(
+      CapacidadVacanteP: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}capacidad_vacante_p']),
-      CapacidadVacanteD: intType.mapFromDatabaseResponse(
+      CapacidadVacanteD: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}capacidad_vacante_d']),
-      nombreDocente: stringType
+      nombreDocente: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}nombre_docente']),
-      personaIdDocente: intType.mapFromDatabaseResponse(
+      personaIdDocente: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}persona_id_docente']),
-      fotoDocente: stringType
+      fotoDocente: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}foto_docente']),
     );
   }
@@ -5947,7 +5930,7 @@ class CargaCursoData extends DataClass implements Insertable<CargaCursoData> {
                                                                               CapacidadVacanteP.hashCode,
                                                                               $mrjc(CapacidadVacanteD.hashCode, $mrjc(nombreDocente.hashCode, $mrjc(personaIdDocente.hashCode, fotoDocente.hashCode)))))))))))))))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is CargaCursoData &&
           other.cargaCursoId == this.cargaCursoId &&
@@ -6759,51 +6742,49 @@ class Curso extends DataClass implements Insertable<Curso> {
   factory Curso.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final boolType = db.typeSystem.forDartType<bool>();
     return Curso(
-      cursoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}curso_id'])!,
-      nombre:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
-      estadoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
-      descripcion: stringType
+      cursoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}curso_id'])!,
+      nombre: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
+      estadoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
+      descripcion: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}descripcion']),
-      cursoAlias: stringType
+      cursoAlias: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}curso_alias']),
-      entidadId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}entidad_id']),
-      nivelAcadId: intType
+      entidadId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}entidad_id']),
+      nivelAcadId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}nivel_acad_id']),
-      tipoCursoId: intType
+      tipoCursoId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}tipo_curso_id']),
-      tipoConceptoId: intType
+      tipoConceptoId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}tipo_concepto_id']),
-      color:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}color']),
-      creditos: stringType
+      color: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}color']),
+      creditos: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}creditos']),
-      totalHP: stringType
+      totalHP: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}total_h_p']),
-      totalHT: stringType
+      totalHT: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}total_h_t']),
-      notaAprobatoria: stringType
+      notaAprobatoria: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}nota_aprobatoria']),
-      sumilla:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}sumilla']),
-      superId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}super_id']),
-      idServicioLaboratorio: intType.mapFromDatabaseResponse(
+      sumilla: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}sumilla']),
+      superId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}super_id']),
+      idServicioLaboratorio: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}id_servicio_laboratorio']),
-      horasLaboratorio: intType
+      horasLaboratorio: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}horas_laboratorio']),
-      tipoSubcurso: boolType
+      tipoSubcurso: const BoolType()
           .mapFromDatabaseResponse(data['${effectivePrefix}tipo_subcurso']),
-      foto: stringType.mapFromDatabaseResponse(data['${effectivePrefix}foto']),
-      codigo:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}codigo']),
+      foto: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}foto']),
+      codigo: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}codigo']),
     );
   }
   @override
@@ -7109,7 +7090,7 @@ class Curso extends DataClass implements Insertable<Curso> {
                                                                               tipoSubcurso.hashCode,
                                                                               $mrjc(foto.hashCode, codigo.hashCode)))))))))))))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Curso &&
           other.cursoId == this.cursoId &&
@@ -7822,27 +7803,25 @@ class ParametrosDisenioData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final boolType = db.typeSystem.forDartType<bool>();
     return ParametrosDisenioData(
-      parametroDisenioId: intType.mapFromDatabaseResponse(
+      parametroDisenioId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}parametro_disenio_id'])!,
-      objeto:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}objeto']),
-      concepto: stringType
+      objeto: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}objeto']),
+      concepto: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}concepto']),
-      nombre:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
-      path: stringType.mapFromDatabaseResponse(data['${effectivePrefix}path']),
-      color1:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}color1']),
-      color2:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}color2']),
-      color3:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}color3']),
-      estado:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}estado']),
+      nombre: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
+      path: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}path']),
+      color1: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}color1']),
+      color2: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}color2']),
+      color3: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}color3']),
+      estado: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado']),
     );
   }
   @override
@@ -7982,7 +7961,7 @@ class ParametrosDisenioData extends DataClass
                           $mrjc(color2.hashCode,
                               $mrjc(color3.hashCode, estado.hashCode)))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is ParametrosDisenioData &&
           other.parametroDisenioId == this.parametroDisenioId &&
@@ -8324,18 +8303,15 @@ class NivelAcademicoData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final boolType = db.typeSystem.forDartType<bool>();
     return NivelAcademicoData(
-      nivelAcadId: intType
+      nivelAcadId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}nivel_acad_id'])!,
-      nombre:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
-      activo:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}activo']),
-      entidadId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}entidad_id']),
+      nombre: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
+      activo: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}activo']),
+      entidadId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}entidad_id']),
     );
   }
   @override
@@ -8411,7 +8387,7 @@ class NivelAcademicoData extends DataClass
   int get hashCode => $mrjf($mrjc(nivelAcadId.hashCode,
       $mrjc(nombre.hashCode, $mrjc(activo.hashCode, entidadId.hashCode))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is NivelAcademicoData &&
           other.nivelAcadId == this.nivelAcadId &&
@@ -8636,48 +8612,45 @@ class Periodo extends DataClass implements Insertable<Periodo> {
   factory Periodo.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final boolType = db.typeSystem.forDartType<bool>();
     return Periodo(
-      periodoId: intType
+      periodoId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}periodo_id'])!,
-      nombre:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
-      estadoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
-      aliasPeriodo: stringType
+      nombre: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
+      estadoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
+      aliasPeriodo: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}alias_periodo']),
-      fecComienzo: stringType
+      fecComienzo: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fec_comienzo']),
-      fecTermino: stringType
+      fecTermino: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fec_termino']),
-      tipoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}tipo_id']),
-      superId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}super_id']),
-      geoReferenciaId: intType
+      tipoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}tipo_id']),
+      superId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}super_id']),
+      geoReferenciaId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}geo_referencia_id']),
-      organigramaId: intType
+      organigramaId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}organigrama_id']),
-      entidadId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}entidad_id']),
-      activo:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}activo']),
-      cicloId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}ciclo_id']),
-      docenteId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}docente_id']),
-      gruponombre: stringType
+      entidadId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}entidad_id']),
+      activo: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}activo']),
+      cicloId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}ciclo_id']),
+      docenteId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}docente_id']),
+      gruponombre: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}gruponombre']),
-      grupoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}grupo_id']),
-      nivelAcademico: stringType
+      grupoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}grupo_id']),
+      nivelAcademico: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}nivel_academico']),
-      nivelAcademicoId: intType.mapFromDatabaseResponse(
+      nivelAcademicoId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}nivel_academico_id']),
-      tutorId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}tutor_id']),
+      tutorId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}tutor_id']),
     );
   }
   @override
@@ -8960,7 +8933,7 @@ class Periodo extends DataClass implements Insertable<Periodo> {
                                                                           tutorId
                                                                               .hashCode)))))))))))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Periodo &&
           other.periodoId == this.periodoId &&
@@ -9598,15 +9571,14 @@ class PlanCurso extends DataClass implements Insertable<PlanCurso> {
   factory PlanCurso.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
     return PlanCurso(
-      planCursoId: intType
+      planCursoId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}plan_curso_id'])!,
-      cursoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}curso_id']),
-      periodoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}periodo_id']),
-      planEstudiosId: intType
+      cursoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}curso_id']),
+      periodoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}periodo_id']),
+      planEstudiosId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}plan_estudios_id']),
     );
   }
@@ -9690,7 +9662,7 @@ class PlanCurso extends DataClass implements Insertable<PlanCurso> {
       $mrjc(cursoId.hashCode,
           $mrjc(periodoId.hashCode, planEstudiosId.hashCode))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is PlanCurso &&
           other.planCursoId == this.planCursoId &&
@@ -9895,22 +9867,20 @@ class PlanEstudioData extends DataClass implements Insertable<PlanEstudioData> {
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
     return PlanEstudioData(
-      planEstudiosId: intType
+      planEstudiosId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}plan_estudios_id'])!,
-      programaEduId: intType
+      programaEduId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}programa_edu_id']),
-      nombrePlan: stringType
+      nombrePlan: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}nombre_plan']),
-      aliasPlan: stringType
+      aliasPlan: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}alias_plan']),
-      estadoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
-      nroResolucion: stringType
+      estadoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
+      nroResolucion: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}nro_resolucion']),
-      fechaResolucion: stringType
+      fechaResolucion: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_resolucion']),
     );
   }
@@ -10035,7 +10005,7 @@ class PlanEstudioData extends DataClass implements Insertable<PlanEstudioData> {
                       $mrjc(nroResolucion.hashCode,
                           fechaResolucion.hashCode)))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is PlanEstudioData &&
           other.planEstudiosId == this.planEstudiosId &&
@@ -10345,31 +10315,28 @@ class ProgramasEducativoData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final boolType = db.typeSystem.forDartType<bool>();
     return ProgramasEducativoData(
-      programaEduId: intType
+      programaEduId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}programa_edu_id'])!,
-      nombre:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
-      nroCiclos: stringType
+      nombre: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
+      nroCiclos: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}nro_ciclos']),
-      nivelAcadId: intType
+      nivelAcadId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}nivel_acad_id']),
-      tipoEvaluacionId: intType.mapFromDatabaseResponse(
+      tipoEvaluacionId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}tipo_evaluacion_id']),
-      estadoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
-      entidadId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}entidad_id']),
-      tipoInformeSiagieId: intType.mapFromDatabaseResponse(
+      estadoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
+      entidadId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}entidad_id']),
+      tipoInformeSiagieId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}tipo_informe_siagie_id']),
-      toogle:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}toogle']),
-      tipoProgramaId: intType
+      toogle: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}toogle']),
+      tipoProgramaId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}tipo_programa_id']),
-      tipoMatriculaId: intType
+      tipoMatriculaId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}tipo_matricula_id']),
     );
   }
@@ -10545,7 +10512,7 @@ class ProgramasEducativoData extends DataClass
                                       $mrjc(tipoProgramaId.hashCode,
                                           tipoMatriculaId.hashCode)))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is ProgramasEducativoData &&
           other.programaEduId == this.programaEduId &&
@@ -10961,19 +10928,16 @@ class SeccionData extends DataClass implements Insertable<SeccionData> {
   factory SeccionData.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final boolType = db.typeSystem.forDartType<bool>();
     return SeccionData(
-      seccionId: intType
+      seccionId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}seccion_id'])!,
-      nombre:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
-      descripcion: stringType
+      nombre: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
+      descripcion: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}descripcion']),
-      estado:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}estado']),
-      georeferenciaId: intType
+      estado: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado']),
+      georeferenciaId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}georeferencia_id']),
     );
   }
@@ -11068,7 +11032,7 @@ class SeccionData extends DataClass implements Insertable<SeccionData> {
           $mrjc(descripcion.hashCode,
               $mrjc(estado.hashCode, georeferenciaId.hashCode)))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is SeccionData &&
           other.seccionId == this.seccionId &&
@@ -11316,38 +11280,36 @@ class SilaboEventoData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
     return SilaboEventoData(
-      silaboEventoId: intType
+      silaboEventoId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}silabo_evento_id'])!,
-      titulo:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}titulo']),
-      descripcionGeneral: stringType.mapFromDatabaseResponse(
+      titulo: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}titulo']),
+      descripcionGeneral: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}descripcion_general']),
-      planCursoId: intType
+      planCursoId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}plan_curso_id']),
-      entidadId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}entidad_id']),
-      docenteId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}docente_id']),
-      seccionId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}seccion_id']),
-      estadoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
-      anioAcademicoId: intType
+      entidadId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}entidad_id']),
+      docenteId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}docente_id']),
+      seccionId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}seccion_id']),
+      estadoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
+      anioAcademicoId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}anio_academico_id']),
-      georeferenciaId: intType
+      georeferenciaId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}georeferencia_id']),
-      silaboBaseId: intType
+      silaboBaseId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}silabo_base_id']),
-      cargaCursoId: intType
+      cargaCursoId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}carga_curso_id']),
-      parametroDisenioId: intType.mapFromDatabaseResponse(
+      parametroDisenioId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}parametro_disenio_id']),
-      fechaInicio: stringType
+      fechaInicio: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_inicio']),
-      fechaFin: stringType
+      fechaFin: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_fin']),
     );
   }
@@ -11579,7 +11541,7 @@ class SilaboEventoData extends DataClass
                                                           fechaFin
                                                               .hashCode)))))))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is SilaboEventoData &&
           other.silaboEventoId == this.silaboEventoId &&
@@ -12121,23 +12083,21 @@ class CalendarioPeriodoData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
     return CalendarioPeriodoData(
-      calendarioPeriodoId: intType.mapFromDatabaseResponse(
+      calendarioPeriodoId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}calendario_periodo_id'])!,
-      fechaInicio: dateTimeType
+      fechaInicio: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_inicio']),
-      fechaFin: dateTimeType
+      fechaFin: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_fin']),
-      calendarioAcademicoId: intType.mapFromDatabaseResponse(
+      calendarioAcademicoId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}calendario_academico_id']),
-      tipoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}tipo_id']),
-      estadoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
-      diazPlazo:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}diaz_plazo']),
+      tipoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}tipo_id']),
+      estadoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
+      diazPlazo: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}diaz_plazo']),
     );
   }
   @override
@@ -12261,7 +12221,7 @@ class CalendarioPeriodoData extends DataClass
                   $mrjc(tipoId.hashCode,
                       $mrjc(estadoId.hashCode, diazPlazo.hashCode)))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is CalendarioPeriodoData &&
           other.calendarioPeriodoId == this.calendarioPeriodoId &&
@@ -12566,23 +12526,21 @@ class CalendarioPeriodoDetalleData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
     return CalendarioPeriodoDetalleData(
-      calendarioPeriodoDetId: intType.mapFromDatabaseResponse(
+      calendarioPeriodoDetId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}calendario_periodo_det_id'])!,
-      calendarioPeriodoId: intType.mapFromDatabaseResponse(
+      calendarioPeriodoId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}calendario_periodo_id']),
-      descripcion: stringType
+      descripcion: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}descripcion']),
-      fechaInicio: intType
+      fechaInicio: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_inicio']),
-      fechaFin:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}fecha_fin']),
-      diasPlazo:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}dias_plazo']),
-      tipoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}tipo_id']),
+      fechaFin: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_fin']),
+      diasPlazo: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}dias_plazo']),
+      tipoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}tipo_id']),
     );
   }
   @override
@@ -12706,7 +12664,7 @@ class CalendarioPeriodoDetalleData extends DataClass
                   $mrjc(fechaFin.hashCode,
                       $mrjc(diasPlazo.hashCode, tipoId.hashCode)))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is CalendarioPeriodoDetalleData &&
           other.calendarioPeriodoDetId == this.calendarioPeriodoDetId &&
@@ -13032,37 +12990,35 @@ class CargaCursoCalendarioPeriodoData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
     return CargaCursoCalendarioPeriodoData(
-      cargaCursoCalendarioPeriodoId: intType.mapFromDatabaseResponse(
+      cargaCursoCalendarioPeriodoId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}carga_curso_calendario_periodo_id'])!,
-      cargaCursoId: intType
+      cargaCursoId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}carga_curso_id']),
-      calendarioPeriodoId: intType.mapFromDatabaseResponse(
+      calendarioPeriodoId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}calendario_periodo_id']),
-      estadoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
-      fechaInicio: intType
+      estadoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
+      fechaInicio: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_inicio']),
-      fechaFin:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}fecha_fin']),
-      horaInicio: stringType
+      fechaFin: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_fin']),
+      horaInicio: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}hora_inicio']),
-      horaFin: stringType
+      horaFin: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}hora_fin']),
-      calendarioPeriodoDetId: intType.mapFromDatabaseResponse(
+      calendarioPeriodoDetId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}calendario_periodo_det_id']),
-      tipoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}tipo_id']),
-      planCursoId: intType
+      tipoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}tipo_id']),
+      planCursoId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}plan_curso_id']),
-      anioAcademicoId: intType
+      anioAcademicoId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}anio_academico_id']),
-      cargaAcademicaid: intType
+      cargaAcademicaid: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}carga_academicaid']),
-      paths:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}paths']),
+      paths: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}paths']),
     );
   }
   @override
@@ -13285,7 +13241,7 @@ class CargaCursoCalendarioPeriodoData extends DataClass
                                                       paths
                                                           .hashCode))))))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is CargaCursoCalendarioPeriodoData &&
           other.cargaCursoCalendarioPeriodoId ==
@@ -13810,21 +13766,19 @@ class Tipo extends DataClass implements Insertable<Tipo> {
   factory Tipo.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
     return Tipo(
-      tipoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}tipo_id'])!,
-      objeto:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}objeto']),
-      concepto: stringType
+      tipoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}tipo_id'])!,
+      objeto: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}objeto']),
+      concepto: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}concepto']),
-      nombre:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
-      codigo:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}codigo']),
-      parentId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}parent_id']),
+      nombre: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
+      codigo: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}codigo']),
+      parentId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}parent_id']),
     );
   }
   @override
@@ -13930,7 +13884,7 @@ class Tipo extends DataClass implements Insertable<Tipo> {
               $mrjc(nombre.hashCode,
                   $mrjc(codigo.hashCode, parentId.hashCode))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Tipo &&
           other.tipoId == this.tipoId &&
@@ -14170,14 +14124,12 @@ class HoraData extends DataClass implements Insertable<HoraData> {
   factory HoraData.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
     return HoraData(
-      idHora:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_hora'])!,
-      horaInicio: stringType
+      idHora: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_hora'])!,
+      horaInicio: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}hora_inicio']),
-      horaFin: stringType
+      horaFin: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}hora_fin']),
     );
   }
@@ -14245,7 +14197,7 @@ class HoraData extends DataClass implements Insertable<HoraData> {
   int get hashCode => $mrjf(
       $mrjc(idHora.hashCode, $mrjc(horaInicio.hashCode, horaFin.hashCode)));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is HoraData &&
           other.idHora == this.idHora &&
@@ -14422,25 +14374,24 @@ class HorarioProgramaData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
     return HorarioProgramaData(
-      idHorarioPrograma: intType.mapFromDatabaseResponse(
+      idHorarioPrograma: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}id_horario_programa'])!,
-      idHorario:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_horario']),
-      activo: intType.mapFromDatabaseResponse(data['${effectivePrefix}activo']),
-      idProgramaEducativo: intType.mapFromDatabaseResponse(
+      idHorario: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_horario']),
+      activo: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}activo']),
+      idProgramaEducativo: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}id_programa_educativo']),
-      idAnioAcademico: intType
+      idAnioAcademico: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_anio_academico']),
-      idUsuarioActualizacion: intType.mapFromDatabaseResponse(
+      idUsuarioActualizacion: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}id_usuario_actualizacion']),
-      idUsuarioCreacion: intType.mapFromDatabaseResponse(
+      idUsuarioCreacion: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}id_usuario_creacion']),
-      fechaCreacion: stringType
+      fechaCreacion: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_creacion']),
-      fechaActualizacion: stringType.mapFromDatabaseResponse(
+      fechaActualizacion: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}fecha_actualizacion']),
     );
   }
@@ -14594,7 +14545,7 @@ class HorarioProgramaData extends DataClass
                               $mrjc(fechaCreacion.hashCode,
                                   fechaActualizacion.hashCode)))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is HorarioProgramaData &&
           other.idHorarioPrograma == this.idHorarioPrograma &&
@@ -14958,13 +14909,12 @@ class HorarioHoraData extends DataClass implements Insertable<HorarioHoraData> {
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
     return HorarioHoraData(
-      idHorarioHora: intType
+      idHorarioHora: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_horario_hora'])!,
-      horaId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}hora_id']),
-      detalleHoraId: intType
+      horaId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}hora_id']),
+      detalleHoraId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}detalle_hora_id']),
     );
   }
@@ -15032,7 +14982,7 @@ class HorarioHoraData extends DataClass implements Insertable<HorarioHoraData> {
   int get hashCode => $mrjf($mrjc(
       idHorarioHora.hashCode, $mrjc(horaId.hashCode, detalleHoraId.hashCode)));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is HorarioHoraData &&
           other.idHorarioHora == this.idHorarioHora &&
@@ -15210,22 +15160,20 @@ class DetalleHorarioData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
     return DetalleHorarioData(
-      idDetalleHorario: intType.mapFromDatabaseResponse(
+      idDetalleHorario: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}id_detalle_horario']),
-      idTipoHora: intType
+      idTipoHora: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_tipo_hora']),
-      idTipoTurno: intType
+      idTipoTurno: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_tipo_turno']),
-      horaInicio: stringType
+      horaInicio: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}hora_inicio']),
-      horaFin: stringType
+      horaFin: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}hora_fin']),
-      idHorarioDia: intType
+      idHorarioDia: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_horario_dia']),
-      timeChange: intType
+      timeChange: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}time_change']),
     );
   }
@@ -15352,7 +15300,7 @@ class DetalleHorarioData extends DataClass
                   $mrjc(horaFin.hashCode,
                       $mrjc(idHorarioDia.hashCode, timeChange.hashCode)))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is DetalleHorarioData &&
           other.idDetalleHorario == this.idDetalleHorario &&
@@ -15643,17 +15591,15 @@ class DiaData extends DataClass implements Insertable<DiaData> {
   factory DiaData.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final boolType = db.typeSystem.forDartType<bool>();
     return DiaData(
-      diaId: intType.mapFromDatabaseResponse(data['${effectivePrefix}dia_id'])!,
-      nombre:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
-      estado:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}estado']),
-      alias_:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}alias']),
+      diaId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}dia_id'])!,
+      nombre: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
+      estado: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado']),
+      alias_: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}alias']),
     );
   }
   @override
@@ -15728,7 +15674,7 @@ class DiaData extends DataClass implements Insertable<DiaData> {
   int get hashCode => $mrjf($mrjc(diaId.hashCode,
       $mrjc(nombre.hashCode, $mrjc(estado.hashCode, alias_.hashCode))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is DiaData &&
           other.diaId == this.diaId &&
@@ -15914,13 +15860,13 @@ class HorarioDiaData extends DataClass implements Insertable<HorarioDiaData> {
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
     return HorarioDiaData(
-      idHorarioDia: intType
+      idHorarioDia: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_horario_dia'])!,
-      idHorario:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_horario']),
-      idDia: intType.mapFromDatabaseResponse(data['${effectivePrefix}id_dia']),
+      idHorario: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_horario']),
+      idDia: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_dia']),
     );
   }
   @override
@@ -15986,7 +15932,7 @@ class HorarioDiaData extends DataClass implements Insertable<HorarioDiaData> {
   int get hashCode => $mrjf(
       $mrjc(idHorarioDia.hashCode, $mrjc(idHorario.hashCode, idDia.hashCode)));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is HorarioDiaData &&
           other.idHorarioDia == this.idHorarioDia &&
@@ -16151,13 +16097,12 @@ class CursosDetHorarioData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
     return CursosDetHorarioData(
-      idCursosDetHorario: intType.mapFromDatabaseResponse(
+      idCursosDetHorario: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}id_cursos_det_horario'])!,
-      idDetHorario: intType
+      idDetHorario: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_det_horario']),
-      idCargaCurso: intType
+      idCargaCurso: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_carga_curso']),
     );
   }
@@ -16226,7 +16171,7 @@ class CursosDetHorarioData extends DataClass
   int get hashCode => $mrjf($mrjc(idCursosDetHorario.hashCode,
       $mrjc(idDetHorario.hashCode, idCargaCurso.hashCode)));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is CursosDetHorarioData &&
           other.idCursosDetHorario == this.idCursosDetHorario &&
@@ -16415,29 +16360,26 @@ class HorarioData extends DataClass implements Insertable<HorarioData> {
   factory HorarioData.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final boolType = db.typeSystem.forDartType<bool>();
     return HorarioData(
-      idHorario: intType
+      idHorario: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_horario'])!,
-      nombre:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
-      descripcion: stringType
+      nombre: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
+      descripcion: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}descripcion']),
-      fecCreacion: stringType
+      fecCreacion: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fec_creacion']),
-      fecActualizacion: stringType
+      fecActualizacion: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fec_actualizacion']),
-      estado:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}estado']),
-      idUsuario:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_usuario']),
-      entidadId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}entidad_id']),
-      georeferenciaId: intType
+      estado: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado']),
+      idUsuario: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_usuario']),
+      entidadId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}entidad_id']),
+      georeferenciaId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}georeferencia_id']),
-      organigramaId: intType
+      organigramaId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}organigrama_id']),
     );
   }
@@ -16599,7 +16541,7 @@ class HorarioData extends DataClass implements Insertable<HorarioData> {
                                   $mrjc(georeferenciaId.hashCode,
                                       organigramaId.hashCode))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is HorarioData &&
           other.idHorario == this.idHorario &&
@@ -16980,16 +16922,15 @@ class CalendarioAcademicoData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
     return CalendarioAcademicoData(
-      calendarioAcademicoId: intType.mapFromDatabaseResponse(
+      calendarioAcademicoId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}calendario_academico_id'])!,
-      programaEduId: intType
+      programaEduId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}programa_edu_id']),
-      idAnioAcademico: intType
+      idAnioAcademico: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_anio_academico']),
-      estadoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
+      estadoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
     );
   }
   @override
@@ -17074,7 +17015,7 @@ class CalendarioAcademicoData extends DataClass
       $mrjc(programaEduId.hashCode,
           $mrjc(idAnioAcademico.hashCode, estadoId.hashCode))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is CalendarioAcademicoData &&
           other.calendarioAcademicoId == this.calendarioAcademicoId &&
@@ -17286,21 +17227,18 @@ class UsuarioData extends DataClass implements Insertable<UsuarioData> {
   factory UsuarioData.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final boolType = db.typeSystem.forDartType<bool>();
     return UsuarioData(
-      usuarioId: intType
+      usuarioId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}usuario_id'])!,
-      personaId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}persona_id']),
-      usuario:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}usuario']),
-      password: stringType
+      personaId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}persona_id']),
+      usuario: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}usuario']),
+      password: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}password']),
-      estado:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}estado']),
-      habilitarAcceso: boolType
+      estado: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado']),
+      habilitarAcceso: const BoolType()
           .mapFromDatabaseResponse(data['${effectivePrefix}habilitar_acceso']),
     );
   }
@@ -17409,7 +17347,7 @@ class UsuarioData extends DataClass implements Insertable<UsuarioData> {
               $mrjc(password.hashCode,
                   $mrjc(estado.hashCode, habilitarAcceso.hashCode))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is UsuarioData &&
           other.usuarioId == this.usuarioId &&
@@ -17651,12 +17589,11 @@ class WebConfig extends DataClass implements Insertable<WebConfig> {
   factory WebConfig.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final stringType = db.typeSystem.forDartType<String>();
     return WebConfig(
-      nombre:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
-      content:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}content']),
+      nombre: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
+      content: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}content']),
     );
   }
   @override
@@ -17714,7 +17651,7 @@ class WebConfig extends DataClass implements Insertable<WebConfig> {
   @override
   int get hashCode => $mrjf($mrjc(nombre.hashCode, content.hashCode));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is WebConfig &&
           other.nombre == this.nombre &&
@@ -17921,71 +17858,73 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
   factory CriterioData.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
     return CriterioData(
-      sesionAprendizajeId: intType.mapFromDatabaseResponse(
+      sesionAprendizajeId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}sesion_aprendizaje_id'])!,
-      unidadAprendiajeId: intType.mapFromDatabaseResponse(
+      unidadAprendiajeId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}unidad_aprendiaje_id'])!,
-      silaboEventoId: intType
+      silaboEventoId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}silabo_evento_id'])!,
-      competenciaId: intType
+      competenciaId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}competencia_id'])!,
-      competenciaNombre: stringType.mapFromDatabaseResponse(
+      competenciaNombre: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}competencia_nombre']),
-      competenciaDescripcion: stringType.mapFromDatabaseResponse(
+      competenciaDescripcion: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}competencia_descripcion']),
-      competenciaTipoId: intType.mapFromDatabaseResponse(
+      competenciaTipoId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}competencia_tipo_id']),
-      superCompetenciaId: intType.mapFromDatabaseResponse(
+      superCompetenciaId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}super_competencia_id']),
-      superCompetenciaNombre: stringType.mapFromDatabaseResponse(
+      superCompetenciaNombre: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}super_competencia_nombre']),
-      superCompetenciaDescripcion: stringType.mapFromDatabaseResponse(
+      superCompetenciaDescripcion: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}super_competencia_descripcion']),
-      superCompetenciaTipoId: intType.mapFromDatabaseResponse(
+      superCompetenciaTipoId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}super_competencia_tipo_id']),
-      desempenioIcdId: intType.mapFromDatabaseResponse(
+      desempenioIcdId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}desempenio_icd_id'])!,
-      DesempenioDescripcion: stringType.mapFromDatabaseResponse(
+      DesempenioDescripcion: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}desempenio_descripcion']),
-      peso: intType.mapFromDatabaseResponse(data['${effectivePrefix}peso']),
-      codigo:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}codigo']),
-      tipoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}tipo_id']),
-      url: stringType.mapFromDatabaseResponse(data['${effectivePrefix}url']),
-      desempenioId: intType
+      peso: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}peso']),
+      codigo: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}codigo']),
+      tipoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}tipo_id']),
+      url: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}url']),
+      desempenioId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}desempenio_id']),
-      desempenioIcdDescripcion: stringType.mapFromDatabaseResponse(
+      desempenioIcdDescripcion: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}desempenio_icd_descripcion']),
-      icdId: intType.mapFromDatabaseResponse(data['${effectivePrefix}icd_id']),
-      icdTitulo: stringType
+      icdId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}icd_id']),
+      icdTitulo: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}icd_titulo']),
-      icdDescripcion: stringType
+      icdDescripcion: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}icd_descripcion']),
-      icdAlias: stringType
+      icdAlias: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}icd_alias']),
-      campoTematicoId: intType.mapFromDatabaseResponse(
+      campoTematicoId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}campo_tematico_id'])!,
-      campoTematicoTitulo: stringType.mapFromDatabaseResponse(
+      campoTematicoTitulo: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}campo_tematico_titulo']),
-      campoTematicoDescripcion: stringType.mapFromDatabaseResponse(
+      campoTematicoDescripcion: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}campo_tematico_descripcion']),
-      campoTematicoEstado: intType.mapFromDatabaseResponse(
+      campoTematicoEstado: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}campo_tematico_estado']),
-      campoTematicoParentId: intType.mapFromDatabaseResponse(
+      campoTematicoParentId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}campo_tematico_parent_id']),
-      campoTematicoParentTitulo: stringType.mapFromDatabaseResponse(
+      campoTematicoParentTitulo: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}campo_tematico_parent_titulo']),
-      campoTematicoParentDescripcion: stringType.mapFromDatabaseResponse(
-          data['${effectivePrefix}campo_tematico_parent_descripcion']),
-      campoTematicoParentEstado: intType.mapFromDatabaseResponse(
+      campoTematicoParentDescripcion: const StringType()
+          .mapFromDatabaseResponse(
+              data['${effectivePrefix}campo_tematico_parent_descripcion']),
+      campoTematicoParentEstado: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}campo_tematico_parent_estado']),
-      campoTematicoParentParentId: intType.mapFromDatabaseResponse(
+      campoTematicoParentParentId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}campo_tematico_parent_parent_id']),
-      calendarioPeriodoId: intType.mapFromDatabaseResponse(
+      calendarioPeriodoId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}calendario_periodo_id']),
     );
   }
@@ -18454,7 +18393,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
                                                                               desempenioIcdDescripcion.hashCode,
                                                                               $mrjc(icdId.hashCode, $mrjc(icdTitulo.hashCode, $mrjc(icdDescripcion.hashCode, $mrjc(icdAlias.hashCode, $mrjc(campoTematicoId.hashCode, $mrjc(campoTematicoTitulo.hashCode, $mrjc(campoTematicoDescripcion.hashCode, $mrjc(campoTematicoEstado.hashCode, $mrjc(campoTematicoParentId.hashCode, $mrjc(campoTematicoParentTitulo.hashCode, $mrjc(campoTematicoParentDescripcion.hashCode, $mrjc(campoTematicoParentEstado.hashCode, $mrjc(campoTematicoParentParentId.hashCode, calendarioPeriodoId.hashCode)))))))))))))))))))))))))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is CriterioData &&
           other.sesionAprendizajeId == this.sesionAprendizajeId &&
@@ -19636,16 +19575,13 @@ class TipoEvaluacionRubroData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final boolType = db.typeSystem.forDartType<bool>();
     return TipoEvaluacionRubroData(
-      tipoEvaluacionId: intType.mapFromDatabaseResponse(
+      tipoEvaluacionId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}tipo_evaluacion_id'])!,
-      nombre:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
-      estado:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}estado']),
+      nombre: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
+      estado: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado']),
     );
   }
   @override
@@ -19711,7 +19647,7 @@ class TipoEvaluacionRubroData extends DataClass
   int get hashCode => $mrjf($mrjc(
       tipoEvaluacionId.hashCode, $mrjc(nombre.hashCode, estado.hashCode)));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is TipoEvaluacionRubroData &&
           other.tipoEvaluacionId == this.tipoEvaluacionId &&
@@ -19886,21 +19822,19 @@ class TiposRubroData extends DataClass implements Insertable<TiposRubroData> {
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
     return TiposRubroData(
-      tipoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}tipo_id'])!,
-      objeto:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}objeto']),
-      concepto: stringType
+      tipoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}tipo_id'])!,
+      objeto: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}objeto']),
+      concepto: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}concepto']),
-      nombre:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
-      codigo:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}codigo']),
-      parentId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}parent_id']),
+      nombre: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
+      codigo: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}codigo']),
+      parentId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}parent_id']),
     );
   }
   @override
@@ -20006,7 +19940,7 @@ class TiposRubroData extends DataClass implements Insertable<TiposRubroData> {
               $mrjc(nombre.hashCode,
                   $mrjc(codigo.hashCode, parentId.hashCode))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is TiposRubroData &&
           other.tipoId == this.tipoId &&
@@ -20294,57 +20228,54 @@ class TipoNotaRubroData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final stringType = db.typeSystem.forDartType<String>();
-    final intType = db.typeSystem.forDartType<int>();
-    final doubleType = db.typeSystem.forDartType<double>();
-    final boolType = db.typeSystem.forDartType<bool>();
     return TipoNotaRubroData(
-      key: stringType.mapFromDatabaseResponse(data['${effectivePrefix}key'])!,
-      tipoNotaId: stringType
+      key: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}key'])!,
+      tipoNotaId: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}tipo_nota_id']),
-      nombre:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
-      tipoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}tipo_id']),
-      tiponombre: stringType
+      nombre: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
+      tipoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}tipo_id']),
+      tiponombre: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}tiponombre']),
-      valorDefecto: stringType
+      valorDefecto: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}valor_defecto']),
-      longitudPaso: doubleType
+      longitudPaso: const RealType()
           .mapFromDatabaseResponse(data['${effectivePrefix}longitud_paso']),
-      intervalo:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}intervalo']),
-      estatico:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}estatico']),
-      entidadId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}entidad_id']),
-      georeferenciaId: intType
+      intervalo: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}intervalo']),
+      estatico: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estatico']),
+      entidadId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}entidad_id']),
+      georeferenciaId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}georeferencia_id']),
-      organigramaId: intType
+      organigramaId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}organigrama_id']),
-      estadoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
-      tipoFuenteId: intType
+      estadoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
+      tipoFuenteId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}tipo_fuente_id']),
-      valorMinimo: intType
+      valorMinimo: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}valor_minimo']),
-      valorMaximo: intType
+      valorMaximo: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}valor_maximo']),
-      escalaEvaluacionId: intType.mapFromDatabaseResponse(
+      escalaEvaluacionId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}escala_evaluacion_id']),
-      escalanombre: stringType
+      escalanombre: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}escalanombre']),
-      escalavalorMinimo: intType.mapFromDatabaseResponse(
+      escalavalorMinimo: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}escalavalor_minimo']),
-      escalavalorMaximo: intType.mapFromDatabaseResponse(
+      escalavalorMaximo: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}escalavalor_maximo']),
-      escalaestado: intType
+      escalaestado: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}escalaestado']),
-      escaladefecto: boolType
+      escaladefecto: const BoolType()
           .mapFromDatabaseResponse(data['${effectivePrefix}escaladefecto']),
-      escalaentidadId: intType
+      escalaentidadId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}escalaentidad_id']),
-      programaEducativoId: intType.mapFromDatabaseResponse(
+      programaEducativoId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}programa_educativo_id']),
     );
   }
@@ -20686,7 +20617,7 @@ class TipoNotaRubroData extends DataClass
                                                                               escalavalorMinimo.hashCode,
                                                                               $mrjc(escalavalorMaximo.hashCode, $mrjc(escalaestado.hashCode, $mrjc(escaladefecto.hashCode, $mrjc(escalaentidadId.hashCode, programaEducativoId.hashCode))))))))))))))))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is TipoNotaRubroData &&
           other.key == this.key &&
@@ -21541,57 +21472,54 @@ class ValorTipoNotaRubroData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final stringType = db.typeSystem.forDartType<String>();
-    final doubleType = db.typeSystem.forDartType<double>();
-    final intType = db.typeSystem.forDartType<int>();
-    final boolType = db.typeSystem.forDartType<bool>();
     return ValorTipoNotaRubroData(
-      key: stringType.mapFromDatabaseResponse(data['${effectivePrefix}key'])!,
-      valorTipoNotaId: stringType.mapFromDatabaseResponse(
+      key: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}key'])!,
+      valorTipoNotaId: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}valor_tipo_nota_id']),
-      tipoNotaId: stringType
+      tipoNotaId: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}tipo_nota_id']),
-      titulo:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}titulo']),
-      alias:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}alias']),
-      limiteInferior: doubleType
+      titulo: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}titulo']),
+      alias: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}alias']),
+      limiteInferior: const RealType()
           .mapFromDatabaseResponse(data['${effectivePrefix}limite_inferior']),
-      limiteSuperior: doubleType
+      limiteSuperior: const RealType()
           .mapFromDatabaseResponse(data['${effectivePrefix}limite_superior']),
-      valorNumerico: doubleType
+      valorNumerico: const RealType()
           .mapFromDatabaseResponse(data['${effectivePrefix}valor_numerico']),
-      icono:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}icono']),
-      estadoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
-      incluidoLInferior: boolType.mapFromDatabaseResponse(
+      icono: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}icono']),
+      estadoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
+      incluidoLInferior: const BoolType().mapFromDatabaseResponse(
           data['${effectivePrefix}incluido_l_inferior']),
-      incluidoLSuperior: boolType.mapFromDatabaseResponse(
+      incluidoLSuperior: const BoolType().mapFromDatabaseResponse(
           data['${effectivePrefix}incluido_l_superior']),
-      tipoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}tipo_id']),
-      usuarioCreacionId: intType.mapFromDatabaseResponse(
+      tipoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}tipo_id']),
+      usuarioCreacionId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}usuario_creacion_id']),
-      usuarioCreadorId: intType.mapFromDatabaseResponse(
+      usuarioCreadorId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}usuario_creador_id']),
-      fechaCreacion: intType
+      fechaCreacion: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_creacion']),
-      usuarioAccionId: intType
+      usuarioAccionId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}usuario_accion_id']),
-      fechaAccion: intType
+      fechaAccion: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_accion']),
-      fechaEnvio: intType
+      fechaEnvio: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_envio']),
-      fechaEntrega: intType
+      fechaEntrega: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_entrega']),
-      fechaRecibido: intType
+      fechaRecibido: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_recibido']),
-      fechaVisto: intType
+      fechaVisto: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_visto']),
-      fechaRespuesta: intType
+      fechaRespuesta: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_respuesta']),
-      getSTime: stringType
+      getSTime: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}get_s_time']),
     );
   }
@@ -21931,7 +21859,7 @@ class ValorTipoNotaRubroData extends DataClass
                                                                               fechaEnvio.hashCode,
                                                                               $mrjc(fechaEntrega.hashCode, $mrjc(fechaRecibido.hashCode, $mrjc(fechaVisto.hashCode, $mrjc(fechaRespuesta.hashCode, getSTime.hashCode))))))))))))))))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is ValorTipoNotaRubroData &&
           other.key == this.key &&
@@ -22820,94 +22748,90 @@ class RubroEvaluacionProcesoData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final boolType = db.typeSystem.forDartType<bool>();
-    final doubleType = db.typeSystem.forDartType<double>();
     return RubroEvaluacionProcesoData(
-      syncFlag:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}sync_flag']),
-      timestampFlag: dateTimeType
+      syncFlag: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}sync_flag']),
+      timestampFlag: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}timestamp_flag']),
-      usuarioCreacionId: intType.mapFromDatabaseResponse(
+      usuarioCreacionId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}usuario_creacion_id']),
-      fechaCreacion: dateTimeType
+      fechaCreacion: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_creacion']),
-      usuarioAccionId: intType
+      usuarioAccionId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}usuario_accion_id']),
-      fechaAccion: dateTimeType
+      fechaAccion: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_accion']),
-      rubroEvalProcesoId: stringType.mapFromDatabaseResponse(
+      rubroEvalProcesoId: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}rubro_eval_proceso_id'])!,
-      titulo:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}titulo']),
-      subtitulo: stringType
+      titulo: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}titulo']),
+      subtitulo: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}subtitulo']),
-      colorFondo: stringType
+      colorFondo: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}color_fondo']),
-      mColorFondo: boolType
+      mColorFondo: const BoolType()
           .mapFromDatabaseResponse(data['${effectivePrefix}m_color_fondo']),
-      valorDefecto: stringType
+      valorDefecto: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}valor_defecto']),
-      competenciaId: intType
+      competenciaId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}competencia_id']),
-      calendarioPeriodoId: intType.mapFromDatabaseResponse(
+      calendarioPeriodoId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}calendario_periodo_id']),
-      anchoColumna: stringType
+      anchoColumna: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}ancho_columna']),
-      ocultarColumna: boolType
+      ocultarColumna: const BoolType()
           .mapFromDatabaseResponse(data['${effectivePrefix}ocultar_columna']),
-      tipoFormulaId: intType
+      tipoFormulaId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}tipo_formula_id']),
-      silaboEventoId: intType
+      silaboEventoId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}silabo_evento_id']),
-      tipoRedondeoId: intType
+      tipoRedondeoId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}tipo_redondeo_id']),
-      valorRedondeoId: intType
+      valorRedondeoId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}valor_redondeo_id']),
-      rubroEvalResultadoId: intType.mapFromDatabaseResponse(
+      rubroEvalResultadoId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}rubro_eval_resultado_id']),
-      tipoNotaId: stringType
+      tipoNotaId: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}tipo_nota_id']),
-      sesionAprendizajeId: intType.mapFromDatabaseResponse(
+      sesionAprendizajeId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}sesion_aprendizaje_id']),
-      desempenioIcdId: intType
+      desempenioIcdId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}desempenio_icd_id']),
-      campoTematicoId: intType
+      campoTematicoId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}campo_tematico_id']),
-      tipoEvaluacionId: intType.mapFromDatabaseResponse(
+      tipoEvaluacionId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}tipo_evaluacion_id']),
-      estadoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
-      tipoEscalaEvaluacionId: intType.mapFromDatabaseResponse(
+      estadoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
+      tipoEscalaEvaluacionId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}tipo_escala_evaluacion_id']),
-      tipoColorRubroProceso: intType.mapFromDatabaseResponse(
+      tipoColorRubroProceso: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}tipo_color_rubro_proceso']),
-      tiporubroid: intType
+      tiporubroid: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}tiporubroid']),
-      formaEvaluacionId: intType.mapFromDatabaseResponse(
+      formaEvaluacionId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}forma_evaluacion_id']),
-      countIndicador: intType
+      countIndicador: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}count_indicador']),
-      rubroFormal: intType
+      rubroFormal: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}rubro_formal']),
-      msje: intType.mapFromDatabaseResponse(data['${effectivePrefix}msje']),
-      promedio: doubleType
+      msje: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}msje']),
+      promedio: const RealType()
           .mapFromDatabaseResponse(data['${effectivePrefix}promedio']),
-      desviacionEstandar: doubleType.mapFromDatabaseResponse(
+      desviacionEstandar: const RealType().mapFromDatabaseResponse(
           data['${effectivePrefix}desviacion_estandar']),
-      unidadAprendizajeId: intType.mapFromDatabaseResponse(
+      unidadAprendizajeId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}unidad_aprendizaje_id']),
-      estrategiaEvaluacionId: intType.mapFromDatabaseResponse(
+      estrategiaEvaluacionId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}estrategia_evaluacion_id']),
-      tareaId: stringType
+      tareaId: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}tarea_id']),
-      resultadoTipoNotaId: stringType.mapFromDatabaseResponse(
+      resultadoTipoNotaId: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}resultado_tipo_nota_id']),
-      instrumentoEvalId: stringType.mapFromDatabaseResponse(
+      instrumentoEvalId: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}instrumento_eval_id']),
-      preguntaEvalId: stringType
+      preguntaEvalId: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}pregunta_eval_id']),
     );
   }
@@ -23460,7 +23384,7 @@ class RubroEvaluacionProcesoData extends DataClass
                                                                               tipoRedondeoId.hashCode,
                                                                               $mrjc(valorRedondeoId.hashCode, $mrjc(rubroEvalResultadoId.hashCode, $mrjc(tipoNotaId.hashCode, $mrjc(sesionAprendizajeId.hashCode, $mrjc(desempenioIcdId.hashCode, $mrjc(campoTematicoId.hashCode, $mrjc(tipoEvaluacionId.hashCode, $mrjc(estadoId.hashCode, $mrjc(tipoEscalaEvaluacionId.hashCode, $mrjc(tipoColorRubroProceso.hashCode, $mrjc(tiporubroid.hashCode, $mrjc(formaEvaluacionId.hashCode, $mrjc(countIndicador.hashCode, $mrjc(rubroFormal.hashCode, $mrjc(msje.hashCode, $mrjc(promedio.hashCode, $mrjc(desviacionEstandar.hashCode, $mrjc(unidadAprendizajeId.hashCode, $mrjc(estrategiaEvaluacionId.hashCode, $mrjc(tareaId.hashCode, $mrjc(resultadoTipoNotaId.hashCode, $mrjc(instrumentoEvalId.hashCode, preguntaEvalId.hashCode))))))))))))))))))))))))))))))))))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is RubroEvaluacionProcesoData &&
           other.syncFlag == this.syncFlag &&
@@ -24877,32 +24801,31 @@ class ArchivoRubroData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    final stringType = db.typeSystem.forDartType<String>();
     return ArchivoRubroData(
-      syncFlag:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}sync_flag']),
-      timestampFlag: dateTimeType
+      syncFlag: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}sync_flag']),
+      timestampFlag: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}timestamp_flag']),
-      usuarioCreacionId: intType.mapFromDatabaseResponse(
+      usuarioCreacionId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}usuario_creacion_id']),
-      fechaCreacion: dateTimeType
+      fechaCreacion: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_creacion']),
-      usuarioAccionId: intType
+      usuarioAccionId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}usuario_accion_id']),
-      fechaAccion: dateTimeType
+      fechaAccion: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_accion']),
-      archivoRubroId: stringType
+      archivoRubroId: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}archivo_rubro_id'])!,
-      url: stringType.mapFromDatabaseResponse(data['${effectivePrefix}url']),
-      tipoArchivoId: intType
+      url: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}url']),
+      tipoArchivoId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}tipo_archivo_id']),
-      evaluacionProcesoId: stringType.mapFromDatabaseResponse(
+      evaluacionProcesoId: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}evaluacion_proceso_id']),
-      localpath: stringType
+      localpath: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}localpath']),
-      delete: intType.mapFromDatabaseResponse(data['${effectivePrefix}delete']),
+      delete: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}delete']),
     );
   }
   @override
@@ -25089,7 +25012,7 @@ class ArchivoRubroData extends DataClass
                                           $mrjc(localpath.hashCode,
                                               delete.hashCode))))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is ArchivoRubroData &&
           other.syncFlag == this.syncFlag &&
@@ -25559,35 +25482,32 @@ class EquipoEvaluacionData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final doubleType = db.typeSystem.forDartType<double>();
     return EquipoEvaluacionData(
-      syncFlag:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}sync_flag']),
-      timestampFlag: dateTimeType
+      syncFlag: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}sync_flag']),
+      timestampFlag: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}timestamp_flag']),
-      usuarioCreacionId: intType.mapFromDatabaseResponse(
+      usuarioCreacionId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}usuario_creacion_id']),
-      fechaCreacion: dateTimeType
+      fechaCreacion: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_creacion']),
-      usuarioAccionId: intType
+      usuarioAccionId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}usuario_accion_id']),
-      fechaAccion: dateTimeType
+      fechaAccion: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_accion']),
-      equipoEvaluacionProcesoId: stringType.mapFromDatabaseResponse(
+      equipoEvaluacionProcesoId: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}equipo_evaluacion_proceso_id'])!,
-      rubroEvalProcesoId: stringType.mapFromDatabaseResponse(
+      rubroEvalProcesoId: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}rubro_eval_proceso_id']),
-      sesionAprendizajeId: intType.mapFromDatabaseResponse(
+      sesionAprendizajeId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}sesion_aprendizaje_id']),
-      equipoId: stringType
+      equipoId: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}equipo_id']),
-      nota: doubleType.mapFromDatabaseResponse(data['${effectivePrefix}nota']),
-      escala:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}escala']),
-      valorTipoNotaId: stringType.mapFromDatabaseResponse(
+      nota: const RealType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nota']),
+      escala: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}escala']),
+      valorTipoNotaId: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}valor_tipo_nota_id']),
     );
   }
@@ -25795,7 +25715,7 @@ class EquipoEvaluacionData extends DataClass
                                                   valorTipoNotaId
                                                       .hashCode)))))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is EquipoEvaluacionData &&
           other.syncFlag == this.syncFlag &&
@@ -26326,56 +26246,55 @@ class EvaluacionProcesoData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final doubleType = db.typeSystem.forDartType<double>();
-    final boolType = db.typeSystem.forDartType<bool>();
     return EvaluacionProcesoData(
-      syncFlag:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}sync_flag']),
-      timestampFlag: dateTimeType
+      syncFlag: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}sync_flag']),
+      timestampFlag: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}timestamp_flag']),
-      usuarioCreacionId: intType.mapFromDatabaseResponse(
+      usuarioCreacionId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}usuario_creacion_id']),
-      fechaCreacion: dateTimeType
+      fechaCreacion: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_creacion']),
-      usuarioAccionId: intType
+      usuarioAccionId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}usuario_accion_id']),
-      fechaAccion: dateTimeType
+      fechaAccion: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_accion']),
-      evaluacionProcesoId: stringType.mapFromDatabaseResponse(
+      evaluacionProcesoId: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}evaluacion_proceso_id'])!,
-      evaluacionResultadoId: intType.mapFromDatabaseResponse(
+      evaluacionResultadoId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}evaluacion_resultado_id']),
-      nota: doubleType.mapFromDatabaseResponse(data['${effectivePrefix}nota']),
-      escala:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}escala']),
-      rubroEvalProcesoId: stringType.mapFromDatabaseResponse(
+      nota: const RealType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nota']),
+      escala: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}escala']),
+      rubroEvalProcesoId: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}rubro_eval_proceso_id']),
-      sesionAprendizajeId: intType.mapFromDatabaseResponse(
+      sesionAprendizajeId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}sesion_aprendizaje_id']),
-      valorTipoNotaId: stringType.mapFromDatabaseResponse(
+      valorTipoNotaId: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}valor_tipo_nota_id']),
-      equipoId: stringType
+      equipoId: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}equipo_id']),
-      alumnoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}alumno_id']),
-      nombres:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}nombres']),
-      apellidoPaterno: stringType
+      alumnoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}alumno_id']),
+      nombres: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nombres']),
+      apellidoPaterno: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}apellido_paterno']),
-      apellidoMaterno: stringType
+      apellidoMaterno: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}apellido_materno']),
-      foto: stringType.mapFromDatabaseResponse(data['${effectivePrefix}foto']),
-      calendarioPeriodoId: intType.mapFromDatabaseResponse(
+      foto: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}foto']),
+      calendarioPeriodoId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}calendario_periodo_id']),
-      formulaSinc: boolType
+      formulaSinc: const BoolType()
           .mapFromDatabaseResponse(data['${effectivePrefix}formula_sinc']),
-      msje: intType.mapFromDatabaseResponse(data['${effectivePrefix}msje']),
-      publicado:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}publicado']),
-      visto: intType.mapFromDatabaseResponse(data['${effectivePrefix}visto']),
+      msje: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}msje']),
+      publicado: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}publicado']),
+      visto: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}visto']),
     );
   }
   @override
@@ -26714,7 +26633,7 @@ class EvaluacionProcesoData extends DataClass
                                                                               foto.hashCode,
                                                                               $mrjc(calendarioPeriodoId.hashCode, $mrjc(formulaSinc.hashCode, $mrjc(msje.hashCode, $mrjc(publicado.hashCode, visto.hashCode))))))))))))))))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is EvaluacionProcesoData &&
           other.syncFlag == this.syncFlag &&
@@ -27541,25 +27460,22 @@ class RubroCampotematicoData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    final stringType = db.typeSystem.forDartType<String>();
     return RubroCampotematicoData(
-      syncFlag:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}sync_flag']),
-      timestampFlag: dateTimeType
+      syncFlag: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}sync_flag']),
+      timestampFlag: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}timestamp_flag']),
-      usuarioCreacionId: intType.mapFromDatabaseResponse(
+      usuarioCreacionId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}usuario_creacion_id']),
-      fechaCreacion: dateTimeType
+      fechaCreacion: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_creacion']),
-      usuarioAccionId: intType
+      usuarioAccionId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}usuario_accion_id']),
-      fechaAccion: dateTimeType
+      fechaAccion: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_accion']),
-      rubroEvalProcesoId: stringType.mapFromDatabaseResponse(
+      rubroEvalProcesoId: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}rubro_eval_proceso_id'])!,
-      campoTematicoId: intType.mapFromDatabaseResponse(
+      campoTematicoId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}campo_tematico_id'])!,
     );
   }
@@ -27694,7 +27610,7 @@ class RubroCampotematicoData extends DataClass
                           $mrjc(rubroEvalProcesoId.hashCode,
                               campoTematicoId.hashCode))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is RubroCampotematicoData &&
           other.syncFlag == this.syncFlag &&
@@ -28049,32 +27965,29 @@ class RubroComentarioData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    final stringType = db.typeSystem.forDartType<String>();
     return RubroComentarioData(
-      syncFlag:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}sync_flag']),
-      timestampFlag: dateTimeType
+      syncFlag: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}sync_flag']),
+      timestampFlag: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}timestamp_flag']),
-      usuarioCreacionId: intType.mapFromDatabaseResponse(
+      usuarioCreacionId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}usuario_creacion_id']),
-      fechaCreacion: dateTimeType
+      fechaCreacion: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_creacion']),
-      usuarioAccionId: intType
+      usuarioAccionId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}usuario_accion_id']),
-      fechaAccion: dateTimeType
+      fechaAccion: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_accion']),
-      evaluacionProcesoComentarioId: stringType.mapFromDatabaseResponse(
+      evaluacionProcesoComentarioId: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}evaluacion_proceso_comentario_id'])!,
-      evaluacionProcesoId: stringType.mapFromDatabaseResponse(
+      evaluacionProcesoId: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}evaluacion_proceso_id']),
-      comentarioId: stringType
+      comentarioId: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}comentario_id']),
-      descripcion: stringType
+      descripcion: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}descripcion']),
-      delete:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}delete']),
+      delete: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}delete']),
     );
   }
   @override
@@ -28255,7 +28168,7 @@ class RubroComentarioData extends DataClass
                                       $mrjc(descripcion.hashCode,
                                           delete.hashCode)))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is RubroComentarioData &&
           other.syncFlag == this.syncFlag &&
@@ -28702,30 +28615,27 @@ class RubroEvalRNPFormulaData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final doubleType = db.typeSystem.forDartType<double>();
     return RubroEvalRNPFormulaData(
-      syncFlag:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}sync_flag']),
-      timestampFlag: dateTimeType
+      syncFlag: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}sync_flag']),
+      timestampFlag: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}timestamp_flag']),
-      usuarioCreacionId: intType.mapFromDatabaseResponse(
+      usuarioCreacionId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}usuario_creacion_id']),
-      fechaCreacion: dateTimeType
+      fechaCreacion: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_creacion']),
-      usuarioAccionId: intType
+      usuarioAccionId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}usuario_accion_id']),
-      fechaAccion: dateTimeType
+      fechaAccion: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_accion']),
-      rubroFormulaId: stringType
+      rubroFormulaId: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}rubro_formula_id'])!,
-      rubroEvaluacionPrimId: stringType.mapFromDatabaseResponse(
+      rubroEvaluacionPrimId: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}rubro_evaluacion_prim_id']),
-      rubroEvaluacionSecId: stringType.mapFromDatabaseResponse(
+      rubroEvaluacionSecId: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}rubro_evaluacion_sec_id']),
-      peso: doubleType.mapFromDatabaseResponse(data['${effectivePrefix}peso']),
+      peso: const RealType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}peso']),
     );
   }
   @override
@@ -28891,7 +28801,7 @@ class RubroEvalRNPFormulaData extends DataClass
                                   $mrjc(rubroEvaluacionSecId.hashCode,
                                       peso.hashCode))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is RubroEvalRNPFormulaData &&
           other.syncFlag == this.syncFlag &&
@@ -29346,67 +29256,66 @@ class ContactoDocenteData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final boolType = db.typeSystem.forDartType<bool>();
     return ContactoDocenteData(
-      personaId: intType
+      personaId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}persona_id'])!,
-      nombres:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}nombres']),
-      apellidoPaterno: stringType
+      nombres: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nombres']),
+      apellidoPaterno: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}apellido_paterno']),
-      apellidoMaterno: stringType
+      apellidoMaterno: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}apellido_materno']),
-      ocupacion: stringType
+      ocupacion: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}ocupacion']),
-      estadoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
-      telefono: stringType
+      estadoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
+      telefono: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}telefono']),
-      celular:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}celular']),
-      fechaNac: stringType
+      celular: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}celular']),
+      fechaNac: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_nac']),
-      correo:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}correo']),
-      genero:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}genero']),
-      estadoCivil: stringType
+      correo: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}correo']),
+      genero: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}genero']),
+      estadoCivil: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}estado_civil']),
-      numDoc:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}num_doc']),
-      foto: stringType.mapFromDatabaseResponse(data['${effectivePrefix}foto']),
-      nombreTipo: stringType
+      numDoc: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}num_doc']),
+      foto: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}foto']),
+      nombreTipo: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}nombre_tipo']),
-      tipo: intType.mapFromDatabaseResponse(data['${effectivePrefix}tipo'])!,
-      hijoRelacionId: intType
+      tipo: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}tipo'])!,
+      hijoRelacionId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}hijo_relacion_id']),
-      relacion: stringType
+      relacion: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}relacion']),
-      cargaCursoId: intType
+      cargaCursoId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}carga_curso_id'])!,
-      cursoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}curso_id']),
-      cursoNombre: stringType
+      cursoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}curso_id']),
+      cursoNombre: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}curso_nombre']),
-      periodoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}periodo_id']),
-      periodoNombre: stringType
+      periodoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}periodo_id']),
+      periodoNombre: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}periodo_nombre']),
-      grupoId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}grupo_id']),
-      grupoNombre: stringType
+      grupoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}grupo_id']),
+      grupoNombre: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}grupo_nombre']),
-      aulaId:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}aula_id']),
-      aulaNombre: stringType
+      aulaId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}aula_id']),
+      aulaNombre: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}aula_nombre']),
-      contratoEstadoId: intType.mapFromDatabaseResponse(
+      contratoEstadoId: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}contrato_estado_id']),
-      contratoVigente: boolType
+      contratoVigente: const BoolType()
           .mapFromDatabaseResponse(data['${effectivePrefix}contrato_vigente']),
-      relacionId: intType
+      relacionId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}relacion_id']),
     );
   }
@@ -29800,7 +29709,7 @@ class ContactoDocenteData extends DataClass
                                                                               cargaCursoId.hashCode,
                                                                               $mrjc(cursoId.hashCode, $mrjc(cursoNombre.hashCode, $mrjc(periodoId.hashCode, $mrjc(periodoNombre.hashCode, $mrjc(grupoId.hashCode, $mrjc(grupoNombre.hashCode, $mrjc(aulaId.hashCode, $mrjc(aulaNombre.hashCode, $mrjc(contratoEstadoId.hashCode, $mrjc(contratoVigente.hashCode, relacionId.hashCode))))))))))))))))))))))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is ContactoDocenteData &&
           other.personaId == this.personaId &&
@@ -30771,15 +30680,14 @@ class CriterioRubroEvaluacionData extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final stringType = db.typeSystem.forDartType<String>();
     return CriterioRubroEvaluacionData(
-      criteriosEvaluacionId: stringType.mapFromDatabaseResponse(
+      criteriosEvaluacionId: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}criterios_evaluacion_id'])!,
-      rubroEvalProcesoId: stringType.mapFromDatabaseResponse(
+      rubroEvalProcesoId: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}rubro_eval_proceso_id']),
-      valorTipoNotaId: stringType.mapFromDatabaseResponse(
+      valorTipoNotaId: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}valor_tipo_nota_id']),
-      descripcion: stringType
+      descripcion: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}descripcion']),
     );
   }
@@ -30866,7 +30774,7 @@ class CriterioRubroEvaluacionData extends DataClass
       $mrjc(rubroEvalProcesoId.hashCode,
           $mrjc(valorTipoNotaId.hashCode, descripcion.hashCode))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is CriterioRubroEvaluacionData &&
           other.criteriosEvaluacionId == this.criteriosEvaluacionId &&
@@ -31070,6 +30978,7087 @@ class $CriterioRubroEvaluacionTable extends CriterioRubroEvaluacion
   }
 }
 
+class CalendarioData extends DataClass implements Insertable<CalendarioData> {
+  final String calendarioId;
+  final String? nombre;
+  final String? descripcion;
+  final int? estado;
+  final int? entidadId;
+  final int? georeferenciaId;
+  final String? nUsuario;
+  final String? cargo;
+  final int? usuarioId;
+  final int? cargaAcademicaId;
+  final int? cargaCursoId;
+  final int? estadoPublicaciN;
+  final int? estadoPublicacion;
+  final int? rolId;
+  final int? usuarioCreacionId;
+  final int? usuarioCreadorId;
+  final int? fechaCreacion;
+  final int? usuarioAccionId;
+  final int? fechaAccion;
+  final int? fechaEnvio;
+  final int? fechaEntrega;
+  final int? fechaRecibido;
+  final int? fechaVisto;
+  final int? fechaRespuesta;
+  final String? getSTime;
+  CalendarioData(
+      {required this.calendarioId,
+      this.nombre,
+      this.descripcion,
+      this.estado,
+      this.entidadId,
+      this.georeferenciaId,
+      this.nUsuario,
+      this.cargo,
+      this.usuarioId,
+      this.cargaAcademicaId,
+      this.cargaCursoId,
+      this.estadoPublicaciN,
+      this.estadoPublicacion,
+      this.rolId,
+      this.usuarioCreacionId,
+      this.usuarioCreadorId,
+      this.fechaCreacion,
+      this.usuarioAccionId,
+      this.fechaAccion,
+      this.fechaEnvio,
+      this.fechaEntrega,
+      this.fechaRecibido,
+      this.fechaVisto,
+      this.fechaRespuesta,
+      this.getSTime});
+  factory CalendarioData.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
+      {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    return CalendarioData(
+      calendarioId: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}calendario_id'])!,
+      nombre: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
+      descripcion: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}descripcion']),
+      estado: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado']),
+      entidadId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}entidad_id']),
+      georeferenciaId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}georeferencia_id']),
+      nUsuario: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}n_usuario']),
+      cargo: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}cargo']),
+      usuarioId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}usuario_id']),
+      cargaAcademicaId: const IntType().mapFromDatabaseResponse(
+          data['${effectivePrefix}carga_academica_id']),
+      cargaCursoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}carga_curso_id']),
+      estadoPublicaciN: const IntType().mapFromDatabaseResponse(
+          data['${effectivePrefix}estado_publicaci_n']),
+      estadoPublicacion: const IntType().mapFromDatabaseResponse(
+          data['${effectivePrefix}estado_publicacion']),
+      rolId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}rol_id']),
+      usuarioCreacionId: const IntType().mapFromDatabaseResponse(
+          data['${effectivePrefix}usuario_creacion_id']),
+      usuarioCreadorId: const IntType().mapFromDatabaseResponse(
+          data['${effectivePrefix}usuario_creador_id']),
+      fechaCreacion: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_creacion']),
+      usuarioAccionId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}usuario_accion_id']),
+      fechaAccion: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_accion']),
+      fechaEnvio: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_envio']),
+      fechaEntrega: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_entrega']),
+      fechaRecibido: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_recibido']),
+      fechaVisto: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_visto']),
+      fechaRespuesta: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_respuesta']),
+      getSTime: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}get_s_time']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['calendario_id'] = Variable<String>(calendarioId);
+    if (!nullToAbsent || nombre != null) {
+      map['nombre'] = Variable<String?>(nombre);
+    }
+    if (!nullToAbsent || descripcion != null) {
+      map['descripcion'] = Variable<String?>(descripcion);
+    }
+    if (!nullToAbsent || estado != null) {
+      map['estado'] = Variable<int?>(estado);
+    }
+    if (!nullToAbsent || entidadId != null) {
+      map['entidad_id'] = Variable<int?>(entidadId);
+    }
+    if (!nullToAbsent || georeferenciaId != null) {
+      map['georeferencia_id'] = Variable<int?>(georeferenciaId);
+    }
+    if (!nullToAbsent || nUsuario != null) {
+      map['n_usuario'] = Variable<String?>(nUsuario);
+    }
+    if (!nullToAbsent || cargo != null) {
+      map['cargo'] = Variable<String?>(cargo);
+    }
+    if (!nullToAbsent || usuarioId != null) {
+      map['usuario_id'] = Variable<int?>(usuarioId);
+    }
+    if (!nullToAbsent || cargaAcademicaId != null) {
+      map['carga_academica_id'] = Variable<int?>(cargaAcademicaId);
+    }
+    if (!nullToAbsent || cargaCursoId != null) {
+      map['carga_curso_id'] = Variable<int?>(cargaCursoId);
+    }
+    if (!nullToAbsent || estadoPublicaciN != null) {
+      map['estado_publicaci_n'] = Variable<int?>(estadoPublicaciN);
+    }
+    if (!nullToAbsent || estadoPublicacion != null) {
+      map['estado_publicacion'] = Variable<int?>(estadoPublicacion);
+    }
+    if (!nullToAbsent || rolId != null) {
+      map['rol_id'] = Variable<int?>(rolId);
+    }
+    if (!nullToAbsent || usuarioCreacionId != null) {
+      map['usuario_creacion_id'] = Variable<int?>(usuarioCreacionId);
+    }
+    if (!nullToAbsent || usuarioCreadorId != null) {
+      map['usuario_creador_id'] = Variable<int?>(usuarioCreadorId);
+    }
+    if (!nullToAbsent || fechaCreacion != null) {
+      map['fecha_creacion'] = Variable<int?>(fechaCreacion);
+    }
+    if (!nullToAbsent || usuarioAccionId != null) {
+      map['usuario_accion_id'] = Variable<int?>(usuarioAccionId);
+    }
+    if (!nullToAbsent || fechaAccion != null) {
+      map['fecha_accion'] = Variable<int?>(fechaAccion);
+    }
+    if (!nullToAbsent || fechaEnvio != null) {
+      map['fecha_envio'] = Variable<int?>(fechaEnvio);
+    }
+    if (!nullToAbsent || fechaEntrega != null) {
+      map['fecha_entrega'] = Variable<int?>(fechaEntrega);
+    }
+    if (!nullToAbsent || fechaRecibido != null) {
+      map['fecha_recibido'] = Variable<int?>(fechaRecibido);
+    }
+    if (!nullToAbsent || fechaVisto != null) {
+      map['fecha_visto'] = Variable<int?>(fechaVisto);
+    }
+    if (!nullToAbsent || fechaRespuesta != null) {
+      map['fecha_respuesta'] = Variable<int?>(fechaRespuesta);
+    }
+    if (!nullToAbsent || getSTime != null) {
+      map['get_s_time'] = Variable<String?>(getSTime);
+    }
+    return map;
+  }
+
+  CalendarioCompanion toCompanion(bool nullToAbsent) {
+    return CalendarioCompanion(
+      calendarioId: Value(calendarioId),
+      nombre:
+          nombre == null && nullToAbsent ? const Value.absent() : Value(nombre),
+      descripcion: descripcion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(descripcion),
+      estado:
+          estado == null && nullToAbsent ? const Value.absent() : Value(estado),
+      entidadId: entidadId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(entidadId),
+      georeferenciaId: georeferenciaId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(georeferenciaId),
+      nUsuario: nUsuario == null && nullToAbsent
+          ? const Value.absent()
+          : Value(nUsuario),
+      cargo:
+          cargo == null && nullToAbsent ? const Value.absent() : Value(cargo),
+      usuarioId: usuarioId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioId),
+      cargaAcademicaId: cargaAcademicaId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(cargaAcademicaId),
+      cargaCursoId: cargaCursoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(cargaCursoId),
+      estadoPublicaciN: estadoPublicaciN == null && nullToAbsent
+          ? const Value.absent()
+          : Value(estadoPublicaciN),
+      estadoPublicacion: estadoPublicacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(estadoPublicacion),
+      rolId:
+          rolId == null && nullToAbsent ? const Value.absent() : Value(rolId),
+      usuarioCreacionId: usuarioCreacionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioCreacionId),
+      usuarioCreadorId: usuarioCreadorId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioCreadorId),
+      fechaCreacion: fechaCreacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaCreacion),
+      usuarioAccionId: usuarioAccionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioAccionId),
+      fechaAccion: fechaAccion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaAccion),
+      fechaEnvio: fechaEnvio == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaEnvio),
+      fechaEntrega: fechaEntrega == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaEntrega),
+      fechaRecibido: fechaRecibido == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaRecibido),
+      fechaVisto: fechaVisto == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaVisto),
+      fechaRespuesta: fechaRespuesta == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaRespuesta),
+      getSTime: getSTime == null && nullToAbsent
+          ? const Value.absent()
+          : Value(getSTime),
+    );
+  }
+
+  factory CalendarioData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return CalendarioData(
+      calendarioId: serializer.fromJson<String>(json['calendarioId']),
+      nombre: serializer.fromJson<String?>(json['nombre']),
+      descripcion: serializer.fromJson<String?>(json['descripcion']),
+      estado: serializer.fromJson<int?>(json['estado']),
+      entidadId: serializer.fromJson<int?>(json['entidadId']),
+      georeferenciaId: serializer.fromJson<int?>(json['georeferenciaId']),
+      nUsuario: serializer.fromJson<String?>(json['nUsuario']),
+      cargo: serializer.fromJson<String?>(json['cargo']),
+      usuarioId: serializer.fromJson<int?>(json['usuarioId']),
+      cargaAcademicaId: serializer.fromJson<int?>(json['cargaAcademicaId']),
+      cargaCursoId: serializer.fromJson<int?>(json['cargaCursoId']),
+      estadoPublicaciN: serializer.fromJson<int?>(json['estadoPublicaciN']),
+      estadoPublicacion: serializer.fromJson<int?>(json['estadoPublicacion']),
+      rolId: serializer.fromJson<int?>(json['rolId']),
+      usuarioCreacionId: serializer.fromJson<int?>(json['usuarioCreacionId']),
+      usuarioCreadorId: serializer.fromJson<int?>(json['usuarioCreadorId']),
+      fechaCreacion: serializer.fromJson<int?>(json['fechaCreacion']),
+      usuarioAccionId: serializer.fromJson<int?>(json['usuarioAccionId']),
+      fechaAccion: serializer.fromJson<int?>(json['fechaAccion']),
+      fechaEnvio: serializer.fromJson<int?>(json['fechaEnvio']),
+      fechaEntrega: serializer.fromJson<int?>(json['fechaEntrega']),
+      fechaRecibido: serializer.fromJson<int?>(json['fechaRecibido']),
+      fechaVisto: serializer.fromJson<int?>(json['fechaVisto']),
+      fechaRespuesta: serializer.fromJson<int?>(json['fechaRespuesta']),
+      getSTime: serializer.fromJson<String?>(json['getSTime']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'calendarioId': serializer.toJson<String>(calendarioId),
+      'nombre': serializer.toJson<String?>(nombre),
+      'descripcion': serializer.toJson<String?>(descripcion),
+      'estado': serializer.toJson<int?>(estado),
+      'entidadId': serializer.toJson<int?>(entidadId),
+      'georeferenciaId': serializer.toJson<int?>(georeferenciaId),
+      'nUsuario': serializer.toJson<String?>(nUsuario),
+      'cargo': serializer.toJson<String?>(cargo),
+      'usuarioId': serializer.toJson<int?>(usuarioId),
+      'cargaAcademicaId': serializer.toJson<int?>(cargaAcademicaId),
+      'cargaCursoId': serializer.toJson<int?>(cargaCursoId),
+      'estadoPublicaciN': serializer.toJson<int?>(estadoPublicaciN),
+      'estadoPublicacion': serializer.toJson<int?>(estadoPublicacion),
+      'rolId': serializer.toJson<int?>(rolId),
+      'usuarioCreacionId': serializer.toJson<int?>(usuarioCreacionId),
+      'usuarioCreadorId': serializer.toJson<int?>(usuarioCreadorId),
+      'fechaCreacion': serializer.toJson<int?>(fechaCreacion),
+      'usuarioAccionId': serializer.toJson<int?>(usuarioAccionId),
+      'fechaAccion': serializer.toJson<int?>(fechaAccion),
+      'fechaEnvio': serializer.toJson<int?>(fechaEnvio),
+      'fechaEntrega': serializer.toJson<int?>(fechaEntrega),
+      'fechaRecibido': serializer.toJson<int?>(fechaRecibido),
+      'fechaVisto': serializer.toJson<int?>(fechaVisto),
+      'fechaRespuesta': serializer.toJson<int?>(fechaRespuesta),
+      'getSTime': serializer.toJson<String?>(getSTime),
+    };
+  }
+
+  CalendarioData copyWith(
+          {String? calendarioId,
+          String? nombre,
+          String? descripcion,
+          int? estado,
+          int? entidadId,
+          int? georeferenciaId,
+          String? nUsuario,
+          String? cargo,
+          int? usuarioId,
+          int? cargaAcademicaId,
+          int? cargaCursoId,
+          int? estadoPublicaciN,
+          int? estadoPublicacion,
+          int? rolId,
+          int? usuarioCreacionId,
+          int? usuarioCreadorId,
+          int? fechaCreacion,
+          int? usuarioAccionId,
+          int? fechaAccion,
+          int? fechaEnvio,
+          int? fechaEntrega,
+          int? fechaRecibido,
+          int? fechaVisto,
+          int? fechaRespuesta,
+          String? getSTime}) =>
+      CalendarioData(
+        calendarioId: calendarioId ?? this.calendarioId,
+        nombre: nombre ?? this.nombre,
+        descripcion: descripcion ?? this.descripcion,
+        estado: estado ?? this.estado,
+        entidadId: entidadId ?? this.entidadId,
+        georeferenciaId: georeferenciaId ?? this.georeferenciaId,
+        nUsuario: nUsuario ?? this.nUsuario,
+        cargo: cargo ?? this.cargo,
+        usuarioId: usuarioId ?? this.usuarioId,
+        cargaAcademicaId: cargaAcademicaId ?? this.cargaAcademicaId,
+        cargaCursoId: cargaCursoId ?? this.cargaCursoId,
+        estadoPublicaciN: estadoPublicaciN ?? this.estadoPublicaciN,
+        estadoPublicacion: estadoPublicacion ?? this.estadoPublicacion,
+        rolId: rolId ?? this.rolId,
+        usuarioCreacionId: usuarioCreacionId ?? this.usuarioCreacionId,
+        usuarioCreadorId: usuarioCreadorId ?? this.usuarioCreadorId,
+        fechaCreacion: fechaCreacion ?? this.fechaCreacion,
+        usuarioAccionId: usuarioAccionId ?? this.usuarioAccionId,
+        fechaAccion: fechaAccion ?? this.fechaAccion,
+        fechaEnvio: fechaEnvio ?? this.fechaEnvio,
+        fechaEntrega: fechaEntrega ?? this.fechaEntrega,
+        fechaRecibido: fechaRecibido ?? this.fechaRecibido,
+        fechaVisto: fechaVisto ?? this.fechaVisto,
+        fechaRespuesta: fechaRespuesta ?? this.fechaRespuesta,
+        getSTime: getSTime ?? this.getSTime,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('CalendarioData(')
+          ..write('calendarioId: $calendarioId, ')
+          ..write('nombre: $nombre, ')
+          ..write('descripcion: $descripcion, ')
+          ..write('estado: $estado, ')
+          ..write('entidadId: $entidadId, ')
+          ..write('georeferenciaId: $georeferenciaId, ')
+          ..write('nUsuario: $nUsuario, ')
+          ..write('cargo: $cargo, ')
+          ..write('usuarioId: $usuarioId, ')
+          ..write('cargaAcademicaId: $cargaAcademicaId, ')
+          ..write('cargaCursoId: $cargaCursoId, ')
+          ..write('estadoPublicaciN: $estadoPublicaciN, ')
+          ..write('estadoPublicacion: $estadoPublicacion, ')
+          ..write('rolId: $rolId, ')
+          ..write('usuarioCreacionId: $usuarioCreacionId, ')
+          ..write('usuarioCreadorId: $usuarioCreadorId, ')
+          ..write('fechaCreacion: $fechaCreacion, ')
+          ..write('usuarioAccionId: $usuarioAccionId, ')
+          ..write('fechaAccion: $fechaAccion, ')
+          ..write('fechaEnvio: $fechaEnvio, ')
+          ..write('fechaEntrega: $fechaEntrega, ')
+          ..write('fechaRecibido: $fechaRecibido, ')
+          ..write('fechaVisto: $fechaVisto, ')
+          ..write('fechaRespuesta: $fechaRespuesta, ')
+          ..write('getSTime: $getSTime')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      calendarioId.hashCode,
+      $mrjc(
+          nombre.hashCode,
+          $mrjc(
+              descripcion.hashCode,
+              $mrjc(
+                  estado.hashCode,
+                  $mrjc(
+                      entidadId.hashCode,
+                      $mrjc(
+                          georeferenciaId.hashCode,
+                          $mrjc(
+                              nUsuario.hashCode,
+                              $mrjc(
+                                  cargo.hashCode,
+                                  $mrjc(
+                                      usuarioId.hashCode,
+                                      $mrjc(
+                                          cargaAcademicaId.hashCode,
+                                          $mrjc(
+                                              cargaCursoId.hashCode,
+                                              $mrjc(
+                                                  estadoPublicaciN.hashCode,
+                                                  $mrjc(
+                                                      estadoPublicacion
+                                                          .hashCode,
+                                                      $mrjc(
+                                                          rolId.hashCode,
+                                                          $mrjc(
+                                                              usuarioCreacionId
+                                                                  .hashCode,
+                                                              $mrjc(
+                                                                  usuarioCreadorId
+                                                                      .hashCode,
+                                                                  $mrjc(
+                                                                      fechaCreacion
+                                                                          .hashCode,
+                                                                      $mrjc(
+                                                                          usuarioAccionId
+                                                                              .hashCode,
+                                                                          $mrjc(
+                                                                              fechaAccion.hashCode,
+                                                                              $mrjc(fechaEnvio.hashCode, $mrjc(fechaEntrega.hashCode, $mrjc(fechaRecibido.hashCode, $mrjc(fechaVisto.hashCode, $mrjc(fechaRespuesta.hashCode, getSTime.hashCode)))))))))))))))))))))))));
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is CalendarioData &&
+          other.calendarioId == this.calendarioId &&
+          other.nombre == this.nombre &&
+          other.descripcion == this.descripcion &&
+          other.estado == this.estado &&
+          other.entidadId == this.entidadId &&
+          other.georeferenciaId == this.georeferenciaId &&
+          other.nUsuario == this.nUsuario &&
+          other.cargo == this.cargo &&
+          other.usuarioId == this.usuarioId &&
+          other.cargaAcademicaId == this.cargaAcademicaId &&
+          other.cargaCursoId == this.cargaCursoId &&
+          other.estadoPublicaciN == this.estadoPublicaciN &&
+          other.estadoPublicacion == this.estadoPublicacion &&
+          other.rolId == this.rolId &&
+          other.usuarioCreacionId == this.usuarioCreacionId &&
+          other.usuarioCreadorId == this.usuarioCreadorId &&
+          other.fechaCreacion == this.fechaCreacion &&
+          other.usuarioAccionId == this.usuarioAccionId &&
+          other.fechaAccion == this.fechaAccion &&
+          other.fechaEnvio == this.fechaEnvio &&
+          other.fechaEntrega == this.fechaEntrega &&
+          other.fechaRecibido == this.fechaRecibido &&
+          other.fechaVisto == this.fechaVisto &&
+          other.fechaRespuesta == this.fechaRespuesta &&
+          other.getSTime == this.getSTime);
+}
+
+class CalendarioCompanion extends UpdateCompanion<CalendarioData> {
+  final Value<String> calendarioId;
+  final Value<String?> nombre;
+  final Value<String?> descripcion;
+  final Value<int?> estado;
+  final Value<int?> entidadId;
+  final Value<int?> georeferenciaId;
+  final Value<String?> nUsuario;
+  final Value<String?> cargo;
+  final Value<int?> usuarioId;
+  final Value<int?> cargaAcademicaId;
+  final Value<int?> cargaCursoId;
+  final Value<int?> estadoPublicaciN;
+  final Value<int?> estadoPublicacion;
+  final Value<int?> rolId;
+  final Value<int?> usuarioCreacionId;
+  final Value<int?> usuarioCreadorId;
+  final Value<int?> fechaCreacion;
+  final Value<int?> usuarioAccionId;
+  final Value<int?> fechaAccion;
+  final Value<int?> fechaEnvio;
+  final Value<int?> fechaEntrega;
+  final Value<int?> fechaRecibido;
+  final Value<int?> fechaVisto;
+  final Value<int?> fechaRespuesta;
+  final Value<String?> getSTime;
+  const CalendarioCompanion({
+    this.calendarioId = const Value.absent(),
+    this.nombre = const Value.absent(),
+    this.descripcion = const Value.absent(),
+    this.estado = const Value.absent(),
+    this.entidadId = const Value.absent(),
+    this.georeferenciaId = const Value.absent(),
+    this.nUsuario = const Value.absent(),
+    this.cargo = const Value.absent(),
+    this.usuarioId = const Value.absent(),
+    this.cargaAcademicaId = const Value.absent(),
+    this.cargaCursoId = const Value.absent(),
+    this.estadoPublicaciN = const Value.absent(),
+    this.estadoPublicacion = const Value.absent(),
+    this.rolId = const Value.absent(),
+    this.usuarioCreacionId = const Value.absent(),
+    this.usuarioCreadorId = const Value.absent(),
+    this.fechaCreacion = const Value.absent(),
+    this.usuarioAccionId = const Value.absent(),
+    this.fechaAccion = const Value.absent(),
+    this.fechaEnvio = const Value.absent(),
+    this.fechaEntrega = const Value.absent(),
+    this.fechaRecibido = const Value.absent(),
+    this.fechaVisto = const Value.absent(),
+    this.fechaRespuesta = const Value.absent(),
+    this.getSTime = const Value.absent(),
+  });
+  CalendarioCompanion.insert({
+    required String calendarioId,
+    this.nombre = const Value.absent(),
+    this.descripcion = const Value.absent(),
+    this.estado = const Value.absent(),
+    this.entidadId = const Value.absent(),
+    this.georeferenciaId = const Value.absent(),
+    this.nUsuario = const Value.absent(),
+    this.cargo = const Value.absent(),
+    this.usuarioId = const Value.absent(),
+    this.cargaAcademicaId = const Value.absent(),
+    this.cargaCursoId = const Value.absent(),
+    this.estadoPublicaciN = const Value.absent(),
+    this.estadoPublicacion = const Value.absent(),
+    this.rolId = const Value.absent(),
+    this.usuarioCreacionId = const Value.absent(),
+    this.usuarioCreadorId = const Value.absent(),
+    this.fechaCreacion = const Value.absent(),
+    this.usuarioAccionId = const Value.absent(),
+    this.fechaAccion = const Value.absent(),
+    this.fechaEnvio = const Value.absent(),
+    this.fechaEntrega = const Value.absent(),
+    this.fechaRecibido = const Value.absent(),
+    this.fechaVisto = const Value.absent(),
+    this.fechaRespuesta = const Value.absent(),
+    this.getSTime = const Value.absent(),
+  }) : calendarioId = Value(calendarioId);
+  static Insertable<CalendarioData> custom({
+    Expression<String>? calendarioId,
+    Expression<String?>? nombre,
+    Expression<String?>? descripcion,
+    Expression<int?>? estado,
+    Expression<int?>? entidadId,
+    Expression<int?>? georeferenciaId,
+    Expression<String?>? nUsuario,
+    Expression<String?>? cargo,
+    Expression<int?>? usuarioId,
+    Expression<int?>? cargaAcademicaId,
+    Expression<int?>? cargaCursoId,
+    Expression<int?>? estadoPublicaciN,
+    Expression<int?>? estadoPublicacion,
+    Expression<int?>? rolId,
+    Expression<int?>? usuarioCreacionId,
+    Expression<int?>? usuarioCreadorId,
+    Expression<int?>? fechaCreacion,
+    Expression<int?>? usuarioAccionId,
+    Expression<int?>? fechaAccion,
+    Expression<int?>? fechaEnvio,
+    Expression<int?>? fechaEntrega,
+    Expression<int?>? fechaRecibido,
+    Expression<int?>? fechaVisto,
+    Expression<int?>? fechaRespuesta,
+    Expression<String?>? getSTime,
+  }) {
+    return RawValuesInsertable({
+      if (calendarioId != null) 'calendario_id': calendarioId,
+      if (nombre != null) 'nombre': nombre,
+      if (descripcion != null) 'descripcion': descripcion,
+      if (estado != null) 'estado': estado,
+      if (entidadId != null) 'entidad_id': entidadId,
+      if (georeferenciaId != null) 'georeferencia_id': georeferenciaId,
+      if (nUsuario != null) 'n_usuario': nUsuario,
+      if (cargo != null) 'cargo': cargo,
+      if (usuarioId != null) 'usuario_id': usuarioId,
+      if (cargaAcademicaId != null) 'carga_academica_id': cargaAcademicaId,
+      if (cargaCursoId != null) 'carga_curso_id': cargaCursoId,
+      if (estadoPublicaciN != null) 'estado_publicaci_n': estadoPublicaciN,
+      if (estadoPublicacion != null) 'estado_publicacion': estadoPublicacion,
+      if (rolId != null) 'rol_id': rolId,
+      if (usuarioCreacionId != null) 'usuario_creacion_id': usuarioCreacionId,
+      if (usuarioCreadorId != null) 'usuario_creador_id': usuarioCreadorId,
+      if (fechaCreacion != null) 'fecha_creacion': fechaCreacion,
+      if (usuarioAccionId != null) 'usuario_accion_id': usuarioAccionId,
+      if (fechaAccion != null) 'fecha_accion': fechaAccion,
+      if (fechaEnvio != null) 'fecha_envio': fechaEnvio,
+      if (fechaEntrega != null) 'fecha_entrega': fechaEntrega,
+      if (fechaRecibido != null) 'fecha_recibido': fechaRecibido,
+      if (fechaVisto != null) 'fecha_visto': fechaVisto,
+      if (fechaRespuesta != null) 'fecha_respuesta': fechaRespuesta,
+      if (getSTime != null) 'get_s_time': getSTime,
+    });
+  }
+
+  CalendarioCompanion copyWith(
+      {Value<String>? calendarioId,
+      Value<String?>? nombre,
+      Value<String?>? descripcion,
+      Value<int?>? estado,
+      Value<int?>? entidadId,
+      Value<int?>? georeferenciaId,
+      Value<String?>? nUsuario,
+      Value<String?>? cargo,
+      Value<int?>? usuarioId,
+      Value<int?>? cargaAcademicaId,
+      Value<int?>? cargaCursoId,
+      Value<int?>? estadoPublicaciN,
+      Value<int?>? estadoPublicacion,
+      Value<int?>? rolId,
+      Value<int?>? usuarioCreacionId,
+      Value<int?>? usuarioCreadorId,
+      Value<int?>? fechaCreacion,
+      Value<int?>? usuarioAccionId,
+      Value<int?>? fechaAccion,
+      Value<int?>? fechaEnvio,
+      Value<int?>? fechaEntrega,
+      Value<int?>? fechaRecibido,
+      Value<int?>? fechaVisto,
+      Value<int?>? fechaRespuesta,
+      Value<String?>? getSTime}) {
+    return CalendarioCompanion(
+      calendarioId: calendarioId ?? this.calendarioId,
+      nombre: nombre ?? this.nombre,
+      descripcion: descripcion ?? this.descripcion,
+      estado: estado ?? this.estado,
+      entidadId: entidadId ?? this.entidadId,
+      georeferenciaId: georeferenciaId ?? this.georeferenciaId,
+      nUsuario: nUsuario ?? this.nUsuario,
+      cargo: cargo ?? this.cargo,
+      usuarioId: usuarioId ?? this.usuarioId,
+      cargaAcademicaId: cargaAcademicaId ?? this.cargaAcademicaId,
+      cargaCursoId: cargaCursoId ?? this.cargaCursoId,
+      estadoPublicaciN: estadoPublicaciN ?? this.estadoPublicaciN,
+      estadoPublicacion: estadoPublicacion ?? this.estadoPublicacion,
+      rolId: rolId ?? this.rolId,
+      usuarioCreacionId: usuarioCreacionId ?? this.usuarioCreacionId,
+      usuarioCreadorId: usuarioCreadorId ?? this.usuarioCreadorId,
+      fechaCreacion: fechaCreacion ?? this.fechaCreacion,
+      usuarioAccionId: usuarioAccionId ?? this.usuarioAccionId,
+      fechaAccion: fechaAccion ?? this.fechaAccion,
+      fechaEnvio: fechaEnvio ?? this.fechaEnvio,
+      fechaEntrega: fechaEntrega ?? this.fechaEntrega,
+      fechaRecibido: fechaRecibido ?? this.fechaRecibido,
+      fechaVisto: fechaVisto ?? this.fechaVisto,
+      fechaRespuesta: fechaRespuesta ?? this.fechaRespuesta,
+      getSTime: getSTime ?? this.getSTime,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (calendarioId.present) {
+      map['calendario_id'] = Variable<String>(calendarioId.value);
+    }
+    if (nombre.present) {
+      map['nombre'] = Variable<String?>(nombre.value);
+    }
+    if (descripcion.present) {
+      map['descripcion'] = Variable<String?>(descripcion.value);
+    }
+    if (estado.present) {
+      map['estado'] = Variable<int?>(estado.value);
+    }
+    if (entidadId.present) {
+      map['entidad_id'] = Variable<int?>(entidadId.value);
+    }
+    if (georeferenciaId.present) {
+      map['georeferencia_id'] = Variable<int?>(georeferenciaId.value);
+    }
+    if (nUsuario.present) {
+      map['n_usuario'] = Variable<String?>(nUsuario.value);
+    }
+    if (cargo.present) {
+      map['cargo'] = Variable<String?>(cargo.value);
+    }
+    if (usuarioId.present) {
+      map['usuario_id'] = Variable<int?>(usuarioId.value);
+    }
+    if (cargaAcademicaId.present) {
+      map['carga_academica_id'] = Variable<int?>(cargaAcademicaId.value);
+    }
+    if (cargaCursoId.present) {
+      map['carga_curso_id'] = Variable<int?>(cargaCursoId.value);
+    }
+    if (estadoPublicaciN.present) {
+      map['estado_publicaci_n'] = Variable<int?>(estadoPublicaciN.value);
+    }
+    if (estadoPublicacion.present) {
+      map['estado_publicacion'] = Variable<int?>(estadoPublicacion.value);
+    }
+    if (rolId.present) {
+      map['rol_id'] = Variable<int?>(rolId.value);
+    }
+    if (usuarioCreacionId.present) {
+      map['usuario_creacion_id'] = Variable<int?>(usuarioCreacionId.value);
+    }
+    if (usuarioCreadorId.present) {
+      map['usuario_creador_id'] = Variable<int?>(usuarioCreadorId.value);
+    }
+    if (fechaCreacion.present) {
+      map['fecha_creacion'] = Variable<int?>(fechaCreacion.value);
+    }
+    if (usuarioAccionId.present) {
+      map['usuario_accion_id'] = Variable<int?>(usuarioAccionId.value);
+    }
+    if (fechaAccion.present) {
+      map['fecha_accion'] = Variable<int?>(fechaAccion.value);
+    }
+    if (fechaEnvio.present) {
+      map['fecha_envio'] = Variable<int?>(fechaEnvio.value);
+    }
+    if (fechaEntrega.present) {
+      map['fecha_entrega'] = Variable<int?>(fechaEntrega.value);
+    }
+    if (fechaRecibido.present) {
+      map['fecha_recibido'] = Variable<int?>(fechaRecibido.value);
+    }
+    if (fechaVisto.present) {
+      map['fecha_visto'] = Variable<int?>(fechaVisto.value);
+    }
+    if (fechaRespuesta.present) {
+      map['fecha_respuesta'] = Variable<int?>(fechaRespuesta.value);
+    }
+    if (getSTime.present) {
+      map['get_s_time'] = Variable<String?>(getSTime.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CalendarioCompanion(')
+          ..write('calendarioId: $calendarioId, ')
+          ..write('nombre: $nombre, ')
+          ..write('descripcion: $descripcion, ')
+          ..write('estado: $estado, ')
+          ..write('entidadId: $entidadId, ')
+          ..write('georeferenciaId: $georeferenciaId, ')
+          ..write('nUsuario: $nUsuario, ')
+          ..write('cargo: $cargo, ')
+          ..write('usuarioId: $usuarioId, ')
+          ..write('cargaAcademicaId: $cargaAcademicaId, ')
+          ..write('cargaCursoId: $cargaCursoId, ')
+          ..write('estadoPublicaciN: $estadoPublicaciN, ')
+          ..write('estadoPublicacion: $estadoPublicacion, ')
+          ..write('rolId: $rolId, ')
+          ..write('usuarioCreacionId: $usuarioCreacionId, ')
+          ..write('usuarioCreadorId: $usuarioCreadorId, ')
+          ..write('fechaCreacion: $fechaCreacion, ')
+          ..write('usuarioAccionId: $usuarioAccionId, ')
+          ..write('fechaAccion: $fechaAccion, ')
+          ..write('fechaEnvio: $fechaEnvio, ')
+          ..write('fechaEntrega: $fechaEntrega, ')
+          ..write('fechaRecibido: $fechaRecibido, ')
+          ..write('fechaVisto: $fechaVisto, ')
+          ..write('fechaRespuesta: $fechaRespuesta, ')
+          ..write('getSTime: $getSTime')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $CalendarioTable extends Calendario
+    with TableInfo<$CalendarioTable, CalendarioData> {
+  final GeneratedDatabase _db;
+  final String? _alias;
+  $CalendarioTable(this._db, [this._alias]);
+  final VerificationMeta _calendarioIdMeta =
+      const VerificationMeta('calendarioId');
+  @override
+  late final GeneratedTextColumn calendarioId = _constructCalendarioId();
+  GeneratedTextColumn _constructCalendarioId() {
+    return GeneratedTextColumn(
+      'calendario_id',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _nombreMeta = const VerificationMeta('nombre');
+  @override
+  late final GeneratedTextColumn nombre = _constructNombre();
+  GeneratedTextColumn _constructNombre() {
+    return GeneratedTextColumn(
+      'nombre',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _descripcionMeta =
+      const VerificationMeta('descripcion');
+  @override
+  late final GeneratedTextColumn descripcion = _constructDescripcion();
+  GeneratedTextColumn _constructDescripcion() {
+    return GeneratedTextColumn(
+      'descripcion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _estadoMeta = const VerificationMeta('estado');
+  @override
+  late final GeneratedIntColumn estado = _constructEstado();
+  GeneratedIntColumn _constructEstado() {
+    return GeneratedIntColumn(
+      'estado',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _entidadIdMeta = const VerificationMeta('entidadId');
+  @override
+  late final GeneratedIntColumn entidadId = _constructEntidadId();
+  GeneratedIntColumn _constructEntidadId() {
+    return GeneratedIntColumn(
+      'entidad_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _georeferenciaIdMeta =
+      const VerificationMeta('georeferenciaId');
+  @override
+  late final GeneratedIntColumn georeferenciaId = _constructGeoreferenciaId();
+  GeneratedIntColumn _constructGeoreferenciaId() {
+    return GeneratedIntColumn(
+      'georeferencia_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _nUsuarioMeta = const VerificationMeta('nUsuario');
+  @override
+  late final GeneratedTextColumn nUsuario = _constructNUsuario();
+  GeneratedTextColumn _constructNUsuario() {
+    return GeneratedTextColumn(
+      'n_usuario',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _cargoMeta = const VerificationMeta('cargo');
+  @override
+  late final GeneratedTextColumn cargo = _constructCargo();
+  GeneratedTextColumn _constructCargo() {
+    return GeneratedTextColumn(
+      'cargo',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioIdMeta = const VerificationMeta('usuarioId');
+  @override
+  late final GeneratedIntColumn usuarioId = _constructUsuarioId();
+  GeneratedIntColumn _constructUsuarioId() {
+    return GeneratedIntColumn(
+      'usuario_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _cargaAcademicaIdMeta =
+      const VerificationMeta('cargaAcademicaId');
+  @override
+  late final GeneratedIntColumn cargaAcademicaId = _constructCargaAcademicaId();
+  GeneratedIntColumn _constructCargaAcademicaId() {
+    return GeneratedIntColumn(
+      'carga_academica_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _cargaCursoIdMeta =
+      const VerificationMeta('cargaCursoId');
+  @override
+  late final GeneratedIntColumn cargaCursoId = _constructCargaCursoId();
+  GeneratedIntColumn _constructCargaCursoId() {
+    return GeneratedIntColumn(
+      'carga_curso_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _estadoPublicaciNMeta =
+      const VerificationMeta('estadoPublicaciN');
+  @override
+  late final GeneratedIntColumn estadoPublicaciN = _constructEstadoPublicaciN();
+  GeneratedIntColumn _constructEstadoPublicaciN() {
+    return GeneratedIntColumn(
+      'estado_publicaci_n',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _estadoPublicacionMeta =
+      const VerificationMeta('estadoPublicacion');
+  @override
+  late final GeneratedIntColumn estadoPublicacion =
+      _constructEstadoPublicacion();
+  GeneratedIntColumn _constructEstadoPublicacion() {
+    return GeneratedIntColumn(
+      'estado_publicacion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _rolIdMeta = const VerificationMeta('rolId');
+  @override
+  late final GeneratedIntColumn rolId = _constructRolId();
+  GeneratedIntColumn _constructRolId() {
+    return GeneratedIntColumn(
+      'rol_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioCreacionIdMeta =
+      const VerificationMeta('usuarioCreacionId');
+  @override
+  late final GeneratedIntColumn usuarioCreacionId =
+      _constructUsuarioCreacionId();
+  GeneratedIntColumn _constructUsuarioCreacionId() {
+    return GeneratedIntColumn(
+      'usuario_creacion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioCreadorIdMeta =
+      const VerificationMeta('usuarioCreadorId');
+  @override
+  late final GeneratedIntColumn usuarioCreadorId = _constructUsuarioCreadorId();
+  GeneratedIntColumn _constructUsuarioCreadorId() {
+    return GeneratedIntColumn(
+      'usuario_creador_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaCreacionMeta =
+      const VerificationMeta('fechaCreacion');
+  @override
+  late final GeneratedIntColumn fechaCreacion = _constructFechaCreacion();
+  GeneratedIntColumn _constructFechaCreacion() {
+    return GeneratedIntColumn(
+      'fecha_creacion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioAccionIdMeta =
+      const VerificationMeta('usuarioAccionId');
+  @override
+  late final GeneratedIntColumn usuarioAccionId = _constructUsuarioAccionId();
+  GeneratedIntColumn _constructUsuarioAccionId() {
+    return GeneratedIntColumn(
+      'usuario_accion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaAccionMeta =
+      const VerificationMeta('fechaAccion');
+  @override
+  late final GeneratedIntColumn fechaAccion = _constructFechaAccion();
+  GeneratedIntColumn _constructFechaAccion() {
+    return GeneratedIntColumn(
+      'fecha_accion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaEnvioMeta = const VerificationMeta('fechaEnvio');
+  @override
+  late final GeneratedIntColumn fechaEnvio = _constructFechaEnvio();
+  GeneratedIntColumn _constructFechaEnvio() {
+    return GeneratedIntColumn(
+      'fecha_envio',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaEntregaMeta =
+      const VerificationMeta('fechaEntrega');
+  @override
+  late final GeneratedIntColumn fechaEntrega = _constructFechaEntrega();
+  GeneratedIntColumn _constructFechaEntrega() {
+    return GeneratedIntColumn(
+      'fecha_entrega',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaRecibidoMeta =
+      const VerificationMeta('fechaRecibido');
+  @override
+  late final GeneratedIntColumn fechaRecibido = _constructFechaRecibido();
+  GeneratedIntColumn _constructFechaRecibido() {
+    return GeneratedIntColumn(
+      'fecha_recibido',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaVistoMeta = const VerificationMeta('fechaVisto');
+  @override
+  late final GeneratedIntColumn fechaVisto = _constructFechaVisto();
+  GeneratedIntColumn _constructFechaVisto() {
+    return GeneratedIntColumn(
+      'fecha_visto',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaRespuestaMeta =
+      const VerificationMeta('fechaRespuesta');
+  @override
+  late final GeneratedIntColumn fechaRespuesta = _constructFechaRespuesta();
+  GeneratedIntColumn _constructFechaRespuesta() {
+    return GeneratedIntColumn(
+      'fecha_respuesta',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _getSTimeMeta = const VerificationMeta('getSTime');
+  @override
+  late final GeneratedTextColumn getSTime = _constructGetSTime();
+  GeneratedTextColumn _constructGetSTime() {
+    return GeneratedTextColumn(
+      'get_s_time',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [
+        calendarioId,
+        nombre,
+        descripcion,
+        estado,
+        entidadId,
+        georeferenciaId,
+        nUsuario,
+        cargo,
+        usuarioId,
+        cargaAcademicaId,
+        cargaCursoId,
+        estadoPublicaciN,
+        estadoPublicacion,
+        rolId,
+        usuarioCreacionId,
+        usuarioCreadorId,
+        fechaCreacion,
+        usuarioAccionId,
+        fechaAccion,
+        fechaEnvio,
+        fechaEntrega,
+        fechaRecibido,
+        fechaVisto,
+        fechaRespuesta,
+        getSTime
+      ];
+  @override
+  $CalendarioTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'calendario';
+  @override
+  final String actualTableName = 'calendario';
+  @override
+  VerificationContext validateIntegrity(Insertable<CalendarioData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('calendario_id')) {
+      context.handle(
+          _calendarioIdMeta,
+          calendarioId.isAcceptableOrUnknown(
+              data['calendario_id']!, _calendarioIdMeta));
+    } else if (isInserting) {
+      context.missing(_calendarioIdMeta);
+    }
+    if (data.containsKey('nombre')) {
+      context.handle(_nombreMeta,
+          nombre.isAcceptableOrUnknown(data['nombre']!, _nombreMeta));
+    }
+    if (data.containsKey('descripcion')) {
+      context.handle(
+          _descripcionMeta,
+          descripcion.isAcceptableOrUnknown(
+              data['descripcion']!, _descripcionMeta));
+    }
+    if (data.containsKey('estado')) {
+      context.handle(_estadoMeta,
+          estado.isAcceptableOrUnknown(data['estado']!, _estadoMeta));
+    }
+    if (data.containsKey('entidad_id')) {
+      context.handle(_entidadIdMeta,
+          entidadId.isAcceptableOrUnknown(data['entidad_id']!, _entidadIdMeta));
+    }
+    if (data.containsKey('georeferencia_id')) {
+      context.handle(
+          _georeferenciaIdMeta,
+          georeferenciaId.isAcceptableOrUnknown(
+              data['georeferencia_id']!, _georeferenciaIdMeta));
+    }
+    if (data.containsKey('n_usuario')) {
+      context.handle(_nUsuarioMeta,
+          nUsuario.isAcceptableOrUnknown(data['n_usuario']!, _nUsuarioMeta));
+    }
+    if (data.containsKey('cargo')) {
+      context.handle(
+          _cargoMeta, cargo.isAcceptableOrUnknown(data['cargo']!, _cargoMeta));
+    }
+    if (data.containsKey('usuario_id')) {
+      context.handle(_usuarioIdMeta,
+          usuarioId.isAcceptableOrUnknown(data['usuario_id']!, _usuarioIdMeta));
+    }
+    if (data.containsKey('carga_academica_id')) {
+      context.handle(
+          _cargaAcademicaIdMeta,
+          cargaAcademicaId.isAcceptableOrUnknown(
+              data['carga_academica_id']!, _cargaAcademicaIdMeta));
+    }
+    if (data.containsKey('carga_curso_id')) {
+      context.handle(
+          _cargaCursoIdMeta,
+          cargaCursoId.isAcceptableOrUnknown(
+              data['carga_curso_id']!, _cargaCursoIdMeta));
+    }
+    if (data.containsKey('estado_publicaci_n')) {
+      context.handle(
+          _estadoPublicaciNMeta,
+          estadoPublicaciN.isAcceptableOrUnknown(
+              data['estado_publicaci_n']!, _estadoPublicaciNMeta));
+    }
+    if (data.containsKey('estado_publicacion')) {
+      context.handle(
+          _estadoPublicacionMeta,
+          estadoPublicacion.isAcceptableOrUnknown(
+              data['estado_publicacion']!, _estadoPublicacionMeta));
+    }
+    if (data.containsKey('rol_id')) {
+      context.handle(
+          _rolIdMeta, rolId.isAcceptableOrUnknown(data['rol_id']!, _rolIdMeta));
+    }
+    if (data.containsKey('usuario_creacion_id')) {
+      context.handle(
+          _usuarioCreacionIdMeta,
+          usuarioCreacionId.isAcceptableOrUnknown(
+              data['usuario_creacion_id']!, _usuarioCreacionIdMeta));
+    }
+    if (data.containsKey('usuario_creador_id')) {
+      context.handle(
+          _usuarioCreadorIdMeta,
+          usuarioCreadorId.isAcceptableOrUnknown(
+              data['usuario_creador_id']!, _usuarioCreadorIdMeta));
+    }
+    if (data.containsKey('fecha_creacion')) {
+      context.handle(
+          _fechaCreacionMeta,
+          fechaCreacion.isAcceptableOrUnknown(
+              data['fecha_creacion']!, _fechaCreacionMeta));
+    }
+    if (data.containsKey('usuario_accion_id')) {
+      context.handle(
+          _usuarioAccionIdMeta,
+          usuarioAccionId.isAcceptableOrUnknown(
+              data['usuario_accion_id']!, _usuarioAccionIdMeta));
+    }
+    if (data.containsKey('fecha_accion')) {
+      context.handle(
+          _fechaAccionMeta,
+          fechaAccion.isAcceptableOrUnknown(
+              data['fecha_accion']!, _fechaAccionMeta));
+    }
+    if (data.containsKey('fecha_envio')) {
+      context.handle(
+          _fechaEnvioMeta,
+          fechaEnvio.isAcceptableOrUnknown(
+              data['fecha_envio']!, _fechaEnvioMeta));
+    }
+    if (data.containsKey('fecha_entrega')) {
+      context.handle(
+          _fechaEntregaMeta,
+          fechaEntrega.isAcceptableOrUnknown(
+              data['fecha_entrega']!, _fechaEntregaMeta));
+    }
+    if (data.containsKey('fecha_recibido')) {
+      context.handle(
+          _fechaRecibidoMeta,
+          fechaRecibido.isAcceptableOrUnknown(
+              data['fecha_recibido']!, _fechaRecibidoMeta));
+    }
+    if (data.containsKey('fecha_visto')) {
+      context.handle(
+          _fechaVistoMeta,
+          fechaVisto.isAcceptableOrUnknown(
+              data['fecha_visto']!, _fechaVistoMeta));
+    }
+    if (data.containsKey('fecha_respuesta')) {
+      context.handle(
+          _fechaRespuestaMeta,
+          fechaRespuesta.isAcceptableOrUnknown(
+              data['fecha_respuesta']!, _fechaRespuestaMeta));
+    }
+    if (data.containsKey('get_s_time')) {
+      context.handle(_getSTimeMeta,
+          getSTime.isAcceptableOrUnknown(data['get_s_time']!, _getSTimeMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {calendarioId};
+  @override
+  CalendarioData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return CalendarioData.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $CalendarioTable createAlias(String alias) {
+    return $CalendarioTable(_db, alias);
+  }
+}
+
+class CalendarioListaUsuarioData extends DataClass
+    implements Insertable<CalendarioListaUsuarioData> {
+  final String calendarioId;
+  final int listaUsuarioId;
+  CalendarioListaUsuarioData(
+      {required this.calendarioId, required this.listaUsuarioId});
+  factory CalendarioListaUsuarioData.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
+      {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    return CalendarioListaUsuarioData(
+      calendarioId: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}calendario_id'])!,
+      listaUsuarioId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}lista_usuario_id'])!,
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['calendario_id'] = Variable<String>(calendarioId);
+    map['lista_usuario_id'] = Variable<int>(listaUsuarioId);
+    return map;
+  }
+
+  CalendarioListaUsuarioCompanion toCompanion(bool nullToAbsent) {
+    return CalendarioListaUsuarioCompanion(
+      calendarioId: Value(calendarioId),
+      listaUsuarioId: Value(listaUsuarioId),
+    );
+  }
+
+  factory CalendarioListaUsuarioData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return CalendarioListaUsuarioData(
+      calendarioId: serializer.fromJson<String>(json['calendarioId']),
+      listaUsuarioId: serializer.fromJson<int>(json['listaUsuarioId']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'calendarioId': serializer.toJson<String>(calendarioId),
+      'listaUsuarioId': serializer.toJson<int>(listaUsuarioId),
+    };
+  }
+
+  CalendarioListaUsuarioData copyWith(
+          {String? calendarioId, int? listaUsuarioId}) =>
+      CalendarioListaUsuarioData(
+        calendarioId: calendarioId ?? this.calendarioId,
+        listaUsuarioId: listaUsuarioId ?? this.listaUsuarioId,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('CalendarioListaUsuarioData(')
+          ..write('calendarioId: $calendarioId, ')
+          ..write('listaUsuarioId: $listaUsuarioId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      $mrjf($mrjc(calendarioId.hashCode, listaUsuarioId.hashCode));
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is CalendarioListaUsuarioData &&
+          other.calendarioId == this.calendarioId &&
+          other.listaUsuarioId == this.listaUsuarioId);
+}
+
+class CalendarioListaUsuarioCompanion
+    extends UpdateCompanion<CalendarioListaUsuarioData> {
+  final Value<String> calendarioId;
+  final Value<int> listaUsuarioId;
+  const CalendarioListaUsuarioCompanion({
+    this.calendarioId = const Value.absent(),
+    this.listaUsuarioId = const Value.absent(),
+  });
+  CalendarioListaUsuarioCompanion.insert({
+    required String calendarioId,
+    required int listaUsuarioId,
+  })  : calendarioId = Value(calendarioId),
+        listaUsuarioId = Value(listaUsuarioId);
+  static Insertable<CalendarioListaUsuarioData> custom({
+    Expression<String>? calendarioId,
+    Expression<int>? listaUsuarioId,
+  }) {
+    return RawValuesInsertable({
+      if (calendarioId != null) 'calendario_id': calendarioId,
+      if (listaUsuarioId != null) 'lista_usuario_id': listaUsuarioId,
+    });
+  }
+
+  CalendarioListaUsuarioCompanion copyWith(
+      {Value<String>? calendarioId, Value<int>? listaUsuarioId}) {
+    return CalendarioListaUsuarioCompanion(
+      calendarioId: calendarioId ?? this.calendarioId,
+      listaUsuarioId: listaUsuarioId ?? this.listaUsuarioId,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (calendarioId.present) {
+      map['calendario_id'] = Variable<String>(calendarioId.value);
+    }
+    if (listaUsuarioId.present) {
+      map['lista_usuario_id'] = Variable<int>(listaUsuarioId.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CalendarioListaUsuarioCompanion(')
+          ..write('calendarioId: $calendarioId, ')
+          ..write('listaUsuarioId: $listaUsuarioId')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $CalendarioListaUsuarioTable extends CalendarioListaUsuario
+    with TableInfo<$CalendarioListaUsuarioTable, CalendarioListaUsuarioData> {
+  final GeneratedDatabase _db;
+  final String? _alias;
+  $CalendarioListaUsuarioTable(this._db, [this._alias]);
+  final VerificationMeta _calendarioIdMeta =
+      const VerificationMeta('calendarioId');
+  @override
+  late final GeneratedTextColumn calendarioId = _constructCalendarioId();
+  GeneratedTextColumn _constructCalendarioId() {
+    return GeneratedTextColumn(
+      'calendario_id',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _listaUsuarioIdMeta =
+      const VerificationMeta('listaUsuarioId');
+  @override
+  late final GeneratedIntColumn listaUsuarioId = _constructListaUsuarioId();
+  GeneratedIntColumn _constructListaUsuarioId() {
+    return GeneratedIntColumn(
+      'lista_usuario_id',
+      $tableName,
+      false,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [calendarioId, listaUsuarioId];
+  @override
+  $CalendarioListaUsuarioTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'calendario_lista_usuario';
+  @override
+  final String actualTableName = 'calendario_lista_usuario';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<CalendarioListaUsuarioData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('calendario_id')) {
+      context.handle(
+          _calendarioIdMeta,
+          calendarioId.isAcceptableOrUnknown(
+              data['calendario_id']!, _calendarioIdMeta));
+    } else if (isInserting) {
+      context.missing(_calendarioIdMeta);
+    }
+    if (data.containsKey('lista_usuario_id')) {
+      context.handle(
+          _listaUsuarioIdMeta,
+          listaUsuarioId.isAcceptableOrUnknown(
+              data['lista_usuario_id']!, _listaUsuarioIdMeta));
+    } else if (isInserting) {
+      context.missing(_listaUsuarioIdMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {calendarioId, listaUsuarioId};
+  @override
+  CalendarioListaUsuarioData map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return CalendarioListaUsuarioData.fromData(data, _db,
+        prefix: effectivePrefix);
+  }
+
+  @override
+  $CalendarioListaUsuarioTable createAlias(String alias) {
+    return $CalendarioListaUsuarioTable(_db, alias);
+  }
+}
+
+class EventoData extends DataClass implements Insertable<EventoData> {
+  final String eventoId;
+  final String? titulo;
+  final String? descripcion;
+  final String? calendarioId;
+  final int? tipoEventoId;
+  final int? estadoId;
+  final bool? estadoPublicacion;
+  final int? entidadId;
+  final int? georeferenciaId;
+  final int? fechaEvento;
+  final String? horaEvento;
+  final bool? envioPersonalizado;
+  final String? getSTime;
+  final int? syncFlag;
+  final int? usuarioReceptorId;
+  final int? eventoHijoId;
+  final String? key;
+  final int? usuarioCreacionId;
+  final int? usuarioCreadorId;
+  final int? fechaCreacion;
+  final int? usuarioAccionId;
+  final int? fechaAccion;
+  final int? fechaEnvio;
+  final int? fechaEntrega;
+  final int? fechaRecibido;
+  final int? fechaVisto;
+  final int? fechaRespuesta;
+  final String? pathImagen;
+  final int? likeCount;
+  final bool? like;
+  final String? nombreEntidad;
+  final String? fotoEntidad;
+  EventoData(
+      {required this.eventoId,
+      this.titulo,
+      this.descripcion,
+      this.calendarioId,
+      this.tipoEventoId,
+      this.estadoId,
+      this.estadoPublicacion,
+      this.entidadId,
+      this.georeferenciaId,
+      this.fechaEvento,
+      this.horaEvento,
+      this.envioPersonalizado,
+      this.getSTime,
+      this.syncFlag,
+      this.usuarioReceptorId,
+      this.eventoHijoId,
+      this.key,
+      this.usuarioCreacionId,
+      this.usuarioCreadorId,
+      this.fechaCreacion,
+      this.usuarioAccionId,
+      this.fechaAccion,
+      this.fechaEnvio,
+      this.fechaEntrega,
+      this.fechaRecibido,
+      this.fechaVisto,
+      this.fechaRespuesta,
+      this.pathImagen,
+      this.likeCount,
+      this.like,
+      this.nombreEntidad,
+      this.fotoEntidad});
+  factory EventoData.fromData(Map<String, dynamic> data, GeneratedDatabase db,
+      {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    return EventoData(
+      eventoId: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}evento_id'])!,
+      titulo: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}titulo']),
+      descripcion: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}descripcion']),
+      calendarioId: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}calendario_id']),
+      tipoEventoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}tipo_evento_id']),
+      estadoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
+      estadoPublicacion: const BoolType().mapFromDatabaseResponse(
+          data['${effectivePrefix}estado_publicacion']),
+      entidadId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}entidad_id']),
+      georeferenciaId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}georeferencia_id']),
+      fechaEvento: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_evento']),
+      horaEvento: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}hora_evento']),
+      envioPersonalizado: const BoolType().mapFromDatabaseResponse(
+          data['${effectivePrefix}envio_personalizado']),
+      getSTime: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}get_s_time']),
+      syncFlag: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}sync_flag']),
+      usuarioReceptorId: const IntType().mapFromDatabaseResponse(
+          data['${effectivePrefix}usuario_receptor_id']),
+      eventoHijoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}evento_hijo_id']),
+      key: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}key']),
+      usuarioCreacionId: const IntType().mapFromDatabaseResponse(
+          data['${effectivePrefix}usuario_creacion_id']),
+      usuarioCreadorId: const IntType().mapFromDatabaseResponse(
+          data['${effectivePrefix}usuario_creador_id']),
+      fechaCreacion: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_creacion']),
+      usuarioAccionId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}usuario_accion_id']),
+      fechaAccion: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_accion']),
+      fechaEnvio: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_envio']),
+      fechaEntrega: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_entrega']),
+      fechaRecibido: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_recibido']),
+      fechaVisto: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_visto']),
+      fechaRespuesta: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_respuesta']),
+      pathImagen: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}path_imagen']),
+      likeCount: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}like_count']),
+      like: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}like']),
+      nombreEntidad: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nombre_entidad']),
+      fotoEntidad: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}foto_entidad']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['evento_id'] = Variable<String>(eventoId);
+    if (!nullToAbsent || titulo != null) {
+      map['titulo'] = Variable<String?>(titulo);
+    }
+    if (!nullToAbsent || descripcion != null) {
+      map['descripcion'] = Variable<String?>(descripcion);
+    }
+    if (!nullToAbsent || calendarioId != null) {
+      map['calendario_id'] = Variable<String?>(calendarioId);
+    }
+    if (!nullToAbsent || tipoEventoId != null) {
+      map['tipo_evento_id'] = Variable<int?>(tipoEventoId);
+    }
+    if (!nullToAbsent || estadoId != null) {
+      map['estado_id'] = Variable<int?>(estadoId);
+    }
+    if (!nullToAbsent || estadoPublicacion != null) {
+      map['estado_publicacion'] = Variable<bool?>(estadoPublicacion);
+    }
+    if (!nullToAbsent || entidadId != null) {
+      map['entidad_id'] = Variable<int?>(entidadId);
+    }
+    if (!nullToAbsent || georeferenciaId != null) {
+      map['georeferencia_id'] = Variable<int?>(georeferenciaId);
+    }
+    if (!nullToAbsent || fechaEvento != null) {
+      map['fecha_evento'] = Variable<int?>(fechaEvento);
+    }
+    if (!nullToAbsent || horaEvento != null) {
+      map['hora_evento'] = Variable<String?>(horaEvento);
+    }
+    if (!nullToAbsent || envioPersonalizado != null) {
+      map['envio_personalizado'] = Variable<bool?>(envioPersonalizado);
+    }
+    if (!nullToAbsent || getSTime != null) {
+      map['get_s_time'] = Variable<String?>(getSTime);
+    }
+    if (!nullToAbsent || syncFlag != null) {
+      map['sync_flag'] = Variable<int?>(syncFlag);
+    }
+    if (!nullToAbsent || usuarioReceptorId != null) {
+      map['usuario_receptor_id'] = Variable<int?>(usuarioReceptorId);
+    }
+    if (!nullToAbsent || eventoHijoId != null) {
+      map['evento_hijo_id'] = Variable<int?>(eventoHijoId);
+    }
+    if (!nullToAbsent || key != null) {
+      map['key'] = Variable<String?>(key);
+    }
+    if (!nullToAbsent || usuarioCreacionId != null) {
+      map['usuario_creacion_id'] = Variable<int?>(usuarioCreacionId);
+    }
+    if (!nullToAbsent || usuarioCreadorId != null) {
+      map['usuario_creador_id'] = Variable<int?>(usuarioCreadorId);
+    }
+    if (!nullToAbsent || fechaCreacion != null) {
+      map['fecha_creacion'] = Variable<int?>(fechaCreacion);
+    }
+    if (!nullToAbsent || usuarioAccionId != null) {
+      map['usuario_accion_id'] = Variable<int?>(usuarioAccionId);
+    }
+    if (!nullToAbsent || fechaAccion != null) {
+      map['fecha_accion'] = Variable<int?>(fechaAccion);
+    }
+    if (!nullToAbsent || fechaEnvio != null) {
+      map['fecha_envio'] = Variable<int?>(fechaEnvio);
+    }
+    if (!nullToAbsent || fechaEntrega != null) {
+      map['fecha_entrega'] = Variable<int?>(fechaEntrega);
+    }
+    if (!nullToAbsent || fechaRecibido != null) {
+      map['fecha_recibido'] = Variable<int?>(fechaRecibido);
+    }
+    if (!nullToAbsent || fechaVisto != null) {
+      map['fecha_visto'] = Variable<int?>(fechaVisto);
+    }
+    if (!nullToAbsent || fechaRespuesta != null) {
+      map['fecha_respuesta'] = Variable<int?>(fechaRespuesta);
+    }
+    if (!nullToAbsent || pathImagen != null) {
+      map['path_imagen'] = Variable<String?>(pathImagen);
+    }
+    if (!nullToAbsent || likeCount != null) {
+      map['like_count'] = Variable<int?>(likeCount);
+    }
+    if (!nullToAbsent || like != null) {
+      map['like'] = Variable<bool?>(like);
+    }
+    if (!nullToAbsent || nombreEntidad != null) {
+      map['nombre_entidad'] = Variable<String?>(nombreEntidad);
+    }
+    if (!nullToAbsent || fotoEntidad != null) {
+      map['foto_entidad'] = Variable<String?>(fotoEntidad);
+    }
+    return map;
+  }
+
+  EventoCompanion toCompanion(bool nullToAbsent) {
+    return EventoCompanion(
+      eventoId: Value(eventoId),
+      titulo:
+          titulo == null && nullToAbsent ? const Value.absent() : Value(titulo),
+      descripcion: descripcion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(descripcion),
+      calendarioId: calendarioId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(calendarioId),
+      tipoEventoId: tipoEventoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(tipoEventoId),
+      estadoId: estadoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(estadoId),
+      estadoPublicacion: estadoPublicacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(estadoPublicacion),
+      entidadId: entidadId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(entidadId),
+      georeferenciaId: georeferenciaId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(georeferenciaId),
+      fechaEvento: fechaEvento == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaEvento),
+      horaEvento: horaEvento == null && nullToAbsent
+          ? const Value.absent()
+          : Value(horaEvento),
+      envioPersonalizado: envioPersonalizado == null && nullToAbsent
+          ? const Value.absent()
+          : Value(envioPersonalizado),
+      getSTime: getSTime == null && nullToAbsent
+          ? const Value.absent()
+          : Value(getSTime),
+      syncFlag: syncFlag == null && nullToAbsent
+          ? const Value.absent()
+          : Value(syncFlag),
+      usuarioReceptorId: usuarioReceptorId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioReceptorId),
+      eventoHijoId: eventoHijoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(eventoHijoId),
+      key: key == null && nullToAbsent ? const Value.absent() : Value(key),
+      usuarioCreacionId: usuarioCreacionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioCreacionId),
+      usuarioCreadorId: usuarioCreadorId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioCreadorId),
+      fechaCreacion: fechaCreacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaCreacion),
+      usuarioAccionId: usuarioAccionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioAccionId),
+      fechaAccion: fechaAccion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaAccion),
+      fechaEnvio: fechaEnvio == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaEnvio),
+      fechaEntrega: fechaEntrega == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaEntrega),
+      fechaRecibido: fechaRecibido == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaRecibido),
+      fechaVisto: fechaVisto == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaVisto),
+      fechaRespuesta: fechaRespuesta == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaRespuesta),
+      pathImagen: pathImagen == null && nullToAbsent
+          ? const Value.absent()
+          : Value(pathImagen),
+      likeCount: likeCount == null && nullToAbsent
+          ? const Value.absent()
+          : Value(likeCount),
+      like: like == null && nullToAbsent ? const Value.absent() : Value(like),
+      nombreEntidad: nombreEntidad == null && nullToAbsent
+          ? const Value.absent()
+          : Value(nombreEntidad),
+      fotoEntidad: fotoEntidad == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fotoEntidad),
+    );
+  }
+
+  factory EventoData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return EventoData(
+      eventoId: serializer.fromJson<String>(json['eventoId']),
+      titulo: serializer.fromJson<String?>(json['titulo']),
+      descripcion: serializer.fromJson<String?>(json['descripcion']),
+      calendarioId: serializer.fromJson<String?>(json['calendarioId']),
+      tipoEventoId: serializer.fromJson<int?>(json['tipoEventoId']),
+      estadoId: serializer.fromJson<int?>(json['estadoId']),
+      estadoPublicacion: serializer.fromJson<bool?>(json['estadoPublicacion']),
+      entidadId: serializer.fromJson<int?>(json['entidadId']),
+      georeferenciaId: serializer.fromJson<int?>(json['georeferenciaId']),
+      fechaEvento: serializer.fromJson<int?>(json['fechaEvento']),
+      horaEvento: serializer.fromJson<String?>(json['horaEvento']),
+      envioPersonalizado:
+          serializer.fromJson<bool?>(json['envioPersonalizado']),
+      getSTime: serializer.fromJson<String?>(json['getSTime']),
+      syncFlag: serializer.fromJson<int?>(json['syncFlag']),
+      usuarioReceptorId: serializer.fromJson<int?>(json['usuarioReceptorId']),
+      eventoHijoId: serializer.fromJson<int?>(json['eventoHijoId']),
+      key: serializer.fromJson<String?>(json['key']),
+      usuarioCreacionId: serializer.fromJson<int?>(json['usuarioCreacionId']),
+      usuarioCreadorId: serializer.fromJson<int?>(json['usuarioCreadorId']),
+      fechaCreacion: serializer.fromJson<int?>(json['fechaCreacion']),
+      usuarioAccionId: serializer.fromJson<int?>(json['usuarioAccionId']),
+      fechaAccion: serializer.fromJson<int?>(json['fechaAccion']),
+      fechaEnvio: serializer.fromJson<int?>(json['fechaEnvio']),
+      fechaEntrega: serializer.fromJson<int?>(json['fechaEntrega']),
+      fechaRecibido: serializer.fromJson<int?>(json['fechaRecibido']),
+      fechaVisto: serializer.fromJson<int?>(json['fechaVisto']),
+      fechaRespuesta: serializer.fromJson<int?>(json['fechaRespuesta']),
+      pathImagen: serializer.fromJson<String?>(json['pathImagen']),
+      likeCount: serializer.fromJson<int?>(json['likeCount']),
+      like: serializer.fromJson<bool?>(json['like']),
+      nombreEntidad: serializer.fromJson<String?>(json['nombreEntidad']),
+      fotoEntidad: serializer.fromJson<String?>(json['fotoEntidad']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'eventoId': serializer.toJson<String>(eventoId),
+      'titulo': serializer.toJson<String?>(titulo),
+      'descripcion': serializer.toJson<String?>(descripcion),
+      'calendarioId': serializer.toJson<String?>(calendarioId),
+      'tipoEventoId': serializer.toJson<int?>(tipoEventoId),
+      'estadoId': serializer.toJson<int?>(estadoId),
+      'estadoPublicacion': serializer.toJson<bool?>(estadoPublicacion),
+      'entidadId': serializer.toJson<int?>(entidadId),
+      'georeferenciaId': serializer.toJson<int?>(georeferenciaId),
+      'fechaEvento': serializer.toJson<int?>(fechaEvento),
+      'horaEvento': serializer.toJson<String?>(horaEvento),
+      'envioPersonalizado': serializer.toJson<bool?>(envioPersonalizado),
+      'getSTime': serializer.toJson<String?>(getSTime),
+      'syncFlag': serializer.toJson<int?>(syncFlag),
+      'usuarioReceptorId': serializer.toJson<int?>(usuarioReceptorId),
+      'eventoHijoId': serializer.toJson<int?>(eventoHijoId),
+      'key': serializer.toJson<String?>(key),
+      'usuarioCreacionId': serializer.toJson<int?>(usuarioCreacionId),
+      'usuarioCreadorId': serializer.toJson<int?>(usuarioCreadorId),
+      'fechaCreacion': serializer.toJson<int?>(fechaCreacion),
+      'usuarioAccionId': serializer.toJson<int?>(usuarioAccionId),
+      'fechaAccion': serializer.toJson<int?>(fechaAccion),
+      'fechaEnvio': serializer.toJson<int?>(fechaEnvio),
+      'fechaEntrega': serializer.toJson<int?>(fechaEntrega),
+      'fechaRecibido': serializer.toJson<int?>(fechaRecibido),
+      'fechaVisto': serializer.toJson<int?>(fechaVisto),
+      'fechaRespuesta': serializer.toJson<int?>(fechaRespuesta),
+      'pathImagen': serializer.toJson<String?>(pathImagen),
+      'likeCount': serializer.toJson<int?>(likeCount),
+      'like': serializer.toJson<bool?>(like),
+      'nombreEntidad': serializer.toJson<String?>(nombreEntidad),
+      'fotoEntidad': serializer.toJson<String?>(fotoEntidad),
+    };
+  }
+
+  EventoData copyWith(
+          {String? eventoId,
+          String? titulo,
+          String? descripcion,
+          String? calendarioId,
+          int? tipoEventoId,
+          int? estadoId,
+          bool? estadoPublicacion,
+          int? entidadId,
+          int? georeferenciaId,
+          int? fechaEvento,
+          String? horaEvento,
+          bool? envioPersonalizado,
+          String? getSTime,
+          int? syncFlag,
+          int? usuarioReceptorId,
+          int? eventoHijoId,
+          String? key,
+          int? usuarioCreacionId,
+          int? usuarioCreadorId,
+          int? fechaCreacion,
+          int? usuarioAccionId,
+          int? fechaAccion,
+          int? fechaEnvio,
+          int? fechaEntrega,
+          int? fechaRecibido,
+          int? fechaVisto,
+          int? fechaRespuesta,
+          String? pathImagen,
+          int? likeCount,
+          bool? like,
+          String? nombreEntidad,
+          String? fotoEntidad}) =>
+      EventoData(
+        eventoId: eventoId ?? this.eventoId,
+        titulo: titulo ?? this.titulo,
+        descripcion: descripcion ?? this.descripcion,
+        calendarioId: calendarioId ?? this.calendarioId,
+        tipoEventoId: tipoEventoId ?? this.tipoEventoId,
+        estadoId: estadoId ?? this.estadoId,
+        estadoPublicacion: estadoPublicacion ?? this.estadoPublicacion,
+        entidadId: entidadId ?? this.entidadId,
+        georeferenciaId: georeferenciaId ?? this.georeferenciaId,
+        fechaEvento: fechaEvento ?? this.fechaEvento,
+        horaEvento: horaEvento ?? this.horaEvento,
+        envioPersonalizado: envioPersonalizado ?? this.envioPersonalizado,
+        getSTime: getSTime ?? this.getSTime,
+        syncFlag: syncFlag ?? this.syncFlag,
+        usuarioReceptorId: usuarioReceptorId ?? this.usuarioReceptorId,
+        eventoHijoId: eventoHijoId ?? this.eventoHijoId,
+        key: key ?? this.key,
+        usuarioCreacionId: usuarioCreacionId ?? this.usuarioCreacionId,
+        usuarioCreadorId: usuarioCreadorId ?? this.usuarioCreadorId,
+        fechaCreacion: fechaCreacion ?? this.fechaCreacion,
+        usuarioAccionId: usuarioAccionId ?? this.usuarioAccionId,
+        fechaAccion: fechaAccion ?? this.fechaAccion,
+        fechaEnvio: fechaEnvio ?? this.fechaEnvio,
+        fechaEntrega: fechaEntrega ?? this.fechaEntrega,
+        fechaRecibido: fechaRecibido ?? this.fechaRecibido,
+        fechaVisto: fechaVisto ?? this.fechaVisto,
+        fechaRespuesta: fechaRespuesta ?? this.fechaRespuesta,
+        pathImagen: pathImagen ?? this.pathImagen,
+        likeCount: likeCount ?? this.likeCount,
+        like: like ?? this.like,
+        nombreEntidad: nombreEntidad ?? this.nombreEntidad,
+        fotoEntidad: fotoEntidad ?? this.fotoEntidad,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('EventoData(')
+          ..write('eventoId: $eventoId, ')
+          ..write('titulo: $titulo, ')
+          ..write('descripcion: $descripcion, ')
+          ..write('calendarioId: $calendarioId, ')
+          ..write('tipoEventoId: $tipoEventoId, ')
+          ..write('estadoId: $estadoId, ')
+          ..write('estadoPublicacion: $estadoPublicacion, ')
+          ..write('entidadId: $entidadId, ')
+          ..write('georeferenciaId: $georeferenciaId, ')
+          ..write('fechaEvento: $fechaEvento, ')
+          ..write('horaEvento: $horaEvento, ')
+          ..write('envioPersonalizado: $envioPersonalizado, ')
+          ..write('getSTime: $getSTime, ')
+          ..write('syncFlag: $syncFlag, ')
+          ..write('usuarioReceptorId: $usuarioReceptorId, ')
+          ..write('eventoHijoId: $eventoHijoId, ')
+          ..write('key: $key, ')
+          ..write('usuarioCreacionId: $usuarioCreacionId, ')
+          ..write('usuarioCreadorId: $usuarioCreadorId, ')
+          ..write('fechaCreacion: $fechaCreacion, ')
+          ..write('usuarioAccionId: $usuarioAccionId, ')
+          ..write('fechaAccion: $fechaAccion, ')
+          ..write('fechaEnvio: $fechaEnvio, ')
+          ..write('fechaEntrega: $fechaEntrega, ')
+          ..write('fechaRecibido: $fechaRecibido, ')
+          ..write('fechaVisto: $fechaVisto, ')
+          ..write('fechaRespuesta: $fechaRespuesta, ')
+          ..write('pathImagen: $pathImagen, ')
+          ..write('likeCount: $likeCount, ')
+          ..write('like: $like, ')
+          ..write('nombreEntidad: $nombreEntidad, ')
+          ..write('fotoEntidad: $fotoEntidad')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      eventoId.hashCode,
+      $mrjc(
+          titulo.hashCode,
+          $mrjc(
+              descripcion.hashCode,
+              $mrjc(
+                  calendarioId.hashCode,
+                  $mrjc(
+                      tipoEventoId.hashCode,
+                      $mrjc(
+                          estadoId.hashCode,
+                          $mrjc(
+                              estadoPublicacion.hashCode,
+                              $mrjc(
+                                  entidadId.hashCode,
+                                  $mrjc(
+                                      georeferenciaId.hashCode,
+                                      $mrjc(
+                                          fechaEvento.hashCode,
+                                          $mrjc(
+                                              horaEvento.hashCode,
+                                              $mrjc(
+                                                  envioPersonalizado.hashCode,
+                                                  $mrjc(
+                                                      getSTime.hashCode,
+                                                      $mrjc(
+                                                          syncFlag.hashCode,
+                                                          $mrjc(
+                                                              usuarioReceptorId
+                                                                  .hashCode,
+                                                              $mrjc(
+                                                                  eventoHijoId
+                                                                      .hashCode,
+                                                                  $mrjc(
+                                                                      key
+                                                                          .hashCode,
+                                                                      $mrjc(
+                                                                          usuarioCreacionId
+                                                                              .hashCode,
+                                                                          $mrjc(
+                                                                              usuarioCreadorId.hashCode,
+                                                                              $mrjc(fechaCreacion.hashCode, $mrjc(usuarioAccionId.hashCode, $mrjc(fechaAccion.hashCode, $mrjc(fechaEnvio.hashCode, $mrjc(fechaEntrega.hashCode, $mrjc(fechaRecibido.hashCode, $mrjc(fechaVisto.hashCode, $mrjc(fechaRespuesta.hashCode, $mrjc(pathImagen.hashCode, $mrjc(likeCount.hashCode, $mrjc(like.hashCode, $mrjc(nombreEntidad.hashCode, fotoEntidad.hashCode))))))))))))))))))))))))))))))));
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is EventoData &&
+          other.eventoId == this.eventoId &&
+          other.titulo == this.titulo &&
+          other.descripcion == this.descripcion &&
+          other.calendarioId == this.calendarioId &&
+          other.tipoEventoId == this.tipoEventoId &&
+          other.estadoId == this.estadoId &&
+          other.estadoPublicacion == this.estadoPublicacion &&
+          other.entidadId == this.entidadId &&
+          other.georeferenciaId == this.georeferenciaId &&
+          other.fechaEvento == this.fechaEvento &&
+          other.horaEvento == this.horaEvento &&
+          other.envioPersonalizado == this.envioPersonalizado &&
+          other.getSTime == this.getSTime &&
+          other.syncFlag == this.syncFlag &&
+          other.usuarioReceptorId == this.usuarioReceptorId &&
+          other.eventoHijoId == this.eventoHijoId &&
+          other.key == this.key &&
+          other.usuarioCreacionId == this.usuarioCreacionId &&
+          other.usuarioCreadorId == this.usuarioCreadorId &&
+          other.fechaCreacion == this.fechaCreacion &&
+          other.usuarioAccionId == this.usuarioAccionId &&
+          other.fechaAccion == this.fechaAccion &&
+          other.fechaEnvio == this.fechaEnvio &&
+          other.fechaEntrega == this.fechaEntrega &&
+          other.fechaRecibido == this.fechaRecibido &&
+          other.fechaVisto == this.fechaVisto &&
+          other.fechaRespuesta == this.fechaRespuesta &&
+          other.pathImagen == this.pathImagen &&
+          other.likeCount == this.likeCount &&
+          other.like == this.like &&
+          other.nombreEntidad == this.nombreEntidad &&
+          other.fotoEntidad == this.fotoEntidad);
+}
+
+class EventoCompanion extends UpdateCompanion<EventoData> {
+  final Value<String> eventoId;
+  final Value<String?> titulo;
+  final Value<String?> descripcion;
+  final Value<String?> calendarioId;
+  final Value<int?> tipoEventoId;
+  final Value<int?> estadoId;
+  final Value<bool?> estadoPublicacion;
+  final Value<int?> entidadId;
+  final Value<int?> georeferenciaId;
+  final Value<int?> fechaEvento;
+  final Value<String?> horaEvento;
+  final Value<bool?> envioPersonalizado;
+  final Value<String?> getSTime;
+  final Value<int?> syncFlag;
+  final Value<int?> usuarioReceptorId;
+  final Value<int?> eventoHijoId;
+  final Value<String?> key;
+  final Value<int?> usuarioCreacionId;
+  final Value<int?> usuarioCreadorId;
+  final Value<int?> fechaCreacion;
+  final Value<int?> usuarioAccionId;
+  final Value<int?> fechaAccion;
+  final Value<int?> fechaEnvio;
+  final Value<int?> fechaEntrega;
+  final Value<int?> fechaRecibido;
+  final Value<int?> fechaVisto;
+  final Value<int?> fechaRespuesta;
+  final Value<String?> pathImagen;
+  final Value<int?> likeCount;
+  final Value<bool?> like;
+  final Value<String?> nombreEntidad;
+  final Value<String?> fotoEntidad;
+  const EventoCompanion({
+    this.eventoId = const Value.absent(),
+    this.titulo = const Value.absent(),
+    this.descripcion = const Value.absent(),
+    this.calendarioId = const Value.absent(),
+    this.tipoEventoId = const Value.absent(),
+    this.estadoId = const Value.absent(),
+    this.estadoPublicacion = const Value.absent(),
+    this.entidadId = const Value.absent(),
+    this.georeferenciaId = const Value.absent(),
+    this.fechaEvento = const Value.absent(),
+    this.horaEvento = const Value.absent(),
+    this.envioPersonalizado = const Value.absent(),
+    this.getSTime = const Value.absent(),
+    this.syncFlag = const Value.absent(),
+    this.usuarioReceptorId = const Value.absent(),
+    this.eventoHijoId = const Value.absent(),
+    this.key = const Value.absent(),
+    this.usuarioCreacionId = const Value.absent(),
+    this.usuarioCreadorId = const Value.absent(),
+    this.fechaCreacion = const Value.absent(),
+    this.usuarioAccionId = const Value.absent(),
+    this.fechaAccion = const Value.absent(),
+    this.fechaEnvio = const Value.absent(),
+    this.fechaEntrega = const Value.absent(),
+    this.fechaRecibido = const Value.absent(),
+    this.fechaVisto = const Value.absent(),
+    this.fechaRespuesta = const Value.absent(),
+    this.pathImagen = const Value.absent(),
+    this.likeCount = const Value.absent(),
+    this.like = const Value.absent(),
+    this.nombreEntidad = const Value.absent(),
+    this.fotoEntidad = const Value.absent(),
+  });
+  EventoCompanion.insert({
+    required String eventoId,
+    this.titulo = const Value.absent(),
+    this.descripcion = const Value.absent(),
+    this.calendarioId = const Value.absent(),
+    this.tipoEventoId = const Value.absent(),
+    this.estadoId = const Value.absent(),
+    this.estadoPublicacion = const Value.absent(),
+    this.entidadId = const Value.absent(),
+    this.georeferenciaId = const Value.absent(),
+    this.fechaEvento = const Value.absent(),
+    this.horaEvento = const Value.absent(),
+    this.envioPersonalizado = const Value.absent(),
+    this.getSTime = const Value.absent(),
+    this.syncFlag = const Value.absent(),
+    this.usuarioReceptorId = const Value.absent(),
+    this.eventoHijoId = const Value.absent(),
+    this.key = const Value.absent(),
+    this.usuarioCreacionId = const Value.absent(),
+    this.usuarioCreadorId = const Value.absent(),
+    this.fechaCreacion = const Value.absent(),
+    this.usuarioAccionId = const Value.absent(),
+    this.fechaAccion = const Value.absent(),
+    this.fechaEnvio = const Value.absent(),
+    this.fechaEntrega = const Value.absent(),
+    this.fechaRecibido = const Value.absent(),
+    this.fechaVisto = const Value.absent(),
+    this.fechaRespuesta = const Value.absent(),
+    this.pathImagen = const Value.absent(),
+    this.likeCount = const Value.absent(),
+    this.like = const Value.absent(),
+    this.nombreEntidad = const Value.absent(),
+    this.fotoEntidad = const Value.absent(),
+  }) : eventoId = Value(eventoId);
+  static Insertable<EventoData> custom({
+    Expression<String>? eventoId,
+    Expression<String?>? titulo,
+    Expression<String?>? descripcion,
+    Expression<String?>? calendarioId,
+    Expression<int?>? tipoEventoId,
+    Expression<int?>? estadoId,
+    Expression<bool?>? estadoPublicacion,
+    Expression<int?>? entidadId,
+    Expression<int?>? georeferenciaId,
+    Expression<int?>? fechaEvento,
+    Expression<String?>? horaEvento,
+    Expression<bool?>? envioPersonalizado,
+    Expression<String?>? getSTime,
+    Expression<int?>? syncFlag,
+    Expression<int?>? usuarioReceptorId,
+    Expression<int?>? eventoHijoId,
+    Expression<String?>? key,
+    Expression<int?>? usuarioCreacionId,
+    Expression<int?>? usuarioCreadorId,
+    Expression<int?>? fechaCreacion,
+    Expression<int?>? usuarioAccionId,
+    Expression<int?>? fechaAccion,
+    Expression<int?>? fechaEnvio,
+    Expression<int?>? fechaEntrega,
+    Expression<int?>? fechaRecibido,
+    Expression<int?>? fechaVisto,
+    Expression<int?>? fechaRespuesta,
+    Expression<String?>? pathImagen,
+    Expression<int?>? likeCount,
+    Expression<bool?>? like,
+    Expression<String?>? nombreEntidad,
+    Expression<String?>? fotoEntidad,
+  }) {
+    return RawValuesInsertable({
+      if (eventoId != null) 'evento_id': eventoId,
+      if (titulo != null) 'titulo': titulo,
+      if (descripcion != null) 'descripcion': descripcion,
+      if (calendarioId != null) 'calendario_id': calendarioId,
+      if (tipoEventoId != null) 'tipo_evento_id': tipoEventoId,
+      if (estadoId != null) 'estado_id': estadoId,
+      if (estadoPublicacion != null) 'estado_publicacion': estadoPublicacion,
+      if (entidadId != null) 'entidad_id': entidadId,
+      if (georeferenciaId != null) 'georeferencia_id': georeferenciaId,
+      if (fechaEvento != null) 'fecha_evento': fechaEvento,
+      if (horaEvento != null) 'hora_evento': horaEvento,
+      if (envioPersonalizado != null) 'envio_personalizado': envioPersonalizado,
+      if (getSTime != null) 'get_s_time': getSTime,
+      if (syncFlag != null) 'sync_flag': syncFlag,
+      if (usuarioReceptorId != null) 'usuario_receptor_id': usuarioReceptorId,
+      if (eventoHijoId != null) 'evento_hijo_id': eventoHijoId,
+      if (key != null) 'key': key,
+      if (usuarioCreacionId != null) 'usuario_creacion_id': usuarioCreacionId,
+      if (usuarioCreadorId != null) 'usuario_creador_id': usuarioCreadorId,
+      if (fechaCreacion != null) 'fecha_creacion': fechaCreacion,
+      if (usuarioAccionId != null) 'usuario_accion_id': usuarioAccionId,
+      if (fechaAccion != null) 'fecha_accion': fechaAccion,
+      if (fechaEnvio != null) 'fecha_envio': fechaEnvio,
+      if (fechaEntrega != null) 'fecha_entrega': fechaEntrega,
+      if (fechaRecibido != null) 'fecha_recibido': fechaRecibido,
+      if (fechaVisto != null) 'fecha_visto': fechaVisto,
+      if (fechaRespuesta != null) 'fecha_respuesta': fechaRespuesta,
+      if (pathImagen != null) 'path_imagen': pathImagen,
+      if (likeCount != null) 'like_count': likeCount,
+      if (like != null) 'like': like,
+      if (nombreEntidad != null) 'nombre_entidad': nombreEntidad,
+      if (fotoEntidad != null) 'foto_entidad': fotoEntidad,
+    });
+  }
+
+  EventoCompanion copyWith(
+      {Value<String>? eventoId,
+      Value<String?>? titulo,
+      Value<String?>? descripcion,
+      Value<String?>? calendarioId,
+      Value<int?>? tipoEventoId,
+      Value<int?>? estadoId,
+      Value<bool?>? estadoPublicacion,
+      Value<int?>? entidadId,
+      Value<int?>? georeferenciaId,
+      Value<int?>? fechaEvento,
+      Value<String?>? horaEvento,
+      Value<bool?>? envioPersonalizado,
+      Value<String?>? getSTime,
+      Value<int?>? syncFlag,
+      Value<int?>? usuarioReceptorId,
+      Value<int?>? eventoHijoId,
+      Value<String?>? key,
+      Value<int?>? usuarioCreacionId,
+      Value<int?>? usuarioCreadorId,
+      Value<int?>? fechaCreacion,
+      Value<int?>? usuarioAccionId,
+      Value<int?>? fechaAccion,
+      Value<int?>? fechaEnvio,
+      Value<int?>? fechaEntrega,
+      Value<int?>? fechaRecibido,
+      Value<int?>? fechaVisto,
+      Value<int?>? fechaRespuesta,
+      Value<String?>? pathImagen,
+      Value<int?>? likeCount,
+      Value<bool?>? like,
+      Value<String?>? nombreEntidad,
+      Value<String?>? fotoEntidad}) {
+    return EventoCompanion(
+      eventoId: eventoId ?? this.eventoId,
+      titulo: titulo ?? this.titulo,
+      descripcion: descripcion ?? this.descripcion,
+      calendarioId: calendarioId ?? this.calendarioId,
+      tipoEventoId: tipoEventoId ?? this.tipoEventoId,
+      estadoId: estadoId ?? this.estadoId,
+      estadoPublicacion: estadoPublicacion ?? this.estadoPublicacion,
+      entidadId: entidadId ?? this.entidadId,
+      georeferenciaId: georeferenciaId ?? this.georeferenciaId,
+      fechaEvento: fechaEvento ?? this.fechaEvento,
+      horaEvento: horaEvento ?? this.horaEvento,
+      envioPersonalizado: envioPersonalizado ?? this.envioPersonalizado,
+      getSTime: getSTime ?? this.getSTime,
+      syncFlag: syncFlag ?? this.syncFlag,
+      usuarioReceptorId: usuarioReceptorId ?? this.usuarioReceptorId,
+      eventoHijoId: eventoHijoId ?? this.eventoHijoId,
+      key: key ?? this.key,
+      usuarioCreacionId: usuarioCreacionId ?? this.usuarioCreacionId,
+      usuarioCreadorId: usuarioCreadorId ?? this.usuarioCreadorId,
+      fechaCreacion: fechaCreacion ?? this.fechaCreacion,
+      usuarioAccionId: usuarioAccionId ?? this.usuarioAccionId,
+      fechaAccion: fechaAccion ?? this.fechaAccion,
+      fechaEnvio: fechaEnvio ?? this.fechaEnvio,
+      fechaEntrega: fechaEntrega ?? this.fechaEntrega,
+      fechaRecibido: fechaRecibido ?? this.fechaRecibido,
+      fechaVisto: fechaVisto ?? this.fechaVisto,
+      fechaRespuesta: fechaRespuesta ?? this.fechaRespuesta,
+      pathImagen: pathImagen ?? this.pathImagen,
+      likeCount: likeCount ?? this.likeCount,
+      like: like ?? this.like,
+      nombreEntidad: nombreEntidad ?? this.nombreEntidad,
+      fotoEntidad: fotoEntidad ?? this.fotoEntidad,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (eventoId.present) {
+      map['evento_id'] = Variable<String>(eventoId.value);
+    }
+    if (titulo.present) {
+      map['titulo'] = Variable<String?>(titulo.value);
+    }
+    if (descripcion.present) {
+      map['descripcion'] = Variable<String?>(descripcion.value);
+    }
+    if (calendarioId.present) {
+      map['calendario_id'] = Variable<String?>(calendarioId.value);
+    }
+    if (tipoEventoId.present) {
+      map['tipo_evento_id'] = Variable<int?>(tipoEventoId.value);
+    }
+    if (estadoId.present) {
+      map['estado_id'] = Variable<int?>(estadoId.value);
+    }
+    if (estadoPublicacion.present) {
+      map['estado_publicacion'] = Variable<bool?>(estadoPublicacion.value);
+    }
+    if (entidadId.present) {
+      map['entidad_id'] = Variable<int?>(entidadId.value);
+    }
+    if (georeferenciaId.present) {
+      map['georeferencia_id'] = Variable<int?>(georeferenciaId.value);
+    }
+    if (fechaEvento.present) {
+      map['fecha_evento'] = Variable<int?>(fechaEvento.value);
+    }
+    if (horaEvento.present) {
+      map['hora_evento'] = Variable<String?>(horaEvento.value);
+    }
+    if (envioPersonalizado.present) {
+      map['envio_personalizado'] = Variable<bool?>(envioPersonalizado.value);
+    }
+    if (getSTime.present) {
+      map['get_s_time'] = Variable<String?>(getSTime.value);
+    }
+    if (syncFlag.present) {
+      map['sync_flag'] = Variable<int?>(syncFlag.value);
+    }
+    if (usuarioReceptorId.present) {
+      map['usuario_receptor_id'] = Variable<int?>(usuarioReceptorId.value);
+    }
+    if (eventoHijoId.present) {
+      map['evento_hijo_id'] = Variable<int?>(eventoHijoId.value);
+    }
+    if (key.present) {
+      map['key'] = Variable<String?>(key.value);
+    }
+    if (usuarioCreacionId.present) {
+      map['usuario_creacion_id'] = Variable<int?>(usuarioCreacionId.value);
+    }
+    if (usuarioCreadorId.present) {
+      map['usuario_creador_id'] = Variable<int?>(usuarioCreadorId.value);
+    }
+    if (fechaCreacion.present) {
+      map['fecha_creacion'] = Variable<int?>(fechaCreacion.value);
+    }
+    if (usuarioAccionId.present) {
+      map['usuario_accion_id'] = Variable<int?>(usuarioAccionId.value);
+    }
+    if (fechaAccion.present) {
+      map['fecha_accion'] = Variable<int?>(fechaAccion.value);
+    }
+    if (fechaEnvio.present) {
+      map['fecha_envio'] = Variable<int?>(fechaEnvio.value);
+    }
+    if (fechaEntrega.present) {
+      map['fecha_entrega'] = Variable<int?>(fechaEntrega.value);
+    }
+    if (fechaRecibido.present) {
+      map['fecha_recibido'] = Variable<int?>(fechaRecibido.value);
+    }
+    if (fechaVisto.present) {
+      map['fecha_visto'] = Variable<int?>(fechaVisto.value);
+    }
+    if (fechaRespuesta.present) {
+      map['fecha_respuesta'] = Variable<int?>(fechaRespuesta.value);
+    }
+    if (pathImagen.present) {
+      map['path_imagen'] = Variable<String?>(pathImagen.value);
+    }
+    if (likeCount.present) {
+      map['like_count'] = Variable<int?>(likeCount.value);
+    }
+    if (like.present) {
+      map['like'] = Variable<bool?>(like.value);
+    }
+    if (nombreEntidad.present) {
+      map['nombre_entidad'] = Variable<String?>(nombreEntidad.value);
+    }
+    if (fotoEntidad.present) {
+      map['foto_entidad'] = Variable<String?>(fotoEntidad.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('EventoCompanion(')
+          ..write('eventoId: $eventoId, ')
+          ..write('titulo: $titulo, ')
+          ..write('descripcion: $descripcion, ')
+          ..write('calendarioId: $calendarioId, ')
+          ..write('tipoEventoId: $tipoEventoId, ')
+          ..write('estadoId: $estadoId, ')
+          ..write('estadoPublicacion: $estadoPublicacion, ')
+          ..write('entidadId: $entidadId, ')
+          ..write('georeferenciaId: $georeferenciaId, ')
+          ..write('fechaEvento: $fechaEvento, ')
+          ..write('horaEvento: $horaEvento, ')
+          ..write('envioPersonalizado: $envioPersonalizado, ')
+          ..write('getSTime: $getSTime, ')
+          ..write('syncFlag: $syncFlag, ')
+          ..write('usuarioReceptorId: $usuarioReceptorId, ')
+          ..write('eventoHijoId: $eventoHijoId, ')
+          ..write('key: $key, ')
+          ..write('usuarioCreacionId: $usuarioCreacionId, ')
+          ..write('usuarioCreadorId: $usuarioCreadorId, ')
+          ..write('fechaCreacion: $fechaCreacion, ')
+          ..write('usuarioAccionId: $usuarioAccionId, ')
+          ..write('fechaAccion: $fechaAccion, ')
+          ..write('fechaEnvio: $fechaEnvio, ')
+          ..write('fechaEntrega: $fechaEntrega, ')
+          ..write('fechaRecibido: $fechaRecibido, ')
+          ..write('fechaVisto: $fechaVisto, ')
+          ..write('fechaRespuesta: $fechaRespuesta, ')
+          ..write('pathImagen: $pathImagen, ')
+          ..write('likeCount: $likeCount, ')
+          ..write('like: $like, ')
+          ..write('nombreEntidad: $nombreEntidad, ')
+          ..write('fotoEntidad: $fotoEntidad')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $EventoTable extends Evento with TableInfo<$EventoTable, EventoData> {
+  final GeneratedDatabase _db;
+  final String? _alias;
+  $EventoTable(this._db, [this._alias]);
+  final VerificationMeta _eventoIdMeta = const VerificationMeta('eventoId');
+  @override
+  late final GeneratedTextColumn eventoId = _constructEventoId();
+  GeneratedTextColumn _constructEventoId() {
+    return GeneratedTextColumn(
+      'evento_id',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _tituloMeta = const VerificationMeta('titulo');
+  @override
+  late final GeneratedTextColumn titulo = _constructTitulo();
+  GeneratedTextColumn _constructTitulo() {
+    return GeneratedTextColumn(
+      'titulo',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _descripcionMeta =
+      const VerificationMeta('descripcion');
+  @override
+  late final GeneratedTextColumn descripcion = _constructDescripcion();
+  GeneratedTextColumn _constructDescripcion() {
+    return GeneratedTextColumn(
+      'descripcion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _calendarioIdMeta =
+      const VerificationMeta('calendarioId');
+  @override
+  late final GeneratedTextColumn calendarioId = _constructCalendarioId();
+  GeneratedTextColumn _constructCalendarioId() {
+    return GeneratedTextColumn(
+      'calendario_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _tipoEventoIdMeta =
+      const VerificationMeta('tipoEventoId');
+  @override
+  late final GeneratedIntColumn tipoEventoId = _constructTipoEventoId();
+  GeneratedIntColumn _constructTipoEventoId() {
+    return GeneratedIntColumn(
+      'tipo_evento_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _estadoIdMeta = const VerificationMeta('estadoId');
+  @override
+  late final GeneratedIntColumn estadoId = _constructEstadoId();
+  GeneratedIntColumn _constructEstadoId() {
+    return GeneratedIntColumn(
+      'estado_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _estadoPublicacionMeta =
+      const VerificationMeta('estadoPublicacion');
+  @override
+  late final GeneratedBoolColumn estadoPublicacion =
+      _constructEstadoPublicacion();
+  GeneratedBoolColumn _constructEstadoPublicacion() {
+    return GeneratedBoolColumn(
+      'estado_publicacion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _entidadIdMeta = const VerificationMeta('entidadId');
+  @override
+  late final GeneratedIntColumn entidadId = _constructEntidadId();
+  GeneratedIntColumn _constructEntidadId() {
+    return GeneratedIntColumn(
+      'entidad_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _georeferenciaIdMeta =
+      const VerificationMeta('georeferenciaId');
+  @override
+  late final GeneratedIntColumn georeferenciaId = _constructGeoreferenciaId();
+  GeneratedIntColumn _constructGeoreferenciaId() {
+    return GeneratedIntColumn(
+      'georeferencia_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaEventoMeta =
+      const VerificationMeta('fechaEvento');
+  @override
+  late final GeneratedIntColumn fechaEvento = _constructFechaEvento();
+  GeneratedIntColumn _constructFechaEvento() {
+    return GeneratedIntColumn(
+      'fecha_evento',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _horaEventoMeta = const VerificationMeta('horaEvento');
+  @override
+  late final GeneratedTextColumn horaEvento = _constructHoraEvento();
+  GeneratedTextColumn _constructHoraEvento() {
+    return GeneratedTextColumn(
+      'hora_evento',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _envioPersonalizadoMeta =
+      const VerificationMeta('envioPersonalizado');
+  @override
+  late final GeneratedBoolColumn envioPersonalizado =
+      _constructEnvioPersonalizado();
+  GeneratedBoolColumn _constructEnvioPersonalizado() {
+    return GeneratedBoolColumn(
+      'envio_personalizado',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _getSTimeMeta = const VerificationMeta('getSTime');
+  @override
+  late final GeneratedTextColumn getSTime = _constructGetSTime();
+  GeneratedTextColumn _constructGetSTime() {
+    return GeneratedTextColumn(
+      'get_s_time',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _syncFlagMeta = const VerificationMeta('syncFlag');
+  @override
+  late final GeneratedIntColumn syncFlag = _constructSyncFlag();
+  GeneratedIntColumn _constructSyncFlag() {
+    return GeneratedIntColumn(
+      'sync_flag',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioReceptorIdMeta =
+      const VerificationMeta('usuarioReceptorId');
+  @override
+  late final GeneratedIntColumn usuarioReceptorId =
+      _constructUsuarioReceptorId();
+  GeneratedIntColumn _constructUsuarioReceptorId() {
+    return GeneratedIntColumn(
+      'usuario_receptor_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _eventoHijoIdMeta =
+      const VerificationMeta('eventoHijoId');
+  @override
+  late final GeneratedIntColumn eventoHijoId = _constructEventoHijoId();
+  GeneratedIntColumn _constructEventoHijoId() {
+    return GeneratedIntColumn(
+      'evento_hijo_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _keyMeta = const VerificationMeta('key');
+  @override
+  late final GeneratedTextColumn key = _constructKey();
+  GeneratedTextColumn _constructKey() {
+    return GeneratedTextColumn(
+      'key',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioCreacionIdMeta =
+      const VerificationMeta('usuarioCreacionId');
+  @override
+  late final GeneratedIntColumn usuarioCreacionId =
+      _constructUsuarioCreacionId();
+  GeneratedIntColumn _constructUsuarioCreacionId() {
+    return GeneratedIntColumn(
+      'usuario_creacion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioCreadorIdMeta =
+      const VerificationMeta('usuarioCreadorId');
+  @override
+  late final GeneratedIntColumn usuarioCreadorId = _constructUsuarioCreadorId();
+  GeneratedIntColumn _constructUsuarioCreadorId() {
+    return GeneratedIntColumn(
+      'usuario_creador_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaCreacionMeta =
+      const VerificationMeta('fechaCreacion');
+  @override
+  late final GeneratedIntColumn fechaCreacion = _constructFechaCreacion();
+  GeneratedIntColumn _constructFechaCreacion() {
+    return GeneratedIntColumn(
+      'fecha_creacion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioAccionIdMeta =
+      const VerificationMeta('usuarioAccionId');
+  @override
+  late final GeneratedIntColumn usuarioAccionId = _constructUsuarioAccionId();
+  GeneratedIntColumn _constructUsuarioAccionId() {
+    return GeneratedIntColumn(
+      'usuario_accion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaAccionMeta =
+      const VerificationMeta('fechaAccion');
+  @override
+  late final GeneratedIntColumn fechaAccion = _constructFechaAccion();
+  GeneratedIntColumn _constructFechaAccion() {
+    return GeneratedIntColumn(
+      'fecha_accion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaEnvioMeta = const VerificationMeta('fechaEnvio');
+  @override
+  late final GeneratedIntColumn fechaEnvio = _constructFechaEnvio();
+  GeneratedIntColumn _constructFechaEnvio() {
+    return GeneratedIntColumn(
+      'fecha_envio',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaEntregaMeta =
+      const VerificationMeta('fechaEntrega');
+  @override
+  late final GeneratedIntColumn fechaEntrega = _constructFechaEntrega();
+  GeneratedIntColumn _constructFechaEntrega() {
+    return GeneratedIntColumn(
+      'fecha_entrega',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaRecibidoMeta =
+      const VerificationMeta('fechaRecibido');
+  @override
+  late final GeneratedIntColumn fechaRecibido = _constructFechaRecibido();
+  GeneratedIntColumn _constructFechaRecibido() {
+    return GeneratedIntColumn(
+      'fecha_recibido',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaVistoMeta = const VerificationMeta('fechaVisto');
+  @override
+  late final GeneratedIntColumn fechaVisto = _constructFechaVisto();
+  GeneratedIntColumn _constructFechaVisto() {
+    return GeneratedIntColumn(
+      'fecha_visto',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaRespuestaMeta =
+      const VerificationMeta('fechaRespuesta');
+  @override
+  late final GeneratedIntColumn fechaRespuesta = _constructFechaRespuesta();
+  GeneratedIntColumn _constructFechaRespuesta() {
+    return GeneratedIntColumn(
+      'fecha_respuesta',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _pathImagenMeta = const VerificationMeta('pathImagen');
+  @override
+  late final GeneratedTextColumn pathImagen = _constructPathImagen();
+  GeneratedTextColumn _constructPathImagen() {
+    return GeneratedTextColumn(
+      'path_imagen',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _likeCountMeta = const VerificationMeta('likeCount');
+  @override
+  late final GeneratedIntColumn likeCount = _constructLikeCount();
+  GeneratedIntColumn _constructLikeCount() {
+    return GeneratedIntColumn(
+      'like_count',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _likeMeta = const VerificationMeta('like');
+  @override
+  late final GeneratedBoolColumn like = _constructLike();
+  GeneratedBoolColumn _constructLike() {
+    return GeneratedBoolColumn(
+      'like',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _nombreEntidadMeta =
+      const VerificationMeta('nombreEntidad');
+  @override
+  late final GeneratedTextColumn nombreEntidad = _constructNombreEntidad();
+  GeneratedTextColumn _constructNombreEntidad() {
+    return GeneratedTextColumn(
+      'nombre_entidad',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fotoEntidadMeta =
+      const VerificationMeta('fotoEntidad');
+  @override
+  late final GeneratedTextColumn fotoEntidad = _constructFotoEntidad();
+  GeneratedTextColumn _constructFotoEntidad() {
+    return GeneratedTextColumn(
+      'foto_entidad',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [
+        eventoId,
+        titulo,
+        descripcion,
+        calendarioId,
+        tipoEventoId,
+        estadoId,
+        estadoPublicacion,
+        entidadId,
+        georeferenciaId,
+        fechaEvento,
+        horaEvento,
+        envioPersonalizado,
+        getSTime,
+        syncFlag,
+        usuarioReceptorId,
+        eventoHijoId,
+        key,
+        usuarioCreacionId,
+        usuarioCreadorId,
+        fechaCreacion,
+        usuarioAccionId,
+        fechaAccion,
+        fechaEnvio,
+        fechaEntrega,
+        fechaRecibido,
+        fechaVisto,
+        fechaRespuesta,
+        pathImagen,
+        likeCount,
+        like,
+        nombreEntidad,
+        fotoEntidad
+      ];
+  @override
+  $EventoTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'evento';
+  @override
+  final String actualTableName = 'evento';
+  @override
+  VerificationContext validateIntegrity(Insertable<EventoData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('evento_id')) {
+      context.handle(_eventoIdMeta,
+          eventoId.isAcceptableOrUnknown(data['evento_id']!, _eventoIdMeta));
+    } else if (isInserting) {
+      context.missing(_eventoIdMeta);
+    }
+    if (data.containsKey('titulo')) {
+      context.handle(_tituloMeta,
+          titulo.isAcceptableOrUnknown(data['titulo']!, _tituloMeta));
+    }
+    if (data.containsKey('descripcion')) {
+      context.handle(
+          _descripcionMeta,
+          descripcion.isAcceptableOrUnknown(
+              data['descripcion']!, _descripcionMeta));
+    }
+    if (data.containsKey('calendario_id')) {
+      context.handle(
+          _calendarioIdMeta,
+          calendarioId.isAcceptableOrUnknown(
+              data['calendario_id']!, _calendarioIdMeta));
+    }
+    if (data.containsKey('tipo_evento_id')) {
+      context.handle(
+          _tipoEventoIdMeta,
+          tipoEventoId.isAcceptableOrUnknown(
+              data['tipo_evento_id']!, _tipoEventoIdMeta));
+    }
+    if (data.containsKey('estado_id')) {
+      context.handle(_estadoIdMeta,
+          estadoId.isAcceptableOrUnknown(data['estado_id']!, _estadoIdMeta));
+    }
+    if (data.containsKey('estado_publicacion')) {
+      context.handle(
+          _estadoPublicacionMeta,
+          estadoPublicacion.isAcceptableOrUnknown(
+              data['estado_publicacion']!, _estadoPublicacionMeta));
+    }
+    if (data.containsKey('entidad_id')) {
+      context.handle(_entidadIdMeta,
+          entidadId.isAcceptableOrUnknown(data['entidad_id']!, _entidadIdMeta));
+    }
+    if (data.containsKey('georeferencia_id')) {
+      context.handle(
+          _georeferenciaIdMeta,
+          georeferenciaId.isAcceptableOrUnknown(
+              data['georeferencia_id']!, _georeferenciaIdMeta));
+    }
+    if (data.containsKey('fecha_evento')) {
+      context.handle(
+          _fechaEventoMeta,
+          fechaEvento.isAcceptableOrUnknown(
+              data['fecha_evento']!, _fechaEventoMeta));
+    }
+    if (data.containsKey('hora_evento')) {
+      context.handle(
+          _horaEventoMeta,
+          horaEvento.isAcceptableOrUnknown(
+              data['hora_evento']!, _horaEventoMeta));
+    }
+    if (data.containsKey('envio_personalizado')) {
+      context.handle(
+          _envioPersonalizadoMeta,
+          envioPersonalizado.isAcceptableOrUnknown(
+              data['envio_personalizado']!, _envioPersonalizadoMeta));
+    }
+    if (data.containsKey('get_s_time')) {
+      context.handle(_getSTimeMeta,
+          getSTime.isAcceptableOrUnknown(data['get_s_time']!, _getSTimeMeta));
+    }
+    if (data.containsKey('sync_flag')) {
+      context.handle(_syncFlagMeta,
+          syncFlag.isAcceptableOrUnknown(data['sync_flag']!, _syncFlagMeta));
+    }
+    if (data.containsKey('usuario_receptor_id')) {
+      context.handle(
+          _usuarioReceptorIdMeta,
+          usuarioReceptorId.isAcceptableOrUnknown(
+              data['usuario_receptor_id']!, _usuarioReceptorIdMeta));
+    }
+    if (data.containsKey('evento_hijo_id')) {
+      context.handle(
+          _eventoHijoIdMeta,
+          eventoHijoId.isAcceptableOrUnknown(
+              data['evento_hijo_id']!, _eventoHijoIdMeta));
+    }
+    if (data.containsKey('key')) {
+      context.handle(
+          _keyMeta, key.isAcceptableOrUnknown(data['key']!, _keyMeta));
+    }
+    if (data.containsKey('usuario_creacion_id')) {
+      context.handle(
+          _usuarioCreacionIdMeta,
+          usuarioCreacionId.isAcceptableOrUnknown(
+              data['usuario_creacion_id']!, _usuarioCreacionIdMeta));
+    }
+    if (data.containsKey('usuario_creador_id')) {
+      context.handle(
+          _usuarioCreadorIdMeta,
+          usuarioCreadorId.isAcceptableOrUnknown(
+              data['usuario_creador_id']!, _usuarioCreadorIdMeta));
+    }
+    if (data.containsKey('fecha_creacion')) {
+      context.handle(
+          _fechaCreacionMeta,
+          fechaCreacion.isAcceptableOrUnknown(
+              data['fecha_creacion']!, _fechaCreacionMeta));
+    }
+    if (data.containsKey('usuario_accion_id')) {
+      context.handle(
+          _usuarioAccionIdMeta,
+          usuarioAccionId.isAcceptableOrUnknown(
+              data['usuario_accion_id']!, _usuarioAccionIdMeta));
+    }
+    if (data.containsKey('fecha_accion')) {
+      context.handle(
+          _fechaAccionMeta,
+          fechaAccion.isAcceptableOrUnknown(
+              data['fecha_accion']!, _fechaAccionMeta));
+    }
+    if (data.containsKey('fecha_envio')) {
+      context.handle(
+          _fechaEnvioMeta,
+          fechaEnvio.isAcceptableOrUnknown(
+              data['fecha_envio']!, _fechaEnvioMeta));
+    }
+    if (data.containsKey('fecha_entrega')) {
+      context.handle(
+          _fechaEntregaMeta,
+          fechaEntrega.isAcceptableOrUnknown(
+              data['fecha_entrega']!, _fechaEntregaMeta));
+    }
+    if (data.containsKey('fecha_recibido')) {
+      context.handle(
+          _fechaRecibidoMeta,
+          fechaRecibido.isAcceptableOrUnknown(
+              data['fecha_recibido']!, _fechaRecibidoMeta));
+    }
+    if (data.containsKey('fecha_visto')) {
+      context.handle(
+          _fechaVistoMeta,
+          fechaVisto.isAcceptableOrUnknown(
+              data['fecha_visto']!, _fechaVistoMeta));
+    }
+    if (data.containsKey('fecha_respuesta')) {
+      context.handle(
+          _fechaRespuestaMeta,
+          fechaRespuesta.isAcceptableOrUnknown(
+              data['fecha_respuesta']!, _fechaRespuestaMeta));
+    }
+    if (data.containsKey('path_imagen')) {
+      context.handle(
+          _pathImagenMeta,
+          pathImagen.isAcceptableOrUnknown(
+              data['path_imagen']!, _pathImagenMeta));
+    }
+    if (data.containsKey('like_count')) {
+      context.handle(_likeCountMeta,
+          likeCount.isAcceptableOrUnknown(data['like_count']!, _likeCountMeta));
+    }
+    if (data.containsKey('like')) {
+      context.handle(
+          _likeMeta, like.isAcceptableOrUnknown(data['like']!, _likeMeta));
+    }
+    if (data.containsKey('nombre_entidad')) {
+      context.handle(
+          _nombreEntidadMeta,
+          nombreEntidad.isAcceptableOrUnknown(
+              data['nombre_entidad']!, _nombreEntidadMeta));
+    }
+    if (data.containsKey('foto_entidad')) {
+      context.handle(
+          _fotoEntidadMeta,
+          fotoEntidad.isAcceptableOrUnknown(
+              data['foto_entidad']!, _fotoEntidadMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => <GeneratedColumn>{};
+  @override
+  EventoData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return EventoData.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $EventoTable createAlias(String alias) {
+    return $EventoTable(_db, alias);
+  }
+}
+
+class EventoPersonaData extends DataClass
+    implements Insertable<EventoPersonaData> {
+  final String eventoPersonaId;
+  final String? eventoId;
+  final int? personaId;
+  final bool? estado;
+  final int? rolId;
+  final int? apoderadoId;
+  final String? key;
+  final int? usuarioCreacionId;
+  final int? usuarioCreadorId;
+  final int? fechaCreacion;
+  final int? usuarioAccionId;
+  final int? fechaAccion;
+  final int? fechaEnvio;
+  final int? fechaEntrega;
+  final int? fechaRecibido;
+  final int? fechaVisto;
+  final int? fechaRespuesta;
+  final String? getSTime;
+  EventoPersonaData(
+      {required this.eventoPersonaId,
+      this.eventoId,
+      this.personaId,
+      this.estado,
+      this.rolId,
+      this.apoderadoId,
+      this.key,
+      this.usuarioCreacionId,
+      this.usuarioCreadorId,
+      this.fechaCreacion,
+      this.usuarioAccionId,
+      this.fechaAccion,
+      this.fechaEnvio,
+      this.fechaEntrega,
+      this.fechaRecibido,
+      this.fechaVisto,
+      this.fechaRespuesta,
+      this.getSTime});
+  factory EventoPersonaData.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
+      {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    return EventoPersonaData(
+      eventoPersonaId: const StringType().mapFromDatabaseResponse(
+          data['${effectivePrefix}evento_persona_id'])!,
+      eventoId: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}evento_id']),
+      personaId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}persona_id']),
+      estado: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado']),
+      rolId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}rol_id']),
+      apoderadoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}apoderado_id']),
+      key: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}key']),
+      usuarioCreacionId: const IntType().mapFromDatabaseResponse(
+          data['${effectivePrefix}usuario_creacion_id']),
+      usuarioCreadorId: const IntType().mapFromDatabaseResponse(
+          data['${effectivePrefix}usuario_creador_id']),
+      fechaCreacion: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_creacion']),
+      usuarioAccionId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}usuario_accion_id']),
+      fechaAccion: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_accion']),
+      fechaEnvio: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_envio']),
+      fechaEntrega: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_entrega']),
+      fechaRecibido: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_recibido']),
+      fechaVisto: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_visto']),
+      fechaRespuesta: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_respuesta']),
+      getSTime: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}get_s_time']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['evento_persona_id'] = Variable<String>(eventoPersonaId);
+    if (!nullToAbsent || eventoId != null) {
+      map['evento_id'] = Variable<String?>(eventoId);
+    }
+    if (!nullToAbsent || personaId != null) {
+      map['persona_id'] = Variable<int?>(personaId);
+    }
+    if (!nullToAbsent || estado != null) {
+      map['estado'] = Variable<bool?>(estado);
+    }
+    if (!nullToAbsent || rolId != null) {
+      map['rol_id'] = Variable<int?>(rolId);
+    }
+    if (!nullToAbsent || apoderadoId != null) {
+      map['apoderado_id'] = Variable<int?>(apoderadoId);
+    }
+    if (!nullToAbsent || key != null) {
+      map['key'] = Variable<String?>(key);
+    }
+    if (!nullToAbsent || usuarioCreacionId != null) {
+      map['usuario_creacion_id'] = Variable<int?>(usuarioCreacionId);
+    }
+    if (!nullToAbsent || usuarioCreadorId != null) {
+      map['usuario_creador_id'] = Variable<int?>(usuarioCreadorId);
+    }
+    if (!nullToAbsent || fechaCreacion != null) {
+      map['fecha_creacion'] = Variable<int?>(fechaCreacion);
+    }
+    if (!nullToAbsent || usuarioAccionId != null) {
+      map['usuario_accion_id'] = Variable<int?>(usuarioAccionId);
+    }
+    if (!nullToAbsent || fechaAccion != null) {
+      map['fecha_accion'] = Variable<int?>(fechaAccion);
+    }
+    if (!nullToAbsent || fechaEnvio != null) {
+      map['fecha_envio'] = Variable<int?>(fechaEnvio);
+    }
+    if (!nullToAbsent || fechaEntrega != null) {
+      map['fecha_entrega'] = Variable<int?>(fechaEntrega);
+    }
+    if (!nullToAbsent || fechaRecibido != null) {
+      map['fecha_recibido'] = Variable<int?>(fechaRecibido);
+    }
+    if (!nullToAbsent || fechaVisto != null) {
+      map['fecha_visto'] = Variable<int?>(fechaVisto);
+    }
+    if (!nullToAbsent || fechaRespuesta != null) {
+      map['fecha_respuesta'] = Variable<int?>(fechaRespuesta);
+    }
+    if (!nullToAbsent || getSTime != null) {
+      map['get_s_time'] = Variable<String?>(getSTime);
+    }
+    return map;
+  }
+
+  EventoPersonaCompanion toCompanion(bool nullToAbsent) {
+    return EventoPersonaCompanion(
+      eventoPersonaId: Value(eventoPersonaId),
+      eventoId: eventoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(eventoId),
+      personaId: personaId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(personaId),
+      estado:
+          estado == null && nullToAbsent ? const Value.absent() : Value(estado),
+      rolId:
+          rolId == null && nullToAbsent ? const Value.absent() : Value(rolId),
+      apoderadoId: apoderadoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(apoderadoId),
+      key: key == null && nullToAbsent ? const Value.absent() : Value(key),
+      usuarioCreacionId: usuarioCreacionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioCreacionId),
+      usuarioCreadorId: usuarioCreadorId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioCreadorId),
+      fechaCreacion: fechaCreacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaCreacion),
+      usuarioAccionId: usuarioAccionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioAccionId),
+      fechaAccion: fechaAccion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaAccion),
+      fechaEnvio: fechaEnvio == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaEnvio),
+      fechaEntrega: fechaEntrega == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaEntrega),
+      fechaRecibido: fechaRecibido == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaRecibido),
+      fechaVisto: fechaVisto == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaVisto),
+      fechaRespuesta: fechaRespuesta == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaRespuesta),
+      getSTime: getSTime == null && nullToAbsent
+          ? const Value.absent()
+          : Value(getSTime),
+    );
+  }
+
+  factory EventoPersonaData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return EventoPersonaData(
+      eventoPersonaId: serializer.fromJson<String>(json['eventoPersonaId']),
+      eventoId: serializer.fromJson<String?>(json['eventoId']),
+      personaId: serializer.fromJson<int?>(json['personaId']),
+      estado: serializer.fromJson<bool?>(json['estado']),
+      rolId: serializer.fromJson<int?>(json['rolId']),
+      apoderadoId: serializer.fromJson<int?>(json['apoderadoId']),
+      key: serializer.fromJson<String?>(json['key']),
+      usuarioCreacionId: serializer.fromJson<int?>(json['usuarioCreacionId']),
+      usuarioCreadorId: serializer.fromJson<int?>(json['usuarioCreadorId']),
+      fechaCreacion: serializer.fromJson<int?>(json['fechaCreacion']),
+      usuarioAccionId: serializer.fromJson<int?>(json['usuarioAccionId']),
+      fechaAccion: serializer.fromJson<int?>(json['fechaAccion']),
+      fechaEnvio: serializer.fromJson<int?>(json['fechaEnvio']),
+      fechaEntrega: serializer.fromJson<int?>(json['fechaEntrega']),
+      fechaRecibido: serializer.fromJson<int?>(json['fechaRecibido']),
+      fechaVisto: serializer.fromJson<int?>(json['fechaVisto']),
+      fechaRespuesta: serializer.fromJson<int?>(json['fechaRespuesta']),
+      getSTime: serializer.fromJson<String?>(json['getSTime']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'eventoPersonaId': serializer.toJson<String>(eventoPersonaId),
+      'eventoId': serializer.toJson<String?>(eventoId),
+      'personaId': serializer.toJson<int?>(personaId),
+      'estado': serializer.toJson<bool?>(estado),
+      'rolId': serializer.toJson<int?>(rolId),
+      'apoderadoId': serializer.toJson<int?>(apoderadoId),
+      'key': serializer.toJson<String?>(key),
+      'usuarioCreacionId': serializer.toJson<int?>(usuarioCreacionId),
+      'usuarioCreadorId': serializer.toJson<int?>(usuarioCreadorId),
+      'fechaCreacion': serializer.toJson<int?>(fechaCreacion),
+      'usuarioAccionId': serializer.toJson<int?>(usuarioAccionId),
+      'fechaAccion': serializer.toJson<int?>(fechaAccion),
+      'fechaEnvio': serializer.toJson<int?>(fechaEnvio),
+      'fechaEntrega': serializer.toJson<int?>(fechaEntrega),
+      'fechaRecibido': serializer.toJson<int?>(fechaRecibido),
+      'fechaVisto': serializer.toJson<int?>(fechaVisto),
+      'fechaRespuesta': serializer.toJson<int?>(fechaRespuesta),
+      'getSTime': serializer.toJson<String?>(getSTime),
+    };
+  }
+
+  EventoPersonaData copyWith(
+          {String? eventoPersonaId,
+          String? eventoId,
+          int? personaId,
+          bool? estado,
+          int? rolId,
+          int? apoderadoId,
+          String? key,
+          int? usuarioCreacionId,
+          int? usuarioCreadorId,
+          int? fechaCreacion,
+          int? usuarioAccionId,
+          int? fechaAccion,
+          int? fechaEnvio,
+          int? fechaEntrega,
+          int? fechaRecibido,
+          int? fechaVisto,
+          int? fechaRespuesta,
+          String? getSTime}) =>
+      EventoPersonaData(
+        eventoPersonaId: eventoPersonaId ?? this.eventoPersonaId,
+        eventoId: eventoId ?? this.eventoId,
+        personaId: personaId ?? this.personaId,
+        estado: estado ?? this.estado,
+        rolId: rolId ?? this.rolId,
+        apoderadoId: apoderadoId ?? this.apoderadoId,
+        key: key ?? this.key,
+        usuarioCreacionId: usuarioCreacionId ?? this.usuarioCreacionId,
+        usuarioCreadorId: usuarioCreadorId ?? this.usuarioCreadorId,
+        fechaCreacion: fechaCreacion ?? this.fechaCreacion,
+        usuarioAccionId: usuarioAccionId ?? this.usuarioAccionId,
+        fechaAccion: fechaAccion ?? this.fechaAccion,
+        fechaEnvio: fechaEnvio ?? this.fechaEnvio,
+        fechaEntrega: fechaEntrega ?? this.fechaEntrega,
+        fechaRecibido: fechaRecibido ?? this.fechaRecibido,
+        fechaVisto: fechaVisto ?? this.fechaVisto,
+        fechaRespuesta: fechaRespuesta ?? this.fechaRespuesta,
+        getSTime: getSTime ?? this.getSTime,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('EventoPersonaData(')
+          ..write('eventoPersonaId: $eventoPersonaId, ')
+          ..write('eventoId: $eventoId, ')
+          ..write('personaId: $personaId, ')
+          ..write('estado: $estado, ')
+          ..write('rolId: $rolId, ')
+          ..write('apoderadoId: $apoderadoId, ')
+          ..write('key: $key, ')
+          ..write('usuarioCreacionId: $usuarioCreacionId, ')
+          ..write('usuarioCreadorId: $usuarioCreadorId, ')
+          ..write('fechaCreacion: $fechaCreacion, ')
+          ..write('usuarioAccionId: $usuarioAccionId, ')
+          ..write('fechaAccion: $fechaAccion, ')
+          ..write('fechaEnvio: $fechaEnvio, ')
+          ..write('fechaEntrega: $fechaEntrega, ')
+          ..write('fechaRecibido: $fechaRecibido, ')
+          ..write('fechaVisto: $fechaVisto, ')
+          ..write('fechaRespuesta: $fechaRespuesta, ')
+          ..write('getSTime: $getSTime')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      eventoPersonaId.hashCode,
+      $mrjc(
+          eventoId.hashCode,
+          $mrjc(
+              personaId.hashCode,
+              $mrjc(
+                  estado.hashCode,
+                  $mrjc(
+                      rolId.hashCode,
+                      $mrjc(
+                          apoderadoId.hashCode,
+                          $mrjc(
+                              key.hashCode,
+                              $mrjc(
+                                  usuarioCreacionId.hashCode,
+                                  $mrjc(
+                                      usuarioCreadorId.hashCode,
+                                      $mrjc(
+                                          fechaCreacion.hashCode,
+                                          $mrjc(
+                                              usuarioAccionId.hashCode,
+                                              $mrjc(
+                                                  fechaAccion.hashCode,
+                                                  $mrjc(
+                                                      fechaEnvio.hashCode,
+                                                      $mrjc(
+                                                          fechaEntrega.hashCode,
+                                                          $mrjc(
+                                                              fechaRecibido
+                                                                  .hashCode,
+                                                              $mrjc(
+                                                                  fechaVisto
+                                                                      .hashCode,
+                                                                  $mrjc(
+                                                                      fechaRespuesta
+                                                                          .hashCode,
+                                                                      getSTime
+                                                                          .hashCode))))))))))))))))));
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is EventoPersonaData &&
+          other.eventoPersonaId == this.eventoPersonaId &&
+          other.eventoId == this.eventoId &&
+          other.personaId == this.personaId &&
+          other.estado == this.estado &&
+          other.rolId == this.rolId &&
+          other.apoderadoId == this.apoderadoId &&
+          other.key == this.key &&
+          other.usuarioCreacionId == this.usuarioCreacionId &&
+          other.usuarioCreadorId == this.usuarioCreadorId &&
+          other.fechaCreacion == this.fechaCreacion &&
+          other.usuarioAccionId == this.usuarioAccionId &&
+          other.fechaAccion == this.fechaAccion &&
+          other.fechaEnvio == this.fechaEnvio &&
+          other.fechaEntrega == this.fechaEntrega &&
+          other.fechaRecibido == this.fechaRecibido &&
+          other.fechaVisto == this.fechaVisto &&
+          other.fechaRespuesta == this.fechaRespuesta &&
+          other.getSTime == this.getSTime);
+}
+
+class EventoPersonaCompanion extends UpdateCompanion<EventoPersonaData> {
+  final Value<String> eventoPersonaId;
+  final Value<String?> eventoId;
+  final Value<int?> personaId;
+  final Value<bool?> estado;
+  final Value<int?> rolId;
+  final Value<int?> apoderadoId;
+  final Value<String?> key;
+  final Value<int?> usuarioCreacionId;
+  final Value<int?> usuarioCreadorId;
+  final Value<int?> fechaCreacion;
+  final Value<int?> usuarioAccionId;
+  final Value<int?> fechaAccion;
+  final Value<int?> fechaEnvio;
+  final Value<int?> fechaEntrega;
+  final Value<int?> fechaRecibido;
+  final Value<int?> fechaVisto;
+  final Value<int?> fechaRespuesta;
+  final Value<String?> getSTime;
+  const EventoPersonaCompanion({
+    this.eventoPersonaId = const Value.absent(),
+    this.eventoId = const Value.absent(),
+    this.personaId = const Value.absent(),
+    this.estado = const Value.absent(),
+    this.rolId = const Value.absent(),
+    this.apoderadoId = const Value.absent(),
+    this.key = const Value.absent(),
+    this.usuarioCreacionId = const Value.absent(),
+    this.usuarioCreadorId = const Value.absent(),
+    this.fechaCreacion = const Value.absent(),
+    this.usuarioAccionId = const Value.absent(),
+    this.fechaAccion = const Value.absent(),
+    this.fechaEnvio = const Value.absent(),
+    this.fechaEntrega = const Value.absent(),
+    this.fechaRecibido = const Value.absent(),
+    this.fechaVisto = const Value.absent(),
+    this.fechaRespuesta = const Value.absent(),
+    this.getSTime = const Value.absent(),
+  });
+  EventoPersonaCompanion.insert({
+    required String eventoPersonaId,
+    this.eventoId = const Value.absent(),
+    this.personaId = const Value.absent(),
+    this.estado = const Value.absent(),
+    this.rolId = const Value.absent(),
+    this.apoderadoId = const Value.absent(),
+    this.key = const Value.absent(),
+    this.usuarioCreacionId = const Value.absent(),
+    this.usuarioCreadorId = const Value.absent(),
+    this.fechaCreacion = const Value.absent(),
+    this.usuarioAccionId = const Value.absent(),
+    this.fechaAccion = const Value.absent(),
+    this.fechaEnvio = const Value.absent(),
+    this.fechaEntrega = const Value.absent(),
+    this.fechaRecibido = const Value.absent(),
+    this.fechaVisto = const Value.absent(),
+    this.fechaRespuesta = const Value.absent(),
+    this.getSTime = const Value.absent(),
+  }) : eventoPersonaId = Value(eventoPersonaId);
+  static Insertable<EventoPersonaData> custom({
+    Expression<String>? eventoPersonaId,
+    Expression<String?>? eventoId,
+    Expression<int?>? personaId,
+    Expression<bool?>? estado,
+    Expression<int?>? rolId,
+    Expression<int?>? apoderadoId,
+    Expression<String?>? key,
+    Expression<int?>? usuarioCreacionId,
+    Expression<int?>? usuarioCreadorId,
+    Expression<int?>? fechaCreacion,
+    Expression<int?>? usuarioAccionId,
+    Expression<int?>? fechaAccion,
+    Expression<int?>? fechaEnvio,
+    Expression<int?>? fechaEntrega,
+    Expression<int?>? fechaRecibido,
+    Expression<int?>? fechaVisto,
+    Expression<int?>? fechaRespuesta,
+    Expression<String?>? getSTime,
+  }) {
+    return RawValuesInsertable({
+      if (eventoPersonaId != null) 'evento_persona_id': eventoPersonaId,
+      if (eventoId != null) 'evento_id': eventoId,
+      if (personaId != null) 'persona_id': personaId,
+      if (estado != null) 'estado': estado,
+      if (rolId != null) 'rol_id': rolId,
+      if (apoderadoId != null) 'apoderado_id': apoderadoId,
+      if (key != null) 'key': key,
+      if (usuarioCreacionId != null) 'usuario_creacion_id': usuarioCreacionId,
+      if (usuarioCreadorId != null) 'usuario_creador_id': usuarioCreadorId,
+      if (fechaCreacion != null) 'fecha_creacion': fechaCreacion,
+      if (usuarioAccionId != null) 'usuario_accion_id': usuarioAccionId,
+      if (fechaAccion != null) 'fecha_accion': fechaAccion,
+      if (fechaEnvio != null) 'fecha_envio': fechaEnvio,
+      if (fechaEntrega != null) 'fecha_entrega': fechaEntrega,
+      if (fechaRecibido != null) 'fecha_recibido': fechaRecibido,
+      if (fechaVisto != null) 'fecha_visto': fechaVisto,
+      if (fechaRespuesta != null) 'fecha_respuesta': fechaRespuesta,
+      if (getSTime != null) 'get_s_time': getSTime,
+    });
+  }
+
+  EventoPersonaCompanion copyWith(
+      {Value<String>? eventoPersonaId,
+      Value<String?>? eventoId,
+      Value<int?>? personaId,
+      Value<bool?>? estado,
+      Value<int?>? rolId,
+      Value<int?>? apoderadoId,
+      Value<String?>? key,
+      Value<int?>? usuarioCreacionId,
+      Value<int?>? usuarioCreadorId,
+      Value<int?>? fechaCreacion,
+      Value<int?>? usuarioAccionId,
+      Value<int?>? fechaAccion,
+      Value<int?>? fechaEnvio,
+      Value<int?>? fechaEntrega,
+      Value<int?>? fechaRecibido,
+      Value<int?>? fechaVisto,
+      Value<int?>? fechaRespuesta,
+      Value<String?>? getSTime}) {
+    return EventoPersonaCompanion(
+      eventoPersonaId: eventoPersonaId ?? this.eventoPersonaId,
+      eventoId: eventoId ?? this.eventoId,
+      personaId: personaId ?? this.personaId,
+      estado: estado ?? this.estado,
+      rolId: rolId ?? this.rolId,
+      apoderadoId: apoderadoId ?? this.apoderadoId,
+      key: key ?? this.key,
+      usuarioCreacionId: usuarioCreacionId ?? this.usuarioCreacionId,
+      usuarioCreadorId: usuarioCreadorId ?? this.usuarioCreadorId,
+      fechaCreacion: fechaCreacion ?? this.fechaCreacion,
+      usuarioAccionId: usuarioAccionId ?? this.usuarioAccionId,
+      fechaAccion: fechaAccion ?? this.fechaAccion,
+      fechaEnvio: fechaEnvio ?? this.fechaEnvio,
+      fechaEntrega: fechaEntrega ?? this.fechaEntrega,
+      fechaRecibido: fechaRecibido ?? this.fechaRecibido,
+      fechaVisto: fechaVisto ?? this.fechaVisto,
+      fechaRespuesta: fechaRespuesta ?? this.fechaRespuesta,
+      getSTime: getSTime ?? this.getSTime,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (eventoPersonaId.present) {
+      map['evento_persona_id'] = Variable<String>(eventoPersonaId.value);
+    }
+    if (eventoId.present) {
+      map['evento_id'] = Variable<String?>(eventoId.value);
+    }
+    if (personaId.present) {
+      map['persona_id'] = Variable<int?>(personaId.value);
+    }
+    if (estado.present) {
+      map['estado'] = Variable<bool?>(estado.value);
+    }
+    if (rolId.present) {
+      map['rol_id'] = Variable<int?>(rolId.value);
+    }
+    if (apoderadoId.present) {
+      map['apoderado_id'] = Variable<int?>(apoderadoId.value);
+    }
+    if (key.present) {
+      map['key'] = Variable<String?>(key.value);
+    }
+    if (usuarioCreacionId.present) {
+      map['usuario_creacion_id'] = Variable<int?>(usuarioCreacionId.value);
+    }
+    if (usuarioCreadorId.present) {
+      map['usuario_creador_id'] = Variable<int?>(usuarioCreadorId.value);
+    }
+    if (fechaCreacion.present) {
+      map['fecha_creacion'] = Variable<int?>(fechaCreacion.value);
+    }
+    if (usuarioAccionId.present) {
+      map['usuario_accion_id'] = Variable<int?>(usuarioAccionId.value);
+    }
+    if (fechaAccion.present) {
+      map['fecha_accion'] = Variable<int?>(fechaAccion.value);
+    }
+    if (fechaEnvio.present) {
+      map['fecha_envio'] = Variable<int?>(fechaEnvio.value);
+    }
+    if (fechaEntrega.present) {
+      map['fecha_entrega'] = Variable<int?>(fechaEntrega.value);
+    }
+    if (fechaRecibido.present) {
+      map['fecha_recibido'] = Variable<int?>(fechaRecibido.value);
+    }
+    if (fechaVisto.present) {
+      map['fecha_visto'] = Variable<int?>(fechaVisto.value);
+    }
+    if (fechaRespuesta.present) {
+      map['fecha_respuesta'] = Variable<int?>(fechaRespuesta.value);
+    }
+    if (getSTime.present) {
+      map['get_s_time'] = Variable<String?>(getSTime.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('EventoPersonaCompanion(')
+          ..write('eventoPersonaId: $eventoPersonaId, ')
+          ..write('eventoId: $eventoId, ')
+          ..write('personaId: $personaId, ')
+          ..write('estado: $estado, ')
+          ..write('rolId: $rolId, ')
+          ..write('apoderadoId: $apoderadoId, ')
+          ..write('key: $key, ')
+          ..write('usuarioCreacionId: $usuarioCreacionId, ')
+          ..write('usuarioCreadorId: $usuarioCreadorId, ')
+          ..write('fechaCreacion: $fechaCreacion, ')
+          ..write('usuarioAccionId: $usuarioAccionId, ')
+          ..write('fechaAccion: $fechaAccion, ')
+          ..write('fechaEnvio: $fechaEnvio, ')
+          ..write('fechaEntrega: $fechaEntrega, ')
+          ..write('fechaRecibido: $fechaRecibido, ')
+          ..write('fechaVisto: $fechaVisto, ')
+          ..write('fechaRespuesta: $fechaRespuesta, ')
+          ..write('getSTime: $getSTime')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $EventoPersonaTable extends EventoPersona
+    with TableInfo<$EventoPersonaTable, EventoPersonaData> {
+  final GeneratedDatabase _db;
+  final String? _alias;
+  $EventoPersonaTable(this._db, [this._alias]);
+  final VerificationMeta _eventoPersonaIdMeta =
+      const VerificationMeta('eventoPersonaId');
+  @override
+  late final GeneratedTextColumn eventoPersonaId = _constructEventoPersonaId();
+  GeneratedTextColumn _constructEventoPersonaId() {
+    return GeneratedTextColumn(
+      'evento_persona_id',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _eventoIdMeta = const VerificationMeta('eventoId');
+  @override
+  late final GeneratedTextColumn eventoId = _constructEventoId();
+  GeneratedTextColumn _constructEventoId() {
+    return GeneratedTextColumn(
+      'evento_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _personaIdMeta = const VerificationMeta('personaId');
+  @override
+  late final GeneratedIntColumn personaId = _constructPersonaId();
+  GeneratedIntColumn _constructPersonaId() {
+    return GeneratedIntColumn(
+      'persona_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _estadoMeta = const VerificationMeta('estado');
+  @override
+  late final GeneratedBoolColumn estado = _constructEstado();
+  GeneratedBoolColumn _constructEstado() {
+    return GeneratedBoolColumn(
+      'estado',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _rolIdMeta = const VerificationMeta('rolId');
+  @override
+  late final GeneratedIntColumn rolId = _constructRolId();
+  GeneratedIntColumn _constructRolId() {
+    return GeneratedIntColumn(
+      'rol_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _apoderadoIdMeta =
+      const VerificationMeta('apoderadoId');
+  @override
+  late final GeneratedIntColumn apoderadoId = _constructApoderadoId();
+  GeneratedIntColumn _constructApoderadoId() {
+    return GeneratedIntColumn(
+      'apoderado_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _keyMeta = const VerificationMeta('key');
+  @override
+  late final GeneratedTextColumn key = _constructKey();
+  GeneratedTextColumn _constructKey() {
+    return GeneratedTextColumn(
+      'key',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioCreacionIdMeta =
+      const VerificationMeta('usuarioCreacionId');
+  @override
+  late final GeneratedIntColumn usuarioCreacionId =
+      _constructUsuarioCreacionId();
+  GeneratedIntColumn _constructUsuarioCreacionId() {
+    return GeneratedIntColumn(
+      'usuario_creacion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioCreadorIdMeta =
+      const VerificationMeta('usuarioCreadorId');
+  @override
+  late final GeneratedIntColumn usuarioCreadorId = _constructUsuarioCreadorId();
+  GeneratedIntColumn _constructUsuarioCreadorId() {
+    return GeneratedIntColumn(
+      'usuario_creador_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaCreacionMeta =
+      const VerificationMeta('fechaCreacion');
+  @override
+  late final GeneratedIntColumn fechaCreacion = _constructFechaCreacion();
+  GeneratedIntColumn _constructFechaCreacion() {
+    return GeneratedIntColumn(
+      'fecha_creacion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioAccionIdMeta =
+      const VerificationMeta('usuarioAccionId');
+  @override
+  late final GeneratedIntColumn usuarioAccionId = _constructUsuarioAccionId();
+  GeneratedIntColumn _constructUsuarioAccionId() {
+    return GeneratedIntColumn(
+      'usuario_accion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaAccionMeta =
+      const VerificationMeta('fechaAccion');
+  @override
+  late final GeneratedIntColumn fechaAccion = _constructFechaAccion();
+  GeneratedIntColumn _constructFechaAccion() {
+    return GeneratedIntColumn(
+      'fecha_accion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaEnvioMeta = const VerificationMeta('fechaEnvio');
+  @override
+  late final GeneratedIntColumn fechaEnvio = _constructFechaEnvio();
+  GeneratedIntColumn _constructFechaEnvio() {
+    return GeneratedIntColumn(
+      'fecha_envio',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaEntregaMeta =
+      const VerificationMeta('fechaEntrega');
+  @override
+  late final GeneratedIntColumn fechaEntrega = _constructFechaEntrega();
+  GeneratedIntColumn _constructFechaEntrega() {
+    return GeneratedIntColumn(
+      'fecha_entrega',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaRecibidoMeta =
+      const VerificationMeta('fechaRecibido');
+  @override
+  late final GeneratedIntColumn fechaRecibido = _constructFechaRecibido();
+  GeneratedIntColumn _constructFechaRecibido() {
+    return GeneratedIntColumn(
+      'fecha_recibido',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaVistoMeta = const VerificationMeta('fechaVisto');
+  @override
+  late final GeneratedIntColumn fechaVisto = _constructFechaVisto();
+  GeneratedIntColumn _constructFechaVisto() {
+    return GeneratedIntColumn(
+      'fecha_visto',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaRespuestaMeta =
+      const VerificationMeta('fechaRespuesta');
+  @override
+  late final GeneratedIntColumn fechaRespuesta = _constructFechaRespuesta();
+  GeneratedIntColumn _constructFechaRespuesta() {
+    return GeneratedIntColumn(
+      'fecha_respuesta',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _getSTimeMeta = const VerificationMeta('getSTime');
+  @override
+  late final GeneratedTextColumn getSTime = _constructGetSTime();
+  GeneratedTextColumn _constructGetSTime() {
+    return GeneratedTextColumn(
+      'get_s_time',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [
+        eventoPersonaId,
+        eventoId,
+        personaId,
+        estado,
+        rolId,
+        apoderadoId,
+        key,
+        usuarioCreacionId,
+        usuarioCreadorId,
+        fechaCreacion,
+        usuarioAccionId,
+        fechaAccion,
+        fechaEnvio,
+        fechaEntrega,
+        fechaRecibido,
+        fechaVisto,
+        fechaRespuesta,
+        getSTime
+      ];
+  @override
+  $EventoPersonaTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'evento_persona';
+  @override
+  final String actualTableName = 'evento_persona';
+  @override
+  VerificationContext validateIntegrity(Insertable<EventoPersonaData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('evento_persona_id')) {
+      context.handle(
+          _eventoPersonaIdMeta,
+          eventoPersonaId.isAcceptableOrUnknown(
+              data['evento_persona_id']!, _eventoPersonaIdMeta));
+    } else if (isInserting) {
+      context.missing(_eventoPersonaIdMeta);
+    }
+    if (data.containsKey('evento_id')) {
+      context.handle(_eventoIdMeta,
+          eventoId.isAcceptableOrUnknown(data['evento_id']!, _eventoIdMeta));
+    }
+    if (data.containsKey('persona_id')) {
+      context.handle(_personaIdMeta,
+          personaId.isAcceptableOrUnknown(data['persona_id']!, _personaIdMeta));
+    }
+    if (data.containsKey('estado')) {
+      context.handle(_estadoMeta,
+          estado.isAcceptableOrUnknown(data['estado']!, _estadoMeta));
+    }
+    if (data.containsKey('rol_id')) {
+      context.handle(
+          _rolIdMeta, rolId.isAcceptableOrUnknown(data['rol_id']!, _rolIdMeta));
+    }
+    if (data.containsKey('apoderado_id')) {
+      context.handle(
+          _apoderadoIdMeta,
+          apoderadoId.isAcceptableOrUnknown(
+              data['apoderado_id']!, _apoderadoIdMeta));
+    }
+    if (data.containsKey('key')) {
+      context.handle(
+          _keyMeta, key.isAcceptableOrUnknown(data['key']!, _keyMeta));
+    }
+    if (data.containsKey('usuario_creacion_id')) {
+      context.handle(
+          _usuarioCreacionIdMeta,
+          usuarioCreacionId.isAcceptableOrUnknown(
+              data['usuario_creacion_id']!, _usuarioCreacionIdMeta));
+    }
+    if (data.containsKey('usuario_creador_id')) {
+      context.handle(
+          _usuarioCreadorIdMeta,
+          usuarioCreadorId.isAcceptableOrUnknown(
+              data['usuario_creador_id']!, _usuarioCreadorIdMeta));
+    }
+    if (data.containsKey('fecha_creacion')) {
+      context.handle(
+          _fechaCreacionMeta,
+          fechaCreacion.isAcceptableOrUnknown(
+              data['fecha_creacion']!, _fechaCreacionMeta));
+    }
+    if (data.containsKey('usuario_accion_id')) {
+      context.handle(
+          _usuarioAccionIdMeta,
+          usuarioAccionId.isAcceptableOrUnknown(
+              data['usuario_accion_id']!, _usuarioAccionIdMeta));
+    }
+    if (data.containsKey('fecha_accion')) {
+      context.handle(
+          _fechaAccionMeta,
+          fechaAccion.isAcceptableOrUnknown(
+              data['fecha_accion']!, _fechaAccionMeta));
+    }
+    if (data.containsKey('fecha_envio')) {
+      context.handle(
+          _fechaEnvioMeta,
+          fechaEnvio.isAcceptableOrUnknown(
+              data['fecha_envio']!, _fechaEnvioMeta));
+    }
+    if (data.containsKey('fecha_entrega')) {
+      context.handle(
+          _fechaEntregaMeta,
+          fechaEntrega.isAcceptableOrUnknown(
+              data['fecha_entrega']!, _fechaEntregaMeta));
+    }
+    if (data.containsKey('fecha_recibido')) {
+      context.handle(
+          _fechaRecibidoMeta,
+          fechaRecibido.isAcceptableOrUnknown(
+              data['fecha_recibido']!, _fechaRecibidoMeta));
+    }
+    if (data.containsKey('fecha_visto')) {
+      context.handle(
+          _fechaVistoMeta,
+          fechaVisto.isAcceptableOrUnknown(
+              data['fecha_visto']!, _fechaVistoMeta));
+    }
+    if (data.containsKey('fecha_respuesta')) {
+      context.handle(
+          _fechaRespuestaMeta,
+          fechaRespuesta.isAcceptableOrUnknown(
+              data['fecha_respuesta']!, _fechaRespuestaMeta));
+    }
+    if (data.containsKey('get_s_time')) {
+      context.handle(_getSTimeMeta,
+          getSTime.isAcceptableOrUnknown(data['get_s_time']!, _getSTimeMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {eventoPersonaId};
+  @override
+  EventoPersonaData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return EventoPersonaData.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $EventoPersonaTable createAlias(String alias) {
+    return $EventoPersonaTable(_db, alias);
+  }
+}
+
+class ListaUsuarioDetalleData extends DataClass
+    implements Insertable<ListaUsuarioDetalleData> {
+  final int listaUsuarioId;
+  final int usuarioId;
+  ListaUsuarioDetalleData(
+      {required this.listaUsuarioId, required this.usuarioId});
+  factory ListaUsuarioDetalleData.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
+      {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    return ListaUsuarioDetalleData(
+      listaUsuarioId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}lista_usuario_id'])!,
+      usuarioId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}usuario_id'])!,
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['lista_usuario_id'] = Variable<int>(listaUsuarioId);
+    map['usuario_id'] = Variable<int>(usuarioId);
+    return map;
+  }
+
+  ListaUsuarioDetalleCompanion toCompanion(bool nullToAbsent) {
+    return ListaUsuarioDetalleCompanion(
+      listaUsuarioId: Value(listaUsuarioId),
+      usuarioId: Value(usuarioId),
+    );
+  }
+
+  factory ListaUsuarioDetalleData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return ListaUsuarioDetalleData(
+      listaUsuarioId: serializer.fromJson<int>(json['listaUsuarioId']),
+      usuarioId: serializer.fromJson<int>(json['usuarioId']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'listaUsuarioId': serializer.toJson<int>(listaUsuarioId),
+      'usuarioId': serializer.toJson<int>(usuarioId),
+    };
+  }
+
+  ListaUsuarioDetalleData copyWith({int? listaUsuarioId, int? usuarioId}) =>
+      ListaUsuarioDetalleData(
+        listaUsuarioId: listaUsuarioId ?? this.listaUsuarioId,
+        usuarioId: usuarioId ?? this.usuarioId,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('ListaUsuarioDetalleData(')
+          ..write('listaUsuarioId: $listaUsuarioId, ')
+          ..write('usuarioId: $usuarioId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(listaUsuarioId.hashCode, usuarioId.hashCode));
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ListaUsuarioDetalleData &&
+          other.listaUsuarioId == this.listaUsuarioId &&
+          other.usuarioId == this.usuarioId);
+}
+
+class ListaUsuarioDetalleCompanion
+    extends UpdateCompanion<ListaUsuarioDetalleData> {
+  final Value<int> listaUsuarioId;
+  final Value<int> usuarioId;
+  const ListaUsuarioDetalleCompanion({
+    this.listaUsuarioId = const Value.absent(),
+    this.usuarioId = const Value.absent(),
+  });
+  ListaUsuarioDetalleCompanion.insert({
+    required int listaUsuarioId,
+    required int usuarioId,
+  })  : listaUsuarioId = Value(listaUsuarioId),
+        usuarioId = Value(usuarioId);
+  static Insertable<ListaUsuarioDetalleData> custom({
+    Expression<int>? listaUsuarioId,
+    Expression<int>? usuarioId,
+  }) {
+    return RawValuesInsertable({
+      if (listaUsuarioId != null) 'lista_usuario_id': listaUsuarioId,
+      if (usuarioId != null) 'usuario_id': usuarioId,
+    });
+  }
+
+  ListaUsuarioDetalleCompanion copyWith(
+      {Value<int>? listaUsuarioId, Value<int>? usuarioId}) {
+    return ListaUsuarioDetalleCompanion(
+      listaUsuarioId: listaUsuarioId ?? this.listaUsuarioId,
+      usuarioId: usuarioId ?? this.usuarioId,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (listaUsuarioId.present) {
+      map['lista_usuario_id'] = Variable<int>(listaUsuarioId.value);
+    }
+    if (usuarioId.present) {
+      map['usuario_id'] = Variable<int>(usuarioId.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ListaUsuarioDetalleCompanion(')
+          ..write('listaUsuarioId: $listaUsuarioId, ')
+          ..write('usuarioId: $usuarioId')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ListaUsuarioDetalleTable extends ListaUsuarioDetalle
+    with TableInfo<$ListaUsuarioDetalleTable, ListaUsuarioDetalleData> {
+  final GeneratedDatabase _db;
+  final String? _alias;
+  $ListaUsuarioDetalleTable(this._db, [this._alias]);
+  final VerificationMeta _listaUsuarioIdMeta =
+      const VerificationMeta('listaUsuarioId');
+  @override
+  late final GeneratedIntColumn listaUsuarioId = _constructListaUsuarioId();
+  GeneratedIntColumn _constructListaUsuarioId() {
+    return GeneratedIntColumn(
+      'lista_usuario_id',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _usuarioIdMeta = const VerificationMeta('usuarioId');
+  @override
+  late final GeneratedIntColumn usuarioId = _constructUsuarioId();
+  GeneratedIntColumn _constructUsuarioId() {
+    return GeneratedIntColumn(
+      'usuario_id',
+      $tableName,
+      false,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [listaUsuarioId, usuarioId];
+  @override
+  $ListaUsuarioDetalleTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'lista_usuario_detalle';
+  @override
+  final String actualTableName = 'lista_usuario_detalle';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<ListaUsuarioDetalleData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('lista_usuario_id')) {
+      context.handle(
+          _listaUsuarioIdMeta,
+          listaUsuarioId.isAcceptableOrUnknown(
+              data['lista_usuario_id']!, _listaUsuarioIdMeta));
+    } else if (isInserting) {
+      context.missing(_listaUsuarioIdMeta);
+    }
+    if (data.containsKey('usuario_id')) {
+      context.handle(_usuarioIdMeta,
+          usuarioId.isAcceptableOrUnknown(data['usuario_id']!, _usuarioIdMeta));
+    } else if (isInserting) {
+      context.missing(_usuarioIdMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {listaUsuarioId, usuarioId};
+  @override
+  ListaUsuarioDetalleData map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return ListaUsuarioDetalleData.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $ListaUsuarioDetalleTable createAlias(String alias) {
+    return $ListaUsuarioDetalleTable(_db, alias);
+  }
+}
+
+class ListaUsuario extends DataClass implements Insertable<ListaUsuario> {
+  final int listaUsuarioId;
+  final String? nombre;
+  final String? descripcion;
+  final int? entidadId;
+  final int? georeferenciaId;
+  final int? organigramaId;
+  final bool? estado;
+  final int? usuarioCreacionId;
+  final int? usuarioCreadorId;
+  final int? fechaCreacion;
+  final int? usuarioAccionId;
+  final int? fechaAccion;
+  final int? fechaEnvio;
+  final int? fechaEntrega;
+  final int? fechaRecibido;
+  final int? fechaVisto;
+  final int? fechaRespuesta;
+  final String? getSTime;
+  ListaUsuario(
+      {required this.listaUsuarioId,
+      this.nombre,
+      this.descripcion,
+      this.entidadId,
+      this.georeferenciaId,
+      this.organigramaId,
+      this.estado,
+      this.usuarioCreacionId,
+      this.usuarioCreadorId,
+      this.fechaCreacion,
+      this.usuarioAccionId,
+      this.fechaAccion,
+      this.fechaEnvio,
+      this.fechaEntrega,
+      this.fechaRecibido,
+      this.fechaVisto,
+      this.fechaRespuesta,
+      this.getSTime});
+  factory ListaUsuario.fromData(Map<String, dynamic> data, GeneratedDatabase db,
+      {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    return ListaUsuario(
+      listaUsuarioId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}lista_usuario_id'])!,
+      nombre: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
+      descripcion: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}descripcion']),
+      entidadId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}entidad_id']),
+      georeferenciaId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}georeferencia_id']),
+      organigramaId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}organigrama_id']),
+      estado: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado']),
+      usuarioCreacionId: const IntType().mapFromDatabaseResponse(
+          data['${effectivePrefix}usuario_creacion_id']),
+      usuarioCreadorId: const IntType().mapFromDatabaseResponse(
+          data['${effectivePrefix}usuario_creador_id']),
+      fechaCreacion: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_creacion']),
+      usuarioAccionId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}usuario_accion_id']),
+      fechaAccion: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_accion']),
+      fechaEnvio: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_envio']),
+      fechaEntrega: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_entrega']),
+      fechaRecibido: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_recibido']),
+      fechaVisto: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_visto']),
+      fechaRespuesta: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_respuesta']),
+      getSTime: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}get_s_time']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['lista_usuario_id'] = Variable<int>(listaUsuarioId);
+    if (!nullToAbsent || nombre != null) {
+      map['nombre'] = Variable<String?>(nombre);
+    }
+    if (!nullToAbsent || descripcion != null) {
+      map['descripcion'] = Variable<String?>(descripcion);
+    }
+    if (!nullToAbsent || entidadId != null) {
+      map['entidad_id'] = Variable<int?>(entidadId);
+    }
+    if (!nullToAbsent || georeferenciaId != null) {
+      map['georeferencia_id'] = Variable<int?>(georeferenciaId);
+    }
+    if (!nullToAbsent || organigramaId != null) {
+      map['organigrama_id'] = Variable<int?>(organigramaId);
+    }
+    if (!nullToAbsent || estado != null) {
+      map['estado'] = Variable<bool?>(estado);
+    }
+    if (!nullToAbsent || usuarioCreacionId != null) {
+      map['usuario_creacion_id'] = Variable<int?>(usuarioCreacionId);
+    }
+    if (!nullToAbsent || usuarioCreadorId != null) {
+      map['usuario_creador_id'] = Variable<int?>(usuarioCreadorId);
+    }
+    if (!nullToAbsent || fechaCreacion != null) {
+      map['fecha_creacion'] = Variable<int?>(fechaCreacion);
+    }
+    if (!nullToAbsent || usuarioAccionId != null) {
+      map['usuario_accion_id'] = Variable<int?>(usuarioAccionId);
+    }
+    if (!nullToAbsent || fechaAccion != null) {
+      map['fecha_accion'] = Variable<int?>(fechaAccion);
+    }
+    if (!nullToAbsent || fechaEnvio != null) {
+      map['fecha_envio'] = Variable<int?>(fechaEnvio);
+    }
+    if (!nullToAbsent || fechaEntrega != null) {
+      map['fecha_entrega'] = Variable<int?>(fechaEntrega);
+    }
+    if (!nullToAbsent || fechaRecibido != null) {
+      map['fecha_recibido'] = Variable<int?>(fechaRecibido);
+    }
+    if (!nullToAbsent || fechaVisto != null) {
+      map['fecha_visto'] = Variable<int?>(fechaVisto);
+    }
+    if (!nullToAbsent || fechaRespuesta != null) {
+      map['fecha_respuesta'] = Variable<int?>(fechaRespuesta);
+    }
+    if (!nullToAbsent || getSTime != null) {
+      map['get_s_time'] = Variable<String?>(getSTime);
+    }
+    return map;
+  }
+
+  ListaUsuariosCompanion toCompanion(bool nullToAbsent) {
+    return ListaUsuariosCompanion(
+      listaUsuarioId: Value(listaUsuarioId),
+      nombre:
+          nombre == null && nullToAbsent ? const Value.absent() : Value(nombre),
+      descripcion: descripcion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(descripcion),
+      entidadId: entidadId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(entidadId),
+      georeferenciaId: georeferenciaId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(georeferenciaId),
+      organigramaId: organigramaId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(organigramaId),
+      estado:
+          estado == null && nullToAbsent ? const Value.absent() : Value(estado),
+      usuarioCreacionId: usuarioCreacionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioCreacionId),
+      usuarioCreadorId: usuarioCreadorId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioCreadorId),
+      fechaCreacion: fechaCreacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaCreacion),
+      usuarioAccionId: usuarioAccionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(usuarioAccionId),
+      fechaAccion: fechaAccion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaAccion),
+      fechaEnvio: fechaEnvio == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaEnvio),
+      fechaEntrega: fechaEntrega == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaEntrega),
+      fechaRecibido: fechaRecibido == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaRecibido),
+      fechaVisto: fechaVisto == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaVisto),
+      fechaRespuesta: fechaRespuesta == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaRespuesta),
+      getSTime: getSTime == null && nullToAbsent
+          ? const Value.absent()
+          : Value(getSTime),
+    );
+  }
+
+  factory ListaUsuario.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return ListaUsuario(
+      listaUsuarioId: serializer.fromJson<int>(json['listaUsuarioId']),
+      nombre: serializer.fromJson<String?>(json['nombre']),
+      descripcion: serializer.fromJson<String?>(json['descripcion']),
+      entidadId: serializer.fromJson<int?>(json['entidadId']),
+      georeferenciaId: serializer.fromJson<int?>(json['georeferenciaId']),
+      organigramaId: serializer.fromJson<int?>(json['organigramaId']),
+      estado: serializer.fromJson<bool?>(json['estado']),
+      usuarioCreacionId: serializer.fromJson<int?>(json['usuarioCreacionId']),
+      usuarioCreadorId: serializer.fromJson<int?>(json['usuarioCreadorId']),
+      fechaCreacion: serializer.fromJson<int?>(json['fechaCreacion']),
+      usuarioAccionId: serializer.fromJson<int?>(json['usuarioAccionId']),
+      fechaAccion: serializer.fromJson<int?>(json['fechaAccion']),
+      fechaEnvio: serializer.fromJson<int?>(json['fechaEnvio']),
+      fechaEntrega: serializer.fromJson<int?>(json['fechaEntrega']),
+      fechaRecibido: serializer.fromJson<int?>(json['fechaRecibido']),
+      fechaVisto: serializer.fromJson<int?>(json['fechaVisto']),
+      fechaRespuesta: serializer.fromJson<int?>(json['fechaRespuesta']),
+      getSTime: serializer.fromJson<String?>(json['getSTime']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'listaUsuarioId': serializer.toJson<int>(listaUsuarioId),
+      'nombre': serializer.toJson<String?>(nombre),
+      'descripcion': serializer.toJson<String?>(descripcion),
+      'entidadId': serializer.toJson<int?>(entidadId),
+      'georeferenciaId': serializer.toJson<int?>(georeferenciaId),
+      'organigramaId': serializer.toJson<int?>(organigramaId),
+      'estado': serializer.toJson<bool?>(estado),
+      'usuarioCreacionId': serializer.toJson<int?>(usuarioCreacionId),
+      'usuarioCreadorId': serializer.toJson<int?>(usuarioCreadorId),
+      'fechaCreacion': serializer.toJson<int?>(fechaCreacion),
+      'usuarioAccionId': serializer.toJson<int?>(usuarioAccionId),
+      'fechaAccion': serializer.toJson<int?>(fechaAccion),
+      'fechaEnvio': serializer.toJson<int?>(fechaEnvio),
+      'fechaEntrega': serializer.toJson<int?>(fechaEntrega),
+      'fechaRecibido': serializer.toJson<int?>(fechaRecibido),
+      'fechaVisto': serializer.toJson<int?>(fechaVisto),
+      'fechaRespuesta': serializer.toJson<int?>(fechaRespuesta),
+      'getSTime': serializer.toJson<String?>(getSTime),
+    };
+  }
+
+  ListaUsuario copyWith(
+          {int? listaUsuarioId,
+          String? nombre,
+          String? descripcion,
+          int? entidadId,
+          int? georeferenciaId,
+          int? organigramaId,
+          bool? estado,
+          int? usuarioCreacionId,
+          int? usuarioCreadorId,
+          int? fechaCreacion,
+          int? usuarioAccionId,
+          int? fechaAccion,
+          int? fechaEnvio,
+          int? fechaEntrega,
+          int? fechaRecibido,
+          int? fechaVisto,
+          int? fechaRespuesta,
+          String? getSTime}) =>
+      ListaUsuario(
+        listaUsuarioId: listaUsuarioId ?? this.listaUsuarioId,
+        nombre: nombre ?? this.nombre,
+        descripcion: descripcion ?? this.descripcion,
+        entidadId: entidadId ?? this.entidadId,
+        georeferenciaId: georeferenciaId ?? this.georeferenciaId,
+        organigramaId: organigramaId ?? this.organigramaId,
+        estado: estado ?? this.estado,
+        usuarioCreacionId: usuarioCreacionId ?? this.usuarioCreacionId,
+        usuarioCreadorId: usuarioCreadorId ?? this.usuarioCreadorId,
+        fechaCreacion: fechaCreacion ?? this.fechaCreacion,
+        usuarioAccionId: usuarioAccionId ?? this.usuarioAccionId,
+        fechaAccion: fechaAccion ?? this.fechaAccion,
+        fechaEnvio: fechaEnvio ?? this.fechaEnvio,
+        fechaEntrega: fechaEntrega ?? this.fechaEntrega,
+        fechaRecibido: fechaRecibido ?? this.fechaRecibido,
+        fechaVisto: fechaVisto ?? this.fechaVisto,
+        fechaRespuesta: fechaRespuesta ?? this.fechaRespuesta,
+        getSTime: getSTime ?? this.getSTime,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('ListaUsuario(')
+          ..write('listaUsuarioId: $listaUsuarioId, ')
+          ..write('nombre: $nombre, ')
+          ..write('descripcion: $descripcion, ')
+          ..write('entidadId: $entidadId, ')
+          ..write('georeferenciaId: $georeferenciaId, ')
+          ..write('organigramaId: $organigramaId, ')
+          ..write('estado: $estado, ')
+          ..write('usuarioCreacionId: $usuarioCreacionId, ')
+          ..write('usuarioCreadorId: $usuarioCreadorId, ')
+          ..write('fechaCreacion: $fechaCreacion, ')
+          ..write('usuarioAccionId: $usuarioAccionId, ')
+          ..write('fechaAccion: $fechaAccion, ')
+          ..write('fechaEnvio: $fechaEnvio, ')
+          ..write('fechaEntrega: $fechaEntrega, ')
+          ..write('fechaRecibido: $fechaRecibido, ')
+          ..write('fechaVisto: $fechaVisto, ')
+          ..write('fechaRespuesta: $fechaRespuesta, ')
+          ..write('getSTime: $getSTime')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      listaUsuarioId.hashCode,
+      $mrjc(
+          nombre.hashCode,
+          $mrjc(
+              descripcion.hashCode,
+              $mrjc(
+                  entidadId.hashCode,
+                  $mrjc(
+                      georeferenciaId.hashCode,
+                      $mrjc(
+                          organigramaId.hashCode,
+                          $mrjc(
+                              estado.hashCode,
+                              $mrjc(
+                                  usuarioCreacionId.hashCode,
+                                  $mrjc(
+                                      usuarioCreadorId.hashCode,
+                                      $mrjc(
+                                          fechaCreacion.hashCode,
+                                          $mrjc(
+                                              usuarioAccionId.hashCode,
+                                              $mrjc(
+                                                  fechaAccion.hashCode,
+                                                  $mrjc(
+                                                      fechaEnvio.hashCode,
+                                                      $mrjc(
+                                                          fechaEntrega.hashCode,
+                                                          $mrjc(
+                                                              fechaRecibido
+                                                                  .hashCode,
+                                                              $mrjc(
+                                                                  fechaVisto
+                                                                      .hashCode,
+                                                                  $mrjc(
+                                                                      fechaRespuesta
+                                                                          .hashCode,
+                                                                      getSTime
+                                                                          .hashCode))))))))))))))))));
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ListaUsuario &&
+          other.listaUsuarioId == this.listaUsuarioId &&
+          other.nombre == this.nombre &&
+          other.descripcion == this.descripcion &&
+          other.entidadId == this.entidadId &&
+          other.georeferenciaId == this.georeferenciaId &&
+          other.organigramaId == this.organigramaId &&
+          other.estado == this.estado &&
+          other.usuarioCreacionId == this.usuarioCreacionId &&
+          other.usuarioCreadorId == this.usuarioCreadorId &&
+          other.fechaCreacion == this.fechaCreacion &&
+          other.usuarioAccionId == this.usuarioAccionId &&
+          other.fechaAccion == this.fechaAccion &&
+          other.fechaEnvio == this.fechaEnvio &&
+          other.fechaEntrega == this.fechaEntrega &&
+          other.fechaRecibido == this.fechaRecibido &&
+          other.fechaVisto == this.fechaVisto &&
+          other.fechaRespuesta == this.fechaRespuesta &&
+          other.getSTime == this.getSTime);
+}
+
+class ListaUsuariosCompanion extends UpdateCompanion<ListaUsuario> {
+  final Value<int> listaUsuarioId;
+  final Value<String?> nombre;
+  final Value<String?> descripcion;
+  final Value<int?> entidadId;
+  final Value<int?> georeferenciaId;
+  final Value<int?> organigramaId;
+  final Value<bool?> estado;
+  final Value<int?> usuarioCreacionId;
+  final Value<int?> usuarioCreadorId;
+  final Value<int?> fechaCreacion;
+  final Value<int?> usuarioAccionId;
+  final Value<int?> fechaAccion;
+  final Value<int?> fechaEnvio;
+  final Value<int?> fechaEntrega;
+  final Value<int?> fechaRecibido;
+  final Value<int?> fechaVisto;
+  final Value<int?> fechaRespuesta;
+  final Value<String?> getSTime;
+  const ListaUsuariosCompanion({
+    this.listaUsuarioId = const Value.absent(),
+    this.nombre = const Value.absent(),
+    this.descripcion = const Value.absent(),
+    this.entidadId = const Value.absent(),
+    this.georeferenciaId = const Value.absent(),
+    this.organigramaId = const Value.absent(),
+    this.estado = const Value.absent(),
+    this.usuarioCreacionId = const Value.absent(),
+    this.usuarioCreadorId = const Value.absent(),
+    this.fechaCreacion = const Value.absent(),
+    this.usuarioAccionId = const Value.absent(),
+    this.fechaAccion = const Value.absent(),
+    this.fechaEnvio = const Value.absent(),
+    this.fechaEntrega = const Value.absent(),
+    this.fechaRecibido = const Value.absent(),
+    this.fechaVisto = const Value.absent(),
+    this.fechaRespuesta = const Value.absent(),
+    this.getSTime = const Value.absent(),
+  });
+  ListaUsuariosCompanion.insert({
+    this.listaUsuarioId = const Value.absent(),
+    this.nombre = const Value.absent(),
+    this.descripcion = const Value.absent(),
+    this.entidadId = const Value.absent(),
+    this.georeferenciaId = const Value.absent(),
+    this.organigramaId = const Value.absent(),
+    this.estado = const Value.absent(),
+    this.usuarioCreacionId = const Value.absent(),
+    this.usuarioCreadorId = const Value.absent(),
+    this.fechaCreacion = const Value.absent(),
+    this.usuarioAccionId = const Value.absent(),
+    this.fechaAccion = const Value.absent(),
+    this.fechaEnvio = const Value.absent(),
+    this.fechaEntrega = const Value.absent(),
+    this.fechaRecibido = const Value.absent(),
+    this.fechaVisto = const Value.absent(),
+    this.fechaRespuesta = const Value.absent(),
+    this.getSTime = const Value.absent(),
+  });
+  static Insertable<ListaUsuario> custom({
+    Expression<int>? listaUsuarioId,
+    Expression<String?>? nombre,
+    Expression<String?>? descripcion,
+    Expression<int?>? entidadId,
+    Expression<int?>? georeferenciaId,
+    Expression<int?>? organigramaId,
+    Expression<bool?>? estado,
+    Expression<int?>? usuarioCreacionId,
+    Expression<int?>? usuarioCreadorId,
+    Expression<int?>? fechaCreacion,
+    Expression<int?>? usuarioAccionId,
+    Expression<int?>? fechaAccion,
+    Expression<int?>? fechaEnvio,
+    Expression<int?>? fechaEntrega,
+    Expression<int?>? fechaRecibido,
+    Expression<int?>? fechaVisto,
+    Expression<int?>? fechaRespuesta,
+    Expression<String?>? getSTime,
+  }) {
+    return RawValuesInsertable({
+      if (listaUsuarioId != null) 'lista_usuario_id': listaUsuarioId,
+      if (nombre != null) 'nombre': nombre,
+      if (descripcion != null) 'descripcion': descripcion,
+      if (entidadId != null) 'entidad_id': entidadId,
+      if (georeferenciaId != null) 'georeferencia_id': georeferenciaId,
+      if (organigramaId != null) 'organigrama_id': organigramaId,
+      if (estado != null) 'estado': estado,
+      if (usuarioCreacionId != null) 'usuario_creacion_id': usuarioCreacionId,
+      if (usuarioCreadorId != null) 'usuario_creador_id': usuarioCreadorId,
+      if (fechaCreacion != null) 'fecha_creacion': fechaCreacion,
+      if (usuarioAccionId != null) 'usuario_accion_id': usuarioAccionId,
+      if (fechaAccion != null) 'fecha_accion': fechaAccion,
+      if (fechaEnvio != null) 'fecha_envio': fechaEnvio,
+      if (fechaEntrega != null) 'fecha_entrega': fechaEntrega,
+      if (fechaRecibido != null) 'fecha_recibido': fechaRecibido,
+      if (fechaVisto != null) 'fecha_visto': fechaVisto,
+      if (fechaRespuesta != null) 'fecha_respuesta': fechaRespuesta,
+      if (getSTime != null) 'get_s_time': getSTime,
+    });
+  }
+
+  ListaUsuariosCompanion copyWith(
+      {Value<int>? listaUsuarioId,
+      Value<String?>? nombre,
+      Value<String?>? descripcion,
+      Value<int?>? entidadId,
+      Value<int?>? georeferenciaId,
+      Value<int?>? organigramaId,
+      Value<bool?>? estado,
+      Value<int?>? usuarioCreacionId,
+      Value<int?>? usuarioCreadorId,
+      Value<int?>? fechaCreacion,
+      Value<int?>? usuarioAccionId,
+      Value<int?>? fechaAccion,
+      Value<int?>? fechaEnvio,
+      Value<int?>? fechaEntrega,
+      Value<int?>? fechaRecibido,
+      Value<int?>? fechaVisto,
+      Value<int?>? fechaRespuesta,
+      Value<String?>? getSTime}) {
+    return ListaUsuariosCompanion(
+      listaUsuarioId: listaUsuarioId ?? this.listaUsuarioId,
+      nombre: nombre ?? this.nombre,
+      descripcion: descripcion ?? this.descripcion,
+      entidadId: entidadId ?? this.entidadId,
+      georeferenciaId: georeferenciaId ?? this.georeferenciaId,
+      organigramaId: organigramaId ?? this.organigramaId,
+      estado: estado ?? this.estado,
+      usuarioCreacionId: usuarioCreacionId ?? this.usuarioCreacionId,
+      usuarioCreadorId: usuarioCreadorId ?? this.usuarioCreadorId,
+      fechaCreacion: fechaCreacion ?? this.fechaCreacion,
+      usuarioAccionId: usuarioAccionId ?? this.usuarioAccionId,
+      fechaAccion: fechaAccion ?? this.fechaAccion,
+      fechaEnvio: fechaEnvio ?? this.fechaEnvio,
+      fechaEntrega: fechaEntrega ?? this.fechaEntrega,
+      fechaRecibido: fechaRecibido ?? this.fechaRecibido,
+      fechaVisto: fechaVisto ?? this.fechaVisto,
+      fechaRespuesta: fechaRespuesta ?? this.fechaRespuesta,
+      getSTime: getSTime ?? this.getSTime,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (listaUsuarioId.present) {
+      map['lista_usuario_id'] = Variable<int>(listaUsuarioId.value);
+    }
+    if (nombre.present) {
+      map['nombre'] = Variable<String?>(nombre.value);
+    }
+    if (descripcion.present) {
+      map['descripcion'] = Variable<String?>(descripcion.value);
+    }
+    if (entidadId.present) {
+      map['entidad_id'] = Variable<int?>(entidadId.value);
+    }
+    if (georeferenciaId.present) {
+      map['georeferencia_id'] = Variable<int?>(georeferenciaId.value);
+    }
+    if (organigramaId.present) {
+      map['organigrama_id'] = Variable<int?>(organigramaId.value);
+    }
+    if (estado.present) {
+      map['estado'] = Variable<bool?>(estado.value);
+    }
+    if (usuarioCreacionId.present) {
+      map['usuario_creacion_id'] = Variable<int?>(usuarioCreacionId.value);
+    }
+    if (usuarioCreadorId.present) {
+      map['usuario_creador_id'] = Variable<int?>(usuarioCreadorId.value);
+    }
+    if (fechaCreacion.present) {
+      map['fecha_creacion'] = Variable<int?>(fechaCreacion.value);
+    }
+    if (usuarioAccionId.present) {
+      map['usuario_accion_id'] = Variable<int?>(usuarioAccionId.value);
+    }
+    if (fechaAccion.present) {
+      map['fecha_accion'] = Variable<int?>(fechaAccion.value);
+    }
+    if (fechaEnvio.present) {
+      map['fecha_envio'] = Variable<int?>(fechaEnvio.value);
+    }
+    if (fechaEntrega.present) {
+      map['fecha_entrega'] = Variable<int?>(fechaEntrega.value);
+    }
+    if (fechaRecibido.present) {
+      map['fecha_recibido'] = Variable<int?>(fechaRecibido.value);
+    }
+    if (fechaVisto.present) {
+      map['fecha_visto'] = Variable<int?>(fechaVisto.value);
+    }
+    if (fechaRespuesta.present) {
+      map['fecha_respuesta'] = Variable<int?>(fechaRespuesta.value);
+    }
+    if (getSTime.present) {
+      map['get_s_time'] = Variable<String?>(getSTime.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ListaUsuariosCompanion(')
+          ..write('listaUsuarioId: $listaUsuarioId, ')
+          ..write('nombre: $nombre, ')
+          ..write('descripcion: $descripcion, ')
+          ..write('entidadId: $entidadId, ')
+          ..write('georeferenciaId: $georeferenciaId, ')
+          ..write('organigramaId: $organigramaId, ')
+          ..write('estado: $estado, ')
+          ..write('usuarioCreacionId: $usuarioCreacionId, ')
+          ..write('usuarioCreadorId: $usuarioCreadorId, ')
+          ..write('fechaCreacion: $fechaCreacion, ')
+          ..write('usuarioAccionId: $usuarioAccionId, ')
+          ..write('fechaAccion: $fechaAccion, ')
+          ..write('fechaEnvio: $fechaEnvio, ')
+          ..write('fechaEntrega: $fechaEntrega, ')
+          ..write('fechaRecibido: $fechaRecibido, ')
+          ..write('fechaVisto: $fechaVisto, ')
+          ..write('fechaRespuesta: $fechaRespuesta, ')
+          ..write('getSTime: $getSTime')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ListaUsuariosTable extends ListaUsuarios
+    with TableInfo<$ListaUsuariosTable, ListaUsuario> {
+  final GeneratedDatabase _db;
+  final String? _alias;
+  $ListaUsuariosTable(this._db, [this._alias]);
+  final VerificationMeta _listaUsuarioIdMeta =
+      const VerificationMeta('listaUsuarioId');
+  @override
+  late final GeneratedIntColumn listaUsuarioId = _constructListaUsuarioId();
+  GeneratedIntColumn _constructListaUsuarioId() {
+    return GeneratedIntColumn(
+      'lista_usuario_id',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _nombreMeta = const VerificationMeta('nombre');
+  @override
+  late final GeneratedTextColumn nombre = _constructNombre();
+  GeneratedTextColumn _constructNombre() {
+    return GeneratedTextColumn(
+      'nombre',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _descripcionMeta =
+      const VerificationMeta('descripcion');
+  @override
+  late final GeneratedTextColumn descripcion = _constructDescripcion();
+  GeneratedTextColumn _constructDescripcion() {
+    return GeneratedTextColumn(
+      'descripcion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _entidadIdMeta = const VerificationMeta('entidadId');
+  @override
+  late final GeneratedIntColumn entidadId = _constructEntidadId();
+  GeneratedIntColumn _constructEntidadId() {
+    return GeneratedIntColumn(
+      'entidad_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _georeferenciaIdMeta =
+      const VerificationMeta('georeferenciaId');
+  @override
+  late final GeneratedIntColumn georeferenciaId = _constructGeoreferenciaId();
+  GeneratedIntColumn _constructGeoreferenciaId() {
+    return GeneratedIntColumn(
+      'georeferencia_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _organigramaIdMeta =
+      const VerificationMeta('organigramaId');
+  @override
+  late final GeneratedIntColumn organigramaId = _constructOrganigramaId();
+  GeneratedIntColumn _constructOrganigramaId() {
+    return GeneratedIntColumn(
+      'organigrama_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _estadoMeta = const VerificationMeta('estado');
+  @override
+  late final GeneratedBoolColumn estado = _constructEstado();
+  GeneratedBoolColumn _constructEstado() {
+    return GeneratedBoolColumn(
+      'estado',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioCreacionIdMeta =
+      const VerificationMeta('usuarioCreacionId');
+  @override
+  late final GeneratedIntColumn usuarioCreacionId =
+      _constructUsuarioCreacionId();
+  GeneratedIntColumn _constructUsuarioCreacionId() {
+    return GeneratedIntColumn(
+      'usuario_creacion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioCreadorIdMeta =
+      const VerificationMeta('usuarioCreadorId');
+  @override
+  late final GeneratedIntColumn usuarioCreadorId = _constructUsuarioCreadorId();
+  GeneratedIntColumn _constructUsuarioCreadorId() {
+    return GeneratedIntColumn(
+      'usuario_creador_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaCreacionMeta =
+      const VerificationMeta('fechaCreacion');
+  @override
+  late final GeneratedIntColumn fechaCreacion = _constructFechaCreacion();
+  GeneratedIntColumn _constructFechaCreacion() {
+    return GeneratedIntColumn(
+      'fecha_creacion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _usuarioAccionIdMeta =
+      const VerificationMeta('usuarioAccionId');
+  @override
+  late final GeneratedIntColumn usuarioAccionId = _constructUsuarioAccionId();
+  GeneratedIntColumn _constructUsuarioAccionId() {
+    return GeneratedIntColumn(
+      'usuario_accion_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaAccionMeta =
+      const VerificationMeta('fechaAccion');
+  @override
+  late final GeneratedIntColumn fechaAccion = _constructFechaAccion();
+  GeneratedIntColumn _constructFechaAccion() {
+    return GeneratedIntColumn(
+      'fecha_accion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaEnvioMeta = const VerificationMeta('fechaEnvio');
+  @override
+  late final GeneratedIntColumn fechaEnvio = _constructFechaEnvio();
+  GeneratedIntColumn _constructFechaEnvio() {
+    return GeneratedIntColumn(
+      'fecha_envio',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaEntregaMeta =
+      const VerificationMeta('fechaEntrega');
+  @override
+  late final GeneratedIntColumn fechaEntrega = _constructFechaEntrega();
+  GeneratedIntColumn _constructFechaEntrega() {
+    return GeneratedIntColumn(
+      'fecha_entrega',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaRecibidoMeta =
+      const VerificationMeta('fechaRecibido');
+  @override
+  late final GeneratedIntColumn fechaRecibido = _constructFechaRecibido();
+  GeneratedIntColumn _constructFechaRecibido() {
+    return GeneratedIntColumn(
+      'fecha_recibido',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaVistoMeta = const VerificationMeta('fechaVisto');
+  @override
+  late final GeneratedIntColumn fechaVisto = _constructFechaVisto();
+  GeneratedIntColumn _constructFechaVisto() {
+    return GeneratedIntColumn(
+      'fecha_visto',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaRespuestaMeta =
+      const VerificationMeta('fechaRespuesta');
+  @override
+  late final GeneratedIntColumn fechaRespuesta = _constructFechaRespuesta();
+  GeneratedIntColumn _constructFechaRespuesta() {
+    return GeneratedIntColumn(
+      'fecha_respuesta',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _getSTimeMeta = const VerificationMeta('getSTime');
+  @override
+  late final GeneratedTextColumn getSTime = _constructGetSTime();
+  GeneratedTextColumn _constructGetSTime() {
+    return GeneratedTextColumn(
+      'get_s_time',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [
+        listaUsuarioId,
+        nombre,
+        descripcion,
+        entidadId,
+        georeferenciaId,
+        organigramaId,
+        estado,
+        usuarioCreacionId,
+        usuarioCreadorId,
+        fechaCreacion,
+        usuarioAccionId,
+        fechaAccion,
+        fechaEnvio,
+        fechaEntrega,
+        fechaRecibido,
+        fechaVisto,
+        fechaRespuesta,
+        getSTime
+      ];
+  @override
+  $ListaUsuariosTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'lista_usuarios';
+  @override
+  final String actualTableName = 'lista_usuarios';
+  @override
+  VerificationContext validateIntegrity(Insertable<ListaUsuario> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('lista_usuario_id')) {
+      context.handle(
+          _listaUsuarioIdMeta,
+          listaUsuarioId.isAcceptableOrUnknown(
+              data['lista_usuario_id']!, _listaUsuarioIdMeta));
+    }
+    if (data.containsKey('nombre')) {
+      context.handle(_nombreMeta,
+          nombre.isAcceptableOrUnknown(data['nombre']!, _nombreMeta));
+    }
+    if (data.containsKey('descripcion')) {
+      context.handle(
+          _descripcionMeta,
+          descripcion.isAcceptableOrUnknown(
+              data['descripcion']!, _descripcionMeta));
+    }
+    if (data.containsKey('entidad_id')) {
+      context.handle(_entidadIdMeta,
+          entidadId.isAcceptableOrUnknown(data['entidad_id']!, _entidadIdMeta));
+    }
+    if (data.containsKey('georeferencia_id')) {
+      context.handle(
+          _georeferenciaIdMeta,
+          georeferenciaId.isAcceptableOrUnknown(
+              data['georeferencia_id']!, _georeferenciaIdMeta));
+    }
+    if (data.containsKey('organigrama_id')) {
+      context.handle(
+          _organigramaIdMeta,
+          organigramaId.isAcceptableOrUnknown(
+              data['organigrama_id']!, _organigramaIdMeta));
+    }
+    if (data.containsKey('estado')) {
+      context.handle(_estadoMeta,
+          estado.isAcceptableOrUnknown(data['estado']!, _estadoMeta));
+    }
+    if (data.containsKey('usuario_creacion_id')) {
+      context.handle(
+          _usuarioCreacionIdMeta,
+          usuarioCreacionId.isAcceptableOrUnknown(
+              data['usuario_creacion_id']!, _usuarioCreacionIdMeta));
+    }
+    if (data.containsKey('usuario_creador_id')) {
+      context.handle(
+          _usuarioCreadorIdMeta,
+          usuarioCreadorId.isAcceptableOrUnknown(
+              data['usuario_creador_id']!, _usuarioCreadorIdMeta));
+    }
+    if (data.containsKey('fecha_creacion')) {
+      context.handle(
+          _fechaCreacionMeta,
+          fechaCreacion.isAcceptableOrUnknown(
+              data['fecha_creacion']!, _fechaCreacionMeta));
+    }
+    if (data.containsKey('usuario_accion_id')) {
+      context.handle(
+          _usuarioAccionIdMeta,
+          usuarioAccionId.isAcceptableOrUnknown(
+              data['usuario_accion_id']!, _usuarioAccionIdMeta));
+    }
+    if (data.containsKey('fecha_accion')) {
+      context.handle(
+          _fechaAccionMeta,
+          fechaAccion.isAcceptableOrUnknown(
+              data['fecha_accion']!, _fechaAccionMeta));
+    }
+    if (data.containsKey('fecha_envio')) {
+      context.handle(
+          _fechaEnvioMeta,
+          fechaEnvio.isAcceptableOrUnknown(
+              data['fecha_envio']!, _fechaEnvioMeta));
+    }
+    if (data.containsKey('fecha_entrega')) {
+      context.handle(
+          _fechaEntregaMeta,
+          fechaEntrega.isAcceptableOrUnknown(
+              data['fecha_entrega']!, _fechaEntregaMeta));
+    }
+    if (data.containsKey('fecha_recibido')) {
+      context.handle(
+          _fechaRecibidoMeta,
+          fechaRecibido.isAcceptableOrUnknown(
+              data['fecha_recibido']!, _fechaRecibidoMeta));
+    }
+    if (data.containsKey('fecha_visto')) {
+      context.handle(
+          _fechaVistoMeta,
+          fechaVisto.isAcceptableOrUnknown(
+              data['fecha_visto']!, _fechaVistoMeta));
+    }
+    if (data.containsKey('fecha_respuesta')) {
+      context.handle(
+          _fechaRespuestaMeta,
+          fechaRespuesta.isAcceptableOrUnknown(
+              data['fecha_respuesta']!, _fechaRespuestaMeta));
+    }
+    if (data.containsKey('get_s_time')) {
+      context.handle(_getSTimeMeta,
+          getSTime.isAcceptableOrUnknown(data['get_s_time']!, _getSTimeMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {listaUsuarioId};
+  @override
+  ListaUsuario map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return ListaUsuario.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $ListaUsuariosTable createAlias(String alias) {
+    return $ListaUsuariosTable(_db, alias);
+  }
+}
+
+class PersonaEventoData extends DataClass
+    implements Insertable<PersonaEventoData> {
+  final int personaId;
+  final String? nombres;
+  final String? apellidoPaterno;
+  final String? apellidoMaterno;
+  final String? celular;
+  final String? telefono;
+  final String? foto;
+  final String? fechaNac;
+  final String? genero;
+  final String? estadoCivil;
+  final String? numDoc;
+  final String? ocupacion;
+  final int? estadoId;
+  final String? correo;
+  final int? empleadoId;
+  PersonaEventoData(
+      {required this.personaId,
+      this.nombres,
+      this.apellidoPaterno,
+      this.apellidoMaterno,
+      this.celular,
+      this.telefono,
+      this.foto,
+      this.fechaNac,
+      this.genero,
+      this.estadoCivil,
+      this.numDoc,
+      this.ocupacion,
+      this.estadoId,
+      this.correo,
+      this.empleadoId});
+  factory PersonaEventoData.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
+      {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    return PersonaEventoData(
+      personaId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}persona_id'])!,
+      nombres: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nombres']),
+      apellidoPaterno: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}apellido_paterno']),
+      apellidoMaterno: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}apellido_materno']),
+      celular: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}celular']),
+      telefono: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}telefono']),
+      foto: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}foto']),
+      fechaNac: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_nac']),
+      genero: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}genero']),
+      estadoCivil: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado_civil']),
+      numDoc: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}num_doc']),
+      ocupacion: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}ocupacion']),
+      estadoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado_id']),
+      correo: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}correo']),
+      empleadoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}empleado_id']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['persona_id'] = Variable<int>(personaId);
+    if (!nullToAbsent || nombres != null) {
+      map['nombres'] = Variable<String?>(nombres);
+    }
+    if (!nullToAbsent || apellidoPaterno != null) {
+      map['apellido_paterno'] = Variable<String?>(apellidoPaterno);
+    }
+    if (!nullToAbsent || apellidoMaterno != null) {
+      map['apellido_materno'] = Variable<String?>(apellidoMaterno);
+    }
+    if (!nullToAbsent || celular != null) {
+      map['celular'] = Variable<String?>(celular);
+    }
+    if (!nullToAbsent || telefono != null) {
+      map['telefono'] = Variable<String?>(telefono);
+    }
+    if (!nullToAbsent || foto != null) {
+      map['foto'] = Variable<String?>(foto);
+    }
+    if (!nullToAbsent || fechaNac != null) {
+      map['fecha_nac'] = Variable<String?>(fechaNac);
+    }
+    if (!nullToAbsent || genero != null) {
+      map['genero'] = Variable<String?>(genero);
+    }
+    if (!nullToAbsent || estadoCivil != null) {
+      map['estado_civil'] = Variable<String?>(estadoCivil);
+    }
+    if (!nullToAbsent || numDoc != null) {
+      map['num_doc'] = Variable<String?>(numDoc);
+    }
+    if (!nullToAbsent || ocupacion != null) {
+      map['ocupacion'] = Variable<String?>(ocupacion);
+    }
+    if (!nullToAbsent || estadoId != null) {
+      map['estado_id'] = Variable<int?>(estadoId);
+    }
+    if (!nullToAbsent || correo != null) {
+      map['correo'] = Variable<String?>(correo);
+    }
+    if (!nullToAbsent || empleadoId != null) {
+      map['empleado_id'] = Variable<int?>(empleadoId);
+    }
+    return map;
+  }
+
+  PersonaEventoCompanion toCompanion(bool nullToAbsent) {
+    return PersonaEventoCompanion(
+      personaId: Value(personaId),
+      nombres: nombres == null && nullToAbsent
+          ? const Value.absent()
+          : Value(nombres),
+      apellidoPaterno: apellidoPaterno == null && nullToAbsent
+          ? const Value.absent()
+          : Value(apellidoPaterno),
+      apellidoMaterno: apellidoMaterno == null && nullToAbsent
+          ? const Value.absent()
+          : Value(apellidoMaterno),
+      celular: celular == null && nullToAbsent
+          ? const Value.absent()
+          : Value(celular),
+      telefono: telefono == null && nullToAbsent
+          ? const Value.absent()
+          : Value(telefono),
+      foto: foto == null && nullToAbsent ? const Value.absent() : Value(foto),
+      fechaNac: fechaNac == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaNac),
+      genero:
+          genero == null && nullToAbsent ? const Value.absent() : Value(genero),
+      estadoCivil: estadoCivil == null && nullToAbsent
+          ? const Value.absent()
+          : Value(estadoCivil),
+      numDoc:
+          numDoc == null && nullToAbsent ? const Value.absent() : Value(numDoc),
+      ocupacion: ocupacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(ocupacion),
+      estadoId: estadoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(estadoId),
+      correo:
+          correo == null && nullToAbsent ? const Value.absent() : Value(correo),
+      empleadoId: empleadoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(empleadoId),
+    );
+  }
+
+  factory PersonaEventoData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return PersonaEventoData(
+      personaId: serializer.fromJson<int>(json['personaId']),
+      nombres: serializer.fromJson<String?>(json['nombres']),
+      apellidoPaterno: serializer.fromJson<String?>(json['apellidoPaterno']),
+      apellidoMaterno: serializer.fromJson<String?>(json['apellidoMaterno']),
+      celular: serializer.fromJson<String?>(json['celular']),
+      telefono: serializer.fromJson<String?>(json['telefono']),
+      foto: serializer.fromJson<String?>(json['foto']),
+      fechaNac: serializer.fromJson<String?>(json['fechaNac']),
+      genero: serializer.fromJson<String?>(json['genero']),
+      estadoCivil: serializer.fromJson<String?>(json['estadoCivil']),
+      numDoc: serializer.fromJson<String?>(json['numDoc']),
+      ocupacion: serializer.fromJson<String?>(json['ocupacion']),
+      estadoId: serializer.fromJson<int?>(json['estadoId']),
+      correo: serializer.fromJson<String?>(json['correo']),
+      empleadoId: serializer.fromJson<int?>(json['empleadoId']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'personaId': serializer.toJson<int>(personaId),
+      'nombres': serializer.toJson<String?>(nombres),
+      'apellidoPaterno': serializer.toJson<String?>(apellidoPaterno),
+      'apellidoMaterno': serializer.toJson<String?>(apellidoMaterno),
+      'celular': serializer.toJson<String?>(celular),
+      'telefono': serializer.toJson<String?>(telefono),
+      'foto': serializer.toJson<String?>(foto),
+      'fechaNac': serializer.toJson<String?>(fechaNac),
+      'genero': serializer.toJson<String?>(genero),
+      'estadoCivil': serializer.toJson<String?>(estadoCivil),
+      'numDoc': serializer.toJson<String?>(numDoc),
+      'ocupacion': serializer.toJson<String?>(ocupacion),
+      'estadoId': serializer.toJson<int?>(estadoId),
+      'correo': serializer.toJson<String?>(correo),
+      'empleadoId': serializer.toJson<int?>(empleadoId),
+    };
+  }
+
+  PersonaEventoData copyWith(
+          {int? personaId,
+          String? nombres,
+          String? apellidoPaterno,
+          String? apellidoMaterno,
+          String? celular,
+          String? telefono,
+          String? foto,
+          String? fechaNac,
+          String? genero,
+          String? estadoCivil,
+          String? numDoc,
+          String? ocupacion,
+          int? estadoId,
+          String? correo,
+          int? empleadoId}) =>
+      PersonaEventoData(
+        personaId: personaId ?? this.personaId,
+        nombres: nombres ?? this.nombres,
+        apellidoPaterno: apellidoPaterno ?? this.apellidoPaterno,
+        apellidoMaterno: apellidoMaterno ?? this.apellidoMaterno,
+        celular: celular ?? this.celular,
+        telefono: telefono ?? this.telefono,
+        foto: foto ?? this.foto,
+        fechaNac: fechaNac ?? this.fechaNac,
+        genero: genero ?? this.genero,
+        estadoCivil: estadoCivil ?? this.estadoCivil,
+        numDoc: numDoc ?? this.numDoc,
+        ocupacion: ocupacion ?? this.ocupacion,
+        estadoId: estadoId ?? this.estadoId,
+        correo: correo ?? this.correo,
+        empleadoId: empleadoId ?? this.empleadoId,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('PersonaEventoData(')
+          ..write('personaId: $personaId, ')
+          ..write('nombres: $nombres, ')
+          ..write('apellidoPaterno: $apellidoPaterno, ')
+          ..write('apellidoMaterno: $apellidoMaterno, ')
+          ..write('celular: $celular, ')
+          ..write('telefono: $telefono, ')
+          ..write('foto: $foto, ')
+          ..write('fechaNac: $fechaNac, ')
+          ..write('genero: $genero, ')
+          ..write('estadoCivil: $estadoCivil, ')
+          ..write('numDoc: $numDoc, ')
+          ..write('ocupacion: $ocupacion, ')
+          ..write('estadoId: $estadoId, ')
+          ..write('correo: $correo, ')
+          ..write('empleadoId: $empleadoId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      personaId.hashCode,
+      $mrjc(
+          nombres.hashCode,
+          $mrjc(
+              apellidoPaterno.hashCode,
+              $mrjc(
+                  apellidoMaterno.hashCode,
+                  $mrjc(
+                      celular.hashCode,
+                      $mrjc(
+                          telefono.hashCode,
+                          $mrjc(
+                              foto.hashCode,
+                              $mrjc(
+                                  fechaNac.hashCode,
+                                  $mrjc(
+                                      genero.hashCode,
+                                      $mrjc(
+                                          estadoCivil.hashCode,
+                                          $mrjc(
+                                              numDoc.hashCode,
+                                              $mrjc(
+                                                  ocupacion.hashCode,
+                                                  $mrjc(
+                                                      estadoId.hashCode,
+                                                      $mrjc(
+                                                          correo.hashCode,
+                                                          empleadoId
+                                                              .hashCode)))))))))))))));
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PersonaEventoData &&
+          other.personaId == this.personaId &&
+          other.nombres == this.nombres &&
+          other.apellidoPaterno == this.apellidoPaterno &&
+          other.apellidoMaterno == this.apellidoMaterno &&
+          other.celular == this.celular &&
+          other.telefono == this.telefono &&
+          other.foto == this.foto &&
+          other.fechaNac == this.fechaNac &&
+          other.genero == this.genero &&
+          other.estadoCivil == this.estadoCivil &&
+          other.numDoc == this.numDoc &&
+          other.ocupacion == this.ocupacion &&
+          other.estadoId == this.estadoId &&
+          other.correo == this.correo &&
+          other.empleadoId == this.empleadoId);
+}
+
+class PersonaEventoCompanion extends UpdateCompanion<PersonaEventoData> {
+  final Value<int> personaId;
+  final Value<String?> nombres;
+  final Value<String?> apellidoPaterno;
+  final Value<String?> apellidoMaterno;
+  final Value<String?> celular;
+  final Value<String?> telefono;
+  final Value<String?> foto;
+  final Value<String?> fechaNac;
+  final Value<String?> genero;
+  final Value<String?> estadoCivil;
+  final Value<String?> numDoc;
+  final Value<String?> ocupacion;
+  final Value<int?> estadoId;
+  final Value<String?> correo;
+  final Value<int?> empleadoId;
+  const PersonaEventoCompanion({
+    this.personaId = const Value.absent(),
+    this.nombres = const Value.absent(),
+    this.apellidoPaterno = const Value.absent(),
+    this.apellidoMaterno = const Value.absent(),
+    this.celular = const Value.absent(),
+    this.telefono = const Value.absent(),
+    this.foto = const Value.absent(),
+    this.fechaNac = const Value.absent(),
+    this.genero = const Value.absent(),
+    this.estadoCivil = const Value.absent(),
+    this.numDoc = const Value.absent(),
+    this.ocupacion = const Value.absent(),
+    this.estadoId = const Value.absent(),
+    this.correo = const Value.absent(),
+    this.empleadoId = const Value.absent(),
+  });
+  PersonaEventoCompanion.insert({
+    this.personaId = const Value.absent(),
+    this.nombres = const Value.absent(),
+    this.apellidoPaterno = const Value.absent(),
+    this.apellidoMaterno = const Value.absent(),
+    this.celular = const Value.absent(),
+    this.telefono = const Value.absent(),
+    this.foto = const Value.absent(),
+    this.fechaNac = const Value.absent(),
+    this.genero = const Value.absent(),
+    this.estadoCivil = const Value.absent(),
+    this.numDoc = const Value.absent(),
+    this.ocupacion = const Value.absent(),
+    this.estadoId = const Value.absent(),
+    this.correo = const Value.absent(),
+    this.empleadoId = const Value.absent(),
+  });
+  static Insertable<PersonaEventoData> custom({
+    Expression<int>? personaId,
+    Expression<String?>? nombres,
+    Expression<String?>? apellidoPaterno,
+    Expression<String?>? apellidoMaterno,
+    Expression<String?>? celular,
+    Expression<String?>? telefono,
+    Expression<String?>? foto,
+    Expression<String?>? fechaNac,
+    Expression<String?>? genero,
+    Expression<String?>? estadoCivil,
+    Expression<String?>? numDoc,
+    Expression<String?>? ocupacion,
+    Expression<int?>? estadoId,
+    Expression<String?>? correo,
+    Expression<int?>? empleadoId,
+  }) {
+    return RawValuesInsertable({
+      if (personaId != null) 'persona_id': personaId,
+      if (nombres != null) 'nombres': nombres,
+      if (apellidoPaterno != null) 'apellido_paterno': apellidoPaterno,
+      if (apellidoMaterno != null) 'apellido_materno': apellidoMaterno,
+      if (celular != null) 'celular': celular,
+      if (telefono != null) 'telefono': telefono,
+      if (foto != null) 'foto': foto,
+      if (fechaNac != null) 'fecha_nac': fechaNac,
+      if (genero != null) 'genero': genero,
+      if (estadoCivil != null) 'estado_civil': estadoCivil,
+      if (numDoc != null) 'num_doc': numDoc,
+      if (ocupacion != null) 'ocupacion': ocupacion,
+      if (estadoId != null) 'estado_id': estadoId,
+      if (correo != null) 'correo': correo,
+      if (empleadoId != null) 'empleado_id': empleadoId,
+    });
+  }
+
+  PersonaEventoCompanion copyWith(
+      {Value<int>? personaId,
+      Value<String?>? nombres,
+      Value<String?>? apellidoPaterno,
+      Value<String?>? apellidoMaterno,
+      Value<String?>? celular,
+      Value<String?>? telefono,
+      Value<String?>? foto,
+      Value<String?>? fechaNac,
+      Value<String?>? genero,
+      Value<String?>? estadoCivil,
+      Value<String?>? numDoc,
+      Value<String?>? ocupacion,
+      Value<int?>? estadoId,
+      Value<String?>? correo,
+      Value<int?>? empleadoId}) {
+    return PersonaEventoCompanion(
+      personaId: personaId ?? this.personaId,
+      nombres: nombres ?? this.nombres,
+      apellidoPaterno: apellidoPaterno ?? this.apellidoPaterno,
+      apellidoMaterno: apellidoMaterno ?? this.apellidoMaterno,
+      celular: celular ?? this.celular,
+      telefono: telefono ?? this.telefono,
+      foto: foto ?? this.foto,
+      fechaNac: fechaNac ?? this.fechaNac,
+      genero: genero ?? this.genero,
+      estadoCivil: estadoCivil ?? this.estadoCivil,
+      numDoc: numDoc ?? this.numDoc,
+      ocupacion: ocupacion ?? this.ocupacion,
+      estadoId: estadoId ?? this.estadoId,
+      correo: correo ?? this.correo,
+      empleadoId: empleadoId ?? this.empleadoId,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (personaId.present) {
+      map['persona_id'] = Variable<int>(personaId.value);
+    }
+    if (nombres.present) {
+      map['nombres'] = Variable<String?>(nombres.value);
+    }
+    if (apellidoPaterno.present) {
+      map['apellido_paterno'] = Variable<String?>(apellidoPaterno.value);
+    }
+    if (apellidoMaterno.present) {
+      map['apellido_materno'] = Variable<String?>(apellidoMaterno.value);
+    }
+    if (celular.present) {
+      map['celular'] = Variable<String?>(celular.value);
+    }
+    if (telefono.present) {
+      map['telefono'] = Variable<String?>(telefono.value);
+    }
+    if (foto.present) {
+      map['foto'] = Variable<String?>(foto.value);
+    }
+    if (fechaNac.present) {
+      map['fecha_nac'] = Variable<String?>(fechaNac.value);
+    }
+    if (genero.present) {
+      map['genero'] = Variable<String?>(genero.value);
+    }
+    if (estadoCivil.present) {
+      map['estado_civil'] = Variable<String?>(estadoCivil.value);
+    }
+    if (numDoc.present) {
+      map['num_doc'] = Variable<String?>(numDoc.value);
+    }
+    if (ocupacion.present) {
+      map['ocupacion'] = Variable<String?>(ocupacion.value);
+    }
+    if (estadoId.present) {
+      map['estado_id'] = Variable<int?>(estadoId.value);
+    }
+    if (correo.present) {
+      map['correo'] = Variable<String?>(correo.value);
+    }
+    if (empleadoId.present) {
+      map['empleado_id'] = Variable<int?>(empleadoId.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PersonaEventoCompanion(')
+          ..write('personaId: $personaId, ')
+          ..write('nombres: $nombres, ')
+          ..write('apellidoPaterno: $apellidoPaterno, ')
+          ..write('apellidoMaterno: $apellidoMaterno, ')
+          ..write('celular: $celular, ')
+          ..write('telefono: $telefono, ')
+          ..write('foto: $foto, ')
+          ..write('fechaNac: $fechaNac, ')
+          ..write('genero: $genero, ')
+          ..write('estadoCivil: $estadoCivil, ')
+          ..write('numDoc: $numDoc, ')
+          ..write('ocupacion: $ocupacion, ')
+          ..write('estadoId: $estadoId, ')
+          ..write('correo: $correo, ')
+          ..write('empleadoId: $empleadoId')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $PersonaEventoTable extends PersonaEvento
+    with TableInfo<$PersonaEventoTable, PersonaEventoData> {
+  final GeneratedDatabase _db;
+  final String? _alias;
+  $PersonaEventoTable(this._db, [this._alias]);
+  final VerificationMeta _personaIdMeta = const VerificationMeta('personaId');
+  @override
+  late final GeneratedIntColumn personaId = _constructPersonaId();
+  GeneratedIntColumn _constructPersonaId() {
+    return GeneratedIntColumn(
+      'persona_id',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _nombresMeta = const VerificationMeta('nombres');
+  @override
+  late final GeneratedTextColumn nombres = _constructNombres();
+  GeneratedTextColumn _constructNombres() {
+    return GeneratedTextColumn(
+      'nombres',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _apellidoPaternoMeta =
+      const VerificationMeta('apellidoPaterno');
+  @override
+  late final GeneratedTextColumn apellidoPaterno = _constructApellidoPaterno();
+  GeneratedTextColumn _constructApellidoPaterno() {
+    return GeneratedTextColumn(
+      'apellido_paterno',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _apellidoMaternoMeta =
+      const VerificationMeta('apellidoMaterno');
+  @override
+  late final GeneratedTextColumn apellidoMaterno = _constructApellidoMaterno();
+  GeneratedTextColumn _constructApellidoMaterno() {
+    return GeneratedTextColumn(
+      'apellido_materno',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _celularMeta = const VerificationMeta('celular');
+  @override
+  late final GeneratedTextColumn celular = _constructCelular();
+  GeneratedTextColumn _constructCelular() {
+    return GeneratedTextColumn(
+      'celular',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _telefonoMeta = const VerificationMeta('telefono');
+  @override
+  late final GeneratedTextColumn telefono = _constructTelefono();
+  GeneratedTextColumn _constructTelefono() {
+    return GeneratedTextColumn(
+      'telefono',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fotoMeta = const VerificationMeta('foto');
+  @override
+  late final GeneratedTextColumn foto = _constructFoto();
+  GeneratedTextColumn _constructFoto() {
+    return GeneratedTextColumn(
+      'foto',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _fechaNacMeta = const VerificationMeta('fechaNac');
+  @override
+  late final GeneratedTextColumn fechaNac = _constructFechaNac();
+  GeneratedTextColumn _constructFechaNac() {
+    return GeneratedTextColumn(
+      'fecha_nac',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _generoMeta = const VerificationMeta('genero');
+  @override
+  late final GeneratedTextColumn genero = _constructGenero();
+  GeneratedTextColumn _constructGenero() {
+    return GeneratedTextColumn(
+      'genero',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _estadoCivilMeta =
+      const VerificationMeta('estadoCivil');
+  @override
+  late final GeneratedTextColumn estadoCivil = _constructEstadoCivil();
+  GeneratedTextColumn _constructEstadoCivil() {
+    return GeneratedTextColumn(
+      'estado_civil',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _numDocMeta = const VerificationMeta('numDoc');
+  @override
+  late final GeneratedTextColumn numDoc = _constructNumDoc();
+  GeneratedTextColumn _constructNumDoc() {
+    return GeneratedTextColumn(
+      'num_doc',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _ocupacionMeta = const VerificationMeta('ocupacion');
+  @override
+  late final GeneratedTextColumn ocupacion = _constructOcupacion();
+  GeneratedTextColumn _constructOcupacion() {
+    return GeneratedTextColumn(
+      'ocupacion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _estadoIdMeta = const VerificationMeta('estadoId');
+  @override
+  late final GeneratedIntColumn estadoId = _constructEstadoId();
+  GeneratedIntColumn _constructEstadoId() {
+    return GeneratedIntColumn(
+      'estado_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _correoMeta = const VerificationMeta('correo');
+  @override
+  late final GeneratedTextColumn correo = _constructCorreo();
+  GeneratedTextColumn _constructCorreo() {
+    return GeneratedTextColumn(
+      'correo',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _empleadoIdMeta = const VerificationMeta('empleadoId');
+  @override
+  late final GeneratedIntColumn empleadoId = _constructEmpleadoId();
+  GeneratedIntColumn _constructEmpleadoId() {
+    return GeneratedIntColumn(
+      'empleado_id',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [
+        personaId,
+        nombres,
+        apellidoPaterno,
+        apellidoMaterno,
+        celular,
+        telefono,
+        foto,
+        fechaNac,
+        genero,
+        estadoCivil,
+        numDoc,
+        ocupacion,
+        estadoId,
+        correo,
+        empleadoId
+      ];
+  @override
+  $PersonaEventoTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'persona_evento';
+  @override
+  final String actualTableName = 'persona_evento';
+  @override
+  VerificationContext validateIntegrity(Insertable<PersonaEventoData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('persona_id')) {
+      context.handle(_personaIdMeta,
+          personaId.isAcceptableOrUnknown(data['persona_id']!, _personaIdMeta));
+    }
+    if (data.containsKey('nombres')) {
+      context.handle(_nombresMeta,
+          nombres.isAcceptableOrUnknown(data['nombres']!, _nombresMeta));
+    }
+    if (data.containsKey('apellido_paterno')) {
+      context.handle(
+          _apellidoPaternoMeta,
+          apellidoPaterno.isAcceptableOrUnknown(
+              data['apellido_paterno']!, _apellidoPaternoMeta));
+    }
+    if (data.containsKey('apellido_materno')) {
+      context.handle(
+          _apellidoMaternoMeta,
+          apellidoMaterno.isAcceptableOrUnknown(
+              data['apellido_materno']!, _apellidoMaternoMeta));
+    }
+    if (data.containsKey('celular')) {
+      context.handle(_celularMeta,
+          celular.isAcceptableOrUnknown(data['celular']!, _celularMeta));
+    }
+    if (data.containsKey('telefono')) {
+      context.handle(_telefonoMeta,
+          telefono.isAcceptableOrUnknown(data['telefono']!, _telefonoMeta));
+    }
+    if (data.containsKey('foto')) {
+      context.handle(
+          _fotoMeta, foto.isAcceptableOrUnknown(data['foto']!, _fotoMeta));
+    }
+    if (data.containsKey('fecha_nac')) {
+      context.handle(_fechaNacMeta,
+          fechaNac.isAcceptableOrUnknown(data['fecha_nac']!, _fechaNacMeta));
+    }
+    if (data.containsKey('genero')) {
+      context.handle(_generoMeta,
+          genero.isAcceptableOrUnknown(data['genero']!, _generoMeta));
+    }
+    if (data.containsKey('estado_civil')) {
+      context.handle(
+          _estadoCivilMeta,
+          estadoCivil.isAcceptableOrUnknown(
+              data['estado_civil']!, _estadoCivilMeta));
+    }
+    if (data.containsKey('num_doc')) {
+      context.handle(_numDocMeta,
+          numDoc.isAcceptableOrUnknown(data['num_doc']!, _numDocMeta));
+    }
+    if (data.containsKey('ocupacion')) {
+      context.handle(_ocupacionMeta,
+          ocupacion.isAcceptableOrUnknown(data['ocupacion']!, _ocupacionMeta));
+    }
+    if (data.containsKey('estado_id')) {
+      context.handle(_estadoIdMeta,
+          estadoId.isAcceptableOrUnknown(data['estado_id']!, _estadoIdMeta));
+    }
+    if (data.containsKey('correo')) {
+      context.handle(_correoMeta,
+          correo.isAcceptableOrUnknown(data['correo']!, _correoMeta));
+    }
+    if (data.containsKey('empleado_id')) {
+      context.handle(
+          _empleadoIdMeta,
+          empleadoId.isAcceptableOrUnknown(
+              data['empleado_id']!, _empleadoIdMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {personaId};
+  @override
+  PersonaEventoData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return PersonaEventoData.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $PersonaEventoTable createAlias(String alias) {
+    return $PersonaEventoTable(_db, alias);
+  }
+}
+
+class RelacionesEventoData extends DataClass
+    implements Insertable<RelacionesEventoData> {
+  final int idRelacion;
+  final int? personaPrincipalId;
+  final int? personaVinculadaId;
+  final int? tipoId;
+  final bool? activo;
+  RelacionesEventoData(
+      {required this.idRelacion,
+      this.personaPrincipalId,
+      this.personaVinculadaId,
+      this.tipoId,
+      this.activo});
+  factory RelacionesEventoData.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
+      {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    return RelacionesEventoData(
+      idRelacion: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_relacion'])!,
+      personaPrincipalId: const IntType().mapFromDatabaseResponse(
+          data['${effectivePrefix}persona_principal_id']),
+      personaVinculadaId: const IntType().mapFromDatabaseResponse(
+          data['${effectivePrefix}persona_vinculada_id']),
+      tipoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}tipo_id']),
+      activo: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}activo']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id_relacion'] = Variable<int>(idRelacion);
+    if (!nullToAbsent || personaPrincipalId != null) {
+      map['persona_principal_id'] = Variable<int?>(personaPrincipalId);
+    }
+    if (!nullToAbsent || personaVinculadaId != null) {
+      map['persona_vinculada_id'] = Variable<int?>(personaVinculadaId);
+    }
+    if (!nullToAbsent || tipoId != null) {
+      map['tipo_id'] = Variable<int?>(tipoId);
+    }
+    if (!nullToAbsent || activo != null) {
+      map['activo'] = Variable<bool?>(activo);
+    }
+    return map;
+  }
+
+  RelacionesEventoCompanion toCompanion(bool nullToAbsent) {
+    return RelacionesEventoCompanion(
+      idRelacion: Value(idRelacion),
+      personaPrincipalId: personaPrincipalId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(personaPrincipalId),
+      personaVinculadaId: personaVinculadaId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(personaVinculadaId),
+      tipoId:
+          tipoId == null && nullToAbsent ? const Value.absent() : Value(tipoId),
+      activo:
+          activo == null && nullToAbsent ? const Value.absent() : Value(activo),
+    );
+  }
+
+  factory RelacionesEventoData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return RelacionesEventoData(
+      idRelacion: serializer.fromJson<int>(json['idRelacion']),
+      personaPrincipalId: serializer.fromJson<int?>(json['personaPrincipalId']),
+      personaVinculadaId: serializer.fromJson<int?>(json['personaVinculadaId']),
+      tipoId: serializer.fromJson<int?>(json['tipoId']),
+      activo: serializer.fromJson<bool?>(json['activo']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'idRelacion': serializer.toJson<int>(idRelacion),
+      'personaPrincipalId': serializer.toJson<int?>(personaPrincipalId),
+      'personaVinculadaId': serializer.toJson<int?>(personaVinculadaId),
+      'tipoId': serializer.toJson<int?>(tipoId),
+      'activo': serializer.toJson<bool?>(activo),
+    };
+  }
+
+  RelacionesEventoData copyWith(
+          {int? idRelacion,
+          int? personaPrincipalId,
+          int? personaVinculadaId,
+          int? tipoId,
+          bool? activo}) =>
+      RelacionesEventoData(
+        idRelacion: idRelacion ?? this.idRelacion,
+        personaPrincipalId: personaPrincipalId ?? this.personaPrincipalId,
+        personaVinculadaId: personaVinculadaId ?? this.personaVinculadaId,
+        tipoId: tipoId ?? this.tipoId,
+        activo: activo ?? this.activo,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('RelacionesEventoData(')
+          ..write('idRelacion: $idRelacion, ')
+          ..write('personaPrincipalId: $personaPrincipalId, ')
+          ..write('personaVinculadaId: $personaVinculadaId, ')
+          ..write('tipoId: $tipoId, ')
+          ..write('activo: $activo')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      idRelacion.hashCode,
+      $mrjc(
+          personaPrincipalId.hashCode,
+          $mrjc(personaVinculadaId.hashCode,
+              $mrjc(tipoId.hashCode, activo.hashCode)))));
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is RelacionesEventoData &&
+          other.idRelacion == this.idRelacion &&
+          other.personaPrincipalId == this.personaPrincipalId &&
+          other.personaVinculadaId == this.personaVinculadaId &&
+          other.tipoId == this.tipoId &&
+          other.activo == this.activo);
+}
+
+class RelacionesEventoCompanion extends UpdateCompanion<RelacionesEventoData> {
+  final Value<int> idRelacion;
+  final Value<int?> personaPrincipalId;
+  final Value<int?> personaVinculadaId;
+  final Value<int?> tipoId;
+  final Value<bool?> activo;
+  const RelacionesEventoCompanion({
+    this.idRelacion = const Value.absent(),
+    this.personaPrincipalId = const Value.absent(),
+    this.personaVinculadaId = const Value.absent(),
+    this.tipoId = const Value.absent(),
+    this.activo = const Value.absent(),
+  });
+  RelacionesEventoCompanion.insert({
+    this.idRelacion = const Value.absent(),
+    this.personaPrincipalId = const Value.absent(),
+    this.personaVinculadaId = const Value.absent(),
+    this.tipoId = const Value.absent(),
+    this.activo = const Value.absent(),
+  });
+  static Insertable<RelacionesEventoData> custom({
+    Expression<int>? idRelacion,
+    Expression<int?>? personaPrincipalId,
+    Expression<int?>? personaVinculadaId,
+    Expression<int?>? tipoId,
+    Expression<bool?>? activo,
+  }) {
+    return RawValuesInsertable({
+      if (idRelacion != null) 'id_relacion': idRelacion,
+      if (personaPrincipalId != null)
+        'persona_principal_id': personaPrincipalId,
+      if (personaVinculadaId != null)
+        'persona_vinculada_id': personaVinculadaId,
+      if (tipoId != null) 'tipo_id': tipoId,
+      if (activo != null) 'activo': activo,
+    });
+  }
+
+  RelacionesEventoCompanion copyWith(
+      {Value<int>? idRelacion,
+      Value<int?>? personaPrincipalId,
+      Value<int?>? personaVinculadaId,
+      Value<int?>? tipoId,
+      Value<bool?>? activo}) {
+    return RelacionesEventoCompanion(
+      idRelacion: idRelacion ?? this.idRelacion,
+      personaPrincipalId: personaPrincipalId ?? this.personaPrincipalId,
+      personaVinculadaId: personaVinculadaId ?? this.personaVinculadaId,
+      tipoId: tipoId ?? this.tipoId,
+      activo: activo ?? this.activo,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (idRelacion.present) {
+      map['id_relacion'] = Variable<int>(idRelacion.value);
+    }
+    if (personaPrincipalId.present) {
+      map['persona_principal_id'] = Variable<int?>(personaPrincipalId.value);
+    }
+    if (personaVinculadaId.present) {
+      map['persona_vinculada_id'] = Variable<int?>(personaVinculadaId.value);
+    }
+    if (tipoId.present) {
+      map['tipo_id'] = Variable<int?>(tipoId.value);
+    }
+    if (activo.present) {
+      map['activo'] = Variable<bool?>(activo.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RelacionesEventoCompanion(')
+          ..write('idRelacion: $idRelacion, ')
+          ..write('personaPrincipalId: $personaPrincipalId, ')
+          ..write('personaVinculadaId: $personaVinculadaId, ')
+          ..write('tipoId: $tipoId, ')
+          ..write('activo: $activo')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $RelacionesEventoTable extends RelacionesEvento
+    with TableInfo<$RelacionesEventoTable, RelacionesEventoData> {
+  final GeneratedDatabase _db;
+  final String? _alias;
+  $RelacionesEventoTable(this._db, [this._alias]);
+  final VerificationMeta _idRelacionMeta = const VerificationMeta('idRelacion');
+  @override
+  late final GeneratedIntColumn idRelacion = _constructIdRelacion();
+  GeneratedIntColumn _constructIdRelacion() {
+    return GeneratedIntColumn(
+      'id_relacion',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _personaPrincipalIdMeta =
+      const VerificationMeta('personaPrincipalId');
+  @override
+  late final GeneratedIntColumn personaPrincipalId =
+      _constructPersonaPrincipalId();
+  GeneratedIntColumn _constructPersonaPrincipalId() {
+    return GeneratedIntColumn(
+      'persona_principal_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _personaVinculadaIdMeta =
+      const VerificationMeta('personaVinculadaId');
+  @override
+  late final GeneratedIntColumn personaVinculadaId =
+      _constructPersonaVinculadaId();
+  GeneratedIntColumn _constructPersonaVinculadaId() {
+    return GeneratedIntColumn(
+      'persona_vinculada_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _tipoIdMeta = const VerificationMeta('tipoId');
+  @override
+  late final GeneratedIntColumn tipoId = _constructTipoId();
+  GeneratedIntColumn _constructTipoId() {
+    return GeneratedIntColumn(
+      'tipo_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _activoMeta = const VerificationMeta('activo');
+  @override
+  late final GeneratedBoolColumn activo = _constructActivo();
+  GeneratedBoolColumn _constructActivo() {
+    return GeneratedBoolColumn(
+      'activo',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns =>
+      [idRelacion, personaPrincipalId, personaVinculadaId, tipoId, activo];
+  @override
+  $RelacionesEventoTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'relaciones_evento';
+  @override
+  final String actualTableName = 'relaciones_evento';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<RelacionesEventoData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id_relacion')) {
+      context.handle(
+          _idRelacionMeta,
+          idRelacion.isAcceptableOrUnknown(
+              data['id_relacion']!, _idRelacionMeta));
+    }
+    if (data.containsKey('persona_principal_id')) {
+      context.handle(
+          _personaPrincipalIdMeta,
+          personaPrincipalId.isAcceptableOrUnknown(
+              data['persona_principal_id']!, _personaPrincipalIdMeta));
+    }
+    if (data.containsKey('persona_vinculada_id')) {
+      context.handle(
+          _personaVinculadaIdMeta,
+          personaVinculadaId.isAcceptableOrUnknown(
+              data['persona_vinculada_id']!, _personaVinculadaIdMeta));
+    }
+    if (data.containsKey('tipo_id')) {
+      context.handle(_tipoIdMeta,
+          tipoId.isAcceptableOrUnknown(data['tipo_id']!, _tipoIdMeta));
+    }
+    if (data.containsKey('activo')) {
+      context.handle(_activoMeta,
+          activo.isAcceptableOrUnknown(data['activo']!, _activoMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {idRelacion};
+  @override
+  RelacionesEventoData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return RelacionesEventoData.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $RelacionesEventoTable createAlias(String alias) {
+    return $RelacionesEventoTable(_db, alias);
+  }
+}
+
+class TipoEventoData extends DataClass implements Insertable<TipoEventoData> {
+  final int tipoId;
+  final String? objeto;
+  final String? concepto;
+  final String? nombre;
+  final String? codigo;
+  final int? estado;
+  final int? parentId;
+  TipoEventoData(
+      {required this.tipoId,
+      this.objeto,
+      this.concepto,
+      this.nombre,
+      this.codigo,
+      this.estado,
+      this.parentId});
+  factory TipoEventoData.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
+      {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    return TipoEventoData(
+      tipoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}tipo_id'])!,
+      objeto: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}objeto']),
+      concepto: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}concepto']),
+      nombre: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nombre']),
+      codigo: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}codigo']),
+      estado: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado']),
+      parentId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}parent_id']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['tipo_id'] = Variable<int>(tipoId);
+    if (!nullToAbsent || objeto != null) {
+      map['objeto'] = Variable<String?>(objeto);
+    }
+    if (!nullToAbsent || concepto != null) {
+      map['concepto'] = Variable<String?>(concepto);
+    }
+    if (!nullToAbsent || nombre != null) {
+      map['nombre'] = Variable<String?>(nombre);
+    }
+    if (!nullToAbsent || codigo != null) {
+      map['codigo'] = Variable<String?>(codigo);
+    }
+    if (!nullToAbsent || estado != null) {
+      map['estado'] = Variable<int?>(estado);
+    }
+    if (!nullToAbsent || parentId != null) {
+      map['parent_id'] = Variable<int?>(parentId);
+    }
+    return map;
+  }
+
+  TipoEventoCompanion toCompanion(bool nullToAbsent) {
+    return TipoEventoCompanion(
+      tipoId: Value(tipoId),
+      objeto:
+          objeto == null && nullToAbsent ? const Value.absent() : Value(objeto),
+      concepto: concepto == null && nullToAbsent
+          ? const Value.absent()
+          : Value(concepto),
+      nombre:
+          nombre == null && nullToAbsent ? const Value.absent() : Value(nombre),
+      codigo:
+          codigo == null && nullToAbsent ? const Value.absent() : Value(codigo),
+      estado:
+          estado == null && nullToAbsent ? const Value.absent() : Value(estado),
+      parentId: parentId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(parentId),
+    );
+  }
+
+  factory TipoEventoData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return TipoEventoData(
+      tipoId: serializer.fromJson<int>(json['tipoId']),
+      objeto: serializer.fromJson<String?>(json['objeto']),
+      concepto: serializer.fromJson<String?>(json['concepto']),
+      nombre: serializer.fromJson<String?>(json['nombre']),
+      codigo: serializer.fromJson<String?>(json['codigo']),
+      estado: serializer.fromJson<int?>(json['estado']),
+      parentId: serializer.fromJson<int?>(json['parentId']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'tipoId': serializer.toJson<int>(tipoId),
+      'objeto': serializer.toJson<String?>(objeto),
+      'concepto': serializer.toJson<String?>(concepto),
+      'nombre': serializer.toJson<String?>(nombre),
+      'codigo': serializer.toJson<String?>(codigo),
+      'estado': serializer.toJson<int?>(estado),
+      'parentId': serializer.toJson<int?>(parentId),
+    };
+  }
+
+  TipoEventoData copyWith(
+          {int? tipoId,
+          String? objeto,
+          String? concepto,
+          String? nombre,
+          String? codigo,
+          int? estado,
+          int? parentId}) =>
+      TipoEventoData(
+        tipoId: tipoId ?? this.tipoId,
+        objeto: objeto ?? this.objeto,
+        concepto: concepto ?? this.concepto,
+        nombre: nombre ?? this.nombre,
+        codigo: codigo ?? this.codigo,
+        estado: estado ?? this.estado,
+        parentId: parentId ?? this.parentId,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('TipoEventoData(')
+          ..write('tipoId: $tipoId, ')
+          ..write('objeto: $objeto, ')
+          ..write('concepto: $concepto, ')
+          ..write('nombre: $nombre, ')
+          ..write('codigo: $codigo, ')
+          ..write('estado: $estado, ')
+          ..write('parentId: $parentId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      tipoId.hashCode,
+      $mrjc(
+          objeto.hashCode,
+          $mrjc(
+              concepto.hashCode,
+              $mrjc(
+                  nombre.hashCode,
+                  $mrjc(codigo.hashCode,
+                      $mrjc(estado.hashCode, parentId.hashCode)))))));
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is TipoEventoData &&
+          other.tipoId == this.tipoId &&
+          other.objeto == this.objeto &&
+          other.concepto == this.concepto &&
+          other.nombre == this.nombre &&
+          other.codigo == this.codigo &&
+          other.estado == this.estado &&
+          other.parentId == this.parentId);
+}
+
+class TipoEventoCompanion extends UpdateCompanion<TipoEventoData> {
+  final Value<int> tipoId;
+  final Value<String?> objeto;
+  final Value<String?> concepto;
+  final Value<String?> nombre;
+  final Value<String?> codigo;
+  final Value<int?> estado;
+  final Value<int?> parentId;
+  const TipoEventoCompanion({
+    this.tipoId = const Value.absent(),
+    this.objeto = const Value.absent(),
+    this.concepto = const Value.absent(),
+    this.nombre = const Value.absent(),
+    this.codigo = const Value.absent(),
+    this.estado = const Value.absent(),
+    this.parentId = const Value.absent(),
+  });
+  TipoEventoCompanion.insert({
+    this.tipoId = const Value.absent(),
+    this.objeto = const Value.absent(),
+    this.concepto = const Value.absent(),
+    this.nombre = const Value.absent(),
+    this.codigo = const Value.absent(),
+    this.estado = const Value.absent(),
+    this.parentId = const Value.absent(),
+  });
+  static Insertable<TipoEventoData> custom({
+    Expression<int>? tipoId,
+    Expression<String?>? objeto,
+    Expression<String?>? concepto,
+    Expression<String?>? nombre,
+    Expression<String?>? codigo,
+    Expression<int?>? estado,
+    Expression<int?>? parentId,
+  }) {
+    return RawValuesInsertable({
+      if (tipoId != null) 'tipo_id': tipoId,
+      if (objeto != null) 'objeto': objeto,
+      if (concepto != null) 'concepto': concepto,
+      if (nombre != null) 'nombre': nombre,
+      if (codigo != null) 'codigo': codigo,
+      if (estado != null) 'estado': estado,
+      if (parentId != null) 'parent_id': parentId,
+    });
+  }
+
+  TipoEventoCompanion copyWith(
+      {Value<int>? tipoId,
+      Value<String?>? objeto,
+      Value<String?>? concepto,
+      Value<String?>? nombre,
+      Value<String?>? codigo,
+      Value<int?>? estado,
+      Value<int?>? parentId}) {
+    return TipoEventoCompanion(
+      tipoId: tipoId ?? this.tipoId,
+      objeto: objeto ?? this.objeto,
+      concepto: concepto ?? this.concepto,
+      nombre: nombre ?? this.nombre,
+      codigo: codigo ?? this.codigo,
+      estado: estado ?? this.estado,
+      parentId: parentId ?? this.parentId,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (tipoId.present) {
+      map['tipo_id'] = Variable<int>(tipoId.value);
+    }
+    if (objeto.present) {
+      map['objeto'] = Variable<String?>(objeto.value);
+    }
+    if (concepto.present) {
+      map['concepto'] = Variable<String?>(concepto.value);
+    }
+    if (nombre.present) {
+      map['nombre'] = Variable<String?>(nombre.value);
+    }
+    if (codigo.present) {
+      map['codigo'] = Variable<String?>(codigo.value);
+    }
+    if (estado.present) {
+      map['estado'] = Variable<int?>(estado.value);
+    }
+    if (parentId.present) {
+      map['parent_id'] = Variable<int?>(parentId.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TipoEventoCompanion(')
+          ..write('tipoId: $tipoId, ')
+          ..write('objeto: $objeto, ')
+          ..write('concepto: $concepto, ')
+          ..write('nombre: $nombre, ')
+          ..write('codigo: $codigo, ')
+          ..write('estado: $estado, ')
+          ..write('parentId: $parentId')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $TipoEventoTable extends TipoEvento
+    with TableInfo<$TipoEventoTable, TipoEventoData> {
+  final GeneratedDatabase _db;
+  final String? _alias;
+  $TipoEventoTable(this._db, [this._alias]);
+  final VerificationMeta _tipoIdMeta = const VerificationMeta('tipoId');
+  @override
+  late final GeneratedIntColumn tipoId = _constructTipoId();
+  GeneratedIntColumn _constructTipoId() {
+    return GeneratedIntColumn(
+      'tipo_id',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _objetoMeta = const VerificationMeta('objeto');
+  @override
+  late final GeneratedTextColumn objeto = _constructObjeto();
+  GeneratedTextColumn _constructObjeto() {
+    return GeneratedTextColumn(
+      'objeto',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _conceptoMeta = const VerificationMeta('concepto');
+  @override
+  late final GeneratedTextColumn concepto = _constructConcepto();
+  GeneratedTextColumn _constructConcepto() {
+    return GeneratedTextColumn(
+      'concepto',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _nombreMeta = const VerificationMeta('nombre');
+  @override
+  late final GeneratedTextColumn nombre = _constructNombre();
+  GeneratedTextColumn _constructNombre() {
+    return GeneratedTextColumn(
+      'nombre',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _codigoMeta = const VerificationMeta('codigo');
+  @override
+  late final GeneratedTextColumn codigo = _constructCodigo();
+  GeneratedTextColumn _constructCodigo() {
+    return GeneratedTextColumn(
+      'codigo',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _estadoMeta = const VerificationMeta('estado');
+  @override
+  late final GeneratedIntColumn estado = _constructEstado();
+  GeneratedIntColumn _constructEstado() {
+    return GeneratedIntColumn(
+      'estado',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _parentIdMeta = const VerificationMeta('parentId');
+  @override
+  late final GeneratedIntColumn parentId = _constructParentId();
+  GeneratedIntColumn _constructParentId() {
+    return GeneratedIntColumn(
+      'parent_id',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns =>
+      [tipoId, objeto, concepto, nombre, codigo, estado, parentId];
+  @override
+  $TipoEventoTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'tipo_evento';
+  @override
+  final String actualTableName = 'tipo_evento';
+  @override
+  VerificationContext validateIntegrity(Insertable<TipoEventoData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('tipo_id')) {
+      context.handle(_tipoIdMeta,
+          tipoId.isAcceptableOrUnknown(data['tipo_id']!, _tipoIdMeta));
+    }
+    if (data.containsKey('objeto')) {
+      context.handle(_objetoMeta,
+          objeto.isAcceptableOrUnknown(data['objeto']!, _objetoMeta));
+    }
+    if (data.containsKey('concepto')) {
+      context.handle(_conceptoMeta,
+          concepto.isAcceptableOrUnknown(data['concepto']!, _conceptoMeta));
+    }
+    if (data.containsKey('nombre')) {
+      context.handle(_nombreMeta,
+          nombre.isAcceptableOrUnknown(data['nombre']!, _nombreMeta));
+    }
+    if (data.containsKey('codigo')) {
+      context.handle(_codigoMeta,
+          codigo.isAcceptableOrUnknown(data['codigo']!, _codigoMeta));
+    }
+    if (data.containsKey('estado')) {
+      context.handle(_estadoMeta,
+          estado.isAcceptableOrUnknown(data['estado']!, _estadoMeta));
+    }
+    if (data.containsKey('parent_id')) {
+      context.handle(_parentIdMeta,
+          parentId.isAcceptableOrUnknown(data['parent_id']!, _parentIdMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {tipoId};
+  @override
+  TipoEventoData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return TipoEventoData.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $TipoEventoTable createAlias(String alias) {
+    return $TipoEventoTable(_db, alias);
+  }
+}
+
+class UsuarioEventoData extends DataClass
+    implements Insertable<UsuarioEventoData> {
+  final int usuarioId;
+  final int? personaId;
+  final bool? estado;
+  final int? entidadId;
+  final int? georeferenciaId;
+  UsuarioEventoData(
+      {required this.usuarioId,
+      this.personaId,
+      this.estado,
+      this.entidadId,
+      this.georeferenciaId});
+  factory UsuarioEventoData.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
+      {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    return UsuarioEventoData(
+      usuarioId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}usuario_id'])!,
+      personaId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}persona_id']),
+      estado: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}estado']),
+      entidadId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}entidad_id']),
+      georeferenciaId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}georeferencia_id']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['usuario_id'] = Variable<int>(usuarioId);
+    if (!nullToAbsent || personaId != null) {
+      map['persona_id'] = Variable<int?>(personaId);
+    }
+    if (!nullToAbsent || estado != null) {
+      map['estado'] = Variable<bool?>(estado);
+    }
+    if (!nullToAbsent || entidadId != null) {
+      map['entidad_id'] = Variable<int?>(entidadId);
+    }
+    if (!nullToAbsent || georeferenciaId != null) {
+      map['georeferencia_id'] = Variable<int?>(georeferenciaId);
+    }
+    return map;
+  }
+
+  UsuarioEventoCompanion toCompanion(bool nullToAbsent) {
+    return UsuarioEventoCompanion(
+      usuarioId: Value(usuarioId),
+      personaId: personaId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(personaId),
+      estado:
+          estado == null && nullToAbsent ? const Value.absent() : Value(estado),
+      entidadId: entidadId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(entidadId),
+      georeferenciaId: georeferenciaId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(georeferenciaId),
+    );
+  }
+
+  factory UsuarioEventoData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return UsuarioEventoData(
+      usuarioId: serializer.fromJson<int>(json['usuarioId']),
+      personaId: serializer.fromJson<int?>(json['personaId']),
+      estado: serializer.fromJson<bool?>(json['estado']),
+      entidadId: serializer.fromJson<int?>(json['entidadId']),
+      georeferenciaId: serializer.fromJson<int?>(json['georeferenciaId']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'usuarioId': serializer.toJson<int>(usuarioId),
+      'personaId': serializer.toJson<int?>(personaId),
+      'estado': serializer.toJson<bool?>(estado),
+      'entidadId': serializer.toJson<int?>(entidadId),
+      'georeferenciaId': serializer.toJson<int?>(georeferenciaId),
+    };
+  }
+
+  UsuarioEventoData copyWith(
+          {int? usuarioId,
+          int? personaId,
+          bool? estado,
+          int? entidadId,
+          int? georeferenciaId}) =>
+      UsuarioEventoData(
+        usuarioId: usuarioId ?? this.usuarioId,
+        personaId: personaId ?? this.personaId,
+        estado: estado ?? this.estado,
+        entidadId: entidadId ?? this.entidadId,
+        georeferenciaId: georeferenciaId ?? this.georeferenciaId,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('UsuarioEventoData(')
+          ..write('usuarioId: $usuarioId, ')
+          ..write('personaId: $personaId, ')
+          ..write('estado: $estado, ')
+          ..write('entidadId: $entidadId, ')
+          ..write('georeferenciaId: $georeferenciaId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      usuarioId.hashCode,
+      $mrjc(
+          personaId.hashCode,
+          $mrjc(estado.hashCode,
+              $mrjc(entidadId.hashCode, georeferenciaId.hashCode)))));
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is UsuarioEventoData &&
+          other.usuarioId == this.usuarioId &&
+          other.personaId == this.personaId &&
+          other.estado == this.estado &&
+          other.entidadId == this.entidadId &&
+          other.georeferenciaId == this.georeferenciaId);
+}
+
+class UsuarioEventoCompanion extends UpdateCompanion<UsuarioEventoData> {
+  final Value<int> usuarioId;
+  final Value<int?> personaId;
+  final Value<bool?> estado;
+  final Value<int?> entidadId;
+  final Value<int?> georeferenciaId;
+  const UsuarioEventoCompanion({
+    this.usuarioId = const Value.absent(),
+    this.personaId = const Value.absent(),
+    this.estado = const Value.absent(),
+    this.entidadId = const Value.absent(),
+    this.georeferenciaId = const Value.absent(),
+  });
+  UsuarioEventoCompanion.insert({
+    this.usuarioId = const Value.absent(),
+    this.personaId = const Value.absent(),
+    this.estado = const Value.absent(),
+    this.entidadId = const Value.absent(),
+    this.georeferenciaId = const Value.absent(),
+  });
+  static Insertable<UsuarioEventoData> custom({
+    Expression<int>? usuarioId,
+    Expression<int?>? personaId,
+    Expression<bool?>? estado,
+    Expression<int?>? entidadId,
+    Expression<int?>? georeferenciaId,
+  }) {
+    return RawValuesInsertable({
+      if (usuarioId != null) 'usuario_id': usuarioId,
+      if (personaId != null) 'persona_id': personaId,
+      if (estado != null) 'estado': estado,
+      if (entidadId != null) 'entidad_id': entidadId,
+      if (georeferenciaId != null) 'georeferencia_id': georeferenciaId,
+    });
+  }
+
+  UsuarioEventoCompanion copyWith(
+      {Value<int>? usuarioId,
+      Value<int?>? personaId,
+      Value<bool?>? estado,
+      Value<int?>? entidadId,
+      Value<int?>? georeferenciaId}) {
+    return UsuarioEventoCompanion(
+      usuarioId: usuarioId ?? this.usuarioId,
+      personaId: personaId ?? this.personaId,
+      estado: estado ?? this.estado,
+      entidadId: entidadId ?? this.entidadId,
+      georeferenciaId: georeferenciaId ?? this.georeferenciaId,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (usuarioId.present) {
+      map['usuario_id'] = Variable<int>(usuarioId.value);
+    }
+    if (personaId.present) {
+      map['persona_id'] = Variable<int?>(personaId.value);
+    }
+    if (estado.present) {
+      map['estado'] = Variable<bool?>(estado.value);
+    }
+    if (entidadId.present) {
+      map['entidad_id'] = Variable<int?>(entidadId.value);
+    }
+    if (georeferenciaId.present) {
+      map['georeferencia_id'] = Variable<int?>(georeferenciaId.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('UsuarioEventoCompanion(')
+          ..write('usuarioId: $usuarioId, ')
+          ..write('personaId: $personaId, ')
+          ..write('estado: $estado, ')
+          ..write('entidadId: $entidadId, ')
+          ..write('georeferenciaId: $georeferenciaId')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $UsuarioEventoTable extends UsuarioEvento
+    with TableInfo<$UsuarioEventoTable, UsuarioEventoData> {
+  final GeneratedDatabase _db;
+  final String? _alias;
+  $UsuarioEventoTable(this._db, [this._alias]);
+  final VerificationMeta _usuarioIdMeta = const VerificationMeta('usuarioId');
+  @override
+  late final GeneratedIntColumn usuarioId = _constructUsuarioId();
+  GeneratedIntColumn _constructUsuarioId() {
+    return GeneratedIntColumn(
+      'usuario_id',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _personaIdMeta = const VerificationMeta('personaId');
+  @override
+  late final GeneratedIntColumn personaId = _constructPersonaId();
+  GeneratedIntColumn _constructPersonaId() {
+    return GeneratedIntColumn(
+      'persona_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _estadoMeta = const VerificationMeta('estado');
+  @override
+  late final GeneratedBoolColumn estado = _constructEstado();
+  GeneratedBoolColumn _constructEstado() {
+    return GeneratedBoolColumn(
+      'estado',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _entidadIdMeta = const VerificationMeta('entidadId');
+  @override
+  late final GeneratedIntColumn entidadId = _constructEntidadId();
+  GeneratedIntColumn _constructEntidadId() {
+    return GeneratedIntColumn(
+      'entidad_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _georeferenciaIdMeta =
+      const VerificationMeta('georeferenciaId');
+  @override
+  late final GeneratedIntColumn georeferenciaId = _constructGeoreferenciaId();
+  GeneratedIntColumn _constructGeoreferenciaId() {
+    return GeneratedIntColumn(
+      'georeferencia_id',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns =>
+      [usuarioId, personaId, estado, entidadId, georeferenciaId];
+  @override
+  $UsuarioEventoTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'usuario_evento';
+  @override
+  final String actualTableName = 'usuario_evento';
+  @override
+  VerificationContext validateIntegrity(Insertable<UsuarioEventoData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('usuario_id')) {
+      context.handle(_usuarioIdMeta,
+          usuarioId.isAcceptableOrUnknown(data['usuario_id']!, _usuarioIdMeta));
+    }
+    if (data.containsKey('persona_id')) {
+      context.handle(_personaIdMeta,
+          personaId.isAcceptableOrUnknown(data['persona_id']!, _personaIdMeta));
+    }
+    if (data.containsKey('estado')) {
+      context.handle(_estadoMeta,
+          estado.isAcceptableOrUnknown(data['estado']!, _estadoMeta));
+    }
+    if (data.containsKey('entidad_id')) {
+      context.handle(_entidadIdMeta,
+          entidadId.isAcceptableOrUnknown(data['entidad_id']!, _entidadIdMeta));
+    }
+    if (data.containsKey('georeferencia_id')) {
+      context.handle(
+          _georeferenciaIdMeta,
+          georeferenciaId.isAcceptableOrUnknown(
+              data['georeferencia_id']!, _georeferenciaIdMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {usuarioId};
+  @override
+  UsuarioEventoData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return UsuarioEventoData.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $UsuarioEventoTable createAlias(String alias) {
+    return $UsuarioEventoTable(_db, alias);
+  }
+}
+
 abstract class _$AppDataBase extends GeneratedDatabase {
   _$AppDataBase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
   late final $SessionUserTable sessionUser = $SessionUserTable(this);
@@ -31146,6 +38135,19 @@ abstract class _$AppDataBase extends GeneratedDatabase {
       $ContactoDocenteTable(this);
   late final $CriterioRubroEvaluacionTable criterioRubroEvaluacion =
       $CriterioRubroEvaluacionTable(this);
+  late final $CalendarioTable calendario = $CalendarioTable(this);
+  late final $CalendarioListaUsuarioTable calendarioListaUsuario =
+      $CalendarioListaUsuarioTable(this);
+  late final $EventoTable evento = $EventoTable(this);
+  late final $EventoPersonaTable eventoPersona = $EventoPersonaTable(this);
+  late final $ListaUsuarioDetalleTable listaUsuarioDetalle =
+      $ListaUsuarioDetalleTable(this);
+  late final $ListaUsuariosTable listaUsuarios = $ListaUsuariosTable(this);
+  late final $PersonaEventoTable personaEvento = $PersonaEventoTable(this);
+  late final $RelacionesEventoTable relacionesEvento =
+      $RelacionesEventoTable(this);
+  late final $TipoEventoTable tipoEvento = $TipoEventoTable(this);
+  late final $UsuarioEventoTable usuarioEvento = $UsuarioEventoTable(this);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
@@ -31201,6 +38203,16 @@ abstract class _$AppDataBase extends GeneratedDatabase {
         rubroComentario,
         rubroEvalRNPFormula,
         contactoDocente,
-        criterioRubroEvaluacion
+        criterioRubroEvaluacion,
+        calendario,
+        calendarioListaUsuario,
+        evento,
+        eventoPersona,
+        listaUsuarioDetalle,
+        listaUsuarios,
+        personaEvento,
+        relacionesEvento,
+        tipoEvento,
+        usuarioEvento
       ];
 }

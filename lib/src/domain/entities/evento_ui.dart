@@ -14,6 +14,7 @@ class EventoUi {
   String? foto;
   TipoEventoUi? tipoEventoUi;
   int? cantLike;
+  bool? externo;
 
   DateTime getFecha() {
     return this.fecha??DateTime(1900);

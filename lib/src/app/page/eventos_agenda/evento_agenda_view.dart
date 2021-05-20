@@ -2,17 +2,19 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:smart_text_view/smart_text_view.dart';
 import 'package:ss_crmeducativo_2/libs/fancy_shimer_image/fancy_shimmer_image.dart';
+import 'package:ss_crmeducativo_2/libs/flutter_smart_text_view/smart_text_view.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_icon.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_theme.dart';
 import 'package:ss_crmeducativo_2/src/app/widgets/animation_view.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_agenda_evento_repository.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_configuracion_repository.dart';
 import 'package:ss_crmeducativo_2/src/device/repositories/http/device_http_datos_repository.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/evento_ui.dart';
@@ -33,7 +35,7 @@ class EventoAgendaView extends View{
 
 class _EventoAgendaViewState extends ViewState<EventoAgendaView, EventoAgendaController> with TickerProviderStateMixin{
 
-  _EventoAgendaViewState() : super(EventoAgendaController(DeviceHttpDatosRepositorio(), MoorConfiguracionRepository()));
+  _EventoAgendaViewState() : super(EventoAgendaController(DeviceHttpDatosRepositorio(), MoorConfiguracionRepository(), MoorAgendaEventoRepository()));
 
   late Animation<double> topBarAnimation;
 
@@ -82,50 +84,44 @@ class _EventoAgendaViewState extends ViewState<EventoAgendaView, EventoAgendaCon
   }
 
   @override
-  Widget get view => Container(
-    color: AppTheme.background,
-    child: Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Stack(
-        children: <Widget>[
-          getMainTab(),
-          getAppBarUI(),
-          ControlledWidgetBuilder<EventoAgendaController>(
-              builder: (context, controller){
-                if(controller.msgConexion!=null ? true:false){
-                  return Positioned(
-                    bottom: 100.0,
-                    right: 1,
-                    left: 1,
-                    child: Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            //color:
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(20)),
-                              color: AppTheme.black.withOpacity(0.5),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-                              child: Text(controller.msgConexion??"", style: TextStyle(color: AppTheme.white),),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  );
-                }else{
-                  return Container();
-                }
-              }
-          )
+  Widget get view => Stack(
+    children: <Widget>[
+      getMainTab(),
+      getAppBarUI(),
+      ControlledWidgetBuilder<EventoAgendaController>(
+          builder: (context, controller){
+            if(controller.msgConexion!=null ? true:false){
+              return Positioned(
+                bottom: 100.0,
+                right: 1,
+                left: 1,
+                child: Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        //color:
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          color: AppTheme.black.withOpacity(0.5),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                          child: Text(controller.msgConexion??"", style: TextStyle(color: AppTheme.white),),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            }else{
+              return Container();
+            }
+          }
+      )
 
 
-        ],
-      ),
-    ),
+    ],
   );
 
   Widget chip(TipoEventoUi tipo, Function onClick) {
@@ -293,17 +289,18 @@ class _EventoAgendaViewState extends ViewState<EventoAgendaView, EventoAgendaCon
   }
   int countView = 7;
   Widget getMainTab() {
-    return Scaffold(
-      body: Container(
-        color: AppTheme.background,
-        child: NestedScrollView(
+    return Container(
+      color: AppTheme.background,
+      child: NestedScrollView(
           controller: scrollController,
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
+
               SliverAppBar(
                 toolbarHeight: 65,
                 expandedHeight: 200.0 + MediaQuery.of(context).padding.top,
                 backgroundColor: AppTheme.white,
+                brightness: Brightness.light,
                 shadowColor: AppTheme.grey
                     .withOpacity(0.4),
                 automaticallyImplyLeading: false,
@@ -313,32 +310,25 @@ class _EventoAgendaViewState extends ViewState<EventoAgendaView, EventoAgendaCon
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(80), bottomRight: Radius.circular(0))),
                 flexibleSpace: FlexibleSpaceBar(
-                  background: AnimationView(
-                    animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-                        parent: widget.animationController,
-                        curve:
-                        Interval((1 / countView) * 3, 1.0, curve: Curves.fastOutSlowIn))),
-                    animationController: widget.animationController,
-                    child: ControlledWidgetBuilder<EventoAgendaController>(
-                        builder: (context, controller) {
-                          return Container(
-                            padding: EdgeInsets.only(top: 70 + MediaQuery.of(context).padding.top, right: 0, left: 0),
-                            child: Wrap(
-                              spacing: 10.0,
-                              runSpacing: 6.0,
-                              direction: Axis.horizontal,
-                              alignment: WrapAlignment.center,
-                              children: <Widget>[
-                                for(var item in controller.tipoEventoList)
-                                  chip(item, (tipoEvento){
-                                    controller.onSelectedTipoEvento(tipoEvento);
-                                  }),
-                                //chipEspacio()
-                              ],
-                            ),
-                          );
-                        }),
-                  ),
+                  background: ControlledWidgetBuilder<EventoAgendaController>(
+                      builder: (context, controller) {
+                        return Container(
+                          padding: EdgeInsets.only(top: 70 + MediaQuery.of(context).padding.top, right: 0, left: 0),
+                          child: Wrap(
+                            spacing: 10.0,
+                            runSpacing: 6.0,
+                            direction: Axis.horizontal,
+                            alignment: WrapAlignment.center,
+                            children: <Widget>[
+                              for(var item in controller.tipoEventoList)
+                                chip(item, (tipoEvento){
+                                  controller.onSelectedTipoEvento(tipoEvento);
+                                }),
+                              //chipEspacio()
+                            ],
+                          ),
+                        );
+                      }),
                 ),
               )
 
@@ -354,65 +344,60 @@ class _EventoAgendaViewState extends ViewState<EventoAgendaView, EventoAgendaCon
                           delegate: SliverChildBuilderDelegate(
                                   (BuildContext context, int index){
                                 EventoUi eventoUi = controller.eventoUiList[index];
-                                return AnimationView(
-                                  animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-                                      parent: widget.animationController,
-                                      curve:
-                                      Interval((1 / countView) * 3, 1.0, curve: Curves.fastOutSlowIn))),
-                                  animationController: widget.animationController,
-                                  child: Card(
-                                    //color: AppTheme.colorAccent,
-                                    margin: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10), // if you need this
-                                      side: BorderSide(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        width: 1,
-                                      ),
+                                return Card(
+                                  //color: AppTheme.colorAccent,
+                                  margin: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10), // if you need this
+                                    side: BorderSide(
+                                      color: Colors.grey.withOpacity(0.2),
+                                      width: 1,
                                     ),
-                                    child: Container(
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Container(
-                                                  margin: const EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 0),
-                                                  child: CachedNetworkImage(
-                                                      placeholder: (context, url) => CircularProgressIndicator(),
-                                                      imageUrl: eventoUi.fotoEntidad??'',
-                                                      imageBuilder: (context, imageProvider) => Container(
-                                                          height: 40,
-                                                          width: 40,
-                                                          decoration: BoxDecoration(
-                                                            borderRadius: BorderRadius.all(Radius.circular(50)),
-                                                            image: DecorationImage(
-                                                              image: imageProvider,
-                                                              fit: BoxFit.cover,
-                                                            ),
-                                                          )
-                                                      )
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                    flex: 6,
-                                                    child: Container(
-                                                      margin: const EdgeInsets.only(top: 8, left: 8, right: 16, bottom: 0),
-                                                      child: Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          //Text(eventoUi.nombreEntidad??'', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle( fontSize: 16, color: AppTheme.darkText),),
-                                                          Text(eventoUi.nombreEmisor??'', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle( fontSize: 14, color: AppTheme.darkText),),
-                                                          Text(eventoUi.rolEmisor??'', maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle( fontSize: 10, color: AppTheme.darkText),),
-                                                          Text(eventoUi.nombreFecha??'', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle( fontSize: 10, color: AppTheme.lightText))
-                                                        ],
-                                                      ),
+                                  ),
+                                  child: Container(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                margin: const EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 0),
+                                                child: CachedNetworkImage(
+                                                    placeholder: (context, url) => CircularProgressIndicator(),
+                                                    imageUrl: eventoUi.fotoEntidad??'',
+                                                    errorWidget: (context, url, error) => Container(),
+                                                    imageBuilder: (context, imageProvider) => Container(
+                                                        height: 40,
+                                                        width: 40,
+                                                        decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.all(Radius.circular(50)),
+                                                          image: DecorationImage(
+                                                            image: imageProvider,
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                        )
                                                     )
                                                 ),
-                                                //Icon(Icons.arrow_right, color: AppTheme.grey,),
-                                                /*Expanded(
+                                              ),
+                                              Expanded(
+                                                  flex: 6,
+                                                  child: Container(
+                                                    margin: const EdgeInsets.only(top: 8, left: 8, right: 16, bottom: 0),
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        //Text(eventoUi.nombreEntidad??'', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle( fontSize: 16, color: AppTheme.darkText),),
+                                                        Text(eventoUi.nombreEmisor??'', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle( fontSize: 14, color: AppTheme.darkText),),
+                                                        Text(eventoUi.rolEmisor??'', maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle( fontSize: 10, color: AppTheme.darkText),),
+                                                        Text(eventoUi.nombreFecha??'', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle( fontSize: 10, color: AppTheme.lightText))
+                                                      ],
+                                                    ),
+                                                  )
+                                              ),
+                                              //Icon(Icons.arrow_right, color: AppTheme.grey,),
+                                              /*Expanded(
                                                   flex: 5,
                                                   child: Container(
                                                     margin: const EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 0),
@@ -425,23 +410,23 @@ class _EventoAgendaViewState extends ViewState<EventoAgendaView, EventoAgendaCon
                                                     ),
                                                   )
                                               ),*/
-                                              ],
-                                            ),
+                                            ],
                                           ),
-                                          Container(
-                                            margin: const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 0),
-                                            child: Text(eventoUi.titulo??'', style: TextStyle( fontSize: 16, color: AppTheme.darkText, fontFamily: AppTheme.fontName, )),
+                                        ),
+                                        Container(
+                                          margin: const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 0),
+                                          child: Text(eventoUi.titulo??'', style: TextStyle( fontSize: 16, color: AppTheme.darkText, fontFamily: AppTheme.fontName, )),
+                                        ),
+                                        Container(
+                                          margin: const EdgeInsets.only(top: 0, left: 16, right: 16, bottom: 0),
+                                          child: SmartText(
+                                            text: eventoUi.descripcion??'',
+                                            style: TextStyle( fontSize: 16, color: AppTheme.darkText, fontFamily: AppTheme.fontName, fontWeight: FontWeight.w300,),
+                                            onOpen: (url) => launch(url),
                                           ),
-                                          Container(
-                                            margin: const EdgeInsets.only(top: 0, left: 16, right: 16, bottom: 0),
-                                            child: SmartText(
-                                              text: eventoUi.descripcion??'',
-                                              style: TextStyle( fontSize: 16, color: AppTheme.darkText, fontFamily: AppTheme.fontName, fontWeight: FontWeight.w300,),
-                                              onOpen: (url) => launch(url),
-                                            ),
-                                          ),
+                                        ),
 
-                                          /*
+                                        /*
                             * CENTER = none
                             * CENTER_CROP = Cover
                             * CENTER_INSIDE = scaleDown
@@ -451,147 +436,146 @@ class _EventoAgendaViewState extends ViewState<EventoAgendaView, EventoAgendaCon
                             * FIT_XY = Fill
                             *
                             * */
-                                              (){
-                                                EventoIconoEnumUI tipo = eventoUi.tipoEventoUi?.tipo??EventoIconoEnumUI.DEFAULT;
+                                            (){
+                                          EventoIconoEnumUI tipo = eventoUi.tipoEventoUi?.tipo??EventoIconoEnumUI.DEFAULT;
 
-                                            if (tipo == EventoIconoEnumUI.NOTICIA ||
-                                                tipo == EventoIconoEnumUI.EVENTO || (tipo == EventoIconoEnumUI.AGENDA && eventoUi.foto!=null&&(eventoUi.foto??"").isNotEmpty)){
-                                              return Container(
-                                                margin: const EdgeInsets.only(top: 8, left: 0, right: 0, bottom: 0),
-                                                color: AppTheme.grey.withOpacity(0.7),
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.stretch,  // add this
-                                                  children: [
-                                                    ClipRRect(
-                                                      /*borderRadius: BorderRadius.only(
+                                          if (tipo == EventoIconoEnumUI.NOTICIA ||
+                                              tipo == EventoIconoEnumUI.EVENTO || (tipo == EventoIconoEnumUI.AGENDA && eventoUi.foto!=null&&(eventoUi.foto??"").isNotEmpty)){
+                                            return Container(
+                                              margin: const EdgeInsets.only(top: 8, left: 0, right: 0, bottom: 0),
+                                              color: AppTheme.grey.withOpacity(0.7),
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.stretch,  // add this
+                                                children: [
+                                                  ClipRRect(
+                                                    /*borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(8.0),
                                             topRight: Radius.circular(8.0),
                                           ),*/
-                                                        child: InkWell(
-                                                          onTap: (){
-                                                            //controller.onClickVerEvento(eventoUi);
-                                                            //Navigator.of(context).push(InformacionEventoAgendaView.createRouteAgenda(eventoUi));
+                                                      child: InkWell(
+                                                        onTap: (){
+                                                          //controller.onClickVerEvento(eventoUi);
+                                                          //Navigator.of(context).push(InformacionEventoAgendaView.createRouteAgenda(eventoUi));
 
-                                                          },
-                                                          child: FancyShimmerImage(
-                                                            boxFit: BoxFit.cover,
-                                                            imageUrl: eventoUi.foto??'',
-                                                            errorWidget: Icon(Icons.warning_amber_rounded, color: AppTheme.white, size: 105,),
-                                                          ),
-                                                        )
-                                                    )
-                                                  ],
-                                                ),
-                                              );
-                                            }else{
-                                              return Container();
-                                            }
+                                                        },
+                                                        child: FancyShimmerImage(
+                                                          boxFit: BoxFit.cover,
+                                                          imageUrl: eventoUi.foto??'',
+                                                          errorWidget: Icon(Icons.warning_amber_rounded, color: AppTheme.white, size: 105,),
+                                                        ),
+                                                      )
+                                                  )
+                                                ],
+                                              ),
+                                            );
+                                          }else{
+                                            return Container();
+                                          }
 
-                                          }(),
-                                          Container(
-                                            margin: const EdgeInsets.only(top: 8, left: 16, right: 0, bottom: 0),
-                                            child: Row(
-                                              children: [
-                                                Container(
-                                                  width:18,
-                                                  height:18,
-                                                  margin: const EdgeInsets.only(top: 0, left: 0, right: 8, bottom: 0),
-                                                  child: Image.asset(AppIcon.img_evento_megusta_1),
-                                                ),
-                                                    (){
-                                                  String megusta = "me gusta";
-                                                  if((eventoUi.cantLike??0)!=0){
-                                                    megusta =  eventoUi.cantLike.toString() + " me gusta";
-                                                  }else if((eventoUi.cantLike??0)>1000){
-                                                    megusta += "1k me gusta" ;
-                                                  }
-                                                  return Text(megusta, style: TextStyle( fontSize: 12, color: AppTheme.darkText),);
-                                                }(),
-                                                Expanded(
-                                                  child: Container(),
-                                                ),
-                                                Text(eventoUi.nombreEntidad??'', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle( fontSize: 12, color: AppTheme.darkText, fontStyle: FontStyle.italic),),
-                                                Padding(padding: const EdgeInsets.only(right: 16))
-                                              ],
-                                            ),
-                                          ),
-                                          Container(
-                                            margin:  const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 0),
-                                            child: Divider(
-                                              height: 1,
-                                              color: AppTheme.colorShimmer,
-                                            ),
-                                          ),
-                                          Row(
-                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                        }(),
+                                        Container(
+                                          margin: const EdgeInsets.only(top: 8, left: 16, right: 0, bottom: 0),
+                                          child: Row(
                                             children: [
-                                              Material(
-                                                color: Colors.transparent,
-                                                child: InkWell(
-                                                    focusColor: Colors.transparent,
-                                                    highlightColor: Colors.transparent,
-                                                    hoverColor: Colors.transparent,
-                                                    borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                                                    splashColor: AppTheme.nearlyDarkBlue.withOpacity(0.2),
-                                                    onTap: () {
-
-                                                    },
-                                                    child:
-                                                    Container(
-                                                      padding: const EdgeInsets.only(top: 0, left: 16, right: 16, bottom: 0),
-                                                      height: 48,
-                                                      child: Row(
-                                                        children: [
-                                                          Container(
-                                                            width:20,
-                                                            height:20,
-                                                            margin: const EdgeInsets.only(top: 0, left: 8, right: 8, bottom: 0),
-                                                            child: Image.asset(AppIcon.img_evento_megusta),
-                                                          ),
-                                                          Text("Me gusta", style: TextStyle( fontSize: 14, color: AppTheme.lightText),),
-                                                        ],
-                                                      ),
-                                                    )
-                                                ),
+                                              Container(
+                                                width:18,
+                                                height:18,
+                                                margin: const EdgeInsets.only(top: 0, left: 0, right: 8, bottom: 0),
+                                                child: Image.asset(AppIcon.img_evento_megusta_1),
                                               ),
-                                              Expanded(child: Container()),
-                                              Material(
-                                                color: Colors.transparent,
-                                                child: InkWell(
-                                                    focusColor: Colors.transparent,
-                                                    highlightColor: Colors.transparent,
-                                                    hoverColor: Colors.transparent,
-                                                    borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                                                    splashColor: AppTheme.nearlyDarkBlue.withOpacity(0.2),
-                                                    onTap: () {
-                                                      if(eventoUi.fotoEntidad!=null && (eventoUi.fotoEntidad??"").isNotEmpty){
-                                                        _shareImageFromUrl(eventoUi);
-                                                      }else{
-                                                        _shareText(eventoUi);
-                                                      }
-                                                    },
-                                                    child:
-                                                    Container(
-                                                      padding: const EdgeInsets.only(top: 0, left: 16, right: 16, bottom: 0),
-                                                      height: 48,
-                                                      child: Row(
-                                                        children: [
-                                                          Container(
-                                                            width:20,
-                                                            height:20,
-                                                            margin: const EdgeInsets.only(top: 0, left: 8, right: 8, bottom: 0),
-                                                            child: Image.asset(AppIcon.img_evento_compartir),
-                                                          ),
-                                                          Text("Compartir", style: TextStyle( fontSize: 14, color: AppTheme.lightText),),
-                                                        ],
-                                                      ),
-                                                    )
-                                                ),
+                                                  (){
+                                                String megusta = "me gusta";
+                                                if((eventoUi.cantLike??0)!=0){
+                                                  megusta =  eventoUi.cantLike.toString() + " me gusta";
+                                                }else if((eventoUi.cantLike??0)>1000){
+                                                  megusta += "1k me gusta" ;
+                                                }
+                                                return Text(megusta, style: TextStyle( fontSize: 12, color: AppTheme.darkText),);
+                                              }(),
+                                              Expanded(
+                                                child: Container(),
                                               ),
+                                              Text(eventoUi.nombreEntidad??'', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle( fontSize: 12, color: AppTheme.darkText, fontStyle: FontStyle.italic),),
+                                              Padding(padding: const EdgeInsets.only(right: 16))
                                             ],
-                                          )
-                                        ],
-                                      ),
+                                          ),
+                                        ),
+                                        Container(
+                                          margin:  const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 0),
+                                          child: Divider(
+                                            height: 1,
+                                            color: AppTheme.colorShimmer,
+                                          ),
+                                        ),
+                                        Row(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Material(
+                                              color: Colors.transparent,
+                                              child: InkWell(
+                                                  focusColor: Colors.transparent,
+                                                  highlightColor: Colors.transparent,
+                                                  hoverColor: Colors.transparent,
+                                                  borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                                                  splashColor: AppTheme.nearlyDarkBlue.withOpacity(0.2),
+                                                  onTap: () {
+
+                                                  },
+                                                  child:
+                                                  Container(
+                                                    padding: const EdgeInsets.only(top: 0, left: 16, right: 16, bottom: 0),
+                                                    height: 48,
+                                                    child: Row(
+                                                      children: [
+                                                        Container(
+                                                          width:20,
+                                                          height:20,
+                                                          margin: const EdgeInsets.only(top: 0, left: 8, right: 8, bottom: 0),
+                                                          child: Image.asset(AppIcon.img_evento_megusta),
+                                                        ),
+                                                        Text("Me gusta", style: TextStyle( fontSize: 14, color: AppTheme.lightText),),
+                                                      ],
+                                                    ),
+                                                  )
+                                              ),
+                                            ),
+                                            Expanded(child: Container()),
+                                            Material(
+                                              color: Colors.transparent,
+                                              child: InkWell(
+                                                  focusColor: Colors.transparent,
+                                                  highlightColor: Colors.transparent,
+                                                  hoverColor: Colors.transparent,
+                                                  borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                                                  splashColor: AppTheme.nearlyDarkBlue.withOpacity(0.2),
+                                                  onTap: () {
+                                                    if(eventoUi.fotoEntidad!=null && (eventoUi.fotoEntidad??"").isNotEmpty){
+                                                      _shareImageFromUrl(eventoUi);
+                                                    }else{
+                                                      _shareText(eventoUi);
+                                                    }
+                                                  },
+                                                  child:
+                                                  Container(
+                                                    padding: const EdgeInsets.only(top: 0, left: 16, right: 16, bottom: 0),
+                                                    height: 48,
+                                                    child: Row(
+                                                      children: [
+                                                        Container(
+                                                          width:20,
+                                                          height:20,
+                                                          margin: const EdgeInsets.only(top: 0, left: 8, right: 8, bottom: 0),
+                                                          child: Image.asset(AppIcon.img_evento_compartir),
+                                                        ),
+                                                        Text("Compartir", style: TextStyle( fontSize: 14, color: AppTheme.lightText),),
+                                                      ],
+                                                    ),
+                                                  )
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      ],
                                     ),
                                   ),
                                 );
@@ -617,7 +601,6 @@ class _EventoAgendaViewState extends ViewState<EventoAgendaView, EventoAgendaCon
             },
           )
 
-        ),
       ),
     );
   }

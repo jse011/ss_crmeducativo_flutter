@@ -3,47 +3,50 @@ import 'dart:async';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/evento_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_eventoUi.dart';
+import 'package:ss_crmeducativo_2/src/domain/repositories/agenda_evento_repository.dart';
 import 'package:ss_crmeducativo_2/src/domain/repositories/configuracion_repository.dart';
 import 'package:ss_crmeducativo_2/src/domain/repositories/http_datos_repository.dart';
 import 'package:ss_crmeducativo_2/src/domain/tools/app_tools.dart';
 
 class GetEventoAgenda extends UseCase<GetEvaluacionCaseResponse, GetEventoAgendaParams>{
-  ConfiguracionRepository  repository;
+  AgendaEventoRepository agendaRepository;
+  ConfiguracionRepository  configuracionRepository;
   HttpDatosRepository httpRepository;
 
-  GetEventoAgenda(this.repository, this.httpRepository);
+
+  GetEventoAgenda(
+      this.agendaRepository, this.configuracionRepository, this.httpRepository);
 
   @override
   Future<Stream<GetEvaluacionCaseResponse?>> buildUseCaseStream(GetEventoAgendaParams? params) async{
     final controller = StreamController<GetEvaluacionCaseResponse>();
     try {
 
-      List<TipoEventoUi> tiposUiList = await repository.getTiposEvento();
+      List<TipoEventoUi> tiposUiList = await agendaRepository.getTiposEvento();
+      print("tipoEventoUiList size: " + tiposUiList.length.toString());
       for(TipoEventoUi tipoEventoUi in tiposUiList)tipoEventoUi.disable = false;
       controller.add(GetEvaluacionCaseResponse(tiposUiList, null, false, false));
 
-      int georeferenciaId =  await repository.getGeoreferenciaId();
-      int usuarioId = await repository.getSessionUsuarioId();
+      int georeferenciaId =  await configuracionRepository.getGeoreferenciaId();
+      int usuarioId = await configuracionRepository.getSessionUsuarioId();
        executeServidor() async{
         bool offlineServidor = false;
         bool errorServidor = false;
         try{
-          String urlServidorLocal = await repository.getSessionUsuarioUrlServidor();
+          String urlServidorLocal = await configuracionRepository.getSessionUsuarioUrlServidor();
           Map<String, dynamic>? eventoAgenda = await httpRepository.getEventoAgenda(urlServidorLocal, usuarioId,  georeferenciaId,  params?.tipoEventoId??0);
           errorServidor = eventoAgenda==null;
           if(!errorServidor){
-
-            await repository.saveEventoAgenda(eventoAgenda, usuarioId, georeferenciaId, params?.tipoEventoId??0);
-
+            await agendaRepository.saveEventoAgenda(eventoAgenda, usuarioId, georeferenciaId, params?.tipoEventoId??0);
           }
         }catch(e){
           offlineServidor = true;
         }
 
-        List<TipoEventoUi> tiposUiList = await repository.getTiposEvento();
-
+        List<TipoEventoUi> tiposUiList = await agendaRepository.getTiposEvento();
+        print("tipoEventoUiList jse size: " + tiposUiList.length.toString());
         for(TipoEventoUi tipoEventoUi in tiposUiList)tipoEventoUi.disable = false;
-        List<EventoUi> eventoUIList = await repository.getEventosAgenda(usuarioId, georeferenciaId,params?.tipoEventoId??0);
+        List<EventoUi> eventoUIList = await agendaRepository.getEventosAgenda(usuarioId, georeferenciaId,params?.tipoEventoId??0);
 
         for(var eventosUi in eventoUIList){
           DateTime fechaEntrega =  eventosUi.fecha??DateTime(1950);
@@ -63,7 +66,7 @@ class GetEventoAgenda extends UseCase<GetEvaluacionCaseResponse, GetEventoAgenda
             eventosUi.nombreFecha = "";
           }
         }
-
+        print("eventoUIList jse size: " + eventoUIList.length.toString());
         controller.add(GetEvaluacionCaseResponse(tiposUiList, eventoUIList, errorServidor, offlineServidor));
         controller.close();
       }

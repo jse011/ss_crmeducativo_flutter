@@ -67,6 +67,29 @@ class AppTools {
     return parsedDate;
   }
 
+  static DateTime convertDateTimePtBR2(int? fecha, String? hora)
+  {
+    DateTime parsedDate = DateTime.parse('0001-11-30 00:00:00.000');
+    try{
+
+      DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(fecha??1995);
+
+      String day = dateTime.day.toString();
+      String month = dateTime.month.toString();
+      String year = dateTime.year.toString();
+
+      if(hora!=null&&hora.length > 0){
+        parsedDate = DateTime.parse('$year-$month-$day $hora');
+      }else{
+        parsedDate = dateTime;
+      }
+    }catch(e){
+      print("Error al convertir string to DateTime ${fecha??0} "+( hora!=null?hora:""));
+    }
+
+    return parsedDate;
+  }
+
   static String tiempoFechaCreacion(DateTime? fecha){
     if(fecha!=null){
 
