@@ -41,82 +41,77 @@ class MoorRubroRepository extends RubroRepository{
   @override
   void saveDatosCrearRubros(Map<String, dynamic> crearRubro, int silaboEventoId, int calendarioPeriodoId) async {
     AppDataBase SQL = AppDataBase();
-    try{
-      int anioAcademicoId = 0;
-      int  empleadoId = 0;
-      await SQL.batch((batch) async {
-        // functions in a batch don't have to be awaited - just
-        // await the whole batch afterwards.
-        if(crearRubro.containsKey("sessionAprendizajeCriterios")||crearRubro.containsKey("unidadAprendizajeCriterios")){
+    int anioAcademicoId = 0;
+    int  empleadoId = 0;
+    await SQL.batch((batch) async {
+      // functions in a batch don't have to be awaited - just
+      // await the whole batch afterwards.
+      if(crearRubro.containsKey("sessionAprendizajeCriterios")||crearRubro.containsKey("unidadAprendizajeCriterios")){
         //&& t.calendarioPeriodoId.equals(calendarioPeriodoId)
-          //batch.deleteWhere(SQL.criterio, (Criterio t) => t.silaboEventoId.equals(silaboEventoId));
-          var query = SQL.delete(SQL.criterio)..where((tbl) => tbl.silaboEventoId.equals(silaboEventoId));
-          query.where((tbl) => tbl.calendarioPeriodoId.equals(calendarioPeriodoId));
-          query.go();
-        }
+        //batch.deleteWhere(SQL.criterio, (Criterio t) => t.silaboEventoId.equals(silaboEventoId));
+        var query = SQL.delete(SQL.criterio)..where((tbl) => tbl.silaboEventoId.equals(silaboEventoId));
+        query.where((tbl) => tbl.calendarioPeriodoId.equals(calendarioPeriodoId));
+        query.go();
+      }
 
-        if(crearRubro.containsKey("sessionAprendizajeCriterios")){
-          batch.insertAll(SQL.criterio, SerializableConvert.converListSerializeCriterio(crearRubro["sessionAprendizajeCriterios"])  , mode: InsertMode.insertOrReplace );
-        }
+      if(crearRubro.containsKey("sessionAprendizajeCriterios")){
+        batch.insertAll(SQL.criterio, SerializableConvert.converListSerializeCriterio(crearRubro["sessionAprendizajeCriterios"])  , mode: InsertMode.insertOrReplace );
+      }
 
-        if(crearRubro.containsKey("unidadAprendizajeCriterios")){
-          batch.insertAll(SQL.criterio, SerializableConvert.converListSerializeCriterio(crearRubro["unidadAprendizajeCriterios"])  , mode: InsertMode.insertOrReplace );
-        }
+      if(crearRubro.containsKey("unidadAprendizajeCriterios")){
+        batch.insertAll(SQL.criterio, SerializableConvert.converListSerializeCriterio(crearRubro["unidadAprendizajeCriterios"])  , mode: InsertMode.insertOrReplace );
+      }
 
-        if(crearRubro.containsKey("crearRubrosOfflinetipos")){
-          batch.deleteWhere(SQL.tiposRubro, (row) => const Constant(true));
-          batch.insertAll(SQL.tiposRubro, SerializableConvert.converListSerializeTiposRubro(crearRubro["crearRubrosOfflinetipos"])  , mode: InsertMode.insertOrReplace );
-        }
+      if(crearRubro.containsKey("crearRubrosOfflinetipos")){
+        batch.deleteWhere(SQL.tiposRubro, (row) => const Constant(true));
+        batch.insertAll(SQL.tiposRubro, SerializableConvert.converListSerializeTiposRubro(crearRubro["crearRubrosOfflinetipos"])  , mode: InsertMode.insertOrReplace );
+      }
 
-        if(crearRubro.containsKey("crearRubrosOfflinetipos_evaluacion")){
-          batch.deleteWhere(SQL.tipoEvaluacionRubro, (row) => const Constant(true));
-          batch.insertAll(SQL.tipoEvaluacionRubro, SerializableConvert.converListSerializeTipoEvaluacionRubro(crearRubro["crearRubrosOfflinetipos_evaluacion"])  , mode: InsertMode.insertOrReplace );
-        }
+      if(crearRubro.containsKey("crearRubrosOfflinetipos_evaluacion")){
+        batch.deleteWhere(SQL.tipoEvaluacionRubro, (row) => const Constant(true));
+        batch.insertAll(SQL.tipoEvaluacionRubro, SerializableConvert.converListSerializeTipoEvaluacionRubro(crearRubro["crearRubrosOfflinetipos_evaluacion"])  , mode: InsertMode.insertOrReplace );
+      }
 
-        if(crearRubro.containsKey("valorTipoNota")){
-          batch.deleteWhere(SQL.valorTipoNotaRubro, (row) => const Constant(true));
-          batch.insertAll(SQL.valorTipoNotaRubro, SerializableConvert.converListSerializeValorTipoNotaRubro(crearRubro["valorTipoNota"]), mode: InsertMode.insertOrReplace );
-        }
+      if(crearRubro.containsKey("valorTipoNota")){
+        batch.deleteWhere(SQL.valorTipoNotaRubro, (row) => const Constant(true));
+        batch.insertAll(SQL.valorTipoNotaRubro, SerializableConvert.converListSerializeValorTipoNotaRubro(crearRubro["valorTipoNota"]), mode: InsertMode.insertOrReplace );
+      }
 
-        if(crearRubro.containsKey("tipoNotaEscala")){
-          batch.deleteWhere(SQL.tipoNotaRubro, (row) => const Constant(true));
-          batch.insertAll(SQL.tipoNotaRubro, SerializableConvert.converListSerializeTipoNotaRubro(crearRubro["tipoNotaEscala"]), mode: InsertMode.insertOrReplace );
-        }
+      if(crearRubro.containsKey("tipoNotaEscala")){
+        batch.deleteWhere(SQL.tipoNotaRubro, (row) => const Constant(true));
+        batch.insertAll(SQL.tipoNotaRubro, SerializableConvert.converListSerializeTipoNotaRubro(crearRubro["tipoNotaEscala"]), mode: InsertMode.insertOrReplace );
+      }
 
-        if(crearRubro.containsKey("rubroEvaluaciones")){
-
-
-          var queryRubro = SQL.select(SQL.rubroEvaluacionProceso)..where((tbl) => tbl.silaboEventoId.equals(silaboEventoId));
-          queryRubro.where((tbl) => tbl.calendarioPeriodoId.equals(calendarioPeriodoId));
-
-          var queryEval = SQL.select(SQL.evaluacionProceso).join([
-            innerJoin(SQL.rubroEvaluacionProceso, SQL.evaluacionProceso.rubroEvalProcesoId.equalsExp(SQL.rubroEvaluacionProceso.rubroEvalProcesoId))
-          ]);
-          queryEval.where(SQL.rubroEvaluacionProceso.silaboEventoId.equals(silaboEventoId));
-          queryEval.where(SQL.rubroEvaluacionProceso.calendarioPeriodoId.equals(calendarioPeriodoId));
-
-          (SQL.delete(SQL.evaluacionProceso)..where((tbl) => tbl.rubroEvalProcesoId.isInQuery(queryRubro))).go();
-          (SQL.delete(SQL.rubroEvaluacionProceso)..where((tbl) => tbl.rubroEvalProcesoId.isInQuery(queryRubro))).go();
-          (SQL.delete(SQL.rubroCampotematico)..where((tbl) => tbl.rubroEvalProcesoId.isInQuery(queryEval))).go();
-          (SQL.delete(SQL.archivoRubro)..where((tbl) => tbl.evaluacionProcesoId.isInQuery(queryEval))).go();
-          (SQL.delete(SQL.rubroCampotematico)..where((tbl) => tbl.rubroEvalProcesoId.isInQuery(queryRubro))).go();
-          (SQL.delete(SQL.rubroEvalRNPFormula)..where((tbl) => tbl.rubroEvaluacionPrimId.isInQuery(queryRubro))).go();
-          (SQL.delete(SQL.equipoEvaluacion)..where((tbl) => tbl.rubroEvalProcesoId.isInQuery(queryRubro))).go();
-          //(SQL.delete(SQL.equipoEvaluacion)..where((tbl) => tbl.rubroEvalProcesoId.isInQuery(queryRubro))).go();
-
-          batch.insertAll(SQL.rubroEvaluacionProceso, SerializableConvert.converListSerializeRubroEvaluacionProceso(crearRubro["rubroEvaluaciones"]), mode: InsertMode.insertOrReplace );
+      if(crearRubro.containsKey("rubroEvaluaciones")){
 
 
 
-        }
+
+        var queryRubro = SQL.selectOnly(SQL.rubroEvaluacionProceso)
+          ..addColumns([SQL.rubroEvaluacionProceso.rubroEvalProcesoId]);
+        queryRubro.where(SQL.rubroEvaluacionProceso.silaboEventoId.equals(silaboEventoId));
+        queryRubro.where(SQL.rubroEvaluacionProceso.calendarioPeriodoId.equals(calendarioPeriodoId));
+
+        var queryEval = SQL.selectOnly(SQL.evaluacionProceso)..addColumns([SQL.evaluacionProceso.evaluacionProcesoId]);
+        queryEval.where(SQL.evaluacionProceso.rubroEvalProcesoId.isInQuery(queryRubro));
+
+        (SQL.delete(SQL.evaluacionProceso)..where((tbl) => tbl.rubroEvalProcesoId.isInQuery(queryRubro))).go();
+        (SQL.delete(SQL.rubroEvaluacionProceso)..where((tbl) => tbl.rubroEvalProcesoId.isInQuery(queryRubro))).go();
+        (SQL.delete(SQL.rubroCampotematico)..where((tbl) => tbl.rubroEvalProcesoId.isInQuery(queryEval))).go();
+        (SQL.delete(SQL.archivoRubro)..where((tbl) => tbl.evaluacionProcesoId.isInQuery(queryEval))).go();
+        (SQL.delete(SQL.rubroCampotematico)..where((tbl) => tbl.rubroEvalProcesoId.isInQuery(queryRubro))).go();
+        (SQL.delete(SQL.rubroEvalRNPFormula)..where((tbl) => tbl.rubroEvaluacionPrimId.isInQuery(queryRubro))).go();
+        //(SQL.delete(SQL.equipoEvaluacion)..where((tbl) => tbl.rubroEvalProcesoId.isInQuery(queryRubro))).go();
+        //(SQL.delete(SQL.equipoEvaluacion)..where((tbl) => tbl.rubroEvalProcesoId.isInQuery(queryRubro))).go();
+
+        batch.insertAll(SQL.rubroEvaluacionProceso, SerializableConvert.converListSerializeRubroEvaluacionProceso(crearRubro["rubroEvaluaciones"]), mode: InsertMode.insertOrReplace );
 
 
-      });
 
-    }catch(e){
-      print("Error: " + e.toString());
-      throw Exception(e);
-    }
+      }
+
+
+    });
   }
 
   @override

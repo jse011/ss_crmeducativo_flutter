@@ -14,7 +14,7 @@ class RubroComentario extends BaseSync{
     TextColumn get evaluacionProcesoId => text().nullable()();
     TextColumn get comentarioId => text().nullable()();
     TextColumn get descripcion => text().nullable()();
-    TextColumn get delete => text().nullable()();
+    IntColumn get delete => integer().nullable()();
 
     @override
     Set<Column> get primaryKey => {evaluacionProcesoComentarioId};

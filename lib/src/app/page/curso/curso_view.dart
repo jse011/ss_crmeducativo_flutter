@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:ss_crmeducativo_2/src/app/page/curso/curso_controller.dart';
 import 'package:ss_crmeducativo_2/src/app/routers.dart';
+import 'package:ss_crmeducativo_2/src/app/utils/app_icon.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_theme.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/hex_color.dart';
 import 'package:ss_crmeducativo_2/src/app/widgets/animation_view.dart';
@@ -75,16 +77,13 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
   }
 
   @override
-  Widget get view =>  Container(
-    color: AppTheme.background,
-    child: Scaffold(
-      backgroundColor: HexColor("#FFFFFF"),
-      body: Stack(
-        children: <Widget>[
-          getMainTab(),
-          getAppBarUI(),
-        ],
-      ),
+  Widget get view =>  Scaffold(
+    backgroundColor:AppTheme.white,
+    body: Stack(
+      children: <Widget>[
+        getMainTab(),
+        getAppBarUI(),
+      ],
     ),
   );
 
@@ -251,17 +250,19 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                                   color: HexColor(controller.cursos?.color1).withOpacity(0.1),
                                                   width: 2
                                               ),
-                                              borderRadius: BorderRadius.all(Radius.circular(22))
+                                              borderRadius: BorderRadius.all(Radius.circular(22)),
                                           ),
                                           child: Row(
                                             children: [
                                               Container(
                                                 margin: EdgeInsets.all(8),
                                                 decoration: BoxDecoration(
-                                                    color: HexColor("#5056F2D0"),
+                                                    color: HexColor("#E3F8FA"),
                                                     borderRadius: BorderRadius.all(Radius.circular(16))
                                                 ),
                                                 width: 65,
+                                                height: 65,
+                                                child: Padding(padding: EdgeInsets.all(10), child: SvgPicture.asset(AppIcon.ic_curso_sesion),),
                                               ),
                                               Padding(padding: EdgeInsets.only(left: 8)),
                                               Expanded(
@@ -269,7 +270,7 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                                     fontFamily: AppTheme.fontTTNorms,
                                                     fontWeight: FontWeight.w800,
                                                     fontSize: 18,
-                                                    letterSpacing: 0.5,
+                                                    letterSpacing: 0.8,
                                                     color: AppTheme.darkerText,
                                                   ),)
                                               ),
@@ -307,10 +308,11 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                             Container(
                                               margin: EdgeInsets.all(8),
                                               decoration: BoxDecoration(
-                                                  color: HexColor("#EDF8FF"),
+                                                  color: HexColor("#FFF8EE"),
                                                   borderRadius: BorderRadius.all(Radius.circular(16))
                                               ),
                                               width: 65,
+                                              child: Padding(padding: EdgeInsets.all(10), child: SvgPicture.asset(AppIcon.ic_curso_tarea),),
                                             ),
                                             Padding(padding: EdgeInsets.only(left: 8)),
                                             Expanded(
@@ -318,7 +320,7 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                                   fontFamily: AppTheme.fontTTNorms,
                                                   fontWeight: FontWeight.w800,
                                                   fontSize: 18,
-                                                  letterSpacing: 0.5,
+                                                  letterSpacing: 0.8,
                                                   color: AppTheme.darkerText,
                                                 ),)
                                             ),
@@ -361,18 +363,19 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                              Container(
                                                margin: EdgeInsets.all(8),
                                                decoration: BoxDecoration(
-                                                   color: HexColor("#FFF8EE"),
+                                                   color: HexColor("#EDF8FF"),
                                                    borderRadius: BorderRadius.all(Radius.circular(16))
                                                ),
                                                width: 65,
+                                               child: Padding(padding: EdgeInsets.all(10), child: SvgPicture.asset(AppIcon.ic_curso_evaluacion),),
                                              ),
                                              Padding(padding: EdgeInsets.only(left: 8)),
                                              Expanded(
-                                                 child: Text("Rubros", style: TextStyle(
+                                                 child: Text("Evaluación", style: TextStyle(
                                                    fontFamily: AppTheme.fontTTNorms,
                                                    fontWeight: FontWeight.w800,
                                                    fontSize: 18,
-                                                   letterSpacing: 0.5,
+                                                   letterSpacing: 0.8,
                                                    color: AppTheme.darkerText,
                                                  ),)
                                              ),
@@ -414,6 +417,7 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                                   borderRadius: BorderRadius.all(Radius.circular(16))
                                               ),
                                               width: 65,
+                                              child: Padding(padding: EdgeInsets.all(10), child: SvgPicture.asset(AppIcon.ic_curso_grupo),),
                                             ),
                                             Padding(padding: EdgeInsets.only(left: 8)),
                                             Expanded(
@@ -421,8 +425,8 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                                   fontFamily: AppTheme.fontTTNorms,
                                                   fontWeight: FontWeight.w800,
                                                   fontSize: 18,
-                                                  letterSpacing: 0.5,
                                                   color: AppTheme.darkerText,
+                                                  letterSpacing: 0.8,
                                                 ),)
                                             ),
                                             Padding(

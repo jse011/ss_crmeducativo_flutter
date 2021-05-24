@@ -5,6 +5,7 @@ import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/agenda_evento
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/agenda_evento/lista_usuario_detalle.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/agenda_evento/relaciones_persona.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/agenda_evento/usuario_evento.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/rubro/archivo_rubro.dart';
 
 class SerializableConvert{
   static EntidadData converSerializeEntidad(Map<String,dynamic> model){
@@ -1331,8 +1332,134 @@ class SerializableConvert{
     }
     return items;
   }
-  
-  
+  static EvaluacionProcesoData converSerializeListaEvaluacionProceso(Map<String,dynamic> model){
+    EvaluacionProcesoSerial serial = EvaluacionProcesoSerial.fromJson(model);
+    return EvaluacionProcesoData(
+        usuarioCreacionId: serial.usuarioCreacionId,
+        fechaCreacion: DateTime.fromMillisecondsSinceEpoch(serial.fechaCreacion??0),
+        usuarioAccionId: serial.usuarioAccionId,
+        fechaAccion: DateTime.fromMillisecondsSinceEpoch(serial.fechaAccion??0),
+        evaluacionProcesoId: serial.evaluacionProcesoId??"",
+        rubroEvalProcesoId: serial.rubroEvalProcesoId??"",
+        nombres: serial.nombres,
+        apellidoPaterno: serial.apellidoPaterno,
+        apellidoMaterno: serial.apellidoMaterno,
+        foto: serial.foto,
+        alumnoId: serial.alumnoId,
+        calendarioPeriodoId: serial.calendarioPeriodoId,
+        equipoId: serial.equipoId,
+        escala: serial.escala,
+        evaluacionResultadoId: serial.evaluacionResultadoId,
+        visto: serial.visto,
+        valorTipoNotaId: serial.valorTipoNotaId,
+        msje: serial.msje,
+        nota: serial.nota,
+        sesionAprendizajeId: serial.sesionAprendizajeId,
+        publicado: serial.publicado,
+
+    );
+  }
+
+  static List<EvaluacionProcesoData> converListSerializeEvaluacionProceso(dynamic model){
+    List<EvaluacionProcesoData> items = [];
+    Iterable l = model;
+    for(var item in l){
+      items.add(converSerializeListaEvaluacionProceso(item));
+    }
+    return items;
+  }
+
+  static RubroComentarioData converSerializeListaRubroComentario(Map<String,dynamic> model){
+    RubroEvaluacionProcesoComentarioSerial serial = RubroEvaluacionProcesoComentarioSerial.fromJson(model);
+    return RubroComentarioData(
+      usuarioCreacionId: serial.usuarioCreacionId,
+      fechaCreacion: DateTime.fromMillisecondsSinceEpoch(serial.fechaCreacion??0),
+      usuarioAccionId: serial.usuarioAccionId,
+      fechaAccion: DateTime.fromMillisecondsSinceEpoch(serial.fechaAccion??0),
+      evaluacionProcesoId: serial.evaluacionProcesoId,
+      comentarioId: serial.comentarioId,
+      descripcion: serial.descripcion,
+      evaluacionProcesoComentarioId: serial.evaluacionProcesoComentarioId??"",
+      delete: serial.delete,
+    );
+  }
+
+  static List<RubroComentarioData> converListSerializeRubroComentario(dynamic model){
+    List<RubroComentarioData> items = [];
+    Iterable l = model;
+    for(var item in l){
+      items.add(converSerializeListaRubroComentario(item));
+    }
+    return items;
+  }
+
+  static ArchivoRubroData converSerializeListaArchivoRubro(Map<String,dynamic> model){
+    ArchivosRubroProcesoSerial serial = ArchivosRubroProcesoSerial.fromJson(model);
+    return ArchivoRubroData(
+      usuarioCreacionId: serial.usuarioCreacionId,
+      fechaCreacion: DateTime.fromMillisecondsSinceEpoch(serial.fechaCreacion??0),
+      usuarioAccionId: serial.usuarioAccionId,
+      fechaAccion: DateTime.fromMillisecondsSinceEpoch(serial.fechaAccion??0),
+      evaluacionProcesoId: serial.evaluacionProcesoId,
+      archivoRubroId: serial.archivoRubroId??"",
+      tipoArchivoId: serial.tipoArchivoId,
+      url: serial.url,
+      delete: serial.delete,
+    );
+  }
+
+  static List<ArchivoRubroData> converListSerializeArchivoRubro(dynamic model){
+    List<ArchivoRubroData> items = [];
+    Iterable l = model;
+    for(var item in l){
+      items.add(converSerializeListaArchivoRubro(item));
+    }
+    return items;
+  }
+
+  static RubroCampotematicoData converSerializeListaRubroCampotematico(Map<String,dynamic> model){
+    RubroEvaluacionProcesoCampotematicoSerial serial = RubroEvaluacionProcesoCampotematicoSerial.fromJson(model);
+    return RubroCampotematicoData(
+      usuarioCreacionId: serial.usuarioCreacionId,
+      fechaCreacion: DateTime.fromMillisecondsSinceEpoch(serial.fechaCreacion??0),
+      usuarioAccionId: serial.usuarioAccionId,
+      fechaAccion: DateTime.fromMillisecondsSinceEpoch(serial.fechaAccion??0),
+      campoTematicoId: serial.campoTematicoId??0,
+      rubroEvalProcesoId: serial.rubroEvalProcesoId??"",
+    );
+  }
+
+  static List<RubroCampotematicoData> converListSerializeRubroCampotematico(dynamic model){
+    List<RubroCampotematicoData> items = [];
+    Iterable l = model;
+    for(var item in l){
+      items.add(converSerializeListaRubroCampotematico(item));
+    }
+    return items;
+  }
+
+  static RubroEvalRNPFormulaData converSerializeListaRubroEvalRNPFormula(Map<String,dynamic> model){
+    RubroEvalRNPFormulaSerial serial = RubroEvalRNPFormulaSerial.fromJson(model);
+    return RubroEvalRNPFormulaData(
+      usuarioCreacionId: serial.usuarioCreacionId,
+      fechaCreacion: DateTime.fromMillisecondsSinceEpoch(serial.fechaCreacion??0),
+      usuarioAccionId: serial.usuarioAccionId,
+      fechaAccion: DateTime.fromMillisecondsSinceEpoch(serial.fechaAccion??0),
+      rubroFormulaId: serial.rubroFormulaId??"",
+      rubroEvaluacionPrimId: serial.rubroEvaluacionPrimId,
+      rubroEvaluacionSecId: serial.rubroEvaluacionSecId,
+      peso: serial.peso
+    );
+  }
+
+  static List<RubroEvalRNPFormulaData> converListSerializeRubroEvalRNPFormula(dynamic model){
+    List<RubroEvalRNPFormulaData> items = [];
+    Iterable l = model;
+    for(var item in l){
+      items.add(converSerializeListaRubroEvalRNPFormula(item));
+    }
+    return items;
+  }
 
 }
 

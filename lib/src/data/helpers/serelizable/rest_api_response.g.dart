@@ -1282,6 +1282,10 @@ EvaluacionProcesoSerial _$EvaluacionProcesoSerialFromJson(
     json['msje'] as int?,
     json['publicado'] as int?,
     json['visto'] as int?,
+    json['nombres'] as String?,
+    json['apellidoPaterno'] as String?,
+    json['apellidoMaterno'] as String?,
+    json['foto'] as String?,
     json['usuarioCreacionId'] as int?,
     json['fechaCreacion'] as int?,
     json['usuarioAccionId'] as int?,
@@ -1307,6 +1311,10 @@ Map<String, dynamic> _$EvaluacionProcesoSerialToJson(
       'msje': instance.msje,
       'publicado': instance.publicado,
       'visto': instance.visto,
+      'nombres': instance.nombres,
+      'apellidoPaterno': instance.apellidoPaterno,
+      'apellidoMaterno': instance.apellidoMaterno,
+      'foto': instance.foto,
       'usuarioCreacionId': instance.usuarioCreacionId,
       'fechaCreacion': instance.fechaCreacion,
       'usuarioAccionId': instance.usuarioAccionId,
@@ -1320,6 +1328,11 @@ RubroEvaluacionProcesoCampotematicoSerial
   return RubroEvaluacionProcesoCampotematicoSerial(
     json['rubroEvalProcesoId'] as String?,
     json['campoTematicoId'] as int?,
+    json['usuarioCreacionId'] as int?,
+    json['fechaCreacion'] as int?,
+    json['usuarioAccionId'] as int?,
+    json['fechaAccion'] as int?,
+    json['key'] as String?,
   );
 }
 
@@ -1328,6 +1341,11 @@ Map<String, dynamic> _$RubroEvaluacionProcesoCampotematicoSerialToJson(
     <String, dynamic>{
       'rubroEvalProcesoId': instance.rubroEvalProcesoId,
       'campoTematicoId': instance.campoTematicoId,
+      'usuarioCreacionId': instance.usuarioCreacionId,
+      'fechaCreacion': instance.fechaCreacion,
+      'usuarioAccionId': instance.usuarioAccionId,
+      'fechaAccion': instance.fechaAccion,
+      'key': instance.key,
     };
 
 RubroEvaluacionProcesoComentarioSerial

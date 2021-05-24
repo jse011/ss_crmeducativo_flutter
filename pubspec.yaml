@@ -88,6 +88,8 @@ flutter:
   assets:
     - assets/lottie/
     - assets/icons/
+    - assets/icons/pack1/
+    - assets/icons/pack2/
     - assets/images/
     - assets/educar/
     - assets/docentementor/

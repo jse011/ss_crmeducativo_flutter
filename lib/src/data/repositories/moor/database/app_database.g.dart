@@ -27948,7 +27948,7 @@ class RubroComentarioData extends DataClass
   final String? evaluacionProcesoId;
   final String? comentarioId;
   final String? descripcion;
-  final String? delete;
+  final int? delete;
   RubroComentarioData(
       {this.syncFlag,
       this.timestampFlag,
@@ -27986,7 +27986,7 @@ class RubroComentarioData extends DataClass
           .mapFromDatabaseResponse(data['${effectivePrefix}comentario_id']),
       descripcion: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}descripcion']),
-      delete: const StringType()
+      delete: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}delete']),
     );
   }
@@ -28023,7 +28023,7 @@ class RubroComentarioData extends DataClass
       map['descripcion'] = Variable<String?>(descripcion);
     }
     if (!nullToAbsent || delete != null) {
-      map['delete'] = Variable<String?>(delete);
+      map['delete'] = Variable<int?>(delete);
     }
     return map;
   }
@@ -28079,7 +28079,7 @@ class RubroComentarioData extends DataClass
           serializer.fromJson<String?>(json['evaluacionProcesoId']),
       comentarioId: serializer.fromJson<String?>(json['comentarioId']),
       descripcion: serializer.fromJson<String?>(json['descripcion']),
-      delete: serializer.fromJson<String?>(json['delete']),
+      delete: serializer.fromJson<int?>(json['delete']),
     );
   }
   @override
@@ -28097,7 +28097,7 @@ class RubroComentarioData extends DataClass
       'evaluacionProcesoId': serializer.toJson<String?>(evaluacionProcesoId),
       'comentarioId': serializer.toJson<String?>(comentarioId),
       'descripcion': serializer.toJson<String?>(descripcion),
-      'delete': serializer.toJson<String?>(delete),
+      'delete': serializer.toJson<int?>(delete),
     };
   }
 
@@ -28112,7 +28112,7 @@ class RubroComentarioData extends DataClass
           String? evaluacionProcesoId,
           String? comentarioId,
           String? descripcion,
-          String? delete}) =>
+          int? delete}) =>
       RubroComentarioData(
         syncFlag: syncFlag ?? this.syncFlag,
         timestampFlag: timestampFlag ?? this.timestampFlag,
@@ -28196,7 +28196,7 @@ class RubroComentarioCompanion extends UpdateCompanion<RubroComentarioData> {
   final Value<String?> evaluacionProcesoId;
   final Value<String?> comentarioId;
   final Value<String?> descripcion;
-  final Value<String?> delete;
+  final Value<int?> delete;
   const RubroComentarioCompanion({
     this.syncFlag = const Value.absent(),
     this.timestampFlag = const Value.absent(),
@@ -28234,7 +28234,7 @@ class RubroComentarioCompanion extends UpdateCompanion<RubroComentarioData> {
     Expression<String?>? evaluacionProcesoId,
     Expression<String?>? comentarioId,
     Expression<String?>? descripcion,
-    Expression<String?>? delete,
+    Expression<int?>? delete,
   }) {
     return RawValuesInsertable({
       if (syncFlag != null) 'sync_flag': syncFlag,
@@ -28264,7 +28264,7 @@ class RubroComentarioCompanion extends UpdateCompanion<RubroComentarioData> {
       Value<String?>? evaluacionProcesoId,
       Value<String?>? comentarioId,
       Value<String?>? descripcion,
-      Value<String?>? delete}) {
+      Value<int?>? delete}) {
     return RubroComentarioCompanion(
       syncFlag: syncFlag ?? this.syncFlag,
       timestampFlag: timestampFlag ?? this.timestampFlag,
@@ -28317,7 +28317,7 @@ class RubroComentarioCompanion extends UpdateCompanion<RubroComentarioData> {
       map['descripcion'] = Variable<String?>(descripcion.value);
     }
     if (delete.present) {
-      map['delete'] = Variable<String?>(delete.value);
+      map['delete'] = Variable<int?>(delete.value);
     }
     return map;
   }
@@ -28471,9 +28471,9 @@ class $RubroComentarioTable extends RubroComentario
 
   final VerificationMeta _deleteMeta = const VerificationMeta('delete');
   @override
-  late final GeneratedTextColumn delete = _constructDelete();
-  GeneratedTextColumn _constructDelete() {
-    return GeneratedTextColumn(
+  late final GeneratedIntColumn delete = _constructDelete();
+  GeneratedIntColumn _constructDelete() {
+    return GeneratedIntColumn(
       'delete',
       $tableName,
       true,

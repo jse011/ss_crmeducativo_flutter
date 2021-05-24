@@ -5,10 +5,12 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:lottie/lottie.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubros/rubro_controller.dart';
 import 'package:ss_crmeducativo_2/src/app/routers.dart';
+import 'package:ss_crmeducativo_2/src/app/utils/app_icon.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_theme.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/hex_color.dart';
 import 'package:ss_crmeducativo_2/src/app/widgets/animation_view.dart';
@@ -157,48 +159,56 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                                       },
                                     )
                                 ),
-                                Center(
-                                  child: Container(
-                                    margin: const EdgeInsets.only(top: 8, bottom: 8, left: 8, right: 32),
-                                    child: topBarOpacity >= 1 ? Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        InkWell(
-                                          onTap: (){
-                                            showDialogButtom(controller);
-                                          },
-                                          child: Text(_getnombreFiltro(controller.origenRubroUi),
-                                              textAlign: TextAlign.left,
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 1,
-                                              style: TextStyle(
-                                                fontFamily: AppTheme.fontTTNorms,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 16 + 6 - 1 * topBarOpacity,
-                                                color: HexColor("#35377A"),
-                                              )
-                                          ),
+                                Container(
+                                  margin: const EdgeInsets.only(top: 8, bottom: 8, left: 8, right: 32),
+                                  child: topBarOpacity >= 1 ? Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      InkWell(
+                                        onTap: (){
+                                          showDialogButtom(controller);
+                                        },
+                                        child: Text(_getnombreFiltro(controller.origenRubroUi),
+                                            textAlign: TextAlign.left,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style: TextStyle(
+                                              fontFamily: AppTheme.fontTTNorms,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 16 + 6 - 1 * topBarOpacity,
+                                              color: HexColor("#35377A"),
+                                            )
                                         ),
-                                        Padding(
-                                          padding: EdgeInsets.only(right: 8),
-                                        ),
-                                        Icon(Icons.keyboard_arrow_down_rounded,
-                                          color: HexColor("#35377A"),
-                                          size: 18 + 4 - 1 * topBarOpacity,)
-                                      ],
-                                    ) :Text(
-                                      'Mis evaluaciones',
-                                      textAlign: TextAlign.center,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        fontFamily: AppTheme.fontTTNormsMedium,
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 20 + 6 - 6 * topBarOpacity,
-                                        letterSpacing: 1.2,
-                                        color: AppTheme.darkerText,
                                       ),
-                                    ),
+                                      Padding(
+                                        padding: EdgeInsets.only(right: 8),
+                                      ),
+                                      Icon(Icons.keyboard_arrow_down_rounded,
+                                        color: HexColor("#35377A"),
+                                        size: 24 + 4 - 1 * topBarOpacity,)
+                                    ],
+                                  ) : Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(AppIcon.ic_curso_evaluacion, height: 35 +  6 - 8 * topBarOpacity, width: 35 +  6 - 8 * topBarOpacity,),
+                                      Padding(
+                                          padding: EdgeInsets.only(left: 12, top: 8),
+                                          child: Text(
+                                            'Evaluación',
+                                            textAlign: TextAlign.center,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontFamily: AppTheme.fontTTNorms,
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 16 + 6 - 6 * topBarOpacity,
+                                              letterSpacing: 0.8,
+                                              color: AppTheme.darkerText,
+                                            ),
+                                          ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 Positioned(
@@ -369,7 +379,7 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                                            style: TextStyle(
                                              fontFamily: AppTheme.fontTTNorms,
                                              fontWeight: FontWeight.w500,
-                                             fontSize: 10 + 6 - 3 * topBarOpacity,
+                                             fontSize: 14 + 6 - 3 * topBarOpacity,
                                              color: HexColor("#35377A"),
                                            )
                                        ),
@@ -379,7 +389,7 @@ class RubroViewState extends ViewState<RubroView, RubroController> with TickerPr
                                       ),
                                       Icon(Icons.keyboard_arrow_down_rounded,
                                         color: HexColor("#35377A"),
-                                        size: 14 + 4 - 4 * topBarOpacity,)
+                                        size: 20 + 4 - 4 * topBarOpacity,)
                                     ],
                                   ),
                                 ),

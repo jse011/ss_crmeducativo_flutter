@@ -324,7 +324,7 @@ class _PortalDocenteViewState extends ViewState<PortalDocenteView, PortalDocente
         padding: const EdgeInsets.only(
             left: 24, right: 24, top: 0, bottom: 24),
         child: Container(
-          height: 130,
+          height: 150,
           decoration: BoxDecoration(
               color:  cursoUi.color1!=null&&cursoUi.color1!.isNotEmpty?
               HexColor(cursoUi.color1):AppTheme.nearlyDarkBlue,
@@ -334,7 +334,7 @@ class _PortalDocenteViewState extends ViewState<PortalDocenteView, PortalDocente
               ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(24)),
                 child: Opacity(
-                  opacity: 0.6,
+                  opacity: 0.4,
                   child: cursoUi.banner!=null?FancyShimmerImage(
                     boxFit: BoxFit.cover,
                     imageUrl: cursoUi.banner??'',
@@ -359,7 +359,7 @@ class _PortalDocenteViewState extends ViewState<PortalDocenteView, PortalDocente
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(cursoUi.nombreCurso??"", maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 18, color: AppTheme.white, fontWeight: FontWeight.w700, fontFamily: AppTheme.fontTTNorms),),
+                                  Text((cursoUi.nombreCurso??""), maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 20, color: AppTheme.white, fontWeight: FontWeight.w700, fontFamily: AppTheme.fontTTNorms),),
                                   Padding(
                                       padding: EdgeInsets.only(top: 4)
                                   ),

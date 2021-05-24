@@ -1240,6 +1240,11 @@ class EvaluacionProcesoSerial {
   int? publicado;
   int? visto;
 
+  String? nombres;
+  String? apellidoPaterno;
+  String? apellidoMaterno;
+  String? foto;
+
   int? usuarioCreacionId;
   int?fechaCreacion;
   int? usuarioAccionId;
@@ -1247,12 +1252,30 @@ class EvaluacionProcesoSerial {
   String? key;
 
 
-  EvaluacionProcesoSerial(this.evaluacionProcesoId, this.evaluacionResultadoId,
-      this.nota, this.escala, this.rubroEvalProcesoId, this.sesionAprendizajeId,
-      this.valorTipoNotaId, this.equipoId, this.alumnoId,
-      this.calendarioPeriodoId, this.formulaSinc, this.msje, this.publicado,
-      this.visto, this.usuarioCreacionId, this.fechaCreacion,
-      this.usuarioAccionId, this.fechaAccion, this.key);
+  EvaluacionProcesoSerial(
+      this.evaluacionProcesoId,
+      this.evaluacionResultadoId,
+      this.nota,
+      this.escala,
+      this.rubroEvalProcesoId,
+      this.sesionAprendizajeId,
+      this.valorTipoNotaId,
+      this.equipoId,
+      this.alumnoId,
+      this.calendarioPeriodoId,
+      this.formulaSinc,
+      this.msje,
+      this.publicado,
+      this.visto,
+      this.nombres,
+      this.apellidoPaterno,
+      this.apellidoMaterno,
+      this.foto,
+      this.usuarioCreacionId,
+      this.fechaCreacion,
+      this.usuarioAccionId,
+      this.fechaAccion,
+      this.key);
 
   factory EvaluacionProcesoSerial.fromJson(Map<String, dynamic> json) => _$EvaluacionProcesoSerialFromJson(json);
 
@@ -1263,8 +1286,21 @@ class RubroEvaluacionProcesoCampotematicoSerial{
   String? rubroEvalProcesoId;
   int? campoTematicoId;
 
+  int? usuarioCreacionId;
+  int?fechaCreacion;
+  int? usuarioAccionId;
+  int?fechaAccion;
+  String? key;
+
+
   RubroEvaluacionProcesoCampotematicoSerial(
-      this.rubroEvalProcesoId, this.campoTematicoId);
+      this.rubroEvalProcesoId,
+      this.campoTematicoId,
+      this.usuarioCreacionId,
+      this.fechaCreacion,
+      this.usuarioAccionId,
+      this.fechaAccion,
+      this.key);
 
   factory RubroEvaluacionProcesoCampotematicoSerial.fromJson(Map<String, dynamic> json) => _$RubroEvaluacionProcesoCampotematicoSerialFromJson(json);
 
