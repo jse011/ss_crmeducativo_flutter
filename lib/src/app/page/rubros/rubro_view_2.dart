@@ -8,6 +8,8 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:lottie/lottie.dart';
+import 'package:ss_crmeducativo_2/libs/sticky-headers-table/example/main.dart';
+import 'package:ss_crmeducativo_2/libs/sticky-headers-table/table_sticky_headers.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubros/rubro_controller.dart';
 import 'package:ss_crmeducativo_2/src/app/routers.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_icon.dart';
@@ -153,9 +155,7 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
               onTap: (index) {
                 setState(() {
                   _seletedItem = index;
-                  _pageController.animateToPage(_seletedItem,
-                      duration: Duration(milliseconds: 200),
-                      curve: Curves.linear);
+                  _pageController.jumpToPage(_seletedItem);
                 });
               },
             ),
@@ -325,8 +325,7 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
 
           return   Row(
             children: [
-              Expanded(child:
-              Container(
+              Expanded(child: Container(
                 padding: EdgeInsets.only(
                     top: AppBar().preferredSize.height +
                         MediaQuery.of(context).padding.top +
@@ -337,7 +336,7 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
                 child:  PageView(
                   //scrollDirection: Axis.vertical,
                   children: [
-                    Stack(
+                    progress(Stack(
                       children: [
                         CustomScrollView(
                           controller: scrollController,
@@ -647,8 +646,8 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
                           ),
                         )
                       ],
-                    ),
-                    CustomScrollView(
+                    )),
+                    progress(CustomScrollView(
                       controller: scrollController,
                       slivers: [
                         SliverList(
@@ -671,7 +670,25 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
                                     children: [
                                       Padding(
                                         padding: EdgeInsets.only(top: 24, right: 24, left: 24),
-                                        child: Text("U3: ESPERANZA EN MEDIO DEL CAOS", style: TextStyle(color: AppTheme.white, fontSize: 16),),
+                                        child: Row(
+                                          children: [
+                                            Expanded(child: Text("U3: ESPERANZA EN MEDIO DEL CAOS", style: TextStyle(color: AppTheme.white, fontSize: 16),)),
+                                            ClipOval(
+                                              child: Material(
+                                                color: HexColor(controller.cursosUi.color3), // button color
+                                                child: InkWell(
+                                                  splashColor: HexColor(controller.cursosUi.color3).withOpacity(0.5), // inkwell color
+                                                  child: SizedBox(width: 43 , height: 43,
+                                                    child: Icon(Ionicons.chevron_down, size: 24 ,color: AppTheme.white, ),
+                                                  ),
+                                                  onTap: () {
+                                                    controller.onSyncronizarCurso();
+                                                  },
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                       Container(
                                         padding: EdgeInsets.only(top: 16, bottom: 16, left: 16, right: 16),
@@ -694,13 +711,13 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
                                               children: <Widget>[
                                                 for(int i = 0; i <= 5; i++)
                                                   Container(
-                                                  height: 100,
-                                                  width: 100,
-                                                  decoration: BoxDecoration(
-                                                      color: AppTheme.white,
-                                                      borderRadius: BorderRadius.all(Radius.circular(8))
+                                                    height: 100,
+                                                    width: 100,
+                                                    decoration: BoxDecoration(
+                                                        color: AppTheme.white,
+                                                        borderRadius: BorderRadius.all(Radius.circular(8))
+                                                    ),
                                                   ),
-                                                ),
                                               ],
                                             ),
                                           ),
@@ -769,8 +786,8 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
                             )
                         ),
                       ],
-                    ),
-                    Container()
+                    )),
+          progress(showTableTipoNota(controller))
                   ],
                   onPageChanged: (index) {
                     setState(() {
@@ -934,34 +951,35 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
         return AppTheme.background;
     }
   }
+  ScrollControllers _scrollControllers = ScrollControllers();
+  Widget showTableTipoNota(RubroController controller) {
+    return StickyHeadersTable(
+      scrollControllers: _scrollControllers,
+      columnsLength: LandingPage.makeTitleColumn().length,
+      rowsLength: LandingPage.makeTitleRow().length,
+      columnsTitleBuilder: (i) => Text(LandingPage.makeTitleColumn()[i]),
+      rowsTitleBuilder: (i) => Text(LandingPage.makeTitleRow()[i]),
+      contentCellBuilder: (i, j) => Text(LandingPage.makeData()[i][j]),
+      legendCell: Text('Sticky Legend'),
+    );
+  }
 
+  Widget progress(Widget widget){
+    return FutureBuilder<bool>(
+        future: getData(),
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+          if (!snapshot.hasData) {
+            return SizedBox();
+          } else {
+            return widget;
+          }
+
+        });
+  }
+
+  Future<bool> getData() async {
+    await Future<dynamic>.delayed(const Duration(milliseconds: 1000));
+    return true;
+  }
 }
 
-class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-  _SliverAppBarDelegate({
-    required this.minHeight,
-    required this.maxHeight,
-    required this.child,
-  });
-  final double minHeight;
-  final double maxHeight;
-  final Widget child;
-  @override
-  double get minExtent => minHeight;
-  @override
-  double get maxExtent => math.max(maxHeight, minHeight);
-  @override
-  Widget build(
-      BuildContext context,
-      double shrinkOffset,
-      bool overlapsContent)
-  {
-    return new SizedBox.expand(child: child);
-  }
-  @override
-  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
-    return maxHeight != oldDelegate.maxHeight ||
-        minHeight != oldDelegate.minHeight ||
-        child != oldDelegate.child;
-  }
-}
