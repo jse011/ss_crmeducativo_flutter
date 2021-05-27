@@ -7,6 +7,7 @@ import 'package:ss_crmeducativo_2/src/app/page/login/login_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubro_crear/rubro_crear_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubros/rubro_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubros/rubro_view_2.dart';
+import 'package:ss_crmeducativo_2/src/app/page/tarea/tarea_view.dart';
 import 'package:ss_crmeducativo_2/src/app/widgets/wrap_widget_demo.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/calendario_periodio_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
@@ -20,6 +21,7 @@ class AppRouter {
   static final String CURSO = '/Curso';
   static final String RUBRO = 'Curso/Rubro';
   static final String SESION = 'Curso/Sesion';
+  static final String TAREA = 'Curso/Tarea';
   static final String RUBROCREAR = 'Curso/RubroCrear';
 
   static Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
@@ -58,6 +60,13 @@ class AppRouter {
             calendarioPeriodoUI  = arguments['calendarioPeriodoUI'];
           }
           return RubroCrearView(cursosUi, calendarioPeriodoUI, rubroUi);
+        },
+      );
+    }else if(settings.name == TAREA){
+      final CursosUi cursosUi = settings.arguments as CursosUi;
+      return MaterialPageRoute(
+        builder: (context) {
+          return TareaView(cursosUi);
         },
       );
     }
@@ -122,6 +131,13 @@ class AppRouter {
     Future.delayed(const Duration(milliseconds: 300), () {
       Navigator.pop(context, respuestaCrearRubro);
     });
+  }
+
+  static createRouteTareaRouter(BuildContext context, CursosUi cursosUi) {
+    Navigator.pushNamed(context,
+        TAREA,
+        arguments: cursosUi
+    );
   }
 
 

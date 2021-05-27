@@ -367,56 +367,63 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                           ),
                                         ),
                                       ),
-                                      Container(
-                                        height: 90,
-                                        margin: EdgeInsets.only(top: 0,left: 24, right: 24, bottom: 20),
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color:  HexColor(controller.cursos?.color1).withOpacity(0.1),
-                                                width: 2
-                                            ),
-                                            borderRadius: BorderRadius.all(Radius.circular(22))
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            Container(
-                                              margin: EdgeInsets.all(8),
-                                              decoration: BoxDecoration(
-                                                  color: HexColor("#FFF8EE"),
-                                                  borderRadius: BorderRadius.all(Radius.circular(16))
+                                      GestureDetector(
+                                        onTap: () => {
+                                          if(context!=null && controller.cursos != null){
+                                            AppRouter.createRouteTareaRouter(context, controller.cursos!)
+                                          }
+                                        },
+                                        child:  Container(
+                                          height: 90,
+                                          margin: EdgeInsets.only(top: 0,left: 24, right: 24, bottom: 20),
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color:  HexColor(controller.cursos?.color1).withOpacity(0.1),
+                                                  width: 2
                                               ),
-                                              width: 65,
-                                              child: Padding(padding: EdgeInsets.all(10), child: SvgPicture.asset(AppIcon.ic_curso_tarea),),
-                                            ),
-                                            Padding(padding: EdgeInsets.only(left: 8)),
-                                            Expanded(
-                                                child: Text("Tareas", style: TextStyle(
-                                                  fontFamily: AppTheme.fontTTNorms,
-                                                  fontWeight: FontWeight.w800,
-                                                  fontSize: 18,
-                                                  letterSpacing: 0.8,
-                                                  color: AppTheme.darkerText,
-                                                ),)
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.only(left: 8, right: 28),
-                                              child: ClipOval(
-                                                child: Material(
-                                                  color: HexColor(controller.cursos?.color1), // button color
-                                                  child: InkWell(
-                                                    splashColor: HexColor(controller.cursos?.color3), // inkwell color
-                                                    child: SizedBox(width: 42, height: 42,
-                                                        child: Padding(
-                                                          padding: EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 12),
-                                                          child: SvgPicture.asset(AppIcon.ic_curso_flecha, color: AppTheme.white,),
-                                                        )),
-                                                    onTap: () {},
+                                              borderRadius: BorderRadius.all(Radius.circular(22))
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                margin: EdgeInsets.all(8),
+                                                decoration: BoxDecoration(
+                                                    color: HexColor("#FFF8EE"),
+                                                    borderRadius: BorderRadius.all(Radius.circular(16))
+                                                ),
+                                                width: 65,
+                                                child: Padding(padding: EdgeInsets.all(10), child: SvgPicture.asset(AppIcon.ic_curso_tarea),),
+                                              ),
+                                              Padding(padding: EdgeInsets.only(left: 8)),
+                                              Expanded(
+                                                  child: Text("Tareas", style: TextStyle(
+                                                    fontFamily: AppTheme.fontTTNorms,
+                                                    fontWeight: FontWeight.w800,
+                                                    fontSize: 18,
+                                                    letterSpacing: 0.8,
+                                                    color: AppTheme.darkerText,
+                                                  ),)
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.only(left: 8, right: 28),
+                                                child: ClipOval(
+                                                  child: Material(
+                                                    color: HexColor(controller.cursos?.color1), // button color
+                                                    child: InkWell(
+                                                      splashColor: HexColor(controller.cursos?.color3), // inkwell color
+                                                      child: SizedBox(width: 42, height: 42,
+                                                          child: Padding(
+                                                            padding: EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 12),
+                                                            child: SvgPicture.asset(AppIcon.ic_curso_flecha, color: AppTheme.white,),
+                                                          )),
+                                                      onTap: () {},
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
 
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
                                       GestureDetector(
