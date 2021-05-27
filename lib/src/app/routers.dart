@@ -6,6 +6,7 @@ import 'package:ss_crmeducativo_2/src/app/page/home/home_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/login/login_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubro_crear/rubro_crear_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubros/rubro_view.dart';
+import 'package:ss_crmeducativo_2/src/app/page/rubros/rubro_view_2.dart';
 import 'package:ss_crmeducativo_2/src/app/widgets/wrap_widget_demo.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/calendario_periodio_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
@@ -40,7 +41,7 @@ class AppRouter {
       final CursosUi cursosUi = settings.arguments as CursosUi;
       return MaterialPageRoute(
         builder: (context) {
-          return RubroView(cursosUi);
+          return RubroView2(cursosUi);
         },
       );
     }else if(settings.name == RUBROCREAR){

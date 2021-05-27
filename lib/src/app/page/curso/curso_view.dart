@@ -1,5 +1,6 @@
 
 import 'package:flutter/animation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
@@ -235,7 +236,77 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                             color: HexColor(controller.cursos?.color1),
                                             borderRadius: BorderRadius.all(Radius.circular(28))
                                         ),
+                                        child: Stack(
+                                              children: [
+                                                Positioned(
+                                                  right: 16,
+                                                  top: 0,
+                                                  bottom: 0,
+                                                  child: Opacity(
+                                                    opacity: 0.9,
+                                                    child: SvgPicture.asset(AppIcon.ic_curso_exam, width: 150, height: 150,),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  padding: EdgeInsets.only(right: 150),
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Padding(
+                                                        padding: EdgeInsets.only(top: 20, left: 20),
+                                                        child:  Material(
+                                                          color: HexColor(controller.cursos?.color3),
+                                                          borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                                                          child: InkWell(
+                                                            focusColor: Colors.transparent,
+                                                            highlightColor: Colors.transparent,
+                                                            hoverColor: Colors.transparent,
+                                                            borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                                                            splashColor: AppTheme.colorPrimary.withOpacity(0.4),
+                                                            onTap: () {
 
+                                                            },
+                                                            child:
+                                                            Container(
+                                                                padding: const EdgeInsets.only(top: 4, left: 10, bottom: 8, right: 10),
+                                                                child: Text("Nuevo",
+                                                                  style: TextStyle(
+                                                                    fontSize: 12,
+                                                                    letterSpacing: 0.8,
+                                                                    color: AppTheme.white,
+                                                                    fontWeight: FontWeight.w600,
+                                                                    fontFamily: AppTheme.fontName,
+                                                                  ),)
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                          child:  Container(
+                                                            padding: EdgeInsets.only(left: 24, top: 16),
+                                                            child: Text("Registro\nde Evaluación\npor competencias",
+                                                              maxLines: 3,
+                                                              style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w700 ),),
+                                                          )
+                                                      ),
+                                                      Container(
+                                                        padding: EdgeInsets.only(left: 24, bottom: 20),
+                                                        child: Row(
+                                                          children: [
+                                                            Text("Haga clic y experimente ", style: TextStyle(color: Colors.white, fontSize: 12)),
+                                                            Padding(
+                                                                padding: EdgeInsets.all(2)
+                                                            ),
+                                                            SvgPicture.asset(AppIcon.ic_curso_flecha, color: AppTheme.white, width: 18, height: 18,)
+                                                          ],
+                                                        ) ,
+                                                      )
+
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                        ),
                                       ),
                                       Padding(padding: EdgeInsets.only( top: 24)),
                                       GestureDetector(
@@ -282,7 +353,10 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                                     child: InkWell(
                                                       splashColor: HexColor(controller.cursos?.color3), // inkwell color
                                                       child: SizedBox(width: 42, height: 42,
-                                                          child: Icon(Ionicons.return_down_forward_outline, size: 24,color: Colors.white,)),
+                                                          child: Padding(
+                                                          padding: EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 12),
+                                                          child: SvgPicture.asset(AppIcon.ic_curso_flecha, color: AppTheme.white,),
+                                                        )),
                                                       onTap: () {},
                                                     ),
                                                   ),
@@ -332,7 +406,10 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                                   child: InkWell(
                                                     splashColor: HexColor(controller.cursos?.color3), // inkwell color
                                                     child: SizedBox(width: 42, height: 42,
-                                                        child: Icon(Ionicons.return_down_forward_outline, size: 24,color: Colors.white,)),
+                                                        child: Padding(
+                                                          padding: EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 12),
+                                                          child: SvgPicture.asset(AppIcon.ic_curso_flecha, color: AppTheme.white,),
+                                                        )),
                                                     onTap: () {},
                                                   ),
                                                 ),
@@ -387,7 +464,10 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                                    child: InkWell(
                                                      splashColor: HexColor(controller.cursos?.color3), // inkwell color
                                                      child: SizedBox(width: 42, height: 42,
-                                                         child: Icon(Ionicons.return_down_forward_outline, size: 24,color: Colors.white,)),
+                                                         child: Padding(
+                                                          padding: EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 12),
+                                                          child: SvgPicture.asset(AppIcon.ic_curso_flecha, color: AppTheme.white,),
+                                                        )),
                                                      onTap: () {},
                                                    ),
                                                  ),
@@ -437,7 +517,63 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                                   child: InkWell(
                                                     splashColor: HexColor(controller.cursos?.color3), // inkwell color
                                                     child: SizedBox(width: 42, height: 42,
-                                                        child: Icon(Ionicons.return_down_forward_outline, size: 24,color: Colors.white,)),
+                                                        child: Padding(
+                                                          padding: EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 12),
+                                                          child: SvgPicture.asset(AppIcon.ic_curso_flecha, color: AppTheme.white,),
+                                                        )),
+                                                    onTap: () {},
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        height: 90,
+                                        margin: EdgeInsets.only(top: 0,left: 24, right: 24, bottom: 20),
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: HexColor(controller.cursos?.color1).withOpacity(0.1),
+                                                width: 2
+                                            ),
+                                            borderRadius: BorderRadius.all(Radius.circular(22))
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              margin: EdgeInsets.all(8),
+                                              decoration: BoxDecoration(
+                                                  color: HexColor("#FFECFA"),
+                                                  borderRadius: BorderRadius.all(Radius.circular(16))
+                                              ),
+                                              width: 65,
+                                              child: Padding(padding: EdgeInsets.all(10), child: SvgPicture.asset(AppIcon.ic_curso_grupo),),
+                                            ),
+                                            Padding(padding: EdgeInsets.only(left: 8)),
+                                            Expanded(
+                                                child: Text("Nota final", style: TextStyle(
+                                                  fontFamily: AppTheme.fontTTNorms,
+                                                  fontWeight: FontWeight.w800,
+                                                  fontSize: 18,
+                                                  color: AppTheme.darkerText,
+                                                  letterSpacing: 0.8,
+                                                ),)
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.only(left: 16, right: 28),
+                                              child: ClipOval(
+                                                child: Material(
+                                                  color: HexColor(controller.cursos?.color1), // button color
+                                                  child: InkWell(
+                                                    splashColor: HexColor(controller.cursos?.color3), // inkwell color
+                                                    child: SizedBox(width: 42, height: 42,
+                                                        child: Padding(
+                                                          padding: EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 12),
+                                                          child: SvgPicture.asset(AppIcon.ic_curso_flecha, color: AppTheme.white,),
+                                                        )
+                                                    ),
                                                     onTap: () {},
                                                   ),
                                                 ),

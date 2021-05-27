@@ -7,7 +7,13 @@ class AppIcon {
   static const String ic_curso_tarea = "assets/icons/pack1/001-backpack.svg";
   static const String ic_curso_evaluacion = "assets/icons/pack1/016-notebook.svg";
   static const String ic_curso_grupo = "assets/icons/pack1/006-whistle.svg";
-  //
+  //static const String ic_curso_exam = "assets/icons/ic_documento.svg";
+  //https://www.flaticon.es/packs/project-management-50
+  //https://www.flaticon.es/packs/smartphone-technology-6
+  //static const String ic_curso_exam = "assets/icons/ic_presupuesto.svg";
+  static const String ic_curso_exam = "assets/icons/ic_portapapeles_2.svg";
+  static const String ic_curso_flecha = "assets/icons/ic_flecha_correcta.svg";
+
 
   static const String ic_evaluar = "assets/icons/ic_evaluar.svg";
   static const String ic_velocimetro = "assets/icons/ic_velocimetro.svg";
