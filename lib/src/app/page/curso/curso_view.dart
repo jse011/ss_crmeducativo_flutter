@@ -311,7 +311,7 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                       Padding(padding: EdgeInsets.only( top: 24)),
                                       GestureDetector(
                                         onTap: () =>  {
-                                          AppRouter.createRouteSesionRouter(context!)
+                                          AppRouter.createRouteSesionListaRouter(context!, controller.cursos!)
                                         },
                                         child: Container(
                                           height: 90,

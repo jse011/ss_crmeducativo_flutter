@@ -7,6 +7,8 @@ import 'package:ss_crmeducativo_2/src/app/page/login/login_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubro_crear/rubro_crear_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubros/rubro_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubros/rubro_view_2.dart';
+import 'package:ss_crmeducativo_2/src/app/page/sesiones/lista/sesion_lista_view.dart';
+import 'package:ss_crmeducativo_2/src/app/page/sesiones/portal/sesion_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/tarea/tarea_view.dart';
 import 'package:ss_crmeducativo_2/src/app/widgets/wrap_widget_demo.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/calendario_periodio_ui.dart';
@@ -20,7 +22,8 @@ class AppRouter {
   static final String LOGIN = '/login';
   static final String CURSO = '/Curso';
   static final String RUBRO = 'Curso/Rubro';
-  static final String SESION = 'Curso/Sesion';
+  static final String SESION_LISTA = 'Curso/Sesion';
+  static final String SESION_PORTAL = 'Curso/Sesion/Portal';
   static final String TAREA = 'Curso/Tarea';
   static final String RUBROCREAR = 'Curso/RubroCrear';
 
@@ -28,7 +31,6 @@ class AppRouter {
     LOGIN: (BuildContext context) => LoginView(),
     HOME: (BuildContext context) => HomeView(),
     //CURSO:(BuildContext context) => CursoView(),
-    SESION: (BuildContext context) => LandingPage(),
   };
 
   static dynamic? generateRoute(RouteSettings settings) {
@@ -67,6 +69,20 @@ class AppRouter {
       return MaterialPageRoute(
         builder: (context) {
           return TareaView(cursosUi);
+        },
+      );
+    }else if(settings.name == SESION_LISTA){
+      final CursosUi cursosUi = settings.arguments as CursosUi;
+      return MaterialPageRoute(
+        builder: (context) {
+          return SesionListaView(cursosUi);
+        },
+      );
+    }else if(settings.name == SESION_PORTAL){
+      final CursosUi cursosUi = settings.arguments as CursosUi;
+      return MaterialPageRoute(
+        builder: (context) {
+          return SesionView(cursosUi);
         },
       );
     }
@@ -110,9 +126,16 @@ class AppRouter {
         arguments: cursosUi
     );
   }
-  static void createRouteSesionRouter(BuildContext context) {
+  static void createRouteSesionListaRouter(BuildContext context, CursosUi cursosUi) {
     Navigator.pushNamed(context,
-        SESION,
+        SESION_LISTA,
+        arguments: cursosUi
+    );
+  }
+  static void createRouteSesionPortalRouter(BuildContext context, CursosUi cursosUi) {
+    Navigator.pushNamed(context,
+        SESION_PORTAL,
+        arguments: cursosUi
     );
   }
   static Future<RespuestaCrearRubro?> createRouteRubroCrearRouter(BuildContext context, CursosUi? cursosUi,CalendarioPeriodoUI? calendarioPeriodoUI, RubricaEvaluacionUi? rubroUi) async{

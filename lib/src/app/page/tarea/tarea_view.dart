@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:ss_crmeducativo_2/libs/fdottedline/fdottedline.dart';
 import 'package:ss_crmeducativo_2/src/app/page/tarea/tarea_controller.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_icon.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_theme.dart';
@@ -122,12 +123,12 @@ class _TareaViewState extends ViewState<TareaView, TareaController> with TickerP
                   // ignore: deprecated_member_use
                     icon: Container(),
                     // ignore: deprecated_member_use
-                    title: Text('General')),
+                    title: Text('Sesión')),
                 BottomNavigationBarItem(
                   // ignore: deprecated_member_use
                     icon: Container(),
                     // ignore: deprecated_member_use
-                    title: Text('Sesión'))
+                    title: Text('Unidad'))
               ],
               currentIndex: _seletedItem,
               onTap: (index) {
@@ -204,7 +205,7 @@ class _TareaViewState extends ViewState<TareaView, TareaController> with TickerP
                                       Padding(
                                         padding: EdgeInsets.only(left: 12, top: 8),
                                         child: Text(
-                                          'Tarea',
+                                          'Trabajo',
                                           textAlign: TextAlign.center,
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
@@ -281,8 +282,8 @@ class _TareaViewState extends ViewState<TareaView, TareaController> with TickerP
                 child:  PageView(
                   //scrollDirection: Axis.vertical,
                   children: [
-                    progress(tabTareaGeneral(controller, countTareaRow)),
-                    progress(tabSesionGeneral(controller)),
+                    progress(tabTareaSesion(controller)),
+                    progress(tabTareaGeneral2(controller, countTareaRow)),
                   ],
                   onPageChanged: (index) {
                     setState(() {
@@ -649,7 +650,7 @@ class _TareaViewState extends ViewState<TareaView, TareaController> with TickerP
     );
   }
 
-  Widget tabSesionGeneral(TareaController controller) {
+  Widget tabTareaGeneral2(TareaController controller, int countRow) {
     return Padding(
       padding: EdgeInsets.only(left: 24, right: 48),
       child: Stack(
@@ -661,24 +662,8 @@ class _TareaViewState extends ViewState<TareaView, TareaController> with TickerP
                   delegate: SliverChildListDelegate(
                     [
                       Padding(
-                        padding: EdgeInsets.only( top: 48),
-                        child: Text("U1: Iniciamos el año escolar cuidando el agua",
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w800,
-                              fontFamily: AppTheme.fontTTNorms
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-              ),
-              SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      Padding(
-                        padding: EdgeInsets.only( top: 8, bottom: 16, ),
-                        child: Text("- S1: Escribimos frases y oraciones",
+                        padding: EdgeInsets.only( top: 48, bottom: 16),
+                        child: Text("U2: Iniciamos el año escolar cuidando el agua",
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w800,
@@ -690,129 +675,11 @@ class _TareaViewState extends ViewState<TareaView, TareaController> with TickerP
                   )
               ),
               SliverPadding(
-                  padding: EdgeInsets.only(left: 16, bottom: 8),
-                  sliver: SliverGrid(
-                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                      //crossAxisCount: countRow,
-                      maxCrossAxisExtent: 400.0,
-                      mainAxisExtent: 150.0,
-                      mainAxisSpacing: 24.0,
-                      crossAxisSpacing: 24.0,
-                      childAspectRatio: 1,
-                    ),
-                    delegate: SliverChildBuilderDelegate(
-                            (BuildContext context, int index){
-                          return Container(
-                            decoration: BoxDecoration(
-                                color: HexColor(controller.cursosUi.color3??"#FEFAE2").withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(14) // use instead of BorderRadius.all(Radius.circular(20))
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                          color: HexColor(controller.cursosUi.color1),
-                                          borderRadius: BorderRadius.only(topLeft: Radius.circular(14))
-                                      ),
-                                      child: Icon(Icons.assignment, color: AppTheme.white,),
-                                    ),
-                                    Expanded(
-                                        child: Container(
-                                          padding: EdgeInsets.only(left: 8),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text("Tarea ${index+1}", style: TextStyle(color: AppTheme.black, fontWeight: FontWeight.w500),),
-                                              Padding(padding: EdgeInsets.all(2)),
-                                              Text("Lun 24 de May. 22:00", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12, color: AppTheme.greyDarken2),),
-                                            ],
-                                          ),
-                                        )
-                                    ),
-                                    Material(
-                                      color: Colors.transparent,
-                                      borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                                      child: InkWell(
-                                        focusColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                                        splashColor: HexColor(controller.cursosUi.color1).withOpacity(0.4),
-                                        onTap: () {
-
-                                        },
-                                        child:
-                                        Container(
-                                            padding: const EdgeInsets.only(top: 10, left: 8, bottom: 8, right: 8),
-                                            child: Row(
-                                              children: [
-                                                Text("SIN PUBLICAR",
-                                                  style: TextStyle(
-                                                    fontSize: 12,
-                                                    color: HexColor(controller.cursosUi.color1),
-                                                    fontWeight: FontWeight.w600,
-                                                    fontFamily: AppTheme.fontName,
-                                                  ),),
-                                              ],
-                                            )
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.only(right: 8),
-                                      child: Icon(Icons.more_vert_outlined, color: AppTheme.greyDarken1,),
-                                    )
-                                  ],
-                                ),
-                                Divider(
-                                  height: 1,
-                                  color: HexColor(controller.cursosUi.color1),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(left: 16, right: 16, top: 12, bottom: 8),
-                                  child: Text("APRENDEMOS ADIVINANZAS", style: TextStyle(color: AppTheme.black, fontSize: 14),),
-                                ),
-                                Expanded(
-                                    child:  Padding(
-                                      padding: EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 8),
-                                      child: Text("Graba un video repitiendo una de las adivinanzas que están en tu cuaderno.", maxLines: 3, overflow: TextOverflow.ellipsis ,style: TextStyle(color: AppTheme.greyDarken2),),
-                                    )
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                        childCount: 2
-                    ),
-                  ),
-              ),
-              SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      Padding(
-                        padding: EdgeInsets.only( top: 8, bottom: 16, ),
-                        child: Text("- S2: Aprendemos adivinanzas",
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w800,
-                              fontFamily: AppTheme.fontTTNorms
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-              ),
-              SliverPadding(
-                padding: EdgeInsets.only(left: 16),
+                padding: EdgeInsets.only(left: 8),
                 sliver: SliverGrid(
                   gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                     //crossAxisCount: countRow,
-                    maxCrossAxisExtent: 400.0,
+                    maxCrossAxisExtent: 150.0,
                     mainAxisExtent: 150.0,
                     mainAxisSpacing: 24.0,
                     crossAxisSpacing: 24.0,
@@ -820,92 +687,72 @@ class _TareaViewState extends ViewState<TareaView, TareaController> with TickerP
                   ),
                   delegate: SliverChildBuilderDelegate(
                           (BuildContext context, int index){
-                        return Container(
-                          decoration: BoxDecoration(
-                              color: HexColor(controller.cursosUi.color3??"#FEFAE2").withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(14) // use instead of BorderRadius.all(Radius.circular(20))
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                        color: HexColor(controller.cursosUi.color1),
-                                        borderRadius: BorderRadius.only(topLeft: Radius.circular(14))
-                                    ),
-                                    child: Icon(Icons.assignment, color: AppTheme.white,),
-                                  ),
-                                  Expanded(
-                                      child: Container(
-                                        padding: EdgeInsets.only(left: 8),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text("Tarea ${index+1}", style: TextStyle(color: AppTheme.black, fontWeight: FontWeight.w500),),
-                                            Padding(padding: EdgeInsets.all(2)),
-                                            Text("Lun 24 de May. 22:00", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12, color: AppTheme.greyDarken2),),
-                                          ],
-                                        ),
-                                      )
-                                  ),
-                                  Material(
-                                    color: Colors.transparent,
-                                    borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                                    child: InkWell(
-                                      focusColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                                      splashColor: HexColor(controller.cursosUi.color1).withOpacity(0.4),
-                                      onTap: () {
+                            if(index == 0){
+                              return Container(
+                                padding: EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: HexColor(controller.cursosUi.color2),
+                                  borderRadius: BorderRadius.circular(14), // use instead of BorderRadius.all(Radius.circular(20))
+                                ),
+                                child: FDottedLine(
+                                  color: AppTheme.white,
+                                  strokeWidth: 3.0,
+                                  dottedLength: 10.0,
+                                  space: 3.0,
+                                  corner: FDottedLineCorner.all(14.0),
 
-                                      },
-                                      child:
-                                      Container(
-                                          padding: const EdgeInsets.only(top: 10, left: 8, bottom: 8, right: 8),
-                                          child: Row(
-                                            children: [
-                                              Text("SIN PUBLICAR",
-                                                style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: HexColor(controller.cursosUi.color1),
-                                                  fontWeight: FontWeight.w600,
-                                                  fontFamily: AppTheme.fontName,
-                                                ),),
-                                            ],
-                                          )
+                                  /// add widget
+                                  child: Container(
+                                    color: HexColor(controller.cursosUi.color2),
+                                    alignment: Alignment.center,
+                                    child: Icon(Ionicons.add, color: AppTheme.white, size: 45,),
+                                  ),
+                                ),
+                              );
+                            }else{
+                              return Container(
+                                decoration: BoxDecoration(
+                                    color: HexColor(controller.cursosUi.color3??"#FEFAE2").withOpacity(0.1),
+                                    borderRadius: BorderRadius.circular(14) // use instead of BorderRadius.all(Radius.circular(20))
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 12, right: 16, top: 16, bottom: 0),
+                                      child: Row(
+                                        children: [
+                                          Icon(Icons.assignment, color: HexColor(controller.cursosUi.color1), size: 18,),
+                                          Padding(padding: EdgeInsets.all(2)),
+                                          Text("Tarea ${index+1}", style: TextStyle(color: HexColor(controller.cursosUi.color1), fontSize: 12),),
+                                        ],
                                       ),
                                     ),
-                                  ),
-                                  Container(
-                                    padding: EdgeInsets.only(right: 8),
-                                    child: Icon(Icons.more_vert_outlined, color: AppTheme.greyDarken1,),
-                                  )
-                                ],
-                              ),
-                              Divider(
-                                height: 1,
-                                color: HexColor(controller.cursosUi.color1),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 16, right: 16, top: 12, bottom: 8),
-                                child: Text("APRENDEMOS ADIVINANZAS", style: TextStyle(color: AppTheme.black, fontSize: 14),),
-                              ),
-                              Expanded(
-                                  child:  Padding(
-                                    padding: EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 8),
-                                    child: Text("Graba un video repitiendo una de las adivinanzas que están en tu cuaderno.", maxLines: 3, overflow: TextOverflow.ellipsis ,style: TextStyle(color: AppTheme.greyDarken2),),
-                                  )
-                              ),
-                            ],
-                          ),
-                        );
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 0),
+                                      child: Text("APRENDEMOS ADIVINANZAS", style: TextStyle(color: AppTheme.black, fontSize: 12),),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 0),
+                                      child: Text("Pare el Dom 11 de Abr. 09:11 p. m.", style: TextStyle(fontSize: 10),),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 8),
+                                      child: Row(
+                                        children: [
+                                          Expanded(child: Text("Sin Publicar", style: TextStyle(color: AppTheme.colorPrimary, fontSize: 12),),),
+                                          Text("0/15", style: TextStyle(color: AppTheme.colorPrimary, fontSize: 12),),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+
                       },
-                      childCount: 2
+                      childCount: 1
                   ),
                 ),
               ),
@@ -914,7 +761,7 @@ class _TareaViewState extends ViewState<TareaView, TareaController> with TickerP
                     [
                       Padding(
                         padding: EdgeInsets.only( top: 32, bottom: 16),
-                        child: Text("U3: ESPERANZA EN MEDIO DEL CAOS",
+                        child: Text("U1: ESPERANZA EN MEDIO DEL CAOS",
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w800,
@@ -924,103 +771,85 @@ class _TareaViewState extends ViewState<TareaView, TareaController> with TickerP
                     ],
                   )
               ),
-              SliverGrid(
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  //crossAxisCount: countRow,
-                  maxCrossAxisExtent: 400.0,
-                  mainAxisExtent: 150.0,
-                  mainAxisSpacing: 24.0,
-                  crossAxisSpacing: 24.0,
-                  childAspectRatio: 1,
-                ),
-                delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index){
-                      return Container(
-                        decoration: BoxDecoration(
-                            color: HexColor(controller.cursosUi.color3??"#FEFAE2").withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(14) // use instead of BorderRadius.all(Radius.circular(20))
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                      color: HexColor(controller.cursosUi.color1),
-                                      borderRadius: BorderRadius.only(topLeft: Radius.circular(14))
-                                  ),
-                                  child: Icon(Icons.assignment, color: AppTheme.white,),
+              SliverPadding(
+                padding: EdgeInsets.only(left: 8),
+                sliver: SliverGrid(
+                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                    //crossAxisCount: countRow,
+                    maxCrossAxisExtent: 150.0,
+                    mainAxisExtent: 150.0,
+                    mainAxisSpacing: 24.0,
+                    crossAxisSpacing: 24.0,
+                    childAspectRatio: 1,
+                  ),
+                  delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index){
+                            if(index == 0){
+                              return Container(
+                                padding: EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: HexColor(controller.cursosUi.color2),
+                                  borderRadius: BorderRadius.circular(14), // use instead of BorderRadius.all(Radius.circular(20))
                                 ),
-                                Expanded(
-                                    child: Container(
-                                      padding: EdgeInsets.only(left: 8),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                child: FDottedLine(
+                                  color: AppTheme.white,
+                                  strokeWidth: 3.0,
+                                  dottedLength: 10.0,
+                                  space: 3.0,
+                                  corner: FDottedLineCorner.all(14.0),
+
+                                  /// add widget
+                                  child: Container(
+                                    color: HexColor(controller.cursosUi.color2),
+                                    alignment: Alignment.center,
+                                    child: Icon(Ionicons.add, color: AppTheme.white, size: 45,),
+                                  ),
+                                ),
+                              );
+                            }else{
+                              return Container(
+                                decoration: BoxDecoration(
+                                    color: HexColor(controller.cursosUi.color3??"#FEFAE2").withOpacity(0.1),
+                                    borderRadius: BorderRadius.circular(14) // use instead of BorderRadius.all(Radius.circular(20))
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 12, right: 16, top: 16, bottom: 0),
+                                      child: Row(
                                         children: [
-                                          Text("Tarea ${index+1}", style: TextStyle(color: AppTheme.black, fontWeight: FontWeight.w500),),
+                                          Icon(Icons.assignment, color: HexColor(controller.cursosUi.color1), size: 18,),
                                           Padding(padding: EdgeInsets.all(2)),
-                                          Text("Lun 24 de May. 22:00", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12, color: AppTheme.greyDarken2),),
+                                          Text("Tarea ${index+1}", style: TextStyle(color: HexColor(controller.cursosUi.color1), fontSize: 12),),
                                         ],
                                       ),
-                                    )
-                                ),
-                                Material(
-                                  color: Colors.transparent,
-                                  borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                                  child: InkWell(
-                                    focusColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                                    splashColor: HexColor(controller.cursosUi.color1).withOpacity(0.4),
-                                    onTap: () {
-
-                                    },
-                                    child:
-                                    Container(
-                                        padding: const EdgeInsets.only(top: 10, left: 8, bottom: 8, right: 8),
-                                        child: Row(
-                                          children: [
-                                            Text("SIN PUBLICAR",
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                color: HexColor(controller.cursosUi.color1),
-                                                fontWeight: FontWeight.w600,
-                                                fontFamily: AppTheme.fontName,
-                                              ),),
-                                          ],
-                                        )
                                     ),
-                                  ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 0),
+                                      child: Text("APRENDEMOS ADIVINANZAS", style: TextStyle(color: AppTheme.black, fontSize: 12),),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 0),
+                                      child: Text("Pare el Dom 11 de Abr. 09:11 p. m.", style: TextStyle(fontSize: 10),),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 8),
+                                      child: Row(
+                                        children: [
+                                          Expanded(child: Text("Sin Publicar", style: TextStyle(color: AppTheme.colorPrimary, fontSize: 12),),),
+                                          Text("0/15", style: TextStyle(color: AppTheme.colorPrimary, fontSize: 12),),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                Container(
-                                  padding: EdgeInsets.only(right: 8),
-                                  child: Icon(Icons.more_vert_outlined, color: AppTheme.greyDarken1,),
-                                )
-                              ],
-                            ),
-                            Divider(
-                              height: 1,
-                              color: HexColor(controller.cursosUi.color1),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 16, right: 16, top: 12, bottom: 8),
-                              child: Text("APRENDEMOS ADIVINANZAS", style: TextStyle(color: AppTheme.black, fontSize: 14),),
-                            ),
-                            Expanded(
-                                child:  Padding(
-                                  padding: EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 8),
-                                  child: Text("Graba un video repitiendo una de las adivinanzas que están en tu cuaderno.", maxLines: 3, overflow: TextOverflow.ellipsis ,style: TextStyle(color: AppTheme.greyDarken2),),
-                                )
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                    childCount: 5
+                              );
+                            }
+                      },
+                      childCount: 5
+                  ),
                 ),
               ),
               SliverList(
@@ -1032,7 +861,7 @@ class _TareaViewState extends ViewState<TareaView, TareaController> with TickerP
               ),
             ],
           ),
-          Positioned(
+          /*Positioned(
             right: 16,
             bottom: 120,
             child: FloatingActionButton(
@@ -1043,7 +872,423 @@ class _TareaViewState extends ViewState<TareaView, TareaController> with TickerP
               },
               child: Icon(Ionicons.add),
             ),
-          )
+          )*/
+        ],
+      ),
+    );
+  }
+
+  Widget tabTareaSesion(TareaController controller) {
+    return Padding(
+      padding: EdgeInsets.only(left: 24, right: 48),
+      child: CustomScrollView(
+        controller: scrollController,
+        slivers: [
+          SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  Padding(
+                    padding: EdgeInsets.only( top: 48, bottom: 16),
+                    child: Text("U4: Una gran carrera que te transforma",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w800,
+                          fontFamily: AppTheme.fontTTNorms
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: HexColor(controller.cursosUi.color1).withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(14), // use instead of BorderRadius.all(Radius.circular(20))
+                    ),
+                    child: FDottedLine(
+                      color: AppTheme.white,
+                      strokeWidth: 3.0,
+                      dottedLength: 10.0,
+                      space: 3.0,
+                      corner: FDottedLineCorner.all(14.0),
+
+                      /// add widget
+                      child: Container(
+                        padding: EdgeInsets.only(right: 16, left: 16, top: 16, bottom: 16),
+                        alignment: Alignment.center,
+                        child: Text("Unidad sin sesiones",  style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w800,
+                            fontFamily: AppTheme.fontTTNorms,
+                            color: AppTheme.white
+                        ),),
+                      ),
+                    ),
+                  )
+                ],
+              )
+          ),
+          SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  Padding(
+                    padding: EdgeInsets.only( top: 32),
+                    child: Text("U3: Iniciamos el año escolar cuidando el agua",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w800,
+                          fontFamily: AppTheme.fontTTNorms
+                      ),
+                    ),
+                  ),
+                ],
+              )
+          ),
+          SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  Padding(
+                    padding: EdgeInsets.only( top: 8, bottom: 16, ),
+                    child: Text("- S1: Escribimos frases y oraciones",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w800,
+                          fontFamily: AppTheme.fontTTNorms
+                      ),
+                    ),
+                  ),
+                ],
+              )
+          ),
+          SliverPadding(
+            padding: EdgeInsets.only(left: 16, bottom: 8),
+            sliver: SliverGrid(
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                //crossAxisCount: countRow,
+                maxCrossAxisExtent: 150.0,
+                mainAxisExtent: 150.0,
+                mainAxisSpacing: 24.0,
+                crossAxisSpacing: 24.0,
+                childAspectRatio: 1,
+              ),
+              delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index){
+                    if(index == 0){
+                      return Container(
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: HexColor(controller.cursosUi.color2),
+                          borderRadius: BorderRadius.circular(14), // use instead of BorderRadius.all(Radius.circular(20))
+                        ),
+                        child: FDottedLine(
+                          color: AppTheme.white,
+                          strokeWidth: 3.0,
+                          dottedLength: 10.0,
+                          space: 3.0,
+                          corner: FDottedLineCorner.all(14.0),
+
+                          /// add widget
+                          child: Container(
+                            color: HexColor(controller.cursosUi.color2),
+                            alignment: Alignment.center,
+                            child:  Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Ionicons.add, color: AppTheme.white, size: 45,),
+                                Text("Crear Tarea",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w800,
+                                      fontFamily: AppTheme.fontTTNorms,
+                                      color: AppTheme.white
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    }else{
+                      return Container(
+                        decoration: BoxDecoration(
+                            color: HexColor(controller.cursosUi.color3??"#FEFAE2").withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(14) // use instead of BorderRadius.all(Radius.circular(20))
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: 12, right: 16, top: 16, bottom: 0),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.assignment, color: HexColor(controller.cursosUi.color1), size: 18,),
+                                  Padding(padding: EdgeInsets.all(2)),
+                                  Text("Tarea ${index+1}", style: TextStyle(color: HexColor(controller.cursosUi.color1), fontSize: 12),),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 0),
+                              child: Text("APRENDEMOS ADIVINANZAS", style: TextStyle(color: AppTheme.black, fontSize: 12),),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 0),
+                              child: Text("Pare el Dom 11 de Abr. 09:11 p. m.", style: TextStyle(fontSize: 10),),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 8),
+                              child: Row(
+                                children: [
+                                  Expanded(child: Text("Sin Publicar", style: TextStyle(color: AppTheme.colorPrimary, fontSize: 12),),),
+                                  Text("0/15", style: TextStyle(color: AppTheme.colorPrimary, fontSize: 12),),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+
+                  },
+                  childCount: 2
+              ),
+            ),
+          ),
+          SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  Padding(
+                    padding: EdgeInsets.only( top: 8, bottom: 16, ),
+                    child: Text("- S2: Aprendemos adivinanzas",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w800,
+                          fontFamily: AppTheme.fontTTNorms
+                      ),
+                    ),
+                  ),
+                ],
+              )
+          ),
+          SliverPadding(
+            padding: EdgeInsets.only(left: 16),
+            sliver: SliverGrid(
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                //crossAxisCount: countRow,
+                maxCrossAxisExtent: 150.0,
+                mainAxisExtent: 150.0,
+                mainAxisSpacing: 24.0,
+                crossAxisSpacing: 24.0,
+                childAspectRatio: 1,
+              ),
+              delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index){
+                        if(index == 0){
+                          return Container(
+                            padding: EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: HexColor(controller.cursosUi.color2),
+                              borderRadius: BorderRadius.circular(14), // use instead of BorderRadius.all(Radius.circular(20))
+                            ),
+                            child: FDottedLine(
+                              color: AppTheme.white,
+                              strokeWidth: 3.0,
+                              dottedLength: 10.0,
+                              space: 3.0,
+                              corner: FDottedLineCorner.all(14.0),
+
+                              /// add widget
+                              child: Container(
+                                color: HexColor(controller.cursosUi.color2),
+                                alignment: Alignment.center,
+                                child: Icon(Ionicons.add, color: AppTheme.white, size: 45,),
+                              ),
+                            ),
+                          );
+                        }else{
+                          return Container(
+                            decoration: BoxDecoration(
+                                color: HexColor(controller.cursosUi.color3??"#FEFAE2").withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(14) // use instead of BorderRadius.all(Radius.circular(20))
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(left: 12, right: 16, top: 16, bottom: 0),
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.assignment, color: HexColor(controller.cursosUi.color1), size: 18,),
+                                      Padding(padding: EdgeInsets.all(2)),
+                                      Text("Tarea ${index+1}", style: TextStyle(color: HexColor(controller.cursosUi.color1), fontSize: 12),),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 0),
+                                  child: Text("APRENDEMOS ADIVINANZAS", style: TextStyle(color: AppTheme.black, fontSize: 12),),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 0),
+                                  child: Text("Pare el Dom 11 de Abr. 09:11 p. m.", style: TextStyle(fontSize: 10),),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 8),
+                                  child: Row(
+                                    children: [
+                                      Expanded(child: Text("Sin Publicar", style: TextStyle(color: AppTheme.colorPrimary, fontSize: 12),),),
+                                      Text("0/15", style: TextStyle(color: AppTheme.colorPrimary, fontSize: 12),),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                  },
+                  childCount: 2
+              ),
+            ),
+          ),
+          SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  Padding(
+                    padding: EdgeInsets.only( top: 32, bottom: 16),
+                    child: Text("U1: Una gran carrera que te transforma",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w800,
+                          fontFamily: AppTheme.fontTTNorms
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: HexColor(controller.cursosUi.color1).withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(14), // use instead of BorderRadius.all(Radius.circular(20))
+                    ),
+                    child: FDottedLine(
+                      color: AppTheme.white,
+                      strokeWidth: 3.0,
+                      dottedLength: 10.0,
+                      space: 3.0,
+                      corner: FDottedLineCorner.all(14.0),
+
+                      /// add widget
+                      child: Container(
+                        padding: EdgeInsets.only(right: 16, left: 16, top: 16, bottom: 16),
+                        alignment: Alignment.center,
+                        child: Text("Unidad sin sesiones",  style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w800,
+                            fontFamily: AppTheme.fontTTNorms,
+                            color: AppTheme.white
+                        ),),
+                      ),
+                    ),
+                  )
+                ],
+              )
+          ),
+          SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  Padding(
+                    padding: EdgeInsets.only( top: 32, bottom: 16),
+                    child: Text("U3: ESPERANZA EN MEDIO DEL CAOS",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w800,
+                          fontFamily: AppTheme.fontTTNorms
+                      ),),
+                  ),
+                ],
+              )
+          ),
+          SliverPadding(
+            padding: EdgeInsets.only(left: 16, bottom: 8),
+            sliver: SliverGrid(
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                //crossAxisCount: countRow,
+                maxCrossAxisExtent: 150.0,
+                mainAxisExtent: 150.0,
+                mainAxisSpacing: 24.0,
+                crossAxisSpacing: 24.0,
+                childAspectRatio: 1,
+              ),
+              delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index){
+                    return Container(
+                      decoration: BoxDecoration(
+                          color: HexColor(controller.cursosUi.color3??"#FEFAE2").withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(14) // use instead of BorderRadius.all(Radius.circular(20))
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    color: HexColor(controller.cursosUi.color1),
+                                    borderRadius: BorderRadius.only(topLeft: Radius.circular(14))
+                                ),
+                                child: Icon(Icons.assignment, color: AppTheme.white, size: 18,),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                    padding: EdgeInsets.only(left: 8),
+                                    child: Text("Tarea ${index+1}", style: TextStyle(color: AppTheme.black, fontSize: 12)),
+                                  )
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(right: 8),
+                                child: Icon(Icons.more_vert_outlined, color: AppTheme.greyDarken1,),
+                              )
+                            ],
+                          ),
+                          Container(
+                            height: 0.5,
+                            color: HexColor(controller.cursosUi.color1).withOpacity(0.5),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 0),
+                            child: Text("APRENDEMOS ADIVINANZAS", style: TextStyle(color: AppTheme.black, fontSize: 12),),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 0),
+                            child: Text("Pare el Dom 11 de Abr. 09:11 p. m.", style: TextStyle(fontSize: 10),),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 8),
+                            child: Row(
+                              children: [
+                                Expanded(child: Text("Sin Publicar", style: TextStyle(color: AppTheme.colorPrimary, fontSize: 12),),),
+                                Text("0/15", style: TextStyle(color: AppTheme.colorPrimary, fontSize: 12),),
+                              ],
+                            ),
+                          ),
+
+                        ],
+                      ),
+                    );
+                  },
+                  childCount: 5
+              ),
+            ),
+          ),
+          SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  Padding(padding: EdgeInsets.only( top: 150)),
+                ],
+              )
+          ),
         ],
       ),
     );
