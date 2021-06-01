@@ -15,11 +15,13 @@ import 'package:ss_crmeducativo_2/src/domain/entities/criterio_valor_tipo_nota_u
 import 'package:ss_crmeducativo_2/src/domain/entities/forma_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/origen_rubro_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/rubrica_evaluacion_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/sesion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tema_criterio_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_competencia_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_tipos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/unidad_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/valor_tipo_nota_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/repositories/rubro_repository.dart';
 import 'package:collection/collection.dart';
@@ -554,6 +556,52 @@ class MoorRubroRepository extends RubroRepository{
 
 
     return rubricaEvalProcesoUiList;
+  }
+
+  @override
+  Future<List<UnidadUi>> getUnidadAprendizaje(int? silaboEventoId, int? calendarioPeriodoId) async {
+    AppDataBase SQL = AppDataBase();
+    List<UnidadUi> unidadUiList = [];
+    var query = SQL.select(SQL.criterio)..where((tbl) => tbl.silaboEventoId.equals(silaboEventoId));
+    query.where((tbl) => tbl.calendarioPeriodoId.equals(calendarioPeriodoId));
+
+    /*
+      ..addColumns([SQL.criterio.silaboEventoId,
+        SQL.criterio.unidadAprendiajeId,
+        SQL.criterio.tituloUnidad,
+        SQL.criterio.nroUnidad,
+        SQL.criterio.sesionAprendizajeId,
+        SQL.criterio.nroSesion,
+        SQL.criterio.propositoSesion,
+        SQL.criterio.rolIdSesion,
+        SQL.criterio.tituloSesion,
+      ]);*/
+    //query.where(SQL.criterio.silaboEventoId.equals(silaboEventoId));
+    //query.where(SQL.criterio.calendarioPeriodoId.equals(calendarioPeriodoId));
+    //query.groupBy([SQL.criterio.silaboEventoId, SQL.criterio.unidadAprendiajeId, SQL.criterio.sesionAprendizajeId]);
+
+    for(CriterioData criterioData in await query.get()){
+      //CriterioData criterioData = row.readTable(SQL.criterio);
+      UnidadUi? unidadUi = unidadUiList.firstWhereOrNull((element) => element.unidadAprendizajeId == criterioData.unidadAprendiajeId);
+      if(unidadUi == null){
+        unidadUi = UnidadUi();
+        unidadUi.sesionUiList = [];
+        unidadUiList.add(unidadUi);
+      }
+      unidadUi.unidadAprendizajeId = criterioData.unidadAprendiajeId;
+      unidadUi.titulo = criterioData.tituloUnidad;
+      unidadUi.nroUnidad = criterioData.nroUnidad;
+      SesionUi sesionUi = SesionUi();
+      sesionUi.sesionAprendizajeId = criterioData.sesionAprendizajeId;
+      sesionUi.tituloSesion = criterioData.tituloSesion;
+      sesionUi.nroSesion = criterioData.nroSesion;
+      sesionUi.titulo = criterioData.tituloSesion;
+      sesionUi.proposito = criterioData.propositoSesion;
+      unidadUi.sesionUiList?.add(sesionUi);
+
+    }
+
+    return unidadUiList;
   }
 
 }

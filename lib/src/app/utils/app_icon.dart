@@ -13,6 +13,8 @@ class AppIcon {
   //static const String ic_curso_exam = "assets/icons/ic_presupuesto.svg";
   static const String ic_curso_exam = "assets/icons/ic_portapapeles_2.svg";
   static const String ic_curso_flecha = "assets/icons/ic_flecha_correcta.svg";
+//#icono del portal sesion
+  static const String img_sesion_birrete = "assets/icons/img_birrete.png";
 
 
   static const String ic_evaluar = "assets/icons/ic_evaluar.svg";

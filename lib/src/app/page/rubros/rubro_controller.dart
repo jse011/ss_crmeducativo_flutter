@@ -4,6 +4,7 @@ import 'package:ss_crmeducativo_2/src/domain/entities/calendario_periodio_ui.dar
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/origen_rubro_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/rubrica_evaluacion_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/unidad_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/response/respuesta_crear_rubro.dart';
 
 class RubroController extends Controller{
@@ -21,6 +22,8 @@ class RubroController extends Controller{
   int get progresoSyncronizar => _progresoSyncronizar;
   List<RubricaEvaluacionUi> _rubricaEvaluacionUiList = [];
   List<RubricaEvaluacionUi> get rubricaEvaluacionUiList => _rubricaEvaluacionUiList;
+  List<UnidadUi> _unidadUiList = [];
+  List<UnidadUi> get unidadUiList => _unidadUiList;
 
   RubroController(this.cursosUi, calendarioPeriodoRepo, configuracionRepo, httpDatosRepo, rubroRepo)
       :this.presenter = RubroPresenter(calendarioPeriodoRepo, configuracionRepo, httpDatosRepo, rubroRepo)
@@ -33,6 +36,7 @@ class RubroController extends Controller{
         _calendarioPeriodoUI = calendarioPeriodoUI;
         _origenRubroUi = OrigenRubroUi.TODOS;
         presenter.onGetRubricaList(cursosUi, calendarioPeriodoUI, _origenRubroUi);
+        presenter.onGetUnidadRubroEval(cursosUi, calendarioPeriodoUI);
       };
 
       presenter.getCalendarioPeridoOnError = (e){
@@ -70,6 +74,16 @@ class RubroController extends Controller{
         refreshUI();
       };
 
+      presenter.getUnidadRubroEvalOnNext = (List<UnidadUi> unidadUiList){
+        _unidadUiList = unidadUiList;
+        refreshUI();
+      };
+
+      presenter.getUnidadRubroEvalOnError = (e){
+        _unidadUiList = [];
+        refreshUI();
+      };
+
   }
 
 
@@ -90,6 +104,7 @@ class RubroController extends Controller{
     //presenter.getEvaluacion(calendarioPeriodoUi);
     refreshUI();
     presenter.onGetRubricaList(cursosUi, calendarioPeriodoUI, _origenRubroUi);
+    presenter.onGetUnidadRubroEval(cursosUi, calendarioPeriodoUI);
   }
 
   void onSyncronizarCurso() {

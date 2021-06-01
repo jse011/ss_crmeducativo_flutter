@@ -25,6 +25,8 @@ import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
 import 'package:ss_crmeducativo_2/libs/flutter-sized-context/sized_context.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/origen_rubro_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/rubrica_evaluacion_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/sesion_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/unidad_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/response/respuesta_crear_rubro.dart';
 import 'dart:math' as math;
 
@@ -775,71 +777,77 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
                   delegate: SliverChildBuilderDelegate(
                           (BuildContext context, int index){
 
-                        RubricaEvaluacionUi rubricaEvalProcesoUi = controller.rubricaEvaluacionUiList[index];
-                        String origen = "";
-                        switch(rubricaEvalProcesoUi.origenRubroUi??OrigenRubroUi.CREADO_DOCENTE){
-                          case OrigenRubroUi.GENERADO_INSTRUMENTO:
-                            origen = "Instrumento";
-                            break;
-                          case OrigenRubroUi.GENERADO_TAREA:
-                            origen = "Tarea";
-                            break;
-                          case OrigenRubroUi.GENERADO_PREGUNTA:
-                            origen = "Pregunta";
-                            break;
-                          case OrigenRubroUi.CREADO_DOCENTE:
-                            origen = "";
-                            break;
-                          case OrigenRubroUi.TODOS:
-                            origen = "";
-                            break;
-                        }
-
-                        String origen2 = "";
-                        if((rubricaEvalProcesoUi.sesionAprendizajeId??0) > 0){
-                          origen2 =  "Sesion";
-                        }else{
-                          origen2 =  "Mi Registro";
-                        }
-
                         if(index == 0){
-                          return Container(
-                            padding: EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: HexColor(controller.cursosUi.color2).withOpacity(1),
-                              borderRadius: BorderRadius.circular(14), // use instead of BorderRadius.all(Radius.circular(20))
-                            ),
-                            child: FDottedLine(
-                              color: AppTheme.white,
-                              strokeWidth: 3.0,
-                              dottedLength: 10.0,
-                              space: 3.0,
-                              corner: FDottedLineCorner.all(14.0),
-
-                              /// add widget
-                              child: Container(
-                                padding: EdgeInsets.all(4),
+                          return InkWell(
+                            onTap: (){
+                              _guardarRubroyRetornar(context, controller);
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(8),
+                              decoration: BoxDecoration(
                                 color: HexColor(controller.cursosUi.color2).withOpacity(1),
-                                alignment: Alignment.center,
-                                child:  Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(Ionicons.add, color: AppTheme.white, size: 45,),
-                                    Text("Crear Evalacuión",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w800,
-                                          fontFamily: AppTheme.fontTTNorms,
-                                          color: AppTheme.white
-                                      ),
-                                    )
-                                  ],
+                                borderRadius: BorderRadius.circular(14), // use instead of BorderRadius.all(Radius.circular(20))
+                              ),
+                              child: FDottedLine(
+                                color: AppTheme.white,
+                                strokeWidth: 3.0,
+                                dottedLength: 10.0,
+                                space: 3.0,
+                                corner: FDottedLineCorner.all(14.0),
+
+                                /// add widget
+                                child: Container(
+                                  padding: EdgeInsets.all(4),
+                                  color: HexColor(controller.cursosUi.color2).withOpacity(1),
+                                  alignment: Alignment.center,
+                                  child:  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Ionicons.add, color: AppTheme.white, size: 45,),
+                                      Text("Crear Evaluación",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w800,
+                                            fontFamily: AppTheme.fontTTNorms,
+                                            color: AppTheme.white
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           );
                         }else{
+
+                          RubricaEvaluacionUi rubricaEvalProcesoUi = controller.rubricaEvaluacionUiList[index-1];
+                          String origen = "";
+                          switch(rubricaEvalProcesoUi.origenRubroUi??OrigenRubroUi.CREADO_DOCENTE){
+                            case OrigenRubroUi.GENERADO_INSTRUMENTO:
+                              origen = "Instrumento";
+                              break;
+                            case OrigenRubroUi.GENERADO_TAREA:
+                              origen = "Tarea";
+                              break;
+                            case OrigenRubroUi.GENERADO_PREGUNTA:
+                              origen = "Pregunta";
+                              break;
+                            case OrigenRubroUi.CREADO_DOCENTE:
+                              origen = "";
+                              break;
+                            case OrigenRubroUi.TODOS:
+                              origen = "";
+                              break;
+                          }
+
+                          String origen2 = "";
+                          if((rubricaEvalProcesoUi.sesionAprendizajeId??0) > 0){
+                            origen2 =  "Sesion";
+                          }else{
+                            origen2 =  "Mi Registro";
+                          }
+
                           return Container(
                             decoration: BoxDecoration(
                                 color: HexColor(controller.cursosUi.color1??"#FEFAE2").withOpacity(0.1),
@@ -865,7 +873,7 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
                                         children: [
                                           Padding(
                                             padding: EdgeInsets.only(top: 10, right: 0),
-                                            child: Text("${index+1}.${origen} ${origen2}",
+                                            child: Text("${index}.${origen} ${origen2}",
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: TextStyle(
@@ -963,7 +971,7 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
                           );
                         }
                       },
-                      childCount: controller.rubricaEvaluacionUiList.length
+                      childCount: controller.rubricaEvaluacionUiList.length + 1
                   ),
                 ),
                 SliverList(
@@ -975,7 +983,7 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
                 ),
               ],
             ),
-            Positioned(
+            /*Positioned(
               right: 16,
               bottom: 120,
               child: FloatingActionButton(
@@ -986,7 +994,7 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
                 },
                 child: Icon(Ionicons.add),
               ),
-            )
+            )*/
           ],
         ),
     );
@@ -1152,6 +1160,59 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
             controller: scrollController,
             slivers: [
               SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index){
+                        UnidadUi unidadUi = controller.unidadUiList[index];
+                        return Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only( top: 48),
+                              child: Text("U${unidadUi.nroUnidad}: ${unidadUi.titulo}",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w800,
+                                    color: AppTheme.colorAccent,
+                                    fontFamily: AppTheme.fontTTNorms
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                                child: ListView.builder(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: unidadUi.sesionUiList?.length,
+                                    itemBuilder: (BuildContext ctxt, int index) {
+                                      SesionUi  sesionUi = unidadUi.sesionUiList![index];
+                                      return Padding(
+                                        padding: EdgeInsets.only( top: 8, bottom: 16, ),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              height: 20,
+                                              width: 3,
+                                              color: AppTheme.darkerText,
+                                            ),
+                                            Padding(padding: EdgeInsets.all(2)),
+                                            Text("   ${sesionUi.nroSesion}: ${sesionUi.tituloSesion}",
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w800,
+                                                  fontFamily: AppTheme.fontTTNorms
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    }
+                                ),
+                            )
+                          ],
+                        );
+                      },
+                      childCount: controller.unidadUiList.length
+                  )
+              ),
+              SliverList(
                   delegate: SliverChildListDelegate(
                     [
                       Padding(
@@ -1233,7 +1294,7 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Icon(Ionicons.add, color: AppTheme.white, size: 45,),
-                                    Text("Crear Evalacuión",
+                                    Text("Crear Evalucaión",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           fontSize: 14,

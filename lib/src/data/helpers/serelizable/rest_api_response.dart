@@ -914,6 +914,13 @@ class CriteriosSerial {
   int? sesionAprendizajeId;
   int? unidadAprendiajeId;
   int? silaboEventoId;
+
+  String? tituloSesion;
+  int? rolIdSesion;
+  int? nroSesion;
+  String? propositoSesion;
+  String? tituloUnidad;
+  int? nroUnidad;
   /// <summary>
   /// Tabla Competencias
   /// </summary>
@@ -960,10 +967,17 @@ class CriteriosSerial {
 
   int? calendarioPeriodoId;
 
+
   CriteriosSerial(
-      {this.sesionAprendizajeId,
+      this.sesionAprendizajeId,
       this.unidadAprendiajeId,
       this.silaboEventoId,
+      this.tituloSesion,
+      this.rolIdSesion,
+      this.nroSesion,
+      this.propositoSesion,
+      this.tituloUnidad,
+      this.nroUnidad,
       this.competenciaId,
       this.competenciaNombre,
       this.competenciaDescripcion,
@@ -993,7 +1007,7 @@ class CriteriosSerial {
       this.campoTematicoParentDescripcion,
       this.campoTematicoParentEstado,
       this.campoTematicoParentParentId,
-      this.calendarioPeriodoId});
+      this.calendarioPeriodoId);
 
   factory CriteriosSerial.fromJson(Map<String, dynamic> json) => _$CriteriosSerialFromJson(json);
 

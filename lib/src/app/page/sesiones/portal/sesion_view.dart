@@ -11,6 +11,7 @@ import 'package:ss_crmeducativo_2/src/app/utils/app_theme.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/hex_color.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
 import 'package:ss_crmeducativo_2/libs/flutter-sized-context/sized_context.dart';
+import 'dart:math' as math;
 
 class SesionView extends View{
   CursosUi cursosUi;
@@ -232,7 +233,7 @@ class _CursoViewState extends ViewState<SesionView, SesionController> with Ticke
                         ),
                         Container(
                           padding: EdgeInsets.only(top: 8),
-                          child: Text("by Alexander Bliss"),
+                          child: Text("de Razonamiento Mantenimineto 1° grado A - Primaria"),
                         ),
                         Container(
                           margin: EdgeInsets.only(top: 24),
@@ -244,14 +245,57 @@ class _CursoViewState extends ViewState<SesionView, SesionController> with Ticke
                           child: Stack(
                             children: [
                               Container(
-                                padding: EdgeInsets.only(right: 0),
+                                decoration: BoxDecoration(
+                                    color: HexColor("#15542f"),
+                                    borderRadius: BorderRadius.all(Radius.circular(12))
+                                ),
+                                margin: EdgeInsets.all(8),
+                                constraints: BoxConstraints.expand(),
+                                padding: EdgeInsets.all(24),
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-
+                                      Container(
+                                        decoration: BoxDecoration(
+                                        color: AppTheme.black.withOpacity(0.2),
+                                        borderRadius: BorderRadius.all(Radius.circular(6))
+                                        ),
+                                        padding: EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                                        child: RichText(
+                                          text: TextSpan(
+                                              children: [
+                                                TextSpan(text: "Sesión "),
+                                                TextSpan(text: "Docente", style: new TextStyle(fontWeight: FontWeight.bold))
+                                              ]
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(padding: EdgeInsets.all(4)),
+                                      Expanded(
+                                          child: Text("S1: Funciones de las partes externas de nuestro cuerpo.",
+                                            textAlign: TextAlign.center,
+                                            maxLines: 3,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(color: AppTheme.white, fontSize: 20),
+                                          )
+                                      ),
                                   ],
                                 ),
-                              )
+                              ),
+                              Positioned(
+                                top: 16,
+                                left: 0,
+                                right: 120,
+                                child: Transform.rotate(
+                                  angle: -math.pi / 7,
+                                  child: Container(
+                                    width:35,
+                                    height:35,
+                                    margin: const EdgeInsets.only(top: 0, left: 8, right: 8, bottom: 0),
+                                    child: Image.asset(AppIcon.img_sesion_birrete),
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -435,7 +479,21 @@ class _CursoViewState extends ViewState<SesionView, SesionController> with Ticke
                                       child: Container(
                                         color: HexColor(controller.cursosUi.color2),
                                         alignment: Alignment.center,
-                                        child: Icon(Ionicons.add, color: AppTheme.white, size: 45,),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Icon(Ionicons.add, color: AppTheme.white, size: 45,),
+                                            Text("Crear Evaluación",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w800,
+                                                  fontFamily: AppTheme.fontTTNorms,
+                                                  color: AppTheme.white
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   );

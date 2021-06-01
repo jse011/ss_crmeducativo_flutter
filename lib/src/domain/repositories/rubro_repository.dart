@@ -6,6 +6,7 @@ import 'package:ss_crmeducativo_2/src/domain/entities/origen_rubro_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/rubrica_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/unidad_ui.dart';
 
 abstract class RubroRepository{
   void saveDatosCrearRubros(Map<String, dynamic> crearRubro, int silaboEventoId, int calendarioPeriodoId);
@@ -21,6 +22,8 @@ abstract class RubroRepository{
   Future<void> saveRubroEvaluacion(String? rubroEvaluacionId, String? titulo, int? formaEvaluacionId, int? tipoEvaluacionId, String? promedioLogroId, int? calendarioPeriodoId, int? silaboEventoId, int? cargaCursoId, int? sesionAprendizajeId, String? tareaId, int? usuarioId, List<CriterioPesoUi>? criterioPesoUiList, List<CriterioValorTipoNotaUi>? criterioValorTipoNotaUiList, TipoNotaUi? tipoNotaUi);
 
   Future<List<RubricaEvaluacionUi>> getRubroEvaluacion(int calendarioPeriodoId, int silaboEventoId, OrigenRubroUi origenRubroUi);
+
+  Future<List<UnidadUi>> getUnidadAprendizaje(int? silaboEventoId, int? calendarioPeriodoId);
 
 
 }

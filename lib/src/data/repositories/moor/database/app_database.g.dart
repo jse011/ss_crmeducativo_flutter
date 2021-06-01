@@ -337,8 +337,8 @@ class $SessionUserTable extends SessionUser
   Set<GeneratedColumn> get $primaryKey => {userId};
   @override
   SessionUserData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return SessionUserData.fromData(data, _db, prefix: effectivePrefix);
+    return SessionUserData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -683,9 +683,8 @@ class $UsuarioRolGeoreferenciaTable extends UsuarioRolGeoreferencia
   @override
   UsuarioRolGeoreferenciaData map(Map<String, dynamic> data,
       {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
     return UsuarioRolGeoreferenciaData.fromData(data, _db,
-        prefix: effectivePrefix);
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -953,8 +952,8 @@ class $RolTable extends Rol with TableInfo<$RolTable, RolData> {
   Set<GeneratedColumn> get $primaryKey => {rolId};
   @override
   RolData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return RolData.fromData(data, _db, prefix: effectivePrefix);
+    return RolData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -1284,8 +1283,8 @@ class $GeoreferenciaTable extends Georeferencia
   Set<GeneratedColumn> get $primaryKey => {georeferenciaId};
   @override
   GeoreferenciaData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return GeoreferenciaData.fromData(data, _db, prefix: effectivePrefix);
+    return GeoreferenciaData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -1833,8 +1832,8 @@ class $EntidadTable extends Entidad with TableInfo<$EntidadTable, EntidadData> {
   Set<GeneratedColumn> get $primaryKey => {entidadId};
   @override
   EntidadData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return EntidadData.fromData(data, _db, prefix: effectivePrefix);
+    return EntidadData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -2665,8 +2664,8 @@ class $PersonaTable extends Persona with TableInfo<$PersonaTable, PersonaData> {
   Set<GeneratedColumn> get $primaryKey => {personaId};
   @override
   PersonaData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return PersonaData.fromData(data, _db, prefix: effectivePrefix);
+    return PersonaData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -3032,8 +3031,8 @@ class $EmpleadoTable extends Empleado
   Set<GeneratedColumn> get $primaryKey => {empleadoId};
   @override
   EmpleadoData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return EmpleadoData.fromData(data, _db, prefix: effectivePrefix);
+    return EmpleadoData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -3605,8 +3604,8 @@ class $AnioAcademicoTable extends AnioAcademico
   Set<GeneratedColumn> get $primaryKey => {idAnioAcademico};
   @override
   AnioAcademicoData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return AnioAcademicoData.fromData(data, _db, prefix: effectivePrefix);
+    return AnioAcademicoData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -3935,9 +3934,8 @@ class $ParametroConfiguracionTable extends ParametroConfiguracion
   @override
   ParametroConfiguracionData map(Map<String, dynamic> data,
       {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
     return ParametroConfiguracionData.fromData(data, _db,
-        prefix: effectivePrefix);
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -4261,8 +4259,8 @@ class $AulaTable extends Aula with TableInfo<$AulaTable, AulaData> {
   Set<GeneratedColumn> get $primaryKey => {aulaId};
   @override
   AulaData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return AulaData.fromData(data, _db, prefix: effectivePrefix);
+    return AulaData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -4987,8 +4985,8 @@ class $CargaAcademicaTable extends CargaAcademica
   Set<GeneratedColumn> get $primaryKey => {cargaAcademicaId};
   @override
   CargaAcademicaData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return CargaAcademicaData.fromData(data, _db, prefix: effectivePrefix);
+    return CargaAcademicaData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -5286,8 +5284,8 @@ class $CargaCursoDocenteTable extends CargaCursoDocente
   Set<GeneratedColumn> get $primaryKey => {cargaCursoDocenteId};
   @override
   CargaCursoDocenteData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return CargaCursoDocenteData.fromData(data, _db, prefix: effectivePrefix);
+    return CargaCursoDocenteData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -5493,9 +5491,8 @@ class $CargaCursoDocenteDetTable extends CargaCursoDocenteDet
   @override
   CargaCursoDocenteDetData map(Map<String, dynamic> data,
       {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
     return CargaCursoDocenteDetData.fromData(data, _db,
-        prefix: effectivePrefix);
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -6685,8 +6682,8 @@ class $CargaCursoTable extends CargaCurso
   Set<GeneratedColumn> get $primaryKey => {cargaCursoId};
   @override
   CargaCursoData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return CargaCursoData.fromData(data, _db, prefix: effectivePrefix);
+    return CargaCursoData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -7768,8 +7765,8 @@ class $CursosTable extends Cursos with TableInfo<$CursosTable, Curso> {
   Set<GeneratedColumn> get $primaryKey => {cursoId};
   @override
   Curso map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return Curso.fromData(data, _db, prefix: effectivePrefix);
+    return Curso.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -8281,8 +8278,8 @@ class $ParametrosDisenioTable extends ParametrosDisenio
   Set<GeneratedColumn> get $primaryKey => {parametroDisenioId};
   @override
   ParametrosDisenioData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return ParametrosDisenioData.fromData(data, _db, prefix: effectivePrefix);
+    return ParametrosDisenioData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -8559,8 +8556,8 @@ class $NivelAcademicoTable extends NivelAcademico
   Set<GeneratedColumn> get $primaryKey => {nivelAcadId};
   @override
   NivelAcademicoData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return NivelAcademicoData.fromData(data, _db, prefix: effectivePrefix);
+    return NivelAcademicoData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -9548,8 +9545,8 @@ class $PeriodosTable extends Periodos with TableInfo<$PeriodosTable, Periodo> {
   Set<GeneratedColumn> get $primaryKey => {periodoId};
   @override
   Periodo map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return Periodo.fromData(data, _db, prefix: effectivePrefix);
+    return Periodo.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -9837,8 +9834,8 @@ class $PlanCursosTable extends PlanCursos
   Set<GeneratedColumn> get $primaryKey => {planCursoId};
   @override
   PlanCurso map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return PlanCurso.fromData(data, _db, prefix: effectivePrefix);
+    return PlanCurso.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -10276,8 +10273,8 @@ class $PlanEstudioTable extends PlanEstudio
   Set<GeneratedColumn> get $primaryKey => {planEstudiosId};
   @override
   PlanEstudioData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return PlanEstudioData.fromData(data, _db, prefix: effectivePrefix);
+    return PlanEstudioData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -10903,8 +10900,8 @@ class $ProgramasEducativoTable extends ProgramasEducativo
   Set<GeneratedColumn> get $primaryKey => {programaEduId};
   @override
   ProgramasEducativoData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return ProgramasEducativoData.fromData(data, _db, prefix: effectivePrefix);
+    return ProgramasEducativoData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -11233,8 +11230,8 @@ class $SeccionTable extends Seccion with TableInfo<$SeccionTable, SeccionData> {
   Set<GeneratedColumn> get $primaryKey => {seccionId};
   @override
   SeccionData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return SeccionData.fromData(data, _db, prefix: effectivePrefix);
+    return SeccionData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -12052,8 +12049,8 @@ class $SilaboEventoTable extends SilaboEvento
   Set<GeneratedColumn> get $primaryKey => {silaboEventoId};
   @override
   SilaboEventoData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return SilaboEventoData.fromData(data, _db, prefix: effectivePrefix);
+    return SilaboEventoData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -12495,8 +12492,8 @@ class $CalendarioPeriodoTable extends CalendarioPeriodo
   Set<GeneratedColumn> get $primaryKey => {calendarioPeriodoId};
   @override
   CalendarioPeriodoData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return CalendarioPeriodoData.fromData(data, _db, prefix: effectivePrefix);
+    return CalendarioPeriodoData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -12944,9 +12941,8 @@ class $CalendarioPeriodoDetalleTable extends CalendarioPeriodoDetalle
   @override
   CalendarioPeriodoDetalleData map(Map<String, dynamic> data,
       {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
     return CalendarioPeriodoDetalleData.fromData(data, _db,
-        prefix: effectivePrefix);
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -13738,9 +13734,8 @@ class $CargaCursoCalendarioPeriodoTable extends CargaCursoCalendarioPeriodo
   @override
   CargaCursoCalendarioPeriodoData map(Map<String, dynamic> data,
       {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
     return CargaCursoCalendarioPeriodoData.fromData(data, _db,
-        prefix: effectivePrefix);
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -14106,8 +14101,8 @@ class $TiposTable extends Tipos with TableInfo<$TiposTable, Tipo> {
   Set<GeneratedColumn> get $primaryKey => {tipoId};
   @override
   Tipo map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return Tipo.fromData(data, _db, prefix: effectivePrefix);
+    return Tipo.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -14339,8 +14334,8 @@ class $HoraTable extends Hora with TableInfo<$HoraTable, HoraData> {
   Set<GeneratedColumn> get $primaryKey => {idHora};
   @override
   HoraData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return HoraData.fromData(data, _db, prefix: effectivePrefix);
+    return HoraData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -14889,8 +14884,8 @@ class $HorarioProgramaTable extends HorarioPrograma
   Set<GeneratedColumn> get $primaryKey => {idHorarioPrograma};
   @override
   HorarioProgramaData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return HorarioProgramaData.fromData(data, _db, prefix: effectivePrefix);
+    return HorarioProgramaData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -15129,8 +15124,8 @@ class $HorarioHoraTable extends HorarioHora
   Set<GeneratedColumn> get $primaryKey => {idHorarioHora};
   @override
   HorarioHoraData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return HorarioHoraData.fromData(data, _db, prefix: effectivePrefix);
+    return HorarioHoraData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -15572,8 +15567,8 @@ class $DetalleHorarioTable extends DetalleHorario
   Set<GeneratedColumn> get $primaryKey => {idDetalleHorario};
   @override
   DetalleHorarioData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return DetalleHorarioData.fromData(data, _db, prefix: effectivePrefix);
+    return DetalleHorarioData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -15841,8 +15836,8 @@ class $DiaTable extends Dia with TableInfo<$DiaTable, DiaData> {
   Set<GeneratedColumn> get $primaryKey => {diaId};
   @override
   DiaData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return DiaData.fromData(data, _db, prefix: effectivePrefix);
+    return DiaData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -16076,8 +16071,8 @@ class $HorarioDiaTable extends HorarioDia
   Set<GeneratedColumn> get $primaryKey => {idDia};
   @override
   HorarioDiaData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return HorarioDiaData.fromData(data, _db, prefix: effectivePrefix);
+    return HorarioDiaData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -16325,8 +16320,8 @@ class $CursosDetHorarioTable extends CursosDetHorario
   Set<GeneratedColumn> get $primaryKey => {idCursosDetHorario};
   @override
   CursosDetHorarioData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return CursosDetHorarioData.fromData(data, _db, prefix: effectivePrefix);
+    return CursosDetHorarioData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -16897,8 +16892,8 @@ class $HorarioTable extends Horario with TableInfo<$HorarioTable, HorarioData> {
   Set<GeneratedColumn> get $primaryKey => {idHorario};
   @override
   HorarioData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return HorarioData.fromData(data, _db, prefix: effectivePrefix);
+    return HorarioData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -17200,8 +17195,8 @@ class $CalendarioAcademicoTable extends CalendarioAcademico
   @override
   CalendarioAcademicoData map(Map<String, dynamic> data,
       {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return CalendarioAcademicoData.fromData(data, _db, prefix: effectivePrefix);
+    return CalendarioAcademicoData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -17572,8 +17567,8 @@ class $UsuarioTable extends Usuario with TableInfo<$UsuarioTable, UsuarioData> {
   Set<GeneratedColumn> get $primaryKey => {usuarioId};
   @override
   UsuarioData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return UsuarioData.fromData(data, _db, prefix: effectivePrefix);
+    return UsuarioData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -17764,8 +17759,8 @@ class $WebConfigsTable extends WebConfigs
   Set<GeneratedColumn> get $primaryKey => {nombre, content};
   @override
   WebConfig map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return WebConfig.fromData(data, _db, prefix: effectivePrefix);
+    return WebConfig.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -17778,6 +17773,12 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
   final int sesionAprendizajeId;
   final int unidadAprendiajeId;
   final int silaboEventoId;
+  final String? tituloSesion;
+  final int? rolIdSesion;
+  final int? nroSesion;
+  final String? propositoSesion;
+  final String? tituloUnidad;
+  final int? nroUnidad;
 
   /// <summary>
   /// Tabla Competencias
@@ -17825,6 +17826,12 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
       {required this.sesionAprendizajeId,
       required this.unidadAprendiajeId,
       required this.silaboEventoId,
+      this.tituloSesion,
+      this.rolIdSesion,
+      this.nroSesion,
+      this.propositoSesion,
+      this.tituloUnidad,
+      this.nroUnidad,
       required this.competenciaId,
       this.competenciaNombre,
       this.competenciaDescripcion,
@@ -17865,6 +17872,18 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
           data['${effectivePrefix}unidad_aprendiaje_id'])!,
       silaboEventoId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}silabo_evento_id'])!,
+      tituloSesion: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}titulo_sesion']),
+      rolIdSesion: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}rol_id_sesion']),
+      nroSesion: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nro_sesion']),
+      propositoSesion: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}proposito_sesion']),
+      tituloUnidad: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}titulo_unidad']),
+      nroUnidad: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nro_unidad']),
       competenciaId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}competencia_id'])!,
       competenciaNombre: const StringType().mapFromDatabaseResponse(
@@ -17934,6 +17953,24 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
     map['sesion_aprendizaje_id'] = Variable<int>(sesionAprendizajeId);
     map['unidad_aprendiaje_id'] = Variable<int>(unidadAprendiajeId);
     map['silabo_evento_id'] = Variable<int>(silaboEventoId);
+    if (!nullToAbsent || tituloSesion != null) {
+      map['titulo_sesion'] = Variable<String?>(tituloSesion);
+    }
+    if (!nullToAbsent || rolIdSesion != null) {
+      map['rol_id_sesion'] = Variable<int?>(rolIdSesion);
+    }
+    if (!nullToAbsent || nroSesion != null) {
+      map['nro_sesion'] = Variable<int?>(nroSesion);
+    }
+    if (!nullToAbsent || propositoSesion != null) {
+      map['proposito_sesion'] = Variable<String?>(propositoSesion);
+    }
+    if (!nullToAbsent || tituloUnidad != null) {
+      map['titulo_unidad'] = Variable<String?>(tituloUnidad);
+    }
+    if (!nullToAbsent || nroUnidad != null) {
+      map['nro_unidad'] = Variable<int?>(nroUnidad);
+    }
     map['competencia_id'] = Variable<int>(competenciaId);
     if (!nullToAbsent || competenciaNombre != null) {
       map['competencia_nombre'] = Variable<String?>(competenciaNombre);
@@ -18035,6 +18072,24 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
       sesionAprendizajeId: Value(sesionAprendizajeId),
       unidadAprendiajeId: Value(unidadAprendiajeId),
       silaboEventoId: Value(silaboEventoId),
+      tituloSesion: tituloSesion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(tituloSesion),
+      rolIdSesion: rolIdSesion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(rolIdSesion),
+      nroSesion: nroSesion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(nroSesion),
+      propositoSesion: propositoSesion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(propositoSesion),
+      tituloUnidad: tituloUnidad == null && nullToAbsent
+          ? const Value.absent()
+          : Value(tituloUnidad),
+      nroUnidad: nroUnidad == null && nullToAbsent
+          ? const Value.absent()
+          : Value(nroUnidad),
       competenciaId: Value(competenciaId),
       competenciaNombre: competenciaNombre == null && nullToAbsent
           ? const Value.absent()
@@ -18128,6 +18183,12 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
           serializer.fromJson<int>(json['sesionAprendizajeId']),
       unidadAprendiajeId: serializer.fromJson<int>(json['unidadAprendiajeId']),
       silaboEventoId: serializer.fromJson<int>(json['silaboEventoId']),
+      tituloSesion: serializer.fromJson<String?>(json['tituloSesion']),
+      rolIdSesion: serializer.fromJson<int?>(json['rolIdSesion']),
+      nroSesion: serializer.fromJson<int?>(json['nroSesion']),
+      propositoSesion: serializer.fromJson<String?>(json['propositoSesion']),
+      tituloUnidad: serializer.fromJson<String?>(json['tituloUnidad']),
+      nroUnidad: serializer.fromJson<int?>(json['nroUnidad']),
       competenciaId: serializer.fromJson<int>(json['competenciaId']),
       competenciaNombre:
           serializer.fromJson<String?>(json['competenciaNombre']),
@@ -18183,6 +18244,12 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
       'sesionAprendizajeId': serializer.toJson<int>(sesionAprendizajeId),
       'unidadAprendiajeId': serializer.toJson<int>(unidadAprendiajeId),
       'silaboEventoId': serializer.toJson<int>(silaboEventoId),
+      'tituloSesion': serializer.toJson<String?>(tituloSesion),
+      'rolIdSesion': serializer.toJson<int?>(rolIdSesion),
+      'nroSesion': serializer.toJson<int?>(nroSesion),
+      'propositoSesion': serializer.toJson<String?>(propositoSesion),
+      'tituloUnidad': serializer.toJson<String?>(tituloUnidad),
+      'nroUnidad': serializer.toJson<int?>(nroUnidad),
       'competenciaId': serializer.toJson<int>(competenciaId),
       'competenciaNombre': serializer.toJson<String?>(competenciaNombre),
       'competenciaDescripcion':
@@ -18230,6 +18297,12 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
           {int? sesionAprendizajeId,
           int? unidadAprendiajeId,
           int? silaboEventoId,
+          String? tituloSesion,
+          int? rolIdSesion,
+          int? nroSesion,
+          String? propositoSesion,
+          String? tituloUnidad,
+          int? nroUnidad,
           int? competenciaId,
           String? competenciaNombre,
           String? competenciaDescripcion,
@@ -18264,6 +18337,12 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
         sesionAprendizajeId: sesionAprendizajeId ?? this.sesionAprendizajeId,
         unidadAprendiajeId: unidadAprendiajeId ?? this.unidadAprendiajeId,
         silaboEventoId: silaboEventoId ?? this.silaboEventoId,
+        tituloSesion: tituloSesion ?? this.tituloSesion,
+        rolIdSesion: rolIdSesion ?? this.rolIdSesion,
+        nroSesion: nroSesion ?? this.nroSesion,
+        propositoSesion: propositoSesion ?? this.propositoSesion,
+        tituloUnidad: tituloUnidad ?? this.tituloUnidad,
+        nroUnidad: nroUnidad ?? this.nroUnidad,
         competenciaId: competenciaId ?? this.competenciaId,
         competenciaNombre: competenciaNombre ?? this.competenciaNombre,
         competenciaDescripcion:
@@ -18313,6 +18392,12 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
           ..write('sesionAprendizajeId: $sesionAprendizajeId, ')
           ..write('unidadAprendiajeId: $unidadAprendiajeId, ')
           ..write('silaboEventoId: $silaboEventoId, ')
+          ..write('tituloSesion: $tituloSesion, ')
+          ..write('rolIdSesion: $rolIdSesion, ')
+          ..write('nroSesion: $nroSesion, ')
+          ..write('propositoSesion: $propositoSesion, ')
+          ..write('tituloUnidad: $tituloUnidad, ')
+          ..write('nroUnidad: $nroUnidad, ')
           ..write('competenciaId: $competenciaId, ')
           ..write('competenciaNombre: $competenciaNombre, ')
           ..write('competenciaDescripcion: $competenciaDescripcion, ')
@@ -18356,42 +18441,45 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
           $mrjc(
               silaboEventoId.hashCode,
               $mrjc(
-                  competenciaId.hashCode,
+                  tituloSesion.hashCode,
                   $mrjc(
-                      competenciaNombre.hashCode,
+                      rolIdSesion.hashCode,
                       $mrjc(
-                          competenciaDescripcion.hashCode,
+                          nroSesion.hashCode,
                           $mrjc(
-                              competenciaTipoId.hashCode,
+                              propositoSesion.hashCode,
                               $mrjc(
-                                  superCompetenciaId.hashCode,
+                                  tituloUnidad.hashCode,
                                   $mrjc(
-                                      superCompetenciaNombre.hashCode,
+                                      nroUnidad.hashCode,
                                       $mrjc(
-                                          superCompetenciaDescripcion.hashCode,
+                                          competenciaId.hashCode,
                                           $mrjc(
-                                              superCompetenciaTipoId.hashCode,
+                                              competenciaNombre.hashCode,
                                               $mrjc(
-                                                  desempenioIcdId.hashCode,
+                                                  competenciaDescripcion
+                                                      .hashCode,
                                                   $mrjc(
-                                                      DesempenioDescripcion
+                                                      competenciaTipoId
                                                           .hashCode,
                                                       $mrjc(
-                                                          peso.hashCode,
+                                                          superCompetenciaId
+                                                              .hashCode,
                                                           $mrjc(
-                                                              codigo.hashCode,
+                                                              superCompetenciaNombre
+                                                                  .hashCode,
                                                               $mrjc(
-                                                                  tipoId
+                                                                  superCompetenciaDescripcion
                                                                       .hashCode,
                                                                   $mrjc(
-                                                                      url
+                                                                      superCompetenciaTipoId
                                                                           .hashCode,
                                                                       $mrjc(
-                                                                          desempenioId
+                                                                          desempenioIcdId
                                                                               .hashCode,
                                                                           $mrjc(
-                                                                              desempenioIcdDescripcion.hashCode,
-                                                                              $mrjc(icdId.hashCode, $mrjc(icdTitulo.hashCode, $mrjc(icdDescripcion.hashCode, $mrjc(icdAlias.hashCode, $mrjc(campoTematicoId.hashCode, $mrjc(campoTematicoTitulo.hashCode, $mrjc(campoTematicoDescripcion.hashCode, $mrjc(campoTematicoEstado.hashCode, $mrjc(campoTematicoParentId.hashCode, $mrjc(campoTematicoParentTitulo.hashCode, $mrjc(campoTematicoParentDescripcion.hashCode, $mrjc(campoTematicoParentEstado.hashCode, $mrjc(campoTematicoParentParentId.hashCode, calendarioPeriodoId.hashCode)))))))))))))))))))))))))))))))));
+                                                                              DesempenioDescripcion.hashCode,
+                                                                              $mrjc(peso.hashCode, $mrjc(codigo.hashCode, $mrjc(tipoId.hashCode, $mrjc(url.hashCode, $mrjc(desempenioId.hashCode, $mrjc(desempenioIcdDescripcion.hashCode, $mrjc(icdId.hashCode, $mrjc(icdTitulo.hashCode, $mrjc(icdDescripcion.hashCode, $mrjc(icdAlias.hashCode, $mrjc(campoTematicoId.hashCode, $mrjc(campoTematicoTitulo.hashCode, $mrjc(campoTematicoDescripcion.hashCode, $mrjc(campoTematicoEstado.hashCode, $mrjc(campoTematicoParentId.hashCode, $mrjc(campoTematicoParentTitulo.hashCode, $mrjc(campoTematicoParentDescripcion.hashCode, $mrjc(campoTematicoParentEstado.hashCode, $mrjc(campoTematicoParentParentId.hashCode, calendarioPeriodoId.hashCode)))))))))))))))))))))))))))))))))))))));
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -18399,6 +18487,12 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
           other.sesionAprendizajeId == this.sesionAprendizajeId &&
           other.unidadAprendiajeId == this.unidadAprendiajeId &&
           other.silaboEventoId == this.silaboEventoId &&
+          other.tituloSesion == this.tituloSesion &&
+          other.rolIdSesion == this.rolIdSesion &&
+          other.nroSesion == this.nroSesion &&
+          other.propositoSesion == this.propositoSesion &&
+          other.tituloUnidad == this.tituloUnidad &&
+          other.nroUnidad == this.nroUnidad &&
           other.competenciaId == this.competenciaId &&
           other.competenciaNombre == this.competenciaNombre &&
           other.competenciaDescripcion == this.competenciaDescripcion &&
@@ -18438,6 +18532,12 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
   final Value<int> sesionAprendizajeId;
   final Value<int> unidadAprendiajeId;
   final Value<int> silaboEventoId;
+  final Value<String?> tituloSesion;
+  final Value<int?> rolIdSesion;
+  final Value<int?> nroSesion;
+  final Value<String?> propositoSesion;
+  final Value<String?> tituloUnidad;
+  final Value<int?> nroUnidad;
   final Value<int> competenciaId;
   final Value<String?> competenciaNombre;
   final Value<String?> competenciaDescripcion;
@@ -18472,6 +18572,12 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
     this.sesionAprendizajeId = const Value.absent(),
     this.unidadAprendiajeId = const Value.absent(),
     this.silaboEventoId = const Value.absent(),
+    this.tituloSesion = const Value.absent(),
+    this.rolIdSesion = const Value.absent(),
+    this.nroSesion = const Value.absent(),
+    this.propositoSesion = const Value.absent(),
+    this.tituloUnidad = const Value.absent(),
+    this.nroUnidad = const Value.absent(),
     this.competenciaId = const Value.absent(),
     this.competenciaNombre = const Value.absent(),
     this.competenciaDescripcion = const Value.absent(),
@@ -18507,6 +18613,12 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
     required int sesionAprendizajeId,
     required int unidadAprendiajeId,
     required int silaboEventoId,
+    this.tituloSesion = const Value.absent(),
+    this.rolIdSesion = const Value.absent(),
+    this.nroSesion = const Value.absent(),
+    this.propositoSesion = const Value.absent(),
+    this.tituloUnidad = const Value.absent(),
+    this.nroUnidad = const Value.absent(),
     required int competenciaId,
     this.competenciaNombre = const Value.absent(),
     this.competenciaDescripcion = const Value.absent(),
@@ -18547,6 +18659,12 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
     Expression<int>? sesionAprendizajeId,
     Expression<int>? unidadAprendiajeId,
     Expression<int>? silaboEventoId,
+    Expression<String?>? tituloSesion,
+    Expression<int?>? rolIdSesion,
+    Expression<int?>? nroSesion,
+    Expression<String?>? propositoSesion,
+    Expression<String?>? tituloUnidad,
+    Expression<int?>? nroUnidad,
     Expression<int>? competenciaId,
     Expression<String?>? competenciaNombre,
     Expression<String?>? competenciaDescripcion,
@@ -18584,6 +18702,12 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
       if (unidadAprendiajeId != null)
         'unidad_aprendiaje_id': unidadAprendiajeId,
       if (silaboEventoId != null) 'silabo_evento_id': silaboEventoId,
+      if (tituloSesion != null) 'titulo_sesion': tituloSesion,
+      if (rolIdSesion != null) 'rol_id_sesion': rolIdSesion,
+      if (nroSesion != null) 'nro_sesion': nroSesion,
+      if (propositoSesion != null) 'proposito_sesion': propositoSesion,
+      if (tituloUnidad != null) 'titulo_unidad': tituloUnidad,
+      if (nroUnidad != null) 'nro_unidad': nroUnidad,
       if (competenciaId != null) 'competencia_id': competenciaId,
       if (competenciaNombre != null) 'competencia_nombre': competenciaNombre,
       if (competenciaDescripcion != null)
@@ -18637,6 +18761,12 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
       {Value<int>? sesionAprendizajeId,
       Value<int>? unidadAprendiajeId,
       Value<int>? silaboEventoId,
+      Value<String?>? tituloSesion,
+      Value<int?>? rolIdSesion,
+      Value<int?>? nroSesion,
+      Value<String?>? propositoSesion,
+      Value<String?>? tituloUnidad,
+      Value<int?>? nroUnidad,
       Value<int>? competenciaId,
       Value<String?>? competenciaNombre,
       Value<String?>? competenciaDescripcion,
@@ -18671,6 +18801,12 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
       sesionAprendizajeId: sesionAprendizajeId ?? this.sesionAprendizajeId,
       unidadAprendiajeId: unidadAprendiajeId ?? this.unidadAprendiajeId,
       silaboEventoId: silaboEventoId ?? this.silaboEventoId,
+      tituloSesion: tituloSesion ?? this.tituloSesion,
+      rolIdSesion: rolIdSesion ?? this.rolIdSesion,
+      nroSesion: nroSesion ?? this.nroSesion,
+      propositoSesion: propositoSesion ?? this.propositoSesion,
+      tituloUnidad: tituloUnidad ?? this.tituloUnidad,
+      nroUnidad: nroUnidad ?? this.nroUnidad,
       competenciaId: competenciaId ?? this.competenciaId,
       competenciaNombre: competenciaNombre ?? this.competenciaNombre,
       competenciaDescripcion:
@@ -18727,6 +18863,24 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
     }
     if (silaboEventoId.present) {
       map['silabo_evento_id'] = Variable<int>(silaboEventoId.value);
+    }
+    if (tituloSesion.present) {
+      map['titulo_sesion'] = Variable<String?>(tituloSesion.value);
+    }
+    if (rolIdSesion.present) {
+      map['rol_id_sesion'] = Variable<int?>(rolIdSesion.value);
+    }
+    if (nroSesion.present) {
+      map['nro_sesion'] = Variable<int?>(nroSesion.value);
+    }
+    if (propositoSesion.present) {
+      map['proposito_sesion'] = Variable<String?>(propositoSesion.value);
+    }
+    if (tituloUnidad.present) {
+      map['titulo_unidad'] = Variable<String?>(tituloUnidad.value);
+    }
+    if (nroUnidad.present) {
+      map['nro_unidad'] = Variable<int?>(nroUnidad.value);
     }
     if (competenciaId.present) {
       map['competencia_id'] = Variable<int>(competenciaId.value);
@@ -18840,6 +18994,12 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
           ..write('sesionAprendizajeId: $sesionAprendizajeId, ')
           ..write('unidadAprendiajeId: $unidadAprendiajeId, ')
           ..write('silaboEventoId: $silaboEventoId, ')
+          ..write('tituloSesion: $tituloSesion, ')
+          ..write('rolIdSesion: $rolIdSesion, ')
+          ..write('nroSesion: $nroSesion, ')
+          ..write('propositoSesion: $propositoSesion, ')
+          ..write('tituloUnidad: $tituloUnidad, ')
+          ..write('nroUnidad: $nroUnidad, ')
           ..write('competenciaId: $competenciaId, ')
           ..write('competenciaNombre: $competenciaNombre, ')
           ..write('competenciaDescripcion: $competenciaDescripcion, ')
@@ -18916,6 +19076,76 @@ class $CriterioTable extends Criterio
       'silabo_evento_id',
       $tableName,
       false,
+    );
+  }
+
+  final VerificationMeta _tituloSesionMeta =
+      const VerificationMeta('tituloSesion');
+  @override
+  late final GeneratedTextColumn tituloSesion = _constructTituloSesion();
+  GeneratedTextColumn _constructTituloSesion() {
+    return GeneratedTextColumn(
+      'titulo_sesion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _rolIdSesionMeta =
+      const VerificationMeta('rolIdSesion');
+  @override
+  late final GeneratedIntColumn rolIdSesion = _constructRolIdSesion();
+  GeneratedIntColumn _constructRolIdSesion() {
+    return GeneratedIntColumn(
+      'rol_id_sesion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _nroSesionMeta = const VerificationMeta('nroSesion');
+  @override
+  late final GeneratedIntColumn nroSesion = _constructNroSesion();
+  GeneratedIntColumn _constructNroSesion() {
+    return GeneratedIntColumn(
+      'nro_sesion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _propositoSesionMeta =
+      const VerificationMeta('propositoSesion');
+  @override
+  late final GeneratedTextColumn propositoSesion = _constructPropositoSesion();
+  GeneratedTextColumn _constructPropositoSesion() {
+    return GeneratedTextColumn(
+      'proposito_sesion',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _tituloUnidadMeta =
+      const VerificationMeta('tituloUnidad');
+  @override
+  late final GeneratedTextColumn tituloUnidad = _constructTituloUnidad();
+  GeneratedTextColumn _constructTituloUnidad() {
+    return GeneratedTextColumn(
+      'titulo_unidad',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _nroUnidadMeta = const VerificationMeta('nroUnidad');
+  @override
+  late final GeneratedIntColumn nroUnidad = _constructNroUnidad();
+  GeneratedIntColumn _constructNroUnidad() {
+    return GeneratedIntColumn(
+      'nro_unidad',
+      $tableName,
+      true,
     );
   }
 
@@ -19295,6 +19525,12 @@ class $CriterioTable extends Criterio
         sesionAprendizajeId,
         unidadAprendiajeId,
         silaboEventoId,
+        tituloSesion,
+        rolIdSesion,
+        nroSesion,
+        propositoSesion,
+        tituloUnidad,
+        nroUnidad,
         competenciaId,
         competenciaNombre,
         competenciaDescripcion,
@@ -19360,6 +19596,38 @@ class $CriterioTable extends Criterio
               data['silabo_evento_id']!, _silaboEventoIdMeta));
     } else if (isInserting) {
       context.missing(_silaboEventoIdMeta);
+    }
+    if (data.containsKey('titulo_sesion')) {
+      context.handle(
+          _tituloSesionMeta,
+          tituloSesion.isAcceptableOrUnknown(
+              data['titulo_sesion']!, _tituloSesionMeta));
+    }
+    if (data.containsKey('rol_id_sesion')) {
+      context.handle(
+          _rolIdSesionMeta,
+          rolIdSesion.isAcceptableOrUnknown(
+              data['rol_id_sesion']!, _rolIdSesionMeta));
+    }
+    if (data.containsKey('nro_sesion')) {
+      context.handle(_nroSesionMeta,
+          nroSesion.isAcceptableOrUnknown(data['nro_sesion']!, _nroSesionMeta));
+    }
+    if (data.containsKey('proposito_sesion')) {
+      context.handle(
+          _propositoSesionMeta,
+          propositoSesion.isAcceptableOrUnknown(
+              data['proposito_sesion']!, _propositoSesionMeta));
+    }
+    if (data.containsKey('titulo_unidad')) {
+      context.handle(
+          _tituloUnidadMeta,
+          tituloUnidad.isAcceptableOrUnknown(
+              data['titulo_unidad']!, _tituloUnidadMeta));
+    }
+    if (data.containsKey('nro_unidad')) {
+      context.handle(_nroUnidadMeta,
+          nroUnidad.isAcceptableOrUnknown(data['nro_unidad']!, _nroUnidadMeta));
     }
     if (data.containsKey('competencia_id')) {
       context.handle(
@@ -19554,8 +19822,8 @@ class $CriterioTable extends Criterio
       };
   @override
   CriterioData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return CriterioData.fromData(data, _db, prefix: effectivePrefix);
+    return CriterioData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -19794,8 +20062,8 @@ class $TipoEvaluacionRubroTable extends TipoEvaluacionRubro
   @override
   TipoEvaluacionRubroData map(Map<String, dynamic> data,
       {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return TipoEvaluacionRubroData.fromData(data, _db, prefix: effectivePrefix);
+    return TipoEvaluacionRubroData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -20163,8 +20431,8 @@ class $TiposRubroTable extends TiposRubro
   Set<GeneratedColumn> get $primaryKey => {tipoId};
   @override
   TiposRubroData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return TiposRubroData.fromData(data, _db, prefix: effectivePrefix);
+    return TiposRubroData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -21407,8 +21675,8 @@ class $TipoNotaRubroTable extends TipoNotaRubro
   Set<GeneratedColumn> get $primaryKey => {key};
   @override
   TipoNotaRubroData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return TipoNotaRubroData.fromData(data, _db, prefix: effectivePrefix);
+    return TipoNotaRubroData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -22647,8 +22915,8 @@ class $ValorTipoNotaRubroTable extends ValorTipoNotaRubro
   Set<GeneratedColumn> get $primaryKey => {key};
   @override
   ValorTipoNotaRubroData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return ValorTipoNotaRubroData.fromData(data, _db, prefix: effectivePrefix);
+    return ValorTipoNotaRubroData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -24759,9 +25027,8 @@ class $RubroEvaluacionProcesoTable extends RubroEvaluacionProceso
   @override
   RubroEvaluacionProcesoData map(Map<String, dynamic> data,
       {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
     return RubroEvaluacionProcesoData.fromData(data, _db,
-        prefix: effectivePrefix);
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -25439,8 +25706,8 @@ class $ArchivoRubroTable extends ArchivoRubro
   Set<GeneratedColumn> get $primaryKey => {archivoRubroId};
   @override
   ArchivoRubroData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return ArchivoRubroData.fromData(data, _db, prefix: effectivePrefix);
+    return ArchivoRubroData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -26181,8 +26448,8 @@ class $EquipoEvaluacionTable extends EquipoEvaluacion
   Set<GeneratedColumn> get $primaryKey => {equipoEvaluacionProcesoId};
   @override
   EquipoEvaluacionData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return EquipoEvaluacionData.fromData(data, _db, prefix: effectivePrefix);
+    return EquipoEvaluacionData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -27427,8 +27694,8 @@ class $EvaluacionProcesoTable extends EvaluacionProceso
   Set<GeneratedColumn> get $primaryKey => {evaluacionProcesoId};
   @override
   EvaluacionProcesoData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return EvaluacionProcesoData.fromData(data, _db, prefix: effectivePrefix);
+    return EvaluacionProcesoData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -27926,8 +28193,8 @@ class $RubroCampotematicoTable extends RubroCampotematico
   Set<GeneratedColumn> get $primaryKey => {rubroEvalProcesoId, campoTematicoId};
   @override
   RubroCampotematicoData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return RubroCampotematicoData.fromData(data, _db, prefix: effectivePrefix);
+    return RubroCampotematicoData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -28578,8 +28845,8 @@ class $RubroComentarioTable extends RubroComentario
   Set<GeneratedColumn> get $primaryKey => {evaluacionProcesoComentarioId};
   @override
   RubroComentarioData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return RubroComentarioData.fromData(data, _db, prefix: effectivePrefix);
+    return RubroComentarioData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -29179,8 +29446,8 @@ class $RubroEvalRNPFormulaTable extends RubroEvalRNPFormula
   @override
   RubroEvalRNPFormulaData map(Map<String, dynamic> data,
       {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return RubroEvalRNPFormulaData.fromData(data, _db, prefix: effectivePrefix);
+    return RubroEvalRNPFormulaData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -30655,8 +30922,8 @@ class $ContactoDocenteTable extends ContactoDocente
   Set<GeneratedColumn> get $primaryKey => {personaId, tipo, cargaCursoId};
   @override
   ContactoDocenteData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return ContactoDocenteData.fromData(data, _db, prefix: effectivePrefix);
+    return ContactoDocenteData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -30967,9 +31234,8 @@ class $CriterioRubroEvaluacionTable extends CriterioRubroEvaluacion
   @override
   CriterioRubroEvaluacionData map(Map<String, dynamic> data,
       {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
     return CriterioRubroEvaluacionData.fromData(data, _db,
-        prefix: effectivePrefix);
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -32248,8 +32514,8 @@ class $CalendarioTable extends Calendario
   Set<GeneratedColumn> get $primaryKey => {calendarioId};
   @override
   CalendarioData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return CalendarioData.fromData(data, _db, prefix: effectivePrefix);
+    return CalendarioData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -32453,9 +32719,8 @@ class $CalendarioListaUsuarioTable extends CalendarioListaUsuario
   @override
   CalendarioListaUsuarioData map(Map<String, dynamic> data,
       {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
     return CalendarioListaUsuarioData.fromData(data, _db,
-        prefix: effectivePrefix);
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -34050,8 +34315,8 @@ class $EventoTable extends Evento with TableInfo<$EventoTable, EventoData> {
   Set<GeneratedColumn> get $primaryKey => <GeneratedColumn>{};
   @override
   EventoData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return EventoData.fromData(data, _db, prefix: effectivePrefix);
+    return EventoData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -35009,8 +35274,8 @@ class $EventoPersonaTable extends EventoPersona
   Set<GeneratedColumn> get $primaryKey => {eventoPersonaId};
   @override
   EventoPersonaData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return EventoPersonaData.fromData(data, _db, prefix: effectivePrefix);
+    return EventoPersonaData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -35209,8 +35474,8 @@ class $ListaUsuarioDetalleTable extends ListaUsuarioDetalle
   @override
   ListaUsuarioDetalleData map(Map<String, dynamic> data,
       {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return ListaUsuarioDetalleData.fromData(data, _db, prefix: effectivePrefix);
+    return ListaUsuarioDetalleData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -36172,8 +36437,8 @@ class $ListaUsuariosTable extends ListaUsuarios
   Set<GeneratedColumn> get $primaryKey => {listaUsuarioId};
   @override
   ListaUsuario map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return ListaUsuario.fromData(data, _db, prefix: effectivePrefix);
+    return ListaUsuario.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -36966,8 +37231,8 @@ class $PersonaEventoTable extends PersonaEvento
   Set<GeneratedColumn> get $primaryKey => {personaId};
   @override
   PersonaEventoData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return PersonaEventoData.fromData(data, _db, prefix: effectivePrefix);
+    return PersonaEventoData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -37306,8 +37571,8 @@ class $RelacionesEventoTable extends RelacionesEvento
   Set<GeneratedColumn> get $primaryKey => {idRelacion};
   @override
   RelacionesEventoData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return RelacionesEventoData.fromData(data, _db, prefix: effectivePrefix);
+    return RelacionesEventoData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -37718,8 +37983,8 @@ class $TipoEventoTable extends TipoEvento
   Set<GeneratedColumn> get $primaryKey => {tipoId};
   @override
   TipoEventoData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return TipoEventoData.fromData(data, _db, prefix: effectivePrefix);
+    return TipoEventoData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -38049,8 +38314,8 @@ class $UsuarioEventoTable extends UsuarioEvento
   Set<GeneratedColumn> get $primaryKey => {usuarioId};
   @override
   UsuarioEventoData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return UsuarioEventoData.fromData(data, _db, prefix: effectivePrefix);
+    return UsuarioEventoData.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override

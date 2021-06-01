@@ -850,7 +850,12 @@ class SerializableConvert{
         peso: serial.peso,
         codigo: serial.codigo,
         tipoId: serial.tipoId,
-
+        nroSesion: serial.nroSesion,
+        nroUnidad: serial.nroUnidad,
+        propositoSesion: serial.propositoSesion,
+        rolIdSesion: serial.rolIdSesion,
+        tituloSesion: serial.tituloSesion,
+        tituloUnidad: serial.tituloUnidad,
         url: serial.url,
         desempenioId: serial.desempenioId,
         desempenioIcdDescripcion: serial.desempenioIcdDescripcion,
