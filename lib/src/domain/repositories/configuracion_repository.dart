@@ -33,6 +33,7 @@ abstract class ConfiguracionRepository{
   Future<CursosUi?> getCurso(int cargaCursoId);
   Future<void> saveContactoDocente(Map<String, dynamic> contactoDocente, int empleadoId, int anioAcademicoIdSelect);
   Future<List<ContactoUi>> getListContacto(int empleadoId, int anioAcademicoIdSelect);
+  Future<List<ContactoUi>> getListAlumnoCurso(int cargaCursoId);
 
   
 }

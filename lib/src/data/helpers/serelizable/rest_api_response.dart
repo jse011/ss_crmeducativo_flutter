@@ -914,6 +914,7 @@ class CriteriosSerial {
   int? sesionAprendizajeId;
   int? unidadAprendiajeId;
   int? silaboEventoId;
+  int? sesionAprendizajePadreId;
 
   String? tituloSesion;
   int? rolIdSesion;
@@ -972,6 +973,7 @@ class CriteriosSerial {
       this.sesionAprendizajeId,
       this.unidadAprendiajeId,
       this.silaboEventoId,
+      this.sesionAprendizajePadreId,
       this.tituloSesion,
       this.rolIdSesion,
       this.nroSesion,

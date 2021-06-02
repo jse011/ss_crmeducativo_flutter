@@ -6,7 +6,9 @@ import 'package:ss_crmeducativo_2/src/domain/repositories/calendario_perido_repo
 import 'package:ss_crmeducativo_2/src/domain/repositories/configuracion_repository.dart';
 import 'package:ss_crmeducativo_2/src/domain/repositories/http_datos_repository.dart';
 import 'package:ss_crmeducativo_2/src/domain/repositories/rubro_repository.dart';
+import 'package:ss_crmeducativo_2/src/domain/usecase/get_alumno_curso.dart';
 import 'package:ss_crmeducativo_2/src/domain/usecase/get_calendario_periodo.dart';
+import 'package:ss_crmeducativo_2/src/domain/usecase/get_competencia_rubro_eval.dart';
 import 'package:ss_crmeducativo_2/src/domain/usecase/get_datos_crear_rubros.dart';
 import 'package:ss_crmeducativo_2/src/domain/usecase/get_rubro_evaluacion.dart';
 import 'package:ss_crmeducativo_2/src/domain/usecase/get_unidad_rubro_eval.dart';
@@ -22,11 +24,19 @@ class RubroPresenter extends Presenter{
   GetUnidadRubroEval _getUnidadRubroEval;
   late Function getUnidadRubroEvalOnNext, getUnidadRubroEvalOnError;
 
+  GetAlumnoCurso _getAlumnoCurso;
+  late Function getAlumnoCursoOnNext, getAlumnoCursoOnError;
+
+  GetCompetenciaRubroEval _getCompetenciaRubroEval;
+  late Function getCompetenciaRubroEvalOnNext, getCompetenciaRubroEvalOnError;
+
   RubroPresenter(CalendarioPeriodoRepository calendarioPeriodoRepo, ConfiguracionRepository configuracionRepo, HttpDatosRepository httpDatosRepo, RubroRepository rubroRepo) :
                           _getCalendarioPerido = new GetCalendarioPerido(configuracionRepo, calendarioPeriodoRepo),
                           _getDatosCrearRubro = new GetDatosCrearRubro(httpDatosRepo, configuracionRepo, rubroRepo),
                           _getRubroEvaluacion = GetRubroEvaluacion(rubroRepo),
-                          _getUnidadRubroEval = GetUnidadRubroEval(rubroRepo);
+                          _getUnidadRubroEval = GetUnidadRubroEval(rubroRepo),
+                          _getAlumnoCurso = GetAlumnoCurso(configuracionRepo),
+                          _getCompetenciaRubroEval = GetCompetenciaRubroEval(rubroRepo);
 
   void getCalendarioPerido(CursosUi? cursosUi){
     _getCalendarioPerido.execute(_GetCalendarioPeriodoCase(this), GetCalendarioPeridoParams(cursosUi?.cargaCursoId??0));
@@ -39,6 +49,8 @@ class RubroPresenter extends Presenter{
       _getDatosCrearRubro.dispose();
       _getRubroEvaluacion.dispose();
       _getUnidadRubroEval.dispose();
+      _getAlumnoCurso.dispose();
+      _getCompetenciaRubroEval.dispose();
   }
 
   void onActualizarCurso(CalendarioPeriodoUI? calendarioPeriodoUI, CursosUi cursosUi) {
@@ -53,6 +65,13 @@ class RubroPresenter extends Presenter{
     _getUnidadRubroEval.execute(_GetUnidadRubroEvalCase(this), GetUnidadRubroEvalParams(calendarioPeriodoUI?.id, cursosUi?.silaboEventoId));
   }
 
+  void onGetAlumnoCurso(CursosUi? cursosUi){
+    _getAlumnoCurso.execute(GetAlumnoCursoCase(this), GetAlumnoCursoParams(cursosUi?.cargaCursoId));
+  }
+
+  void onGetCompetenciaRubroEval(CursosUi? cursosUi, CalendarioPeriodoUI? calendarioPeriodoUI){
+    _getCompetenciaRubroEval.execute(GetCompetenciaRubroEvalCase(this), GetCompetenciaRubroParams(calendarioPeriodoUI?.id, cursosUi?.silaboEventoId, cursosUi?.cargaCursoId));
+  }
 
 }
 
@@ -149,6 +168,54 @@ class _GetUnidadRubroEvalCase extends Observer<GetUnidadRubroEvalResponse>{
   void onNext(GetUnidadRubroEvalResponse? response) {
     assert(presenter.getUnidadRubroEvalOnNext!=null);
     presenter.getUnidadRubroEvalOnNext(response?.unidadUiList);
+  }
+
+}
+
+class GetAlumnoCursoCase extends Observer<GetAlumnoCursoResponse>{
+  RubroPresenter presenter;
+
+  GetAlumnoCursoCase(this.presenter);
+
+  @override
+  void onComplete() {
+
+  }
+
+  @override
+  void onError(e) {
+    assert(presenter.getAlumnoCursoOnError!=null);
+    presenter.getAlumnoCursoOnError(e);
+  }
+
+  @override
+  void onNext(GetAlumnoCursoResponse? response) {
+    assert(presenter.getAlumnoCursoOnNext!=null);
+    presenter.getAlumnoCursoOnNext(response?.contactoUiList);
+  }
+
+}
+
+class GetCompetenciaRubroEvalCase extends Observer<GetCompetenciaRubroResponse>{
+  RubroPresenter presenter;
+
+  GetCompetenciaRubroEvalCase(this.presenter);
+
+  @override
+  void onComplete() {
+
+  }
+
+  @override
+  void onError(e) {
+    assert(presenter.getCompetenciaRubroEvalOnError!=null);
+    presenter.getCompetenciaRubroEvalOnError(e);
+  }
+
+  @override
+  void onNext(GetCompetenciaRubroResponse? response) {
+    assert(presenter.getCompetenciaRubroEvalOnNext!=null);
+    presenter.getCompetenciaRubroEvalOnNext(response?.competenciaUiList);
   }
 
 }

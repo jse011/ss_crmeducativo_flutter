@@ -74,7 +74,7 @@ class HomeController extends Controller{
   @override
   void onInitState() {
     homePresenter.validarUsuario();
-    //homePresenter.updateDatos();
+    homePresenter.updateContactoDocente();
     super.onInitState();
   }
 

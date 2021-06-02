@@ -4,7 +4,6 @@ class UnidadUi{
   int? unidadAprendizajeId;
   String? titulo;
   List<SesionUi>? sesionUiList;
-
   int? nroUnidad;
 
 }

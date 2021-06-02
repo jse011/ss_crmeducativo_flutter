@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/sesion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/unidad_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/repositories/rubro_repository.dart';
 
@@ -13,7 +14,17 @@ class GetUnidadRubroEval extends UseCase<GetUnidadRubroEvalResponse, GetUnidadRu
   Future<Stream<GetUnidadRubroEvalResponse?>> buildUseCaseStream(GetUnidadRubroEvalParams? params) async{
     final controller = StreamController<GetUnidadRubroEvalResponse>();
     try{
-      controller.add(GetUnidadRubroEvalResponse(await repository.getUnidadAprendizaje(params?.silaboEventoId, params?.calendarioPeriodoId)));
+      List<UnidadUi> unidadUiList = await repository.getUnidadAprendizaje(params?.silaboEventoId, params?.calendarioPeriodoId);
+      for(UnidadUi unidadUi in unidadUiList){
+        for(SesionUi sesionUi in unidadUi.sesionUiList??[]){
+          int cantidadRubros = sesionUi.rubricaEvaluacionUiList?.length??0;
+          print("cantidadRubros: "+cantidadRubros.toString());
+          if(cantidadRubros>3){
+            sesionUi.cantRubrosVisibles = 4;
+          }
+        }
+      }
+      controller.add(GetUnidadRubroEvalResponse(unidadUiList));
 
 
     controller.close();

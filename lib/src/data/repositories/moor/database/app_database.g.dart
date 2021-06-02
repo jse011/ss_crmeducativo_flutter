@@ -17773,6 +17773,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
   final int sesionAprendizajeId;
   final int unidadAprendiajeId;
   final int silaboEventoId;
+  final int? sesionAprendizajePadreId;
   final String? tituloSesion;
   final int? rolIdSesion;
   final int? nroSesion;
@@ -17826,6 +17827,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
       {required this.sesionAprendizajeId,
       required this.unidadAprendiajeId,
       required this.silaboEventoId,
+      this.sesionAprendizajePadreId,
       this.tituloSesion,
       this.rolIdSesion,
       this.nroSesion,
@@ -17872,6 +17874,8 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
           data['${effectivePrefix}unidad_aprendiaje_id'])!,
       silaboEventoId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}silabo_evento_id'])!,
+      sesionAprendizajePadreId: const IntType().mapFromDatabaseResponse(
+          data['${effectivePrefix}sesion_aprendizaje_padre_id']),
       tituloSesion: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}titulo_sesion']),
       rolIdSesion: const IntType()
@@ -17953,6 +17957,10 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
     map['sesion_aprendizaje_id'] = Variable<int>(sesionAprendizajeId);
     map['unidad_aprendiaje_id'] = Variable<int>(unidadAprendiajeId);
     map['silabo_evento_id'] = Variable<int>(silaboEventoId);
+    if (!nullToAbsent || sesionAprendizajePadreId != null) {
+      map['sesion_aprendizaje_padre_id'] =
+          Variable<int?>(sesionAprendizajePadreId);
+    }
     if (!nullToAbsent || tituloSesion != null) {
       map['titulo_sesion'] = Variable<String?>(tituloSesion);
     }
@@ -18072,6 +18080,9 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
       sesionAprendizajeId: Value(sesionAprendizajeId),
       unidadAprendiajeId: Value(unidadAprendiajeId),
       silaboEventoId: Value(silaboEventoId),
+      sesionAprendizajePadreId: sesionAprendizajePadreId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(sesionAprendizajePadreId),
       tituloSesion: tituloSesion == null && nullToAbsent
           ? const Value.absent()
           : Value(tituloSesion),
@@ -18183,6 +18194,8 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
           serializer.fromJson<int>(json['sesionAprendizajeId']),
       unidadAprendiajeId: serializer.fromJson<int>(json['unidadAprendiajeId']),
       silaboEventoId: serializer.fromJson<int>(json['silaboEventoId']),
+      sesionAprendizajePadreId:
+          serializer.fromJson<int?>(json['sesionAprendizajePadreId']),
       tituloSesion: serializer.fromJson<String?>(json['tituloSesion']),
       rolIdSesion: serializer.fromJson<int?>(json['rolIdSesion']),
       nroSesion: serializer.fromJson<int?>(json['nroSesion']),
@@ -18244,6 +18257,8 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
       'sesionAprendizajeId': serializer.toJson<int>(sesionAprendizajeId),
       'unidadAprendiajeId': serializer.toJson<int>(unidadAprendiajeId),
       'silaboEventoId': serializer.toJson<int>(silaboEventoId),
+      'sesionAprendizajePadreId':
+          serializer.toJson<int?>(sesionAprendizajePadreId),
       'tituloSesion': serializer.toJson<String?>(tituloSesion),
       'rolIdSesion': serializer.toJson<int?>(rolIdSesion),
       'nroSesion': serializer.toJson<int?>(nroSesion),
@@ -18297,6 +18312,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
           {int? sesionAprendizajeId,
           int? unidadAprendiajeId,
           int? silaboEventoId,
+          int? sesionAprendizajePadreId,
           String? tituloSesion,
           int? rolIdSesion,
           int? nroSesion,
@@ -18337,6 +18353,8 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
         sesionAprendizajeId: sesionAprendizajeId ?? this.sesionAprendizajeId,
         unidadAprendiajeId: unidadAprendiajeId ?? this.unidadAprendiajeId,
         silaboEventoId: silaboEventoId ?? this.silaboEventoId,
+        sesionAprendizajePadreId:
+            sesionAprendizajePadreId ?? this.sesionAprendizajePadreId,
         tituloSesion: tituloSesion ?? this.tituloSesion,
         rolIdSesion: rolIdSesion ?? this.rolIdSesion,
         nroSesion: nroSesion ?? this.nroSesion,
@@ -18392,6 +18410,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
           ..write('sesionAprendizajeId: $sesionAprendizajeId, ')
           ..write('unidadAprendiajeId: $unidadAprendiajeId, ')
           ..write('silaboEventoId: $silaboEventoId, ')
+          ..write('sesionAprendizajePadreId: $sesionAprendizajePadreId, ')
           ..write('tituloSesion: $tituloSesion, ')
           ..write('rolIdSesion: $rolIdSesion, ')
           ..write('nroSesion: $nroSesion, ')
@@ -18441,45 +18460,44 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
           $mrjc(
               silaboEventoId.hashCode,
               $mrjc(
-                  tituloSesion.hashCode,
+                  sesionAprendizajePadreId.hashCode,
                   $mrjc(
-                      rolIdSesion.hashCode,
+                      tituloSesion.hashCode,
                       $mrjc(
-                          nroSesion.hashCode,
+                          rolIdSesion.hashCode,
                           $mrjc(
-                              propositoSesion.hashCode,
+                              nroSesion.hashCode,
                               $mrjc(
-                                  tituloUnidad.hashCode,
+                                  propositoSesion.hashCode,
                                   $mrjc(
-                                      nroUnidad.hashCode,
+                                      tituloUnidad.hashCode,
                                       $mrjc(
-                                          competenciaId.hashCode,
+                                          nroUnidad.hashCode,
                                           $mrjc(
-                                              competenciaNombre.hashCode,
+                                              competenciaId.hashCode,
                                               $mrjc(
-                                                  competenciaDescripcion
-                                                      .hashCode,
+                                                  competenciaNombre.hashCode,
                                                   $mrjc(
-                                                      competenciaTipoId
+                                                      competenciaDescripcion
                                                           .hashCode,
                                                       $mrjc(
-                                                          superCompetenciaId
+                                                          competenciaTipoId
                                                               .hashCode,
                                                           $mrjc(
-                                                              superCompetenciaNombre
+                                                              superCompetenciaId
                                                                   .hashCode,
                                                               $mrjc(
-                                                                  superCompetenciaDescripcion
+                                                                  superCompetenciaNombre
                                                                       .hashCode,
                                                                   $mrjc(
-                                                                      superCompetenciaTipoId
+                                                                      superCompetenciaDescripcion
                                                                           .hashCode,
                                                                       $mrjc(
-                                                                          desempenioIcdId
+                                                                          superCompetenciaTipoId
                                                                               .hashCode,
                                                                           $mrjc(
-                                                                              DesempenioDescripcion.hashCode,
-                                                                              $mrjc(peso.hashCode, $mrjc(codigo.hashCode, $mrjc(tipoId.hashCode, $mrjc(url.hashCode, $mrjc(desempenioId.hashCode, $mrjc(desempenioIcdDescripcion.hashCode, $mrjc(icdId.hashCode, $mrjc(icdTitulo.hashCode, $mrjc(icdDescripcion.hashCode, $mrjc(icdAlias.hashCode, $mrjc(campoTematicoId.hashCode, $mrjc(campoTematicoTitulo.hashCode, $mrjc(campoTematicoDescripcion.hashCode, $mrjc(campoTematicoEstado.hashCode, $mrjc(campoTematicoParentId.hashCode, $mrjc(campoTematicoParentTitulo.hashCode, $mrjc(campoTematicoParentDescripcion.hashCode, $mrjc(campoTematicoParentEstado.hashCode, $mrjc(campoTematicoParentParentId.hashCode, calendarioPeriodoId.hashCode)))))))))))))))))))))))))))))))))))))));
+                                                                              desempenioIcdId.hashCode,
+                                                                              $mrjc(DesempenioDescripcion.hashCode, $mrjc(peso.hashCode, $mrjc(codigo.hashCode, $mrjc(tipoId.hashCode, $mrjc(url.hashCode, $mrjc(desempenioId.hashCode, $mrjc(desempenioIcdDescripcion.hashCode, $mrjc(icdId.hashCode, $mrjc(icdTitulo.hashCode, $mrjc(icdDescripcion.hashCode, $mrjc(icdAlias.hashCode, $mrjc(campoTematicoId.hashCode, $mrjc(campoTematicoTitulo.hashCode, $mrjc(campoTematicoDescripcion.hashCode, $mrjc(campoTematicoEstado.hashCode, $mrjc(campoTematicoParentId.hashCode, $mrjc(campoTematicoParentTitulo.hashCode, $mrjc(campoTematicoParentDescripcion.hashCode, $mrjc(campoTematicoParentEstado.hashCode, $mrjc(campoTematicoParentParentId.hashCode, calendarioPeriodoId.hashCode))))))))))))))))))))))))))))))))))))))));
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -18487,6 +18505,7 @@ class CriterioData extends DataClass implements Insertable<CriterioData> {
           other.sesionAprendizajeId == this.sesionAprendizajeId &&
           other.unidadAprendiajeId == this.unidadAprendiajeId &&
           other.silaboEventoId == this.silaboEventoId &&
+          other.sesionAprendizajePadreId == this.sesionAprendizajePadreId &&
           other.tituloSesion == this.tituloSesion &&
           other.rolIdSesion == this.rolIdSesion &&
           other.nroSesion == this.nroSesion &&
@@ -18532,6 +18551,7 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
   final Value<int> sesionAprendizajeId;
   final Value<int> unidadAprendiajeId;
   final Value<int> silaboEventoId;
+  final Value<int?> sesionAprendizajePadreId;
   final Value<String?> tituloSesion;
   final Value<int?> rolIdSesion;
   final Value<int?> nroSesion;
@@ -18572,6 +18592,7 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
     this.sesionAprendizajeId = const Value.absent(),
     this.unidadAprendiajeId = const Value.absent(),
     this.silaboEventoId = const Value.absent(),
+    this.sesionAprendizajePadreId = const Value.absent(),
     this.tituloSesion = const Value.absent(),
     this.rolIdSesion = const Value.absent(),
     this.nroSesion = const Value.absent(),
@@ -18613,6 +18634,7 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
     required int sesionAprendizajeId,
     required int unidadAprendiajeId,
     required int silaboEventoId,
+    this.sesionAprendizajePadreId = const Value.absent(),
     this.tituloSesion = const Value.absent(),
     this.rolIdSesion = const Value.absent(),
     this.nroSesion = const Value.absent(),
@@ -18659,6 +18681,7 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
     Expression<int>? sesionAprendizajeId,
     Expression<int>? unidadAprendiajeId,
     Expression<int>? silaboEventoId,
+    Expression<int?>? sesionAprendizajePadreId,
     Expression<String?>? tituloSesion,
     Expression<int?>? rolIdSesion,
     Expression<int?>? nroSesion,
@@ -18702,6 +18725,8 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
       if (unidadAprendiajeId != null)
         'unidad_aprendiaje_id': unidadAprendiajeId,
       if (silaboEventoId != null) 'silabo_evento_id': silaboEventoId,
+      if (sesionAprendizajePadreId != null)
+        'sesion_aprendizaje_padre_id': sesionAprendizajePadreId,
       if (tituloSesion != null) 'titulo_sesion': tituloSesion,
       if (rolIdSesion != null) 'rol_id_sesion': rolIdSesion,
       if (nroSesion != null) 'nro_sesion': nroSesion,
@@ -18761,6 +18786,7 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
       {Value<int>? sesionAprendizajeId,
       Value<int>? unidadAprendiajeId,
       Value<int>? silaboEventoId,
+      Value<int?>? sesionAprendizajePadreId,
       Value<String?>? tituloSesion,
       Value<int?>? rolIdSesion,
       Value<int?>? nroSesion,
@@ -18801,6 +18827,8 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
       sesionAprendizajeId: sesionAprendizajeId ?? this.sesionAprendizajeId,
       unidadAprendiajeId: unidadAprendiajeId ?? this.unidadAprendiajeId,
       silaboEventoId: silaboEventoId ?? this.silaboEventoId,
+      sesionAprendizajePadreId:
+          sesionAprendizajePadreId ?? this.sesionAprendizajePadreId,
       tituloSesion: tituloSesion ?? this.tituloSesion,
       rolIdSesion: rolIdSesion ?? this.rolIdSesion,
       nroSesion: nroSesion ?? this.nroSesion,
@@ -18863,6 +18891,10 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
     }
     if (silaboEventoId.present) {
       map['silabo_evento_id'] = Variable<int>(silaboEventoId.value);
+    }
+    if (sesionAprendizajePadreId.present) {
+      map['sesion_aprendizaje_padre_id'] =
+          Variable<int?>(sesionAprendizajePadreId.value);
     }
     if (tituloSesion.present) {
       map['titulo_sesion'] = Variable<String?>(tituloSesion.value);
@@ -18994,6 +19026,7 @@ class CriterioCompanion extends UpdateCompanion<CriterioData> {
           ..write('sesionAprendizajeId: $sesionAprendizajeId, ')
           ..write('unidadAprendiajeId: $unidadAprendiajeId, ')
           ..write('silaboEventoId: $silaboEventoId, ')
+          ..write('sesionAprendizajePadreId: $sesionAprendizajePadreId, ')
           ..write('tituloSesion: $tituloSesion, ')
           ..write('rolIdSesion: $rolIdSesion, ')
           ..write('nroSesion: $nroSesion, ')
@@ -19076,6 +19109,19 @@ class $CriterioTable extends Criterio
       'silabo_evento_id',
       $tableName,
       false,
+    );
+  }
+
+  final VerificationMeta _sesionAprendizajePadreIdMeta =
+      const VerificationMeta('sesionAprendizajePadreId');
+  @override
+  late final GeneratedIntColumn sesionAprendizajePadreId =
+      _constructSesionAprendizajePadreId();
+  GeneratedIntColumn _constructSesionAprendizajePadreId() {
+    return GeneratedIntColumn(
+      'sesion_aprendizaje_padre_id',
+      $tableName,
+      true,
     );
   }
 
@@ -19525,6 +19571,7 @@ class $CriterioTable extends Criterio
         sesionAprendizajeId,
         unidadAprendiajeId,
         silaboEventoId,
+        sesionAprendizajePadreId,
         tituloSesion,
         rolIdSesion,
         nroSesion,
@@ -19596,6 +19643,13 @@ class $CriterioTable extends Criterio
               data['silabo_evento_id']!, _silaboEventoIdMeta));
     } else if (isInserting) {
       context.missing(_silaboEventoIdMeta);
+    }
+    if (data.containsKey('sesion_aprendizaje_padre_id')) {
+      context.handle(
+          _sesionAprendizajePadreIdMeta,
+          sesionAprendizajePadreId.isAcceptableOrUnknown(
+              data['sesion_aprendizaje_padre_id']!,
+              _sesionAprendizajePadreIdMeta));
     }
     if (data.containsKey('titulo_sesion')) {
       context.handle(

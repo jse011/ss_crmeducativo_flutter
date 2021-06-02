@@ -37,6 +37,6 @@ class AppIcon {
   static const String img_evento_compartir = "assets/icons/img_evento_shared.png";
   static const String img_evento_megusta_1 = "assets/icons/img_evento_like.png";
 
-
+  static const String ic_lista_vacia = "assets/icons/ic_empty_state.svg";
 
 }

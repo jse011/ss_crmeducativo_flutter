@@ -171,6 +171,7 @@ class DeviceHttpDatosRepositorio extends HttpDatosRepository{
         Map<String, dynamic> salida = new  Map<String, dynamic>();
         List<dynamic> lista = body["Value"];
         salida["contactos"] = lista;
+        return salida;
       }else{
         throw Exception('Failed to load');
       }

@@ -514,25 +514,12 @@ class MoorRubroRepository extends RubroRepository{
     List<RubricaEvaluacionUi> rubricaEvalProcesoUiList = [];
     List<RubroEvaluacionProcesoData> rubroEvalProcesoList = await query.get();
     for(RubroEvaluacionProcesoData rubroEvaluacionProcesoData in  rubroEvalProcesoList){
-        RubricaEvaluacionUi rubricaEvaluacionUi = RubricaEvaluacionUi();
-        rubricaEvaluacionUi.rubricaId = rubroEvaluacionProcesoData.rubroEvalProcesoId;
-        rubricaEvaluacionUi.titulo = rubroEvaluacionProcesoData.titulo;
-        print("titulorubro " + rubroEvaluacionProcesoData.titulo.toString());
-        rubricaEvaluacionUi.efechaCreacion = AppTools.f_fecha_letras(rubroEvaluacionProcesoData.fechaCreacion);
-        rubricaEvaluacionUi.fechaCreacion = rubroEvaluacionProcesoData.fechaCreacion;
-        rubricaEvaluacionUi.mediaDesvicion = '${(rubroEvaluacionProcesoData.promedio??0).toStringAsFixed(1)} (${(rubroEvaluacionProcesoData.desviacionEstandar??0).toStringAsFixed(1)})';
-        rubricaEvaluacionUi.rubroGrupal = rubroEvaluacionProcesoData.formaEvaluacionId == FORMA_EVAL_GRUPAL;
-        rubricaEvaluacionUi.sesionAprendizajeId = rubroEvaluacionProcesoData.sesionAprendizajeId;
-        if((rubroEvaluacionProcesoData.tareaId??"").isNotEmpty)rubricaEvaluacionUi.origenRubroUi = OrigenRubroUi.GENERADO_TAREA;
-        else if((rubroEvaluacionProcesoData.instrumentoEvalId??"").isNotEmpty)rubricaEvaluacionUi.origenRubroUi = OrigenRubroUi.GENERADO_INSTRUMENTO;
-        else if((rubroEvaluacionProcesoData.preguntaEvalId??"").isNotEmpty)rubricaEvaluacionUi.origenRubroUi = OrigenRubroUi.GENERADO_PREGUNTA;
-        else rubricaEvaluacionUi.origenRubroUi = OrigenRubroUi.CREADO_DOCENTE;
-
-        if(origenRubroUi == OrigenRubroUi.TODOS){
-          rubricaEvalProcesoUiList.add(rubricaEvaluacionUi);
-        }else if(origenRubroUi == rubricaEvaluacionUi.origenRubroUi){
-          rubricaEvalProcesoUiList.add(rubricaEvaluacionUi);
-        }
+      RubricaEvaluacionUi rubricaEvaluacionUi = convertRubricaEvaluacionUi(rubroEvaluacionProcesoData);
+      if(origenRubroUi == OrigenRubroUi.TODOS){
+        rubricaEvalProcesoUiList.add(rubricaEvaluacionUi);
+      }else if(origenRubroUi == rubricaEvaluacionUi.origenRubroUi){
+        rubricaEvalProcesoUiList.add(rubricaEvaluacionUi);
+      }
     }
 
     var queryEval = SQL.select(SQL.evaluacionProceso).join([
@@ -558,50 +545,122 @@ class MoorRubroRepository extends RubroRepository{
     return rubricaEvalProcesoUiList;
   }
 
+  RubricaEvaluacionUi convertRubricaEvaluacionUi(RubroEvaluacionProcesoData rubroEvaluacionProcesoData){
+    RubricaEvaluacionUi rubricaEvaluacionUi = RubricaEvaluacionUi();
+    rubricaEvaluacionUi.rubricaId = rubroEvaluacionProcesoData.rubroEvalProcesoId;
+    rubricaEvaluacionUi.titulo = rubroEvaluacionProcesoData.titulo;
+    print("titulorubro " + rubroEvaluacionProcesoData.titulo.toString());
+    rubricaEvaluacionUi.efechaCreacion = AppTools.f_fecha_letras(rubroEvaluacionProcesoData.fechaCreacion);
+    rubricaEvaluacionUi.fechaCreacion = rubroEvaluacionProcesoData.fechaCreacion;
+    rubricaEvaluacionUi.mediaDesvicion = '${(rubroEvaluacionProcesoData.promedio??0).toStringAsFixed(1)} (${(rubroEvaluacionProcesoData.desviacionEstandar??0).toStringAsFixed(1)})';
+    rubricaEvaluacionUi.rubroGrupal = rubroEvaluacionProcesoData.formaEvaluacionId == FORMA_EVAL_GRUPAL;
+    rubricaEvaluacionUi.sesionAprendizajeId = rubroEvaluacionProcesoData.sesionAprendizajeId;
+    if((rubroEvaluacionProcesoData.tareaId??"").isNotEmpty)rubricaEvaluacionUi.origenRubroUi = OrigenRubroUi.GENERADO_TAREA;
+    else if((rubroEvaluacionProcesoData.instrumentoEvalId??"").isNotEmpty)rubricaEvaluacionUi.origenRubroUi = OrigenRubroUi.GENERADO_INSTRUMENTO;
+    else if((rubroEvaluacionProcesoData.preguntaEvalId??"").isNotEmpty)rubricaEvaluacionUi.origenRubroUi = OrigenRubroUi.GENERADO_PREGUNTA;
+    else rubricaEvaluacionUi.origenRubroUi = OrigenRubroUi.CREADO_DOCENTE;
+    return rubricaEvaluacionUi;
+  }
+
   @override
   Future<List<UnidadUi>> getUnidadAprendizaje(int? silaboEventoId, int? calendarioPeriodoId) async {
     AppDataBase SQL = AppDataBase();
     List<UnidadUi> unidadUiList = [];
-    var query = SQL.select(SQL.criterio)..where((tbl) => tbl.silaboEventoId.equals(silaboEventoId));
-    query.where((tbl) => tbl.calendarioPeriodoId.equals(calendarioPeriodoId));
-
-    /*
+    List<SesionUi> sesionUiList = [];
+    var query = SQL.selectOnly(SQL.criterio, distinct: true)//..where((tbl) => tbl.silaboEventoId.equals(silaboEventoId));
+    //query.where((tbl) => tbl.calendarioPeriodoId.equals(calendarioPeriodoId));
       ..addColumns([SQL.criterio.silaboEventoId,
         SQL.criterio.unidadAprendiajeId,
         SQL.criterio.tituloUnidad,
         SQL.criterio.nroUnidad,
         SQL.criterio.sesionAprendizajeId,
+        SQL.criterio.sesionAprendizajePadreId,
         SQL.criterio.nroSesion,
         SQL.criterio.propositoSesion,
         SQL.criterio.rolIdSesion,
         SQL.criterio.tituloSesion,
-      ]);*/
-    //query.where(SQL.criterio.silaboEventoId.equals(silaboEventoId));
-    //query.where(SQL.criterio.calendarioPeriodoId.equals(calendarioPeriodoId));
-    //query.groupBy([SQL.criterio.silaboEventoId, SQL.criterio.unidadAprendiajeId, SQL.criterio.sesionAprendizajeId]);
-
-    for(CriterioData criterioData in await query.get()){
-      //CriterioData criterioData = row.readTable(SQL.criterio);
-      UnidadUi? unidadUi = unidadUiList.firstWhereOrNull((element) => element.unidadAprendizajeId == criterioData.unidadAprendiajeId);
-      if(unidadUi == null){
-        unidadUi = UnidadUi();
-        unidadUi.sesionUiList = [];
-        unidadUiList.add(unidadUi);
-      }
-      unidadUi.unidadAprendizajeId = criterioData.unidadAprendiajeId;
-      unidadUi.titulo = criterioData.tituloUnidad;
-      unidadUi.nroUnidad = criterioData.nroUnidad;
-      SesionUi sesionUi = SesionUi();
-      sesionUi.sesionAprendizajeId = criterioData.sesionAprendizajeId;
-      sesionUi.tituloSesion = criterioData.tituloSesion;
-      sesionUi.nroSesion = criterioData.nroSesion;
-      sesionUi.titulo = criterioData.tituloSesion;
-      sesionUi.proposito = criterioData.propositoSesion;
+      ]);
+    query.where(SQL.criterio.silaboEventoId.equals(silaboEventoId));
+    query.where(SQL.criterio.calendarioPeriodoId.equals(calendarioPeriodoId));
+    query.orderBy([ OrderingTerm(expression: SQL.criterio.nroUnidad, mode: OrderingMode.desc),  OrderingTerm(expression: SQL.criterio.nroSesion, mode: OrderingMode.desc)]);
+    query.map((row){
+    UnidadUi? unidadUi = unidadUiList.firstWhereOrNull((element) => element.unidadAprendizajeId == row.read(SQL.criterio.unidadAprendiajeId));
+    if(unidadUi == null){
+      unidadUi = UnidadUi();
+      unidadUi.sesionUiList = [];
+      unidadUiList.add(unidadUi);
+    }
+    unidadUi.unidadAprendizajeId = row.read(SQL.criterio.unidadAprendiajeId);
+    unidadUi.titulo = row.read(SQL.criterio.tituloUnidad);
+    unidadUi.nroUnidad = row.read(SQL.criterio.nroUnidad);
+    SesionUi sesionUi = SesionUi();
+    sesionUi.sesionAprendizajeId =  row.read(SQL.criterio.sesionAprendizajeId);
+    sesionUi.sesionAprendizajePadreId = row.read(SQL.criterio.sesionAprendizajePadreId);
+    sesionUi.tituloSesion = row.read(SQL.criterio.tituloSesion);
+    sesionUi.nroSesion = row.read(SQL.criterio.nroSesion);
+    sesionUi.titulo = row.read(SQL.criterio.tituloSesion);
+    sesionUi.proposito = row.read(SQL.criterio.propositoSesion);
+    sesionUi.rubricaEvaluacionUiList = [];
+    if((sesionUi.sesionAprendizajeId??0)>0){
       unidadUi.sesionUiList?.add(sesionUi);
+      sesionUiList.add(sesionUi);
+    }
 
+    return unidadUi;
+    }).get();
+
+
+    var queryRubro = SQL.select(SQL.rubroEvaluacionProceso)..where((tbl) => tbl.calendarioPeriodoId.equals(calendarioPeriodoId));
+    queryRubro.where((tbl) => tbl.silaboEventoId.equals(silaboEventoId));
+    queryRubro.where((tbl) => tbl.tiporubroid.isIn([TIPO_RUBRO_BIMENSIONAL, TIPO_RUBRO_UNIDIMENCIONAL]));
+    //query.where((tbl) => tbl.tipoFormulaId.isNull());
+    queryRubro.where((tbl) => tbl.tipoFormulaId.equals(0));
+    queryRubro.where((tbl) => tbl.sesionAprendizajeId.isNotNull());
+    queryRubro.orderBy([(tbl)=> OrderingTerm.desc(tbl.fechaCreacion)]);
+
+    List<RubroEvaluacionProcesoData> rubroEvalProcesoList = await queryRubro.get();
+    for(RubroEvaluacionProcesoData rubroEvaluacionProcesoData in  rubroEvalProcesoList){
+      for(SesionUi sesionUi in sesionUiList){
+        if(sesionUi.sesionAprendizajeId == rubroEvaluacionProcesoData.sesionAprendizajeId || sesionUi.sesionAprendizajePadreId ==  rubroEvaluacionProcesoData.sesionAprendizajeId){
+          RubricaEvaluacionUi rubricaEvaluacionUi = convertRubricaEvaluacionUi(rubroEvaluacionProcesoData);
+          sesionUi.rubricaEvaluacionUiList?.add(rubricaEvaluacionUi);
+        }
+      }
     }
 
     return unidadUiList;
+  }
+
+  @override
+  Future<List<CompetenciaUi>> getRubroCompetencia(int? silaboEventoId, int? calendarioPeriodoId, int? competenciaId) async{
+    AppDataBase SQL = AppDataBase();
+
+    var queryRubro = SQL.select(SQL.rubroEvaluacionProceso)..where((tbl) => tbl.calendarioPeriodoId.equals(calendarioPeriodoId));
+    queryRubro.where((tbl) => tbl.silaboEventoId.equals(silaboEventoId));
+    queryRubro.where((tbl) => tbl.tiporubroid.isIn([TIPO_RUBRO_BIMENSIONAL, TIPO_RUBRO_UNIDIMENCIONAL]));
+    //query.where((tbl) => tbl.tipoFormulaId.isNull());
+    queryRubro.where((tbl) => tbl.tipoFormulaId.equals(0));
+    //queryRubro.where((tbl) => tbl.sesionAprendizajeId.isNotNull());
+    queryRubro.orderBy([(tbl)=> OrderingTerm.desc(tbl.fechaCreacion)]);
+
+    List<RubroEvaluacionProcesoData> rubroEvalProcesoList = await queryRubro.get();
+
+   List<CompetenciaUi> competenciaUiList = await getTemasCriterios(calendarioPeriodoId??0, silaboEventoId??0);
+    for(CompetenciaUi competenciaUi in competenciaUiList){
+      for(CapacidadUi capacidadUi in competenciaUi.capacidadUiList??[]){
+        capacidadUi.rubricaEvalUiList = [];
+        for(RubroEvaluacionProcesoData rubroEvaluacionProcesoData in  rubroEvalProcesoList){
+          if(capacidadUi.capacidadId == rubroEvaluacionProcesoData.competenciaId){
+            RubricaEvaluacionUi rubricaEvaluacionUi = convertRubricaEvaluacionUi(rubroEvaluacionProcesoData);
+            capacidadUi.rubricaEvalUiList?.add(rubricaEvaluacionUi);
+          }
+        }
+      }
+    }
+
+    return competenciaUiList;
+
+
   }
 
 }

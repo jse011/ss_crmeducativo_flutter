@@ -6,6 +6,8 @@ IntColumn get sesionAprendizajeId => integer()();
 IntColumn get unidadAprendiajeId => integer()();
 IntColumn get silaboEventoId => integer()();
 
+IntColumn get sesionAprendizajePadreId => integer().nullable()();
+
 TextColumn get tituloSesion => text().nullable()();
 IntColumn get rolIdSesion => integer().nullable()();
 IntColumn get nroSesion => integer().nullable()();

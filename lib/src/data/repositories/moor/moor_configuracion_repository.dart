@@ -834,6 +834,27 @@ class MoorConfiguracionRepository extends ConfiguracionRepository{
     }
   }
 
+  @override
+  Future<List<ContactoUi>> getListAlumnoCurso(int cargaCursoId)async {
+    AppDataBase SQL = AppDataBase();
+    List<ContactoUi> contactoUiList = [];
+    print("cargaCursoId: " + cargaCursoId.toString());
+    var query = SQL.select(SQL.contactoDocente)..where((tbl) => SQL.contactoDocente.cargaCursoId.equals(cargaCursoId));
+    query.orderBy([(tbl)=> OrderingTerm.desc(tbl.apellidoPaterno)]);
+    List<ContactoDocenteData> contactoDocenteList = await query.get();
+    for(ContactoDocenteData contactoData  in contactoDocenteList){
+      ContactoUi contactoUi = new ContactoUi();
+        contactoUi.personaId = contactoData.personaId;
+        contactoUi.foto = contactoData.foto;
+        contactoUi.nombre = '${AppTools.capitalize(contactoData.nombres??"")} ${AppTools.capitalize(contactoData.apellidoPaterno??"")} ${AppTools.capitalize(contactoData.apellidoMaterno??"")}';
+        contactoUi.relacion = contactoData.relacion;
+        contactoUi.telefono = contactoData.celular!=null?contactoData.celular: contactoData.telefono??"";
+        contactoUiList.add(contactoUi);
+    }
+    print("getListAlumnoCurso: " + contactoUiList.length.toString());
+    return contactoUiList;
+  }
+
 
 
 

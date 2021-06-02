@@ -1,11 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:lottie/lottie.dart';
 import 'package:ss_crmeducativo_2/libs/fdottedline/fdottedline.dart';
@@ -21,6 +23,9 @@ import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_calendario_per
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_configuracion_repository.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_rubro_repository.dart';
 import 'package:ss_crmeducativo_2/src/device/repositories/http/device_http_datos_repository.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/capacidad_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/competencia_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/contacto_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
 import 'package:ss_crmeducativo_2/libs/flutter-sized-context/sized_context.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/origen_rubro_ui.dart';
@@ -112,6 +117,112 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
       children: [
         getMainTab(),
         getAppBarUI(),
+        ControlledWidgetBuilder<RubroController>(
+            builder: (context, controller) {
+              if((controller.msgToast??"").isNotEmpty){
+                Fluttertoast.showToast(
+                  msg: controller.msgToast??"",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 1,
+                );
+                controller.successMsg();
+              }
+
+
+              return Stack(
+                children: [
+                  if(controller.contenedorSyncronizar) ArsProgressWidget(
+                      blur: 2,
+                      backgroundColor: Color(0x33000000),
+                      animationDuration: Duration(milliseconds: 500),
+                      loadingWidget:  Container(
+                        margin: EdgeInsets.only(top:32 ,bottom: 32, left: 24, right: 48),
+                        height: 140,
+                        decoration: BoxDecoration(
+                            color: HexColor("#4987F3"),
+                            borderRadius: BorderRadius.circular(24) // use instead of BorderRadius.all(Radius.circular(20))
+                        ),
+                        child: Stack(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: 24, right: 36, top: 16, bottom: 16),
+                              child:   Row(
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text("Actualizando sus evaluaciones",
+                                          style: TextStyle(
+                                            fontFamily: AppTheme.fontTTNormsMedium,
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 18,
+                                            letterSpacing: 0.5,
+                                            color: AppTheme.white,
+                                          ),
+                                        ),
+                                        Padding(padding: EdgeInsets.only(top: 8)),
+                                        Text("Congrats! Your progress are growing up",
+                                          style: TextStyle(
+                                            fontFamily: AppTheme.fontTTNormsLigth,
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 12,
+                                            letterSpacing: 0.5,
+                                            color: AppTheme.white,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(padding: EdgeInsets.only(left: 8)),
+                                  Container(
+                                    width: 72,
+                                    height: 72,
+                                    padding: EdgeInsets.all(16),
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: HexColor("#3C7BE9")),
+                                    child:Container(
+                                      child: Center(
+                                        child: Text(controller.progresoSyncronizar.toString() + "%",
+                                          style: TextStyle(
+                                            fontFamily: AppTheme.fontTTNormsMedium,
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 11,
+                                            letterSpacing: 0.5,
+                                            color: AppTheme.white,
+                                          ),
+                                        ),
+                                      ),
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: HexColor("#4987F3")),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Positioned(
+                              top: 8,
+                              right: -88,
+                              child: Container(
+                                width: 280,
+                                child: Lottie.asset('assets/lottie/progress_portal_alumno.json',
+                                    fit: BoxFit.fill
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                  ),
+                  if(controller.progress)Center(child: CircularProgressIndicator())
+                ],
+              );
+            }
+        )
 
       ],
     ),
@@ -339,8 +450,8 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
                   //scrollDirection: Axis.vertical,
                   children: [
                     progress(tabRubroGeneral(controller, count)),
-                    progress(tabRubroSesiones2(controller, count)),
-                    progress(_seletedItem==2?showTableTipoNota(controller):Container())
+                    progress(tabRubroSesiones3(controller, count)),
+                    progress(_seletedItem==2?tabRubCompetencia(controller):Container())
                   ],
                   onPageChanged: (index) {
                     setState(() {
@@ -513,11 +624,15 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
   }
   //#region Tab
   ScrollControllers _scrollControllers = ScrollControllers();
-  Widget showTableTipoNota(RubroController controller) {
+  Widget tabRubCompetencia(RubroController controller) {
 
     List<double> tablecolumnWidths = [];
-    for(String s in LandingPage.makeTitleColumn()){
-      tablecolumnWidths.add(95.0);
+    for(dynamic s in controller.rowList){
+      if(s is String){
+        tablecolumnWidths.add(95.0);
+      }else{
+        tablecolumnWidths.add(70.0);
+      }
     }
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 0, top: 24),
@@ -529,24 +644,66 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
             contentCellHeight: 45,
             columnWidths: tablecolumnWidths
         ),
-        columnsLength: LandingPage.makeTitleColumn().length,
-        rowsLength: LandingPage.makeTitleRow().length,
+        columnsLength: controller.rowList.length,
+        rowsLength: controller.contactoUiList.length,
         columnsTitleBuilder: (i) {
-          return  Container(
-              constraints: BoxConstraints.expand(),
-              child: Center(
-                child:  Text("Apellidos y\n Nombres" , style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700 ),),
-              ),
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(color: HexColor(controller.cursosUi.color3)),
-                  right: BorderSide(color: HexColor(controller.cursosUi.color3)),
+          dynamic o = controller.rowList[i];
+          if(o is String){
+            return Container(
+                constraints: BoxConstraints.expand(),
+                child: Center(
+                  child:  Text(o, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700 ),),
                 ),
-                color: HexColor("#EFEDEE")
-              )
-          );
+                decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(color: HexColor(controller.cursosUi.color3)),
+                      right: BorderSide(color: HexColor(controller.cursosUi.color3)),
+                    ),
+                    color: HexColor("#EFEDEE")
+                )
+            );
+          }else if(o is CompetenciaUi){
+            return Container(
+                constraints: BoxConstraints.expand(),
+                child: Center(
+                  child:  RotatedBox(
+                    quarterTurns: -1,
+                    child: Text(o.nombre??"", textAlign: TextAlign.center,style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700 ),),
+                  ),
+                ),
+                decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(color: HexColor(controller.cursosUi.color3)),
+                      right: BorderSide(color: HexColor(controller.cursosUi.color3)),
+                    ),
+                    color: Colors.tealAccent
+                )
+            );
+          }else if(o is CapacidadUi){
+            return Container(
+                constraints: BoxConstraints.expand(),
+                padding: EdgeInsets.all(8),
+                child: Center(
+                  child:  RotatedBox(
+                    quarterTurns: -1,
+                    child: Text(o.nombre??"", textAlign: TextAlign.center, maxLines: 4, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 11,color: AppTheme.greyDarken3 ),),
+                  ),
+                ),
+                decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(color: HexColor(controller.cursosUi.color3)),
+                      right: BorderSide(color: HexColor(controller.cursosUi.color3)),
+                    ),
+                    color: AppTheme.white
+                )
+            );
+          }else{
+          return Container();
+          }
+
         },
         rowsTitleBuilder: (i) {
+          ContactoUi contactoUi = controller.contactoUiList[i];
           return  Container(
               constraints: BoxConstraints.expand(),
               child: Row(
@@ -567,7 +724,7 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
                     child: true?
                     CachedNetworkImage(
                       placeholder: (context, url) => CircularProgressIndicator(),
-                      imageUrl: 'https://thumbs.dreamstime.com/z/alumno-feliz-16935936.jpg',
+                      imageUrl: contactoUi.foto??"",
                       errorWidget: (context, url, error) =>  Icon(Icons.error_outline_rounded, size: 80,),
                       imageBuilder: (context, imageProvider) =>
                           Container(
@@ -651,88 +808,6 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
                     delegate: SliverChildListDelegate(
                       [
                         Padding(padding: EdgeInsets.only( top: 32)),
-                        controller.contenedorSyncronizar?
-                        Container(
-                          margin: EdgeInsets.only(bottom: 32),
-                          height: 140,
-                          decoration: BoxDecoration(
-                              color: HexColor("#4987F3"),
-                              borderRadius: BorderRadius.circular(24) // use instead of BorderRadius.all(Radius.circular(20))
-                          ),
-                          child: Stack(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(left: 24, right: 36, top: 16, bottom: 16),
-                                child:   Row(
-                                  children: [
-                                    Expanded(
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text("Actualizando sus evaluaciones",
-                                            style: TextStyle(
-                                              fontFamily: AppTheme.fontTTNormsMedium,
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 18,
-                                              letterSpacing: 0.5,
-                                              color: AppTheme.white,
-                                            ),
-                                          ),
-                                          Padding(padding: EdgeInsets.only(top: 8)),
-                                          Text("Congrats! Your progress are growing up",
-                                            style: TextStyle(
-                                              fontFamily: AppTheme.fontTTNormsLigth,
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 12,
-                                              letterSpacing: 0.5,
-                                              color: AppTheme.white,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(padding: EdgeInsets.only(left: 8)),
-                                    Container(
-                                      width: 72,
-                                      height: 72,
-                                      padding: EdgeInsets.all(16),
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: HexColor("#3C7BE9")),
-                                      child:Container(
-                                        child: Center(
-                                          child: Text(controller.progresoSyncronizar.toString() + "%",
-                                            style: TextStyle(
-                                              fontFamily: AppTheme.fontTTNormsMedium,
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 11,
-                                              letterSpacing: 0.5,
-                                              color: AppTheme.white,
-                                            ),
-                                          ),
-                                        ),
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: HexColor("#4987F3")),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Positioned(
-                                top: 8,
-                                right: -88,
-                                child: Container(
-                                  width: 280,
-                                  child: Lottie.asset('assets/lottie/progress_portal_alumno.json',
-                                      fit: BoxFit.fill
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ):Container(),
                         Padding(
                           padding: EdgeInsets.only(bottom: 32),
                           child: Row(
@@ -1000,224 +1075,39 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
     );
   }
 
-  Widget tabRubroSesiones(RubroController controller, int countRow) {
-    return  Padding(
-        padding: EdgeInsets.only(left: 24, right: 48),
-        child: CustomScrollView(
-          controller: scrollController,
-          slivers: [
-            SliverList(
-                delegate: SliverChildListDelegate(
-                  [
-                    Padding(padding: EdgeInsets.only( top: 32)),
-                  ],
-                )
-            ),
-            SliverList(
-                delegate: SliverChildListDelegate(
-                  [
-                    Container(
-                      decoration: new BoxDecoration(
-                          color: HexColor(controller.cursosUi.color1),
-                          borderRadius: new BorderRadius.all(Radius.circular(25.0))
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(top: 24, right: 24, left: 24),
-                            child: Row(
-                              children: [
-                                Expanded(child: Text("U3: ESPERANZA EN MEDIO DEL CAOS", style: TextStyle(color: AppTheme.white, fontSize: 16),)),
-                                ClipOval(
-                                  child: Material(
-                                    color: HexColor(controller.cursosUi.color3), // button color
-                                    child: InkWell(
-                                      splashColor: HexColor(controller.cursosUi.color3).withOpacity(0.5), // inkwell color
-                                      child: SizedBox(width: 43 , height: 43,
-                                        child: Icon(Ionicons.chevron_down, size: 24 ,color: AppTheme.white, ),
-                                      ),
-                                      onTap: () {
-                                        controller.onSyncronizarCurso();
-                                      },
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(top: 16, bottom: 16, left: 16, right: 16),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: HexColor(controller.cursosUi.color3),
-                                  borderRadius: BorderRadius.all(Radius.circular(20))
-                              ),
-                              child:  Container(
-                                width: double.infinity,
-                                padding: EdgeInsets.all(0),
-                                child:   GridView.count(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  primary: false,
-                                  padding: const EdgeInsets.all(20.0),
-                                  crossAxisSpacing: 10.0,
-                                  mainAxisSpacing: 10,
-                                  crossAxisCount: countRow,
-                                  children: <Widget>[
-                                    for(int i = 0; i <= 5; i++)
-                                      InkWell(
-                                        onTap: (){
-                                          showRubroSesion(controller, countRow);
-                                        },
-                                        child: Container(
-                                          height: 100,
-                                          width: 100,
-                                          decoration: BoxDecoration(
-                                              color: AppTheme.white,
-                                              borderRadius: BorderRadius.all(Radius.circular(8))
-                                          ),
-                                        ),
-                                      )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 24),
-                      decoration: new BoxDecoration(
-                          color: HexColor(controller.cursosUi.color1),
-                          borderRadius: new BorderRadius.all(Radius.circular(25.0))
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(top: 24, right: 24, left: 24),
-                            child: Text("U3: ESPERANZA EN MEDIO DEL CAOS", style: TextStyle(color: AppTheme.white, fontSize: 16),),
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(top: 16, bottom: 16, left: 16, right: 16),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: HexColor(controller.cursosUi.color3),
-                                  borderRadius: BorderRadius.all(Radius.circular(20))
-                              ),
-                              child:  Container(
-                                width: double.infinity,
-                                padding: EdgeInsets.all(0),
-                                child:   GridView.count(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  primary: false,
-                                  padding: const EdgeInsets.all(20.0),
-                                  crossAxisSpacing: 10.0,
-                                  mainAxisSpacing: 10,
-                                  crossAxisCount: countRow,
-                                  children: <Widget>[
-                                    for(int i = 0; i <= 5; i++)
-                                      Container(
-                                        height: 100,
-                                        width: 100,
-                                        decoration: BoxDecoration(
-                                            color: AppTheme.white,
-                                            borderRadius: BorderRadius.all(Radius.circular(8))
-                                        ),
-                                      ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                )
-            ),
-            SliverList(
-                delegate: SliverChildListDelegate(
-                  [
-                    Padding(padding: EdgeInsets.only( top: 150)),
-                  ],
-                )
-            ),
-          ],
-        ),
-    );
-  }
-
-  Widget tabRubroSesiones2(RubroController controller, int countRow) {
+  Widget tabRubroSesiones3(RubroController controller, int countRow) {
     return Padding(
       padding: EdgeInsets.only(left: 24, right: 48),
       child: Stack(
         children: [
-          CustomScrollView(
-            controller: scrollController,
-            slivers: [
-              SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                          (BuildContext context, int index){
-                        UnidadUi unidadUi = controller.unidadUiList[index];
-                        return Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only( top: 48),
-                              child: Text("U${unidadUi.nroUnidad}: ${unidadUi.titulo}",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w800,
-                                    color: AppTheme.colorAccent,
-                                    fontFamily: AppTheme.fontTTNorms
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                                child: ListView.builder(
-                                    physics: NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: unidadUi.sesionUiList?.length,
-                                    itemBuilder: (BuildContext ctxt, int index) {
-                                      SesionUi  sesionUi = unidadUi.sesionUiList![index];
-                                      return Padding(
-                                        padding: EdgeInsets.only( top: 8, bottom: 16, ),
-                                        child: Row(
-                                          children: [
-                                            Container(
-                                              height: 20,
-                                              width: 3,
-                                              color: AppTheme.darkerText,
-                                            ),
-                                            Padding(padding: EdgeInsets.all(2)),
-                                            Text("   ${sesionUi.nroSesion}: ${sesionUi.tituloSesion}",
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w800,
-                                                  fontFamily: AppTheme.fontTTNorms
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      );
-                                    }
-                                ),
-                            )
-                          ],
-                        );
-                      },
-                      childCount: controller.unidadUiList.length
-                  )
+          controller.unidadUiList.isEmpty?
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                child: SvgPicture.asset(AppIcon.ic_lista_vacia, width: 150, height: 150,),
               ),
-              SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      Padding(
-                        padding: EdgeInsets.only( top: 48),
-                        child: Text("U1: Iniciamos el año escolar cuidando el agua",
+              Padding(padding: EdgeInsets.all(4)),
+              Center(
+                child: Text("Sin unidades", style: TextStyle(color: AppTheme.grey, fontStyle: FontStyle.italic, fontSize: 12),),
+              )
+            ],
+          ):
+          SingleChildScrollView(
+            physics: ScrollPhysics(),
+            controller: scrollController,
+            child: ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: controller.unidadUiList.length,
+                itemBuilder: (BuildContext ctxt, int index) {
+                  UnidadUi unidadUi = controller.unidadUiList[index];
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(top: index==0?20:32),
+                        child: Text("U${unidadUi.nroUnidad}: ${unidadUi.titulo}",
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w800,
@@ -1226,376 +1116,313 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
                           ),
                         ),
                       ),
-                    ],
-                  )
-              ),
-              SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      Padding(
-                        padding: EdgeInsets.only( top: 8, bottom: 16, ),
-                        child: Row(
-                          children: [
-                            Container(
-                              height: 20,
-                              width: 3,
-                              color: AppTheme.darkerText,
-                            ),
-                            Padding(padding: EdgeInsets.all(2)),
-                            Text("   S1: Escribimos frases y oraciones",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w800,
-                                  fontFamily: AppTheme.fontTTNorms
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  )
-              ),
-              SliverPadding(
-                padding: EdgeInsets.only(left: 0, bottom: 8),
-                sliver: SliverGrid(
-                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                    //crossAxisCount: countRow,
-                    maxCrossAxisExtent: 150.0,
-                    mainAxisExtent: 150.0,
-                    mainAxisSpacing: 24.0,
-                    crossAxisSpacing: 24.0,
-                    childAspectRatio: 1,
-                  ),
-                  delegate: SliverChildBuilderDelegate(
-                          (BuildContext context, int index){
-                            RubricaEvaluacionUi? rubricaEvalProcesoUi = controller.rubricaEvaluacionUiList.isNotEmpty?controller.rubricaEvaluacionUiList[index]:null;
-
-
-                        if(index == 0){
-                          return Container(
-                            padding: EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: HexColor(controller.cursosUi.color2),
-                              borderRadius: BorderRadius.circular(14), // use instead of BorderRadius.all(Radius.circular(20))
-                            ),
-                            child: FDottedLine(
-                              color: AppTheme.white,
-                              strokeWidth: 3.0,
-                              dottedLength: 10.0,
-                              space: 3.0,
-                              corner: FDottedLineCorner.all(14.0),
-
-                              /// add widget
-                              child: Container(
-                                padding: EdgeInsets.all(4),
-                                color: HexColor(controller.cursosUi.color2),
-                                alignment: Alignment.center,
-                                child:  Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(Ionicons.add, color: AppTheme.white, size: 45,),
-                                    Text("Crear Evalucaión",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w800,
-                                          fontFamily: AppTheme.fontTTNorms,
-                                          color: AppTheme.white
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          );
-                        }else if(index == 5){
-                          return InkWell(
-                            onTap: (){
-                              showRubroSesion(controller, countRow);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: HexColor(controller.cursosUi.color2),
-                                borderRadius: BorderRadius.circular(14), // use instead of BorderRadius.all(Radius.circular(20))
-                              ),
-                              child: FDottedLine(
-                                color: AppTheme.white,
-                                strokeWidth: 3.0,
-                                dottedLength: 10.0,
-                                space: 3.0,
-                                corner: FDottedLineCorner.all(14.0),
-
-                                /// add widget
-                                child: Container(
-                                  color: HexColor(controller.cursosUi.color2),
-                                  alignment: Alignment.center,
-                                  child: Center(
-                                    child: Text("Ver más",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w800,
-                                          fontFamily: AppTheme.fontTTNorms,
-                                          color: AppTheme.white
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        } else{
-
-                          String origen = "";
-                          switch(rubricaEvalProcesoUi?.origenRubroUi??OrigenRubroUi.CREADO_DOCENTE){
-                            case OrigenRubroUi.GENERADO_INSTRUMENTO:
-                              origen = "Instrumento";
-                              break;
-                            case OrigenRubroUi.GENERADO_TAREA:
-                              origen = "Tarea";
-                              break;
-                            case OrigenRubroUi.GENERADO_PREGUNTA:
-                              origen = "Pregunta";
-                              break;
-                            case OrigenRubroUi.CREADO_DOCENTE:
-                              origen = "";
-                              break;
-                            case OrigenRubroUi.TODOS:
-                              origen = "";
-                              break;
-                          }
-
-                          String origen2 = "";
-                          if((rubricaEvalProcesoUi?.sesionAprendizajeId??0) > 0){
-                            origen2 =  "Sesion";
-                          }else{
-                            origen2 =  "Mi Registro";
-                          }
-
-
-                          return Container(
-                            decoration: BoxDecoration(
-                                color: HexColor(controller.cursosUi.color1??"#FEFAE2").withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(16) // use instead of BorderRadius.all(Radius.circular(20))
-                            ),
-                            child: Column(
-                              children: [
-                                Row(
+                      (unidadUi.sesionUiList?.length??0)>0?
+                      ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: unidadUi.sesionUiList?.length,
+                        itemBuilder: (context, index) {
+                          SesionUi  sesionUi = unidadUi.sesionUiList![index];
+                          int cantidad = sesionUi.rubricaEvaluacionUiList?.length??0;
+                          int cantRubrosVisibles = sesionUi.cantRubrosVisibles??0;
+                          bool vermas = cantRubrosVisibles > 0;
+                          int cantItems = vermas?cantRubrosVisibles+2:cantidad+1;
+                          return Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only( top: 16, bottom: 18, ),
+                                child: Row(
                                   children: [
                                     Container(
-                                      margin: EdgeInsets.only(top: 5, bottom: 0, left: 12, right: 8),
-                                      width: 2.5,
-                                      height: 25,
-                                      decoration: BoxDecoration(
-                                          color: HexColor(controller.cursosUi.color2??"#8767EB"),
-                                          borderRadius: BorderRadius.circular(5) // use instead of BorderRadius.all(Radius.circular(20))
-                                      ),
+                                      height: 20,
+                                      width: 3,
+                                      color: AppTheme.darkerText,
                                     ),
+                                    Padding(padding: EdgeInsets.all(2)),
                                     Expanded(
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.only(top: 10, right: 0),
-                                            child: Text("${index+1}.${origen} ${origen2}",
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                  fontFamily: AppTheme.fontTTNorms,
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 12,
-                                                  letterSpacing: 0.5,
-                                                  color: AppTheme.darkerText,
-                                                )),
+                                        child:  Text("   ${sesionUi.nroSesion}: ${sesionUi.tituloSesion}",
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w800,
+                                              fontFamily: AppTheme.fontTTNorms
                                           ),
-                                          Padding(
-                                            padding: EdgeInsets.only(bottom: 8, top: 4),
-                                            child: Text("Media: ${rubricaEvalProcesoUi?.mediaDesvicion}",
-                                                style: TextStyle(
-                                                  fontFamily: AppTheme.fontTTNormsLigth,
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 10,
-                                                  letterSpacing: 0.5,
-                                                  color: AppTheme.darkerText.withOpacity(0.6),
-                                                )
-
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 4, right: 14, left: 4),
-                                      child: Icon(Ionicons.ellipsis_vertical_outline, color: AppTheme.darkerText, size: 14,),
+                                        )
                                     )
                                   ],
                                 ),
-                                Expanded(
-                                  child: Stack(
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.all(Radius.circular(12)) // use instead of BorderRadius.all(Radius.circular(20))
+                              ),
+                              GridView.builder(
+                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: countRow,
+                                  mainAxisSpacing: 24.0,
+                                  crossAxisSpacing: 24.0,
+                                ),
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: cantItems,
+                                itemBuilder: (context, index) {
+                                 if(index == 0){
+                                    return Container(
+                                      padding: EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                        color: HexColor(controller.cursosUi.color2),
+                                        borderRadius: BorderRadius.circular(14), // use instead of BorderRadius.all(Radius.circular(20))
+                                      ),
+                                      child: FDottedLine(
+                                        color: AppTheme.white,
+                                        strokeWidth: 3.0,
+                                        dottedLength: 10.0,
+                                        space: 3.0,
+                                        corner: FDottedLineCorner.all(14.0),
+
+                                        /// add widget
+                                        child: Container(
+                                          padding: EdgeInsets.all(4),
+                                          color: HexColor(controller.cursosUi.color2),
+                                          alignment: Alignment.center,
+                                          child:  Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Icon(Ionicons.add, color: AppTheme.white, size: 45,),
+                                              Text("Crear Evalucaión",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w800,
+                                                    fontFamily: AppTheme.fontTTNorms,
+                                                    color: AppTheme.white
+                                                ),
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.only(left: 14, top: 10, right: 14),
-                                            child: Row(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                                Icon(Ionicons.time, color: HexColor("#45D8B8"), size: 12,),
-                                                Padding(padding: EdgeInsets.only(left: 4)),
-                                                Expanded(
-                                                  child:  Text(rubricaEvalProcesoUi?.efechaCreacion??"",
-                                                      style: TextStyle(
-                                                        fontFamily: AppTheme.fontTTNormsLigth,
-                                                        fontWeight: FontWeight.w700,
-                                                        fontSize: 9,
-                                                        letterSpacing: 0.5,
-                                                        color: AppTheme.darkerText.withOpacity(0.6),
-                                                      )
-                                                  ),
+                                    );
+                                  }else if(vermas && cantRubrosVisibles == index-1){
+                                    return InkWell(
+                                      onTap: (){
+                                        showRubroSesion(controller, countRow);
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.all(8),
+                                        decoration: BoxDecoration(
+                                          color: HexColor(controller.cursosUi.color2),
+                                          borderRadius: BorderRadius.circular(14), // use instead of BorderRadius.all(Radius.circular(20))
+                                        ),
+                                        child: FDottedLine(
+                                          color: AppTheme.white,
+                                          strokeWidth: 3.0,
+                                          dottedLength: 10.0,
+                                          space: 3.0,
+                                          corner: FDottedLineCorner.all(14.0),
+
+                                          /// add widget
+                                          child: Container(
+                                            color: HexColor(controller.cursosUi.color2),
+                                            alignment: Alignment.center,
+                                            child: Center(
+                                              child: Text("Ver más",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w800,
+                                                    fontFamily: AppTheme.fontTTNorms,
+                                                    color: AppTheme.white
                                                 ),
-                                                if(rubricaEvalProcesoUi?.rubroGrupal??false)
-                                                  Icon(Ionicons.people, color: HexColor(controller.cursosUi.color2??"#8767EB"), size: 14,),
-                                                Padding(padding: EdgeInsets.only(left: 4)),
-                                                if(rubricaEvalProcesoUi?.publicado??false)
-                                                  Icon(Ionicons.earth, color: HexColor(controller.cursosUi.color2??"#8767EB"), size: 14,)
-                                              ],
+                                              ),
                                             ),
                                           ),
-                                          Padding(
-                                            padding: EdgeInsets.only(left: 14, top: 8, right: 14),
-                                            child: Text(rubricaEvalProcesoUi?.titulo??"",
-                                                maxLines: 4,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                  fontFamily: AppTheme.fontTTNormsMedium,
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 12,
-                                                  letterSpacing: 1,
-                                                  color: AppTheme.darkerText.withOpacity(0.8),
+                                        ),
+                                      ),
+                                    );
+                                  } else{
+                                    RubricaEvaluacionUi  rubricaEvalProcesoUi = sesionUi.rubricaEvaluacionUiList![index-1];
+                                    String origen = "";
+                                    switch(rubricaEvalProcesoUi.origenRubroUi??OrigenRubroUi.CREADO_DOCENTE){
+                                      case OrigenRubroUi.GENERADO_INSTRUMENTO:
+                                        origen = "Instrumento";
+                                        break;
+                                      case OrigenRubroUi.GENERADO_TAREA:
+                                        origen = "Tarea";
+                                        break;
+                                      case OrigenRubroUi.GENERADO_PREGUNTA:
+                                        origen = "Pregunta";
+                                        break;
+                                      case OrigenRubroUi.CREADO_DOCENTE:
+                                        origen = "";
+                                        break;
+                                      case OrigenRubroUi.TODOS:
+                                        origen = "";
+                                        break;
+                                    }
+
+                                    String origen2 = "";
+                                    if((rubricaEvalProcesoUi.sesionAprendizajeId??0) > 0){
+                                      origen2 =  "Sesion";
+                                    }else{
+                                      origen2 =  "Mi Registro";
+                                    }
+
+
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                          color: HexColor(controller.cursosUi.color1??"#FEFAE2").withOpacity(0.1),
+                                          borderRadius: BorderRadius.circular(16) // use instead of BorderRadius.all(Radius.circular(20))
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Container(
+                                                margin: EdgeInsets.only(top: 5, bottom: 0, left: 12, right: 8),
+                                                width: 2.5,
+                                                height: 25,
+                                                decoration: BoxDecoration(
+                                                    color: HexColor(controller.cursosUi.color2??"#8767EB"),
+                                                    borderRadius: BorderRadius.circular(5) // use instead of BorderRadius.all(Radius.circular(20))
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Padding(
+                                                      padding: EdgeInsets.only(top: 10, right: 0),
+                                                      child: Text("${cantItems-index}.${origen} ${origen2}",
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          style: TextStyle(
+                                                            fontFamily: AppTheme.fontTTNorms,
+                                                            fontWeight: FontWeight.w700,
+                                                            fontSize: 12,
+                                                            letterSpacing: 0.5,
+                                                            color: AppTheme.darkerText,
+                                                          )),
+                                                    ),
+                                                    Padding(
+                                                      padding: EdgeInsets.only(bottom: 8, top: 4),
+                                                      child: Text("Media: ${rubricaEvalProcesoUi.mediaDesvicion}",
+                                                          style: TextStyle(
+                                                            fontFamily: AppTheme.fontTTNormsLigth,
+                                                            fontWeight: FontWeight.w700,
+                                                            fontSize: 10,
+                                                            letterSpacing: 0.5,
+                                                            color: AppTheme.darkerText.withOpacity(0.6),
+                                                          )
+
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.only(top: 4, right: 14, left: 4),
+                                                child: Icon(Ionicons.ellipsis_vertical_outline, color: AppTheme.darkerText, size: 14,),
+                                              )
+                                            ],
+                                          ),
+                                          Expanded(
+                                            child: Stack(
+                                              children: [
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius: BorderRadius.all(Radius.circular(12)) // use instead of BorderRadius.all(Radius.circular(20))
+                                                  ),
+                                                ),
+                                                Column(
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Padding(
+                                                      padding: EdgeInsets.only(left: 14, top: 10, right: 14),
+                                                      child: Row(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        mainAxisAlignment: MainAxisAlignment.start,
+                                                        children: [
+                                                          Icon(Ionicons.time, color: HexColor("#45D8B8"), size: 12,),
+                                                          Padding(padding: EdgeInsets.only(left: 4)),
+                                                          Expanded(
+                                                            child:  Text(rubricaEvalProcesoUi.efechaCreacion??"",
+                                                                style: TextStyle(
+                                                                  fontFamily: AppTheme.fontTTNormsLigth,
+                                                                  fontWeight: FontWeight.w700,
+                                                                  fontSize: 9,
+                                                                  letterSpacing: 0.5,
+                                                                  color: AppTheme.darkerText.withOpacity(0.6),
+                                                                )
+                                                            ),
+                                                          ),
+                                                          if(rubricaEvalProcesoUi.rubroGrupal??false)
+                                                            Icon(Ionicons.people, color: HexColor(controller.cursosUi.color2??"#8767EB"), size: 14,),
+                                                          Padding(padding: EdgeInsets.only(left: 4)),
+                                                          if(rubricaEvalProcesoUi.publicado??false)
+                                                            Icon(Ionicons.earth, color: HexColor(controller.cursosUi.color2??"#8767EB"), size: 14,)
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: EdgeInsets.only(left: 14, top: 8, right: 14),
+                                                      child: Text(rubricaEvalProcesoUi.titulo??"",
+                                                          maxLines: 4,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          style: TextStyle(
+                                                            fontFamily: AppTheme.fontTTNormsMedium,
+                                                            fontWeight: FontWeight.w700,
+                                                            fontSize: 12,
+                                                            letterSpacing: 1,
+                                                            color: AppTheme.darkerText.withOpacity(0.8),
+                                                          )
+                                                      ),
+                                                    )
+                                                  ],
                                                 )
+
+                                              ],
                                             ),
                                           )
                                         ],
-                                      )
-
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
+                                      ),
+                                    );
+                                  }
+                                },
+                              )
+                            ],
                           );
-                        }
-                      },
-                      childCount: 6
-                  ),
-                ),
-              ),
-              SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      Padding(
-                        padding: EdgeInsets.only( top: 8, bottom: 16, ),
-                        child: Text("- S2: Aprendemos adivinanzas",
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w800,
-                              fontFamily: AppTheme.fontTTNorms
+                        },
+                      ):Container(
+                        margin: EdgeInsets.only(top: 16),
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: HexColor(controller.cursosUi.color1).withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(14), // use instead of BorderRadius.all(Radius.circular(20))
+                        ),
+                        child: FDottedLine(
+                          color: AppTheme.white,
+                          strokeWidth: 3.0,
+                          dottedLength: 10.0,
+                          space: 3.0,
+                          corner: FDottedLineCorner.all(14.0),
+
+                          /// add widget
+                          child: Container(
+                            padding: EdgeInsets.only(right: 16, left: 16, top: 16, bottom: 16),
+                            alignment: Alignment.center,
+                            child: Text("Unidad sin sesiones",  style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w800,
+                                fontFamily: AppTheme.fontTTNorms,
+                                color: AppTheme.white
+                            ),),
                           ),
                         ),
-                      ),
-                    ],
-                  )
-              ),
-              SliverPadding(
-                padding: EdgeInsets.only(left: 16, bottom: 8),
-                sliver: SliverGrid(
-                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                    //crossAxisCount: countRow,
-                    maxCrossAxisExtent: 100.0,
-                    mainAxisExtent: 100.0,
-                    mainAxisSpacing: 16.0,
-                    crossAxisSpacing: 16.0,
-                    childAspectRatio: 1,
-                  ),
-                  delegate: SliverChildBuilderDelegate(
-                          (BuildContext context, int index){
-                        if(index == 0){
-                          return Container(
-                            decoration: BoxDecoration(
-                              color: HexColor(controller.cursosUi.color2),
-                              borderRadius: BorderRadius.circular(14), // use instead of BorderRadius.all(Radius.circular(20))
-                            ),
-                            child: Icon(Ionicons.add, color: AppTheme.white, size: 35,),
-                          );
-                        }else{
-                          return Container(
-                            decoration: BoxDecoration(
-                                color: HexColor(controller.cursosUi.color3??"#FEFAE2").withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(14) // use instead of BorderRadius.all(Radius.circular(20))
-                            ),
-                          );
-                        }
-                      },
-                      childCount: 11
-                  ),
-                ),
-              ),
-              SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      Padding(
-                        padding: EdgeInsets.only( top: 32, bottom: 16),
-                        child: Text("U3: ESPERANZA EN MEDIO DEL CAOS",
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w800,
-                              fontFamily: AppTheme.fontTTNorms
-                          ),),
-                      ),
-                    ],
-                  )
-              ),
-              SliverGrid(
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  //crossAxisCount: countRow,
-                  maxCrossAxisExtent: 100,
-                  mainAxisExtent: 100.0,
-                  mainAxisSpacing: 24.0,
-                  crossAxisSpacing: 24.0,
-                  childAspectRatio: 1,
-                ),
-                delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index){
-                      return Container(
-                        decoration: BoxDecoration(
-                            color: HexColor(controller.cursosUi.color3??"#FEFAE2").withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(16) // use instead of BorderRadius.all(Radius.circular(20))
-                        ),
+                      )
 
-                      );
-                    },
-                    childCount: 5
-                ),
-              ),
-              SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      Padding(padding: EdgeInsets.only( top: 150)),
                     ],
-                  )
-              ),
-            ],
+                  );
+                }
+            ),
           ),
         ],
       ),

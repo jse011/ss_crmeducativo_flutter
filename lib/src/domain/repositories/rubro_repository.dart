@@ -25,5 +25,7 @@ abstract class RubroRepository{
 
   Future<List<UnidadUi>> getUnidadAprendizaje(int? silaboEventoId, int? calendarioPeriodoId);
 
+  Future<List<CompetenciaUi>> getRubroCompetencia(int? silaboEventoId, int? calendarioPeriodoId, int? competenciaId);
+
 
 }

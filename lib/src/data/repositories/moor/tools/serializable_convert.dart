@@ -837,6 +837,7 @@ class SerializableConvert{
         sesionAprendizajeId: serial.sesionAprendizajeId??0,
         unidadAprendiajeId: serial.unidadAprendiajeId??0,
         silaboEventoId: serial.silaboEventoId??0,
+        sesionAprendizajePadreId: serial.sesionAprendizajePadreId,
         competenciaId: serial.competenciaId??0,
         competenciaNombre: serial.competenciaNombre,
         competenciaDescripcion: serial.competenciaDescripcion,
