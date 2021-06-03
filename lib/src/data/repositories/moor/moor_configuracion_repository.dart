@@ -794,7 +794,7 @@ class MoorConfiguracionRepository extends ConfiguracionRepository{
           contactoUi.personaId = contactoData.personaId;
           contactoUi.relacionList = [];
           contactoUi.foto = contactoData.foto;
-          contactoUi.nombre = '${AppTools.capitalize(contactoData.nombres??"")} ${AppTools.capitalize(contactoData.apellidoPaterno??"")} ${AppTools.capitalize(contactoData.apellidoMaterno??"")}';
+          contactoUi.nombreCompleto = '${AppTools.capitalize(contactoData.nombres??"")} ${AppTools.capitalize(contactoData.apellidoPaterno??"")} ${AppTools.capitalize(contactoData.apellidoMaterno??"")}';
           contactoUi.relacion = contactoData.relacion;
           contactoUi.telefono = contactoData.celular!=null?contactoData.celular: contactoData.telefono??"";
 
@@ -846,7 +846,9 @@ class MoorConfiguracionRepository extends ConfiguracionRepository{
       ContactoUi contactoUi = new ContactoUi();
         contactoUi.personaId = contactoData.personaId;
         contactoUi.foto = contactoData.foto;
-        contactoUi.nombre = '${AppTools.capitalize(contactoData.nombres??"")} ${AppTools.capitalize(contactoData.apellidoPaterno??"")} ${AppTools.capitalize(contactoData.apellidoMaterno??"")}';
+        contactoUi.nombreCompleto = '${AppTools.capitalize(contactoData.nombres??"")} ${AppTools.capitalize(contactoData.apellidoPaterno??"")} ${AppTools.capitalize(contactoData.apellidoMaterno??"")}';
+        contactoUi.nombres = AppTools.capitalize(contactoData.nombres??"");
+        contactoUi.apellidos  = '${AppTools.capitalize(contactoData.apellidoPaterno??"")} ${AppTools.capitalize(contactoData.apellidoMaterno??"")}';
         contactoUi.relacion = contactoData.relacion;
         contactoUi.telefono = contactoData.celular!=null?contactoData.celular: contactoData.telefono??"";
         contactoUiList.add(contactoUi);

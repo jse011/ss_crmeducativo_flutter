@@ -891,6 +891,7 @@ class SerializableConvert{
     TipoNotaRubroSerial serial = TipoNotaRubroSerial.fromJson(model);
     return TipoNotaRubroData(
         key: serial.key??'',
+        silaboEventoId: serial.silaboEventoId??0,
         tipoNotaId: serial.tipoNotaId,
         nombre: serial.nombre,
         tipoId: serial.tipoId,
@@ -930,6 +931,7 @@ class SerializableConvert{
     ValorTipoNotaRubroSerial serial = ValorTipoNotaRubroSerial.fromJson(model);
     return ValorTipoNotaRubroData(
         key: serial.key??'',
+        silaboEventoId: serial.silaboEventoId??0,
         valorTipoNotaId: serial.valorTipoNotaId,
         tipoNotaId: serial.tipoNotaId,
         titulo: serial.titulo,

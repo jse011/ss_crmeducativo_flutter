@@ -16,6 +16,7 @@ import 'package:ss_crmeducativo_2/libs/sticky-headers-table/table_sticky_headers
 import 'package:ss_crmeducativo_2/src/app/page/rubros/rubro_controller.dart';
 import 'package:ss_crmeducativo_2/src/app/routers.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_icon.dart';
+import 'package:ss_crmeducativo_2/src/app/utils/app_imagen.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_theme.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/hex_color.dart';
 import 'package:ss_crmeducativo_2/src/app/widgets/ars_progress.dart';
@@ -23,11 +24,15 @@ import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_calendario_per
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_configuracion_repository.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_rubro_repository.dart';
 import 'package:ss_crmeducativo_2/src/device/repositories/http/device_http_datos_repository.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/calendario_periodio_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/capacidad_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/competencia_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/contacto_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
 import 'package:ss_crmeducativo_2/libs/flutter-sized-context/sized_context.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_capacidad_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_competencia_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_calendario_periodo_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/origen_rubro_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/rubrica_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/sesion_ui.dart';
@@ -627,9 +632,11 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
   Widget tabRubCompetencia(RubroController controller) {
 
     List<double> tablecolumnWidths = [];
-    for(dynamic s in controller.rowList){
-      if(s is String){
+    for(dynamic s in controller.columnList2){
+      if(s is ContactoUi){
         tablecolumnWidths.add(95.0);
+      } else if(s is CalendarioPeriodoUI){
+        tablecolumnWidths.add(70.0*3);
       }else{
         tablecolumnWidths.add(70.0);
       }
@@ -644,15 +651,15 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
             contentCellHeight: 45,
             columnWidths: tablecolumnWidths
         ),
-        columnsLength: controller.rowList.length,
-        rowsLength: controller.contactoUiList.length,
+        columnsLength: controller.columnList2.length,
+        rowsLength: controller.rowList2.length,
         columnsTitleBuilder: (i) {
-          dynamic o = controller.rowList[i];
-          if(o is String){
+          dynamic o = controller.columnList2[i];
+          if(o is ContactoUi){
             return Container(
                 constraints: BoxConstraints.expand(),
                 child: Center(
-                  child:  Text(o, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700 ),),
+                  child:  Text("Apellidos y\n Nombres", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500 ),),
                 ),
                 decoration: BoxDecoration(
                     border: Border(
@@ -665,10 +672,11 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
           }else if(o is CompetenciaUi){
             return Container(
                 constraints: BoxConstraints.expand(),
+                padding: EdgeInsets.all(8),
                 child: Center(
                   child:  RotatedBox(
                     quarterTurns: -1,
-                    child: Text(o.nombre??"", textAlign: TextAlign.center,style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700 ),),
+                    child: Text(o.nombre??"", textAlign: TextAlign.center, maxLines: 4, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 11,color: AppTheme.darkText ),),
                   ),
                 ),
                 decoration: BoxDecoration(
@@ -676,7 +684,7 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
                       top: BorderSide(color: HexColor(controller.cursosUi.color3)),
                       right: BorderSide(color: HexColor(controller.cursosUi.color3)),
                     ),
-                    color: Colors.tealAccent
+                    color: HexColor("#EFEDEE")
                 )
             );
           }else if(o is CapacidadUi){
@@ -697,78 +705,179 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
                     color: AppTheme.white
                 )
             );
+          }else if(o is CalendarioPeriodoUI){
+            return Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                    child: Container(
+                        constraints: BoxConstraints.expand(),
+                        padding: EdgeInsets.all(8),
+                        child: Center(
+                          child:  RotatedBox(
+                            quarterTurns: -1,
+                            child: Text("Final ${o.nombre??""}", textAlign: TextAlign.center, maxLines: 4, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 11,color: AppTheme.greyDarken3, fontWeight: FontWeight.w700 ),),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                            border: Border(
+                              top: BorderSide(color: HexColor(controller.cursosUi.color3)),
+                              right: BorderSide(color: HexColor(controller.cursosUi.color3)),
+                            ),
+                            color: AppTheme.greyLighten1
+                        )
+                    )
+                ),
+                Expanded(
+                    flex: 2,
+                    child: Container(
+                        constraints: BoxConstraints.expand(),
+                        decoration: BoxDecoration(
+                            border: Border(
+                              top: BorderSide(color: HexColor(controller.cursosUi.color3)),
+                              right: BorderSide(color:  HexColor(controller.cursosUi.color3)),
+                            ),
+                            color: HexColor("#EFEDEE")
+                        )
+                    )
+                )
+              ],
+            );
           }else{
-          return Container();
+            return Container();
           }
 
         },
         rowsTitleBuilder: (i) {
-          ContactoUi contactoUi = controller.contactoUiList[i];
-          return  Container(
-              constraints: BoxConstraints.expand(),
-              child: Row(
-                children: [
-                  Padding(padding: EdgeInsets.all(2)),
-                  Expanded(
-                      child: Text((i+1).toString() + ".", style: TextStyle(color: AppTheme.black, fontSize: 12),)
-                  ),
-                  Container(
-                    height: 32,
-                    width: 32,
-                    margin: EdgeInsets.only(right: 4),
-                    padding: const EdgeInsets.all(2),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: HexColor(controller.cursosUi.color3),
-                    ),
-                    child: true?
-                    CachedNetworkImage(
-                      placeholder: (context, url) => CircularProgressIndicator(),
-                      imageUrl: contactoUi.foto??"",
-                      errorWidget: (context, url, error) =>  Icon(Icons.error_outline_rounded, size: 80,),
-                      imageBuilder: (context, imageProvider) =>
-                          Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                                  image: DecorationImage(
-                                    image: imageProvider,
-                                    fit: BoxFit.cover,
-                                  ),
-                              )
-                          ),
-                    ):
-                    Container(),
-                  )
-                ],
-              ),
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(color: HexColor(controller.cursosUi.color3)),
-                  right: BorderSide(color: HexColor(controller.cursosUi.color3)),
-                ),
-                color: HexColor(controller.cursosUi.color2)
-              )
-          );
+           dynamic o = controller.rowList2[i];
+           if(o is ContactoUi){
+             return  Container(
+                 constraints: BoxConstraints.expand(),
+                 child: Row(
+                   children: [
+                     Padding(padding: EdgeInsets.all(2)),
+                     Expanded(
+                         child: Text((i+1).toString() + ".", style: TextStyle(color: AppTheme.black, fontSize: 12),)
+                     ),
+                     Container(
+                       height: 32,
+                       width: 32,
+                       margin: EdgeInsets.only(right: 4),
+                       padding: const EdgeInsets.all(2),
+                       decoration: BoxDecoration(
+                         shape: BoxShape.circle,
+                         color: HexColor(controller.cursosUi.color3),
+                       ),
+                       child: true?
+                       CachedNetworkImage(
+                         placeholder: (context, url) => CircularProgressIndicator(),
+                         imageUrl: o.foto??"",
+                         errorWidget: (context, url, error) =>  Icon(Icons.error_outline_rounded, size: 80,),
+                         imageBuilder: (context, imageProvider) =>
+                             Container(
+                                 decoration: BoxDecoration(
+                                   borderRadius: BorderRadius.all(Radius.circular(15)),
+                                   image: DecorationImage(
+                                     image: imageProvider,
+                                     fit: BoxFit.cover,
+                                   ),
+                                 )
+                             ),
+                       ):
+                       Container(),
+                     )
+                   ],
+                 ),
+                 decoration: BoxDecoration(
+                     border: Border(
+                       top: BorderSide(color: HexColor(controller.cursosUi.color3)),
+                       right: BorderSide(color: HexColor(controller.cursosUi.color3)),
+                     ),
+                     color: HexColor(controller.cursosUi.color2)
+                 )
+             );
+           }else{
+             return  Container();
+           }
+
         },
         contentCellBuilder: (i, j) {
-          return Container(
-              constraints: BoxConstraints.expand(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Juan Anthonie", maxLines: 1, style: TextStyle(fontSize: 12, color: AppTheme.black),),
-                  Text("Yujra Cañazaca", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 10),),
-                ],
-              ),
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(color: HexColor(controller.cursosUi.color3)),
-                  right: BorderSide(color:  HexColor(controller.cursosUi.color3)),
+          dynamic o = controller.cellListList[j][i];
+          if(o is ContactoUi){
+             return Container(
+                constraints: BoxConstraints.expand(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(o.nombreCompleto??"", maxLines: 1, textAlign: TextAlign.center, style: TextStyle(fontSize: 12, color: AppTheme.black),),
+                    Text(o.apellidos??"", maxLines: 1, textAlign: TextAlign.center,overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 10),),
+                  ],
                 ),
-                color: AppTheme.white
-              )
-          );
+                decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(color: HexColor(controller.cursosUi.color3)),
+                      right: BorderSide(color:  HexColor(controller.cursosUi.color3)),
+                    ),
+                    color: AppTheme.white
+                )
+            );
+          }else if(o is EvaluacionCapacidadUi){
+            return Container(
+                constraints: BoxConstraints.expand(),
+                decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(color: HexColor(controller.cursosUi.color3)),
+                      right: BorderSide(color:  HexColor(controller.cursosUi.color3)),
+                    ),
+                    color: AppTheme.white
+                )
+            );
+          }else if(o is EvaluacionCompetenciaUi){
+            return Container(
+                constraints: BoxConstraints.expand(),
+                decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(color: HexColor(controller.cursosUi.color3)),
+                      right: BorderSide(color:  HexColor(controller.cursosUi.color3)),
+                    ),
+                    color: HexColor("#EFEDEE")
+                )
+            );
+          }else if(o is EvaluacionCalendarioPeriodoUi){
+            return Row(
+              children: [
+                Expanded(
+                    flex: 1,
+                    child: Container(
+                        constraints: BoxConstraints.expand(),
+                        decoration: BoxDecoration(
+                            border: Border(
+                              top: BorderSide(color: HexColor(controller.cursosUi.color3)),
+                              right: BorderSide(color:  HexColor(controller.cursosUi.color3)),
+                            ),
+                            color: AppTheme.greyLighten1
+                        )
+                    )
+                ),
+                Expanded(
+                    flex: 2,
+                    child: Container(
+                        constraints: BoxConstraints.expand(),
+                        decoration: BoxDecoration(
+                            border: Border(
+                              right: BorderSide(color:  HexColor(controller.cursosUi.color3)),
+                            ),
+                            color: HexColor("#EFEDEE")
+                        )
+                    )
+                ),
+              ],
+            );
+          }else{
+            return Container();
+          }
+
         },
         legendCell: Stack(
           children: [

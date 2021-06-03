@@ -1032,6 +1032,7 @@ class TipoEvaluacionRubroSerial {
 class TipoNotaRubroSerial {
   String? key;
   String? tipoNotaId;
+  int? silaboEventoId;
   String? nombre;
   int? tipoId;
   String? tiponombre;
@@ -1058,6 +1059,7 @@ class TipoNotaRubroSerial {
   TipoNotaRubroSerial(
       {this.key,
         this.tipoNotaId,
+        this.silaboEventoId,
         this.nombre,
         this.tipoId,
         this.tiponombre,
@@ -1090,6 +1092,7 @@ class TipoNotaRubroSerial {
 class ValorTipoNotaRubroSerial {
   String? key;
   String? valorTipoNotaId;
+  int? silaboEventoId;
   String? tipoNotaId;
   String? titulo;
   String? alias;
@@ -1116,6 +1119,7 @@ class ValorTipoNotaRubroSerial {
   ValorTipoNotaRubroSerial(
       {this.valorTipoNotaId,
         this.tipoNotaId,
+        this.silaboEventoId,
         this.titulo,
         this.alias,
         this.limiteInferior,

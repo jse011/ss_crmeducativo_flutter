@@ -3,7 +3,11 @@ class ContactoUi{
   int? personaId;
   List<ContactoUi>? relacionList;
   String? foto;
-  String? nombre;
+  String? nombreCompleto;
+  String? nombres;
+  String? apellidoPaterno;
+  String? apellidoMaterno;
+  String? apellidos;
   String? relacion;
   String? telefono;
   String? apoderadoTelfono;

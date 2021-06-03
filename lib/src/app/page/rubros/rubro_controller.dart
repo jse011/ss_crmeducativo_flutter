@@ -5,8 +5,12 @@ import 'package:ss_crmeducativo_2/src/domain/entities/capacidad_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/competencia_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/contacto_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_capacidad_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_competencia_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_calendario_periodo_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/origen_rubro_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/rubrica_evaluacion_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/tipo_competencia_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/unidad_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/response/respuesta_crear_rubro.dart';
 
@@ -31,10 +35,12 @@ class RubroController extends Controller{
   String? get msgToast => _msgToast;
   bool _progress = false;
   bool get progress => _progress;
-  List<ContactoUi> _contactoUiList = [];
-  List<ContactoUi> get contactoUiList => _contactoUiList;
-  List<dynamic> _rowList = [];
-  List<dynamic> get rowList => _rowList;
+  List<dynamic> _columnList2 = [];
+  List<dynamic> get columnList2 => _columnList2;
+  List<dynamic> _rowList2 = [];
+  List<dynamic> get rowList2 => _rowList2;
+  List<List<dynamic>> _cellListList = [];
+  List<List<dynamic>> get cellListList => _cellListList;
 
   RubroController(this.cursosUi, calendarioPeriodoRepo, configuracionRepo, httpDatosRepo, rubroRepo)
       :this.presenter = RubroPresenter(calendarioPeriodoRepo, configuracionRepo, httpDatosRepo, rubroRepo)
@@ -106,29 +112,112 @@ class RubroController extends Controller{
       };
 
       presenter.getAlumnoCursoOnNext = (List<ContactoUi> contactoUiList){
-        _contactoUiList = contactoUiList;
+        _rowList2.clear();
+        _rowList2.addAll(contactoUiList);
+        _rowList2.add("");//Espacio
+        _rowList2.add("");//Espacio
+        _rowList2.add("");//Espacio
+
         presenter.onGetCompetenciaRubroEval(cursosUi, calendarioPeriodoUI);
       };
 
       presenter.getAlumnoCursoOnError = (e){
-        _contactoUiList = [];
-        _rowList.clear();
+        _rowList2 = [];
+        _columnList2.clear();
+        _cellListList.clear();
         refreshUI();
       };
 
       presenter.getCompetenciaRubroEvalOnNext = (List<CompetenciaUi> competenciaUiList){
-        _rowList.clear();
-        _rowList.add("Apellidos y\n Nombres");
+        _cellListList.clear();
+        _columnList2.clear();
+        _columnList2.add(ContactoUi());//Titulo alumno
 
+        //Competencia Base
         for(CompetenciaUi competenciaUi in competenciaUiList){
-          _rowList.add(competenciaUi);
-          _rowList.addAll(competenciaUi.capacidadUiList??[]);
+          if(competenciaUi.tipoCompetenciaUi == TipoCompetenciaUi.BASE){
+            _columnList2.addAll(competenciaUi.capacidadUiList??[]);
+            _columnList2.add(competenciaUi);
+          }
         }
+        //Competencia Base
+
+        _columnList2.add(calendarioPeriodoUI);
+
+        //Competencia Enfoque Transversal
+        for(CompetenciaUi competenciaUi in competenciaUiList){
+          if(competenciaUi.tipoCompetenciaUi != TipoCompetenciaUi.BASE){
+            _columnList2.addAll(competenciaUi.capacidadUiList??[]);
+            _columnList2.add(competenciaUi);
+          }
+        }
+        //Competencia Enfoque Transversal
+
+        _columnList2.add("");// espacio
+
+        for(dynamic column in _rowList2){
+            List<dynamic>  cellList = [];
+            cellList.add(column);
+
+            //Competencia Base
+            for(CompetenciaUi competenciaUi in competenciaUiList){
+              if(competenciaUi.tipoCompetenciaUi == TipoCompetenciaUi.BASE){
+                for(CapacidadUi capacidadUi in competenciaUi.capacidadUiList??[]){
+                  if(column is String){//si el row is un espacio
+                    cellList.add("");// espacio
+                  }else{
+                    cellList.add(EvaluacionCapacidadUi());
+                  }
+                }
+                if(column is String){//si el row is un espacio
+                  cellList.add("");// espacio
+                }else{
+                  cellList.add(EvaluacionCompetenciaUi());
+                }
+              }
+            }
+            //Competencia Base
+            //Nota Final
+            if(column is String){//si el row is un espacio
+              cellList.add("");// espacio
+            }else{
+              EvaluacionCalendarioPeriodoUi evaluacionCalendarioPeriodoUi = EvaluacionCalendarioPeriodoUi();
+              evaluacionCalendarioPeriodoUi.calendarioPeriodoUI = calendarioPeriodoUI;
+              cellList.add(evaluacionCalendarioPeriodoUi);
+            }
+            //Nota Final
+            //Competencia Enfoque y Transversal
+            for(CompetenciaUi competenciaUi in competenciaUiList){
+              if(competenciaUi.tipoCompetenciaUi != TipoCompetenciaUi.BASE){
+                for(CapacidadUi capacidadUi in competenciaUi.capacidadUiList??[]){
+                  if(column is String){//si el row is un espacio
+                    cellList.add("");// espacio
+                  }else{
+                    cellList.add(EvaluacionCapacidadUi());
+                  }
+
+                }
+                if(column is String){//si el row is un espacio
+                  cellList.add("");// espacio
+                }else{
+                  cellList.add(EvaluacionCompetenciaUi());
+                }
+              }
+            }
+            //Competencia Enfoque y Transversal
+
+
+            cellList.add("");// espacio
+            _cellListList.add(cellList);
+        }
+
+
         refreshUI();
       };
 
       presenter.getAlumnoCursoOnError = (e){
-        _rowList.clear();
+        _cellListList.clear();
+        _columnList2.clear();
         refreshUI();
       };
 

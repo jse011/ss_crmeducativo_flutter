@@ -20498,6 +20498,7 @@ class $TiposRubroTable extends TiposRubro
 class TipoNotaRubroData extends DataClass
     implements Insertable<TipoNotaRubroData> {
   final String key;
+  final int silaboEventoId;
   final String? tipoNotaId;
   final String? nombre;
   final int? tipoId;
@@ -20523,6 +20524,7 @@ class TipoNotaRubroData extends DataClass
   final int? programaEducativoId;
   TipoNotaRubroData(
       {required this.key,
+      required this.silaboEventoId,
       this.tipoNotaId,
       this.nombre,
       this.tipoId,
@@ -20553,6 +20555,8 @@ class TipoNotaRubroData extends DataClass
     return TipoNotaRubroData(
       key: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}key'])!,
+      silaboEventoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}silabo_evento_id'])!,
       tipoNotaId: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}tipo_nota_id']),
       nombre: const StringType()
@@ -20605,6 +20609,7 @@ class TipoNotaRubroData extends DataClass
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['key'] = Variable<String>(key);
+    map['silabo_evento_id'] = Variable<int>(silaboEventoId);
     if (!nullToAbsent || tipoNotaId != null) {
       map['tipo_nota_id'] = Variable<String?>(tipoNotaId);
     }
@@ -20680,6 +20685,7 @@ class TipoNotaRubroData extends DataClass
   TipoNotaRubroCompanion toCompanion(bool nullToAbsent) {
     return TipoNotaRubroCompanion(
       key: Value(key),
+      silaboEventoId: Value(silaboEventoId),
       tipoNotaId: tipoNotaId == null && nullToAbsent
           ? const Value.absent()
           : Value(tipoNotaId),
@@ -20755,6 +20761,7 @@ class TipoNotaRubroData extends DataClass
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return TipoNotaRubroData(
       key: serializer.fromJson<String>(json['key']),
+      silaboEventoId: serializer.fromJson<int>(json['silaboEventoId']),
       tipoNotaId: serializer.fromJson<String?>(json['tipoNotaId']),
       nombre: serializer.fromJson<String?>(json['nombre']),
       tipoId: serializer.fromJson<int?>(json['tipoId']),
@@ -20786,6 +20793,7 @@ class TipoNotaRubroData extends DataClass
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'key': serializer.toJson<String>(key),
+      'silaboEventoId': serializer.toJson<int>(silaboEventoId),
       'tipoNotaId': serializer.toJson<String?>(tipoNotaId),
       'nombre': serializer.toJson<String?>(nombre),
       'tipoId': serializer.toJson<int?>(tipoId),
@@ -20814,6 +20822,7 @@ class TipoNotaRubroData extends DataClass
 
   TipoNotaRubroData copyWith(
           {String? key,
+          int? silaboEventoId,
           String? tipoNotaId,
           String? nombre,
           int? tipoId,
@@ -20839,6 +20848,7 @@ class TipoNotaRubroData extends DataClass
           int? programaEducativoId}) =>
       TipoNotaRubroData(
         key: key ?? this.key,
+        silaboEventoId: silaboEventoId ?? this.silaboEventoId,
         tipoNotaId: tipoNotaId ?? this.tipoNotaId,
         nombre: nombre ?? this.nombre,
         tipoId: tipoId ?? this.tipoId,
@@ -20867,6 +20877,7 @@ class TipoNotaRubroData extends DataClass
   String toString() {
     return (StringBuffer('TipoNotaRubroData(')
           ..write('key: $key, ')
+          ..write('silaboEventoId: $silaboEventoId, ')
           ..write('tipoNotaId: $tipoNotaId, ')
           ..write('nombre: $nombre, ')
           ..write('tipoId: $tipoId, ')
@@ -20898,51 +20909,52 @@ class TipoNotaRubroData extends DataClass
   int get hashCode => $mrjf($mrjc(
       key.hashCode,
       $mrjc(
-          tipoNotaId.hashCode,
+          silaboEventoId.hashCode,
           $mrjc(
-              nombre.hashCode,
+              tipoNotaId.hashCode,
               $mrjc(
-                  tipoId.hashCode,
+                  nombre.hashCode,
                   $mrjc(
-                      tiponombre.hashCode,
+                      tipoId.hashCode,
                       $mrjc(
-                          valorDefecto.hashCode,
+                          tiponombre.hashCode,
                           $mrjc(
-                              longitudPaso.hashCode,
+                              valorDefecto.hashCode,
                               $mrjc(
-                                  intervalo.hashCode,
+                                  longitudPaso.hashCode,
                                   $mrjc(
-                                      estatico.hashCode,
+                                      intervalo.hashCode,
                                       $mrjc(
-                                          entidadId.hashCode,
+                                          estatico.hashCode,
                                           $mrjc(
-                                              georeferenciaId.hashCode,
+                                              entidadId.hashCode,
                                               $mrjc(
-                                                  organigramaId.hashCode,
+                                                  georeferenciaId.hashCode,
                                                   $mrjc(
-                                                      estadoId.hashCode,
+                                                      organigramaId.hashCode,
                                                       $mrjc(
-                                                          tipoFuenteId.hashCode,
+                                                          estadoId.hashCode,
                                                           $mrjc(
-                                                              valorMinimo
+                                                              tipoFuenteId
                                                                   .hashCode,
                                                               $mrjc(
-                                                                  valorMaximo
+                                                                  valorMinimo
                                                                       .hashCode,
                                                                   $mrjc(
-                                                                      escalaEvaluacionId
+                                                                      valorMaximo
                                                                           .hashCode,
                                                                       $mrjc(
-                                                                          escalanombre
+                                                                          escalaEvaluacionId
                                                                               .hashCode,
                                                                           $mrjc(
-                                                                              escalavalorMinimo.hashCode,
-                                                                              $mrjc(escalavalorMaximo.hashCode, $mrjc(escalaestado.hashCode, $mrjc(escaladefecto.hashCode, $mrjc(escalaentidadId.hashCode, programaEducativoId.hashCode))))))))))))))))))))))));
+                                                                              escalanombre.hashCode,
+                                                                              $mrjc(escalavalorMinimo.hashCode, $mrjc(escalavalorMaximo.hashCode, $mrjc(escalaestado.hashCode, $mrjc(escaladefecto.hashCode, $mrjc(escalaentidadId.hashCode, programaEducativoId.hashCode)))))))))))))))))))))))));
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is TipoNotaRubroData &&
           other.key == this.key &&
+          other.silaboEventoId == this.silaboEventoId &&
           other.tipoNotaId == this.tipoNotaId &&
           other.nombre == this.nombre &&
           other.tipoId == this.tipoId &&
@@ -20970,6 +20982,7 @@ class TipoNotaRubroData extends DataClass
 
 class TipoNotaRubroCompanion extends UpdateCompanion<TipoNotaRubroData> {
   final Value<String> key;
+  final Value<int> silaboEventoId;
   final Value<String?> tipoNotaId;
   final Value<String?> nombre;
   final Value<int?> tipoId;
@@ -20995,6 +21008,7 @@ class TipoNotaRubroCompanion extends UpdateCompanion<TipoNotaRubroData> {
   final Value<int?> programaEducativoId;
   const TipoNotaRubroCompanion({
     this.key = const Value.absent(),
+    this.silaboEventoId = const Value.absent(),
     this.tipoNotaId = const Value.absent(),
     this.nombre = const Value.absent(),
     this.tipoId = const Value.absent(),
@@ -21021,6 +21035,7 @@ class TipoNotaRubroCompanion extends UpdateCompanion<TipoNotaRubroData> {
   });
   TipoNotaRubroCompanion.insert({
     required String key,
+    required int silaboEventoId,
     this.tipoNotaId = const Value.absent(),
     this.nombre = const Value.absent(),
     this.tipoId = const Value.absent(),
@@ -21044,9 +21059,11 @@ class TipoNotaRubroCompanion extends UpdateCompanion<TipoNotaRubroData> {
     this.escaladefecto = const Value.absent(),
     this.escalaentidadId = const Value.absent(),
     this.programaEducativoId = const Value.absent(),
-  }) : key = Value(key);
+  })  : key = Value(key),
+        silaboEventoId = Value(silaboEventoId);
   static Insertable<TipoNotaRubroData> custom({
     Expression<String>? key,
+    Expression<int>? silaboEventoId,
     Expression<String?>? tipoNotaId,
     Expression<String?>? nombre,
     Expression<int?>? tipoId,
@@ -21073,6 +21090,7 @@ class TipoNotaRubroCompanion extends UpdateCompanion<TipoNotaRubroData> {
   }) {
     return RawValuesInsertable({
       if (key != null) 'key': key,
+      if (silaboEventoId != null) 'silabo_evento_id': silaboEventoId,
       if (tipoNotaId != null) 'tipo_nota_id': tipoNotaId,
       if (nombre != null) 'nombre': nombre,
       if (tipoId != null) 'tipo_id': tipoId,
@@ -21103,6 +21121,7 @@ class TipoNotaRubroCompanion extends UpdateCompanion<TipoNotaRubroData> {
 
   TipoNotaRubroCompanion copyWith(
       {Value<String>? key,
+      Value<int>? silaboEventoId,
       Value<String?>? tipoNotaId,
       Value<String?>? nombre,
       Value<int?>? tipoId,
@@ -21128,6 +21147,7 @@ class TipoNotaRubroCompanion extends UpdateCompanion<TipoNotaRubroData> {
       Value<int?>? programaEducativoId}) {
     return TipoNotaRubroCompanion(
       key: key ?? this.key,
+      silaboEventoId: silaboEventoId ?? this.silaboEventoId,
       tipoNotaId: tipoNotaId ?? this.tipoNotaId,
       nombre: nombre ?? this.nombre,
       tipoId: tipoId ?? this.tipoId,
@@ -21159,6 +21179,9 @@ class TipoNotaRubroCompanion extends UpdateCompanion<TipoNotaRubroData> {
     final map = <String, Expression>{};
     if (key.present) {
       map['key'] = Variable<String>(key.value);
+    }
+    if (silaboEventoId.present) {
+      map['silabo_evento_id'] = Variable<int>(silaboEventoId.value);
     }
     if (tipoNotaId.present) {
       map['tipo_nota_id'] = Variable<String?>(tipoNotaId.value);
@@ -21236,6 +21259,7 @@ class TipoNotaRubroCompanion extends UpdateCompanion<TipoNotaRubroData> {
   String toString() {
     return (StringBuffer('TipoNotaRubroCompanion(')
           ..write('key: $key, ')
+          ..write('silaboEventoId: $silaboEventoId, ')
           ..write('tipoNotaId: $tipoNotaId, ')
           ..write('nombre: $nombre, ')
           ..write('tipoId: $tipoId, ')
@@ -21275,6 +21299,18 @@ class $TipoNotaRubroTable extends TipoNotaRubro
   GeneratedTextColumn _constructKey() {
     return GeneratedTextColumn(
       'key',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _silaboEventoIdMeta =
+      const VerificationMeta('silaboEventoId');
+  @override
+  late final GeneratedIntColumn silaboEventoId = _constructSilaboEventoId();
+  GeneratedIntColumn _constructSilaboEventoId() {
+    return GeneratedIntColumn(
+      'silabo_evento_id',
       $tableName,
       false,
     );
@@ -21555,6 +21591,7 @@ class $TipoNotaRubroTable extends TipoNotaRubro
   @override
   List<GeneratedColumn> get $columns => [
         key,
+        silaboEventoId,
         tipoNotaId,
         nombre,
         tipoId,
@@ -21595,6 +21632,14 @@ class $TipoNotaRubroTable extends TipoNotaRubro
           _keyMeta, key.isAcceptableOrUnknown(data['key']!, _keyMeta));
     } else if (isInserting) {
       context.missing(_keyMeta);
+    }
+    if (data.containsKey('silabo_evento_id')) {
+      context.handle(
+          _silaboEventoIdMeta,
+          silaboEventoId.isAcceptableOrUnknown(
+              data['silabo_evento_id']!, _silaboEventoIdMeta));
+    } else if (isInserting) {
+      context.missing(_silaboEventoIdMeta);
     }
     if (data.containsKey('tipo_nota_id')) {
       context.handle(
@@ -21726,7 +21771,7 @@ class $TipoNotaRubroTable extends TipoNotaRubro
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {key};
+  Set<GeneratedColumn> get $primaryKey => {key, silaboEventoId};
   @override
   TipoNotaRubroData map(Map<String, dynamic> data, {String? tablePrefix}) {
     return TipoNotaRubroData.fromData(data, _db,
@@ -21742,6 +21787,7 @@ class $TipoNotaRubroTable extends TipoNotaRubro
 class ValorTipoNotaRubroData extends DataClass
     implements Insertable<ValorTipoNotaRubroData> {
   final String key;
+  final int silaboEventoId;
   final String? valorTipoNotaId;
   final String? tipoNotaId;
   final String? titulo;
@@ -21767,6 +21813,7 @@ class ValorTipoNotaRubroData extends DataClass
   final String? getSTime;
   ValorTipoNotaRubroData(
       {required this.key,
+      required this.silaboEventoId,
       this.valorTipoNotaId,
       this.tipoNotaId,
       this.titulo,
@@ -21797,6 +21844,8 @@ class ValorTipoNotaRubroData extends DataClass
     return ValorTipoNotaRubroData(
       key: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}key'])!,
+      silaboEventoId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}silabo_evento_id'])!,
       valorTipoNotaId: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}valor_tipo_nota_id']),
       tipoNotaId: const StringType()
@@ -21849,6 +21898,7 @@ class ValorTipoNotaRubroData extends DataClass
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['key'] = Variable<String>(key);
+    map['silabo_evento_id'] = Variable<int>(silaboEventoId);
     if (!nullToAbsent || valorTipoNotaId != null) {
       map['valor_tipo_nota_id'] = Variable<String?>(valorTipoNotaId);
     }
@@ -21924,6 +21974,7 @@ class ValorTipoNotaRubroData extends DataClass
   ValorTipoNotaRubroCompanion toCompanion(bool nullToAbsent) {
     return ValorTipoNotaRubroCompanion(
       key: Value(key),
+      silaboEventoId: Value(silaboEventoId),
       valorTipoNotaId: valorTipoNotaId == null && nullToAbsent
           ? const Value.absent()
           : Value(valorTipoNotaId),
@@ -21997,6 +22048,7 @@ class ValorTipoNotaRubroData extends DataClass
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return ValorTipoNotaRubroData(
       key: serializer.fromJson<String>(json['key']),
+      silaboEventoId: serializer.fromJson<int>(json['silaboEventoId']),
       valorTipoNotaId: serializer.fromJson<String?>(json['valorTipoNotaId']),
       tipoNotaId: serializer.fromJson<String?>(json['tipoNotaId']),
       titulo: serializer.fromJson<String?>(json['titulo']),
@@ -22027,6 +22079,7 @@ class ValorTipoNotaRubroData extends DataClass
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'key': serializer.toJson<String>(key),
+      'silaboEventoId': serializer.toJson<int>(silaboEventoId),
       'valorTipoNotaId': serializer.toJson<String?>(valorTipoNotaId),
       'tipoNotaId': serializer.toJson<String?>(tipoNotaId),
       'titulo': serializer.toJson<String?>(titulo),
@@ -22055,6 +22108,7 @@ class ValorTipoNotaRubroData extends DataClass
 
   ValorTipoNotaRubroData copyWith(
           {String? key,
+          int? silaboEventoId,
           String? valorTipoNotaId,
           String? tipoNotaId,
           String? titulo,
@@ -22080,6 +22134,7 @@ class ValorTipoNotaRubroData extends DataClass
           String? getSTime}) =>
       ValorTipoNotaRubroData(
         key: key ?? this.key,
+        silaboEventoId: silaboEventoId ?? this.silaboEventoId,
         valorTipoNotaId: valorTipoNotaId ?? this.valorTipoNotaId,
         tipoNotaId: tipoNotaId ?? this.tipoNotaId,
         titulo: titulo ?? this.titulo,
@@ -22108,6 +22163,7 @@ class ValorTipoNotaRubroData extends DataClass
   String toString() {
     return (StringBuffer('ValorTipoNotaRubroData(')
           ..write('key: $key, ')
+          ..write('silaboEventoId: $silaboEventoId, ')
           ..write('valorTipoNotaId: $valorTipoNotaId, ')
           ..write('tipoNotaId: $tipoNotaId, ')
           ..write('titulo: $titulo, ')
@@ -22139,52 +22195,53 @@ class ValorTipoNotaRubroData extends DataClass
   int get hashCode => $mrjf($mrjc(
       key.hashCode,
       $mrjc(
-          valorTipoNotaId.hashCode,
+          silaboEventoId.hashCode,
           $mrjc(
-              tipoNotaId.hashCode,
+              valorTipoNotaId.hashCode,
               $mrjc(
-                  titulo.hashCode,
+                  tipoNotaId.hashCode,
                   $mrjc(
-                      alias.hashCode,
+                      titulo.hashCode,
                       $mrjc(
-                          limiteInferior.hashCode,
+                          alias.hashCode,
                           $mrjc(
-                              limiteSuperior.hashCode,
+                              limiteInferior.hashCode,
                               $mrjc(
-                                  valorNumerico.hashCode,
+                                  limiteSuperior.hashCode,
                                   $mrjc(
-                                      icono.hashCode,
+                                      valorNumerico.hashCode,
                                       $mrjc(
-                                          estadoId.hashCode,
+                                          icono.hashCode,
                                           $mrjc(
-                                              incluidoLInferior.hashCode,
+                                              estadoId.hashCode,
                                               $mrjc(
-                                                  incluidoLSuperior.hashCode,
+                                                  incluidoLInferior.hashCode,
                                                   $mrjc(
-                                                      tipoId.hashCode,
+                                                      incluidoLSuperior
+                                                          .hashCode,
                                                       $mrjc(
-                                                          usuarioCreacionId
-                                                              .hashCode,
+                                                          tipoId.hashCode,
                                                           $mrjc(
-                                                              usuarioCreadorId
+                                                              usuarioCreacionId
                                                                   .hashCode,
                                                               $mrjc(
-                                                                  fechaCreacion
+                                                                  usuarioCreadorId
                                                                       .hashCode,
                                                                   $mrjc(
-                                                                      usuarioAccionId
+                                                                      fechaCreacion
                                                                           .hashCode,
                                                                       $mrjc(
-                                                                          fechaAccion
+                                                                          usuarioAccionId
                                                                               .hashCode,
                                                                           $mrjc(
-                                                                              fechaEnvio.hashCode,
-                                                                              $mrjc(fechaEntrega.hashCode, $mrjc(fechaRecibido.hashCode, $mrjc(fechaVisto.hashCode, $mrjc(fechaRespuesta.hashCode, getSTime.hashCode))))))))))))))))))))))));
+                                                                              fechaAccion.hashCode,
+                                                                              $mrjc(fechaEnvio.hashCode, $mrjc(fechaEntrega.hashCode, $mrjc(fechaRecibido.hashCode, $mrjc(fechaVisto.hashCode, $mrjc(fechaRespuesta.hashCode, getSTime.hashCode)))))))))))))))))))))))));
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is ValorTipoNotaRubroData &&
           other.key == this.key &&
+          other.silaboEventoId == this.silaboEventoId &&
           other.valorTipoNotaId == this.valorTipoNotaId &&
           other.tipoNotaId == this.tipoNotaId &&
           other.titulo == this.titulo &&
@@ -22213,6 +22270,7 @@ class ValorTipoNotaRubroData extends DataClass
 class ValorTipoNotaRubroCompanion
     extends UpdateCompanion<ValorTipoNotaRubroData> {
   final Value<String> key;
+  final Value<int> silaboEventoId;
   final Value<String?> valorTipoNotaId;
   final Value<String?> tipoNotaId;
   final Value<String?> titulo;
@@ -22238,6 +22296,7 @@ class ValorTipoNotaRubroCompanion
   final Value<String?> getSTime;
   const ValorTipoNotaRubroCompanion({
     this.key = const Value.absent(),
+    this.silaboEventoId = const Value.absent(),
     this.valorTipoNotaId = const Value.absent(),
     this.tipoNotaId = const Value.absent(),
     this.titulo = const Value.absent(),
@@ -22264,6 +22323,7 @@ class ValorTipoNotaRubroCompanion
   });
   ValorTipoNotaRubroCompanion.insert({
     required String key,
+    required int silaboEventoId,
     this.valorTipoNotaId = const Value.absent(),
     this.tipoNotaId = const Value.absent(),
     this.titulo = const Value.absent(),
@@ -22287,9 +22347,11 @@ class ValorTipoNotaRubroCompanion
     this.fechaVisto = const Value.absent(),
     this.fechaRespuesta = const Value.absent(),
     this.getSTime = const Value.absent(),
-  }) : key = Value(key);
+  })  : key = Value(key),
+        silaboEventoId = Value(silaboEventoId);
   static Insertable<ValorTipoNotaRubroData> custom({
     Expression<String>? key,
+    Expression<int>? silaboEventoId,
     Expression<String?>? valorTipoNotaId,
     Expression<String?>? tipoNotaId,
     Expression<String?>? titulo,
@@ -22316,6 +22378,7 @@ class ValorTipoNotaRubroCompanion
   }) {
     return RawValuesInsertable({
       if (key != null) 'key': key,
+      if (silaboEventoId != null) 'silabo_evento_id': silaboEventoId,
       if (valorTipoNotaId != null) 'valor_tipo_nota_id': valorTipoNotaId,
       if (tipoNotaId != null) 'tipo_nota_id': tipoNotaId,
       if (titulo != null) 'titulo': titulo,
@@ -22344,6 +22407,7 @@ class ValorTipoNotaRubroCompanion
 
   ValorTipoNotaRubroCompanion copyWith(
       {Value<String>? key,
+      Value<int>? silaboEventoId,
       Value<String?>? valorTipoNotaId,
       Value<String?>? tipoNotaId,
       Value<String?>? titulo,
@@ -22369,6 +22433,7 @@ class ValorTipoNotaRubroCompanion
       Value<String?>? getSTime}) {
     return ValorTipoNotaRubroCompanion(
       key: key ?? this.key,
+      silaboEventoId: silaboEventoId ?? this.silaboEventoId,
       valorTipoNotaId: valorTipoNotaId ?? this.valorTipoNotaId,
       tipoNotaId: tipoNotaId ?? this.tipoNotaId,
       titulo: titulo ?? this.titulo,
@@ -22400,6 +22465,9 @@ class ValorTipoNotaRubroCompanion
     final map = <String, Expression>{};
     if (key.present) {
       map['key'] = Variable<String>(key.value);
+    }
+    if (silaboEventoId.present) {
+      map['silabo_evento_id'] = Variable<int>(silaboEventoId.value);
     }
     if (valorTipoNotaId.present) {
       map['valor_tipo_nota_id'] = Variable<String?>(valorTipoNotaId.value);
@@ -22477,6 +22545,7 @@ class ValorTipoNotaRubroCompanion
   String toString() {
     return (StringBuffer('ValorTipoNotaRubroCompanion(')
           ..write('key: $key, ')
+          ..write('silaboEventoId: $silaboEventoId, ')
           ..write('valorTipoNotaId: $valorTipoNotaId, ')
           ..write('tipoNotaId: $tipoNotaId, ')
           ..write('titulo: $titulo, ')
@@ -22516,6 +22585,18 @@ class $ValorTipoNotaRubroTable extends ValorTipoNotaRubro
   GeneratedTextColumn _constructKey() {
     return GeneratedTextColumn(
       'key',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _silaboEventoIdMeta =
+      const VerificationMeta('silaboEventoId');
+  @override
+  late final GeneratedIntColumn silaboEventoId = _constructSilaboEventoId();
+  GeneratedIntColumn _constructSilaboEventoId() {
+    return GeneratedIntColumn(
+      'silabo_evento_id',
       $tableName,
       false,
     );
@@ -22794,6 +22875,7 @@ class $ValorTipoNotaRubroTable extends ValorTipoNotaRubro
   @override
   List<GeneratedColumn> get $columns => [
         key,
+        silaboEventoId,
         valorTipoNotaId,
         tipoNotaId,
         titulo,
@@ -22835,6 +22917,14 @@ class $ValorTipoNotaRubroTable extends ValorTipoNotaRubro
           _keyMeta, key.isAcceptableOrUnknown(data['key']!, _keyMeta));
     } else if (isInserting) {
       context.missing(_keyMeta);
+    }
+    if (data.containsKey('silabo_evento_id')) {
+      context.handle(
+          _silaboEventoIdMeta,
+          silaboEventoId.isAcceptableOrUnknown(
+              data['silabo_evento_id']!, _silaboEventoIdMeta));
+    } else if (isInserting) {
+      context.missing(_silaboEventoIdMeta);
     }
     if (data.containsKey('valor_tipo_nota_id')) {
       context.handle(
@@ -22966,7 +23056,7 @@ class $ValorTipoNotaRubroTable extends ValorTipoNotaRubro
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {key};
+  Set<GeneratedColumn> get $primaryKey => {key, silaboEventoId};
   @override
   ValorTipoNotaRubroData map(Map<String, dynamic> data, {String? tablePrefix}) {
     return ValorTipoNotaRubroData.fromData(data, _db,

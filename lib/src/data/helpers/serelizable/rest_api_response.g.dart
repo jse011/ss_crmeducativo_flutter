@@ -1072,6 +1072,7 @@ TipoNotaRubroSerial _$TipoNotaRubroSerialFromJson(Map<String, dynamic> json) {
   return TipoNotaRubroSerial(
     key: json['key'] as String?,
     tipoNotaId: json['tipoNotaId'] as String?,
+    silaboEventoId: json['silaboEventoId'] as int?,
     nombre: json['nombre'] as String?,
     tipoId: json['tipoId'] as int?,
     tiponombre: json['tiponombre'] as String?,
@@ -1102,6 +1103,7 @@ Map<String, dynamic> _$TipoNotaRubroSerialToJson(
     <String, dynamic>{
       'key': instance.key,
       'tipoNotaId': instance.tipoNotaId,
+      'silaboEventoId': instance.silaboEventoId,
       'nombre': instance.nombre,
       'tipoId': instance.tipoId,
       'tiponombre': instance.tiponombre,
@@ -1131,6 +1133,7 @@ ValorTipoNotaRubroSerial _$ValorTipoNotaRubroSerialFromJson(
   return ValorTipoNotaRubroSerial(
     valorTipoNotaId: json['valorTipoNotaId'] as String?,
     tipoNotaId: json['tipoNotaId'] as String?,
+    silaboEventoId: json['silaboEventoId'] as int?,
     titulo: json['titulo'] as String?,
     alias: json['alias'] as String?,
     limiteInferior: (json['limiteInferior'] as num?)?.toDouble(),
@@ -1161,6 +1164,7 @@ Map<String, dynamic> _$ValorTipoNotaRubroSerialToJson(
     <String, dynamic>{
       'key': instance.key,
       'valorTipoNotaId': instance.valorTipoNotaId,
+      'silaboEventoId': instance.silaboEventoId,
       'tipoNotaId': instance.tipoNotaId,
       'titulo': instance.titulo,
       'alias': instance.alias,
