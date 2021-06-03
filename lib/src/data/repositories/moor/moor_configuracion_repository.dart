@@ -9,6 +9,7 @@ import 'package:ss_crmeducativo_2/src/domain/entities/contacto_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/evento_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/login_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/personaUi.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/programa_educativo_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_eventoUi.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/usuario_ui.dart';
@@ -788,21 +789,23 @@ class MoorConfiguracionRepository extends ConfiguracionRepository{
         ContactoDocenteData contactoData = row.readTable(SQL.contactoDocente);
         ContactoDocenteData padreData = row.readTable(padre);
         ContactoDocenteData apoderadoData = row.readTable(padre);
-        ContactoUi? contactoUi = contactoUiList.firstWhereOrNull((element) => element.personaId == contactoData.personaId && element.tipo == contactoData.tipo);
+        ContactoUi? contactoUi = contactoUiList.firstWhereOrNull((element) => element.personaUi?.personaId == contactoData.personaId && element.tipo == contactoData.tipo);
         if(contactoUi == null){
           contactoUi = new ContactoUi();
-          contactoUi.personaId = contactoData.personaId;
+          contactoUi.personaUi = PersonaUi();
+          contactoUi.personaUi?.personaId = contactoData.personaId;
           contactoUi.relacionList = [];
-          contactoUi.foto = contactoData.foto;
-          contactoUi.nombreCompleto = '${AppTools.capitalize(contactoData.nombres??"")} ${AppTools.capitalize(contactoData.apellidoPaterno??"")} ${AppTools.capitalize(contactoData.apellidoMaterno??"")}';
+          contactoUi.personaUi?.foto = contactoData.foto;
+          contactoUi.personaUi?.nombreCompleto = '${AppTools.capitalize(contactoData.nombres??"")} ${AppTools.capitalize(contactoData.apellidoPaterno??"")} ${AppTools.capitalize(contactoData.apellidoMaterno??"")}';
           contactoUi.relacion = contactoData.relacion;
-          contactoUi.telefono = contactoData.celular!=null?contactoData.celular: contactoData.telefono??"";
+          contactoUi.personaUi?.telefono = contactoData.celular!=null?contactoData.celular: contactoData.telefono??"";
 
         }
 
         if(padreData!=null){
           ContactoUi padreUi = new ContactoUi();
-          padreUi.personaId = padreData.personaId;
+          contactoUi.personaUi = PersonaUi();
+          padreUi.personaUi?.personaId = padreData.personaId;
           padreUi.relacion = padreData.relacion;
           contactoUi.relacionList?.add(padreUi);
         }
@@ -835,23 +838,23 @@ class MoorConfiguracionRepository extends ConfiguracionRepository{
   }
 
   @override
-  Future<List<ContactoUi>> getListAlumnoCurso(int cargaCursoId)async {
+  Future<List<PersonaUi>> getListAlumnoCurso(int cargaCursoId)async {
     AppDataBase SQL = AppDataBase();
-    List<ContactoUi> contactoUiList = [];
+    List<PersonaUi> contactoUiList = [];
     print("cargaCursoId: " + cargaCursoId.toString());
     var query = SQL.select(SQL.contactoDocente)..where((tbl) => SQL.contactoDocente.cargaCursoId.equals(cargaCursoId));
     query.orderBy([(tbl)=> OrderingTerm.desc(tbl.apellidoPaterno)]);
     List<ContactoDocenteData> contactoDocenteList = await query.get();
     for(ContactoDocenteData contactoData  in contactoDocenteList){
-      ContactoUi contactoUi = new ContactoUi();
-        contactoUi.personaId = contactoData.personaId;
-        contactoUi.foto = contactoData.foto;
-        contactoUi.nombreCompleto = '${AppTools.capitalize(contactoData.nombres??"")} ${AppTools.capitalize(contactoData.apellidoPaterno??"")} ${AppTools.capitalize(contactoData.apellidoMaterno??"")}';
-        contactoUi.nombres = AppTools.capitalize(contactoData.nombres??"");
-        contactoUi.apellidos  = '${AppTools.capitalize(contactoData.apellidoPaterno??"")} ${AppTools.capitalize(contactoData.apellidoMaterno??"")}';
-        contactoUi.relacion = contactoData.relacion;
-        contactoUi.telefono = contactoData.celular!=null?contactoData.celular: contactoData.telefono??"";
-        contactoUiList.add(contactoUi);
+        PersonaUi personaUi = new PersonaUi();
+        personaUi.personaId = contactoData.personaId;
+        personaUi.foto = contactoData.foto;
+        personaUi.nombreCompleto = '${AppTools.capitalize(contactoData.nombres??"")} ${AppTools.capitalize(contactoData.apellidoPaterno??"")} ${AppTools.capitalize(contactoData.apellidoMaterno??"")}';
+        personaUi.nombres = AppTools.capitalize(contactoData.nombres??"");
+        personaUi.apellidos  = '${AppTools.capitalize(contactoData.apellidoPaterno??"")} ${AppTools.capitalize(contactoData.apellidoMaterno??"")}';
+
+        personaUi.telefono = contactoData.celular!=null?contactoData.celular: contactoData.telefono??"";
+        contactoUiList.add(personaUi);
     }
     print("getListAlumnoCurso: " + contactoUiList.length.toString());
     return contactoUiList;

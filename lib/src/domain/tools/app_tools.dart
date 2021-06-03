@@ -182,4 +182,22 @@ class AppTools {
     //47 años (19 de noviembre 1970)
     return mstr_fecha;
   }
+
+  /**
+   * a = valor minimo del origen
+   * b = valor maximo del origen
+   * x = valor a transformar
+   * c = valor minimo transformado
+   * d = valor maximo transformado
+   */
+  static double transformacionInvariante(double a, double b, double x, double c, double d) {
+    try{
+      double t = (1 - ((b - x) / (b - a))) * (d - c);
+      //Log.d(TAG, "notaTransformada: " + "1 - ((" + b + "-" + x + ")/(" + b + "-" + a + "))) * (" + d + " - " + c + ") = " + t);
+      return t;
+    }catch(e){return 0.0;}
+
+
+  }
+
 }

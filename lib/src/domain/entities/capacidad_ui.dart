@@ -11,5 +11,4 @@ class CapacidadUi{
   int? tipoId;
   int? competenciaId;
   List<RubricaEvaluacionUi>? rubricaEvalUiList;
-
 }

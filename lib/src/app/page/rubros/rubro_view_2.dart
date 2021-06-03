@@ -771,7 +771,7 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
                        child: true?
                        CachedNetworkImage(
                          placeholder: (context, url) => CircularProgressIndicator(),
-                         imageUrl: o.foto??"",
+                         imageUrl: o.personaUi?.foto??"",
                          errorWidget: (context, url, error) =>  Icon(Icons.error_outline_rounded, size: 80,),
                          imageBuilder: (context, imageProvider) =>
                              Container(
@@ -810,8 +810,8 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(o.nombreCompleto??"", maxLines: 1, textAlign: TextAlign.center, style: TextStyle(fontSize: 12, color: AppTheme.black),),
-                    Text(o.apellidos??"", maxLines: 1, textAlign: TextAlign.center,overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 10),),
+                    Text(o.personaUi?.nombreCompleto??"", maxLines: 1, textAlign: TextAlign.center, style: TextStyle(fontSize: 12, color: AppTheme.black),),
+                    Text(o.personaUi?.apellidos??"", maxLines: 1, textAlign: TextAlign.center,overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 10),),
                   ],
                 ),
                 decoration: BoxDecoration(

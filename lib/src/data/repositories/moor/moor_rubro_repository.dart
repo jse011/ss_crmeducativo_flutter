@@ -12,8 +12,12 @@ import 'package:ss_crmeducativo_2/src/domain/entities/competencia_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/criterio_peso_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/criterio_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/criterio_valor_tipo_nota_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_capacidad_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_competencia_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/forma_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/origen_rubro_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/personaUi.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/rubrica_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/sesion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tema_criterio_ui.dart';
@@ -154,53 +158,19 @@ class MoorRubroRepository extends RubroRepository{
 
     var query = SQL.select(SQL.tipoNotaRubro)..where((tbl) => tbl.programaEducativoId.equals(programaEducativoId));
     query.where((tbl) => tbl.tipoId.isNotIn([TN_VALOR_ASISTENCIA]));
+    query.where((tbl) => tbl.silaboEventoId.isNotIn([0]));
     List<TipoNotaRubroData> tipoNotaList = await query.get();
     for(TipoNotaRubroData tipoNotaRubroData in tipoNotaList){
 
-        TipoNotaUi tipoNotaUi = TipoNotaUi();
-        tipoNotaUi.tipoNotaId = tipoNotaRubroData.tipoNotaId;
-        tipoNotaUi.nombre = tipoNotaRubroData.nombre;
-        tipoNotaUi.escalanombre = tipoNotaRubroData.escalanombre;
-        tipoNotaUi.escalavalorMaximo = tipoNotaRubroData.escalavalorMaximo;
-        tipoNotaUi.escalavalorMinimo = tipoNotaRubroData.escalavalorMinimo;
-        tipoNotaUi.tiponombre = tipoNotaRubroData.tiponombre;
-        tipoNotaUi.tipoId = tipoNotaRubroData.tipoId;
-        tipoNotaUi.intervalo = tipoNotaRubroData.intervalo;
-
-        switch(tipoNotaRubroData.tipoId??0){
-          case TN_SELECTOR_ICONOS:
-            tipoNotaUi.tipoNotaTiposUi = TipoNotaTiposUi.SELECTOR_ICONOS;
-            break;
-          case TN_SELECTOR_NUMERICO:
-            tipoNotaUi.tipoNotaTiposUi = TipoNotaTiposUi.SELECTOR_NUMERICO;
-            break;
-          case TN_SELECTOR_VALORES:
-            tipoNotaUi.tipoNotaTiposUi = TipoNotaTiposUi.SELECTOR_VALORES;
-            break;
-          case TN_VALOR_NUMERICO:
-            tipoNotaUi.tipoNotaTiposUi = TipoNotaTiposUi.SELECTOR_ICONOS;
-            break;
-          case TN_VALOR_ASISTENCIA:
-            tipoNotaUi.tipoNotaTiposUi = TipoNotaTiposUi.VALOR_ASISTENCIA;
-            break;
-        }
+      TipoNotaUi tipoNotaUi = convertTipoNotaUi(tipoNotaRubroData);
 
         List<ValorTipoNotaUi> valorTipoNotaUiList = [];
         List<ValorTipoNotaRubroData> valorTipoNotaRubroList = await (SQL.select(SQL.valorTipoNotaRubro)..where((tbl) => tbl.tipoNotaId.equals(tipoNotaRubroData.tipoNotaId))).get();
         valorTipoNotaRubroList.sort((a, b) => (b.valorNumerico??0).compareTo(a.valorNumerico??0));
 
         for(ValorTipoNotaRubroData valorTipoNotaRubroData in valorTipoNotaRubroList){
-          ValorTipoNotaUi valorTipoNotaUi = ValorTipoNotaUi();
-          valorTipoNotaUi.valorTipoNotaId = valorTipoNotaRubroData.valorTipoNotaId;
-          valorTipoNotaUi.titulo = valorTipoNotaRubroData.titulo;
-          valorTipoNotaUi.alias = valorTipoNotaRubroData.alias;
-          valorTipoNotaUi.icono = valorTipoNotaRubroData.icono;
-          valorTipoNotaUi.incluidoLInferior = valorTipoNotaRubroData.incluidoLInferior;
-          valorTipoNotaUi.incluidoLSuperior = valorTipoNotaRubroData.incluidoLSuperior;
+          ValorTipoNotaUi valorTipoNotaUi = convertValorTipoNotaUi(valorTipoNotaRubroData);
           valorTipoNotaUi.tipoNotaUi = tipoNotaUi;
-          valorTipoNotaUi.valorNumerico = valorTipoNotaRubroData.valorNumerico;
-          valorTipoNotaUi.limiteInferior = valorTipoNotaRubroData.limiteInferior;
-          valorTipoNotaUi.limiteSuperior = valorTipoNotaRubroData.limiteSuperior;
           valorTipoNotaUiList.add(valorTipoNotaUi);
         }
 
@@ -212,6 +182,50 @@ class MoorRubroRepository extends RubroRepository{
 
   }
 
+  TipoNotaUi convertTipoNotaUi(TipoNotaRubroData? tipoNotaRubroData){
+    TipoNotaUi tipoNotaUi = TipoNotaUi();
+    tipoNotaUi.tipoNotaId = tipoNotaRubroData?.tipoNotaId;
+    tipoNotaUi.nombre = tipoNotaRubroData?.nombre;
+    tipoNotaUi.escalanombre = tipoNotaRubroData?.escalanombre;
+    tipoNotaUi.escalavalorMaximo = tipoNotaRubroData?.escalavalorMaximo;
+    tipoNotaUi.escalavalorMinimo = tipoNotaRubroData?.escalavalorMinimo;
+    tipoNotaUi.tiponombre = tipoNotaRubroData?.tiponombre;
+    tipoNotaUi.tipoId = tipoNotaRubroData?.tipoId;
+    tipoNotaUi.intervalo = tipoNotaRubroData?.intervalo;
+
+    switch(tipoNotaRubroData?.tipoId??0){
+      case TN_SELECTOR_ICONOS:
+        tipoNotaUi.tipoNotaTiposUi = TipoNotaTiposUi.SELECTOR_ICONOS;
+        break;
+      case TN_SELECTOR_NUMERICO:
+        tipoNotaUi.tipoNotaTiposUi = TipoNotaTiposUi.SELECTOR_NUMERICO;
+        break;
+      case TN_SELECTOR_VALORES:
+        tipoNotaUi.tipoNotaTiposUi = TipoNotaTiposUi.SELECTOR_VALORES;
+        break;
+      case TN_VALOR_NUMERICO:
+        tipoNotaUi.tipoNotaTiposUi = TipoNotaTiposUi.SELECTOR_ICONOS;
+        break;
+      case TN_VALOR_ASISTENCIA:
+        tipoNotaUi.tipoNotaTiposUi = TipoNotaTiposUi.VALOR_ASISTENCIA;
+        break;
+    }
+    return tipoNotaUi;
+  }
+
+  ValorTipoNotaUi convertValorTipoNotaUi(ValorTipoNotaRubroData? valorTipoNotaRubroData){
+    ValorTipoNotaUi valorTipoNotaUi = ValorTipoNotaUi();
+    valorTipoNotaUi.valorTipoNotaId = valorTipoNotaRubroData?.valorTipoNotaId;
+    valorTipoNotaUi.titulo = valorTipoNotaRubroData?.titulo;
+    valorTipoNotaUi.alias = valorTipoNotaRubroData?.alias;
+    valorTipoNotaUi.icono = valorTipoNotaRubroData?.icono;
+    valorTipoNotaUi.incluidoLInferior = valorTipoNotaRubroData?.incluidoLInferior;
+    valorTipoNotaUi.incluidoLSuperior = valorTipoNotaRubroData?.incluidoLSuperior;
+    valorTipoNotaUi.valorNumerico = valorTipoNotaRubroData?.valorNumerico;
+    valorTipoNotaUi.limiteInferior = valorTipoNotaRubroData?.limiteInferior;
+    valorTipoNotaUi.limiteSuperior = valorTipoNotaRubroData?.limiteSuperior;
+    return valorTipoNotaUi;
+  }
   @override
   Future<List<CompetenciaUi>> getTemasCriterios(int calendarioPeriodoId, int silaboEventoId) async{
     AppDataBase SQL = AppDataBase();
@@ -559,9 +573,27 @@ class MoorRubroRepository extends RubroRepository{
     else if((rubroEvaluacionProcesoData.instrumentoEvalId??"").isNotEmpty)rubricaEvaluacionUi.origenRubroUi = OrigenRubroUi.GENERADO_INSTRUMENTO;
     else if((rubroEvaluacionProcesoData.preguntaEvalId??"").isNotEmpty)rubricaEvaluacionUi.origenRubroUi = OrigenRubroUi.GENERADO_PREGUNTA;
     else rubricaEvaluacionUi.origenRubroUi = OrigenRubroUi.CREADO_DOCENTE;
+    rubricaEvaluacionUi.tipoNotaId = rubroEvaluacionProcesoData.tipoNotaId;
     return rubricaEvaluacionUi;
   }
 
+  EvaluacionUi convertEvaluacionUi(EvaluacionProcesoData evaluacionProcesoData){
+    EvaluacionUi evaluacionUi = EvaluacionUi();
+    evaluacionUi.evaluacionId = evaluacionProcesoData.evaluacionProcesoId;
+    evaluacionUi.rubroEvaluacionId = evaluacionProcesoData.rubroEvalProcesoId;
+    evaluacionUi.alumnoId = evaluacionProcesoData.alumnoId;
+    evaluacionUi.personaUi = PersonaUi();
+    evaluacionUi.personaUi?.personaId = evaluacionProcesoData.alumnoId;
+    evaluacionUi.personaUi?.nombres = evaluacionProcesoData.nombres;
+    evaluacionUi.personaUi?.apellidoPaterno = evaluacionProcesoData.apellidoPaterno;
+    evaluacionUi.personaUi?.apellidoPaterno = evaluacionProcesoData.apellidoPaterno;
+    evaluacionUi.personaUi?.foto = evaluacionProcesoData.foto;
+    evaluacionUi.publicado = evaluacionProcesoData.publicado;
+    evaluacionUi.equipoId = evaluacionProcesoData.equipoId;
+    evaluacionUi.valorTipoNotaId =  evaluacionProcesoData.valorTipoNotaId;
+    evaluacionUi.nota = evaluacionProcesoData.nota;
+    return evaluacionUi;
+  }
   @override
   Future<List<UnidadUi>> getUnidadAprendizaje(int? silaboEventoId, int? calendarioPeriodoId) async {
     AppDataBase SQL = AppDataBase();
@@ -644,7 +676,36 @@ class MoorRubroRepository extends RubroRepository{
     queryRubro.orderBy([(tbl)=> OrderingTerm.desc(tbl.fechaCreacion)]);
 
     List<RubroEvaluacionProcesoData> rubroEvalProcesoList = await queryRubro.get();
+    List<String> rubroEvalProcesoIdList = [];
+    List<String> rubroTipoNotaIdList = [];
+    for(RubroEvaluacionProcesoData rubroEvalProcesoData in rubroEvalProcesoList){
+      rubroEvalProcesoIdList.add(rubroEvalProcesoData.rubroEvalProcesoId);
+      rubroTipoNotaIdList.add(rubroEvalProcesoData.tipoNotaId??"");
+    }
 
+    List<TipoNotaUi> tipoNotaUiList = [];
+    List<EvaluacionProcesoData> evaluacionProcesoDataList = await (SQL.select(SQL.evaluacionProceso)..where((tbl) => tbl.rubroEvalProcesoId.isIn(rubroEvalProcesoIdList))).get();
+    var queryTipoNota = SQL.select(SQL.tipoNotaRubro)..where((tbl) => tbl.tipoNotaId.isIn(rubroTipoNotaIdList));
+    queryTipoNota.where((tbl) => tbl.silaboEventoId.equals(0));
+    List<TipoNotaRubroData> tipoNotaList = await (queryTipoNota).get();
+    for(TipoNotaRubroData tipoNotaRubroData in tipoNotaList){
+
+      TipoNotaUi tipoNotaUi = convertTipoNotaUi(tipoNotaRubroData);
+      List<ValorTipoNotaUi> valorTipoNotaUiList = [];
+      List<ValorTipoNotaRubroData> valorTipoNotaRubroList = await (SQL.select(SQL.valorTipoNotaRubro)..where((tbl) => tbl.tipoNotaId.equals(tipoNotaRubroData.tipoNotaId))).get();
+      valorTipoNotaRubroList.sort((a, b) => (b.valorNumerico??0).compareTo(a.valorNumerico??0));
+
+      for(ValorTipoNotaRubroData valorTipoNotaRubroData in valorTipoNotaRubroList){
+        ValorTipoNotaUi valorTipoNotaUi = convertValorTipoNotaUi(valorTipoNotaRubroData);
+        valorTipoNotaUi.tipoNotaUi = tipoNotaUi;
+        valorTipoNotaUiList.add(valorTipoNotaUi);
+      }
+
+      tipoNotaUi.valorTipoNotaList = valorTipoNotaUiList;
+      tipoNotaUiList.add(tipoNotaUi);
+    }
+
+   List<PersonaUi> personaUiList = [];
    List<CompetenciaUi> competenciaUiList = await getTemasCriterios(calendarioPeriodoId??0, silaboEventoId??0);
     for(CompetenciaUi competenciaUi in competenciaUiList){
       for(CapacidadUi capacidadUi in competenciaUi.capacidadUiList??[]){
@@ -652,14 +713,121 @@ class MoorRubroRepository extends RubroRepository{
         for(RubroEvaluacionProcesoData rubroEvaluacionProcesoData in  rubroEvalProcesoList){
           if(capacidadUi.capacidadId == rubroEvaluacionProcesoData.competenciaId){
             RubricaEvaluacionUi rubricaEvaluacionUi = convertRubricaEvaluacionUi(rubroEvaluacionProcesoData);
+            rubricaEvaluacionUi.evaluacionUiList = [];
+            TipoNotaUi? tipoNotaUi = tipoNotaUiList.firstWhereOrNull((element)=> element.tipoNotaId == rubricaEvaluacionUi.tipoNotaId);
+            rubricaEvaluacionUi.tipoNotaUi = tipoNotaUi;
+            for(EvaluacionProcesoData evaluacionProcesoData in evaluacionProcesoDataList){
+              if(evaluacionProcesoData.rubroEvalProcesoId ==  rubroEvaluacionProcesoData.rubroEvalProcesoId){
+                EvaluacionUi evaluacionUi = convertEvaluacionUi(evaluacionProcesoData);
+                ValorTipoNotaUi? valorTipoNotaUi = tipoNotaUi?.valorTipoNotaList?.firstWhereOrNull((element) => element.valorTipoNotaId == evaluacionUi.valorTipoNotaId);
+                evaluacionUi.valorTipoNotaUi = valorTipoNotaUi;
+                rubricaEvaluacionUi.evaluacionUiList?.add(evaluacionUi);
+                PersonaUi? personaUi = personaUiList.firstWhereOrNull((element) => element.personaId == evaluacionUi.alumnoId);
+                if(personaUi==null)personaUiList.add(evaluacionUi.personaUi!);
+              }
+            }
             capacidadUi.rubricaEvalUiList?.add(rubricaEvaluacionUi);
           }
         }
       }
     }
 
+    TipoNotaUi? tipoNotaUi = await getGetTipoNotaResultado(silaboEventoId);
+    int notaMaxResultado = tipoNotaUi.escalavalorMaximo??0;
+    int notaMinResultado = tipoNotaUi.escalavalorMinimo??0;
+    for(PersonaUi personaUi in personaUiList){
+      for(CompetenciaUi competenciaUi in competenciaUiList){
+        double notaCompetencia = 0;
+        EvaluacionCompetenciaUi evaluacionCompetenciaUi = EvaluacionCompetenciaUi();
+        evaluacionCompetenciaUi.competenciaUi = competenciaUi;
+        evaluacionCompetenciaUi.personaUi = personaUi;
+        evaluacionCompetenciaUi.nota = 0.0;
+        for(CapacidadUi capacidadUi in competenciaUi.capacidadUiList??[]){
+          EvaluacionCapacidadUi evaluacionCapacidadUi = EvaluacionCapacidadUi();
+          evaluacionCompetenciaUi.competenciaUi = competenciaUi;
+          evaluacionCompetenciaUi.personaUi = personaUi;
+          evaluacionCompetenciaUi.nota = 0.0;
+          double notaCapacidad = 0;
+          for(RubricaEvaluacionUi rubricaEvaluacionUi in capacidadUi.rubricaEvalUiList??[]){
+            int notaMaxRubro = rubricaEvaluacionUi.tipoNotaUi?.escalavalorMaximo??0;
+            int notaMinRubro = rubricaEvaluacionUi.tipoNotaUi?.escalavalorMinimo??0;
+            EvaluacionUi? evaluacionUi = rubricaEvaluacionUi.evaluacionUiList?.firstWhereOrNull((element)=> element.alumnoId == personaUi.personaId);
+            double notaRubro = AppTools.transformacionInvariante(notaMinRubro.toDouble(), notaMaxRubro.toDouble(), evaluacionUi?.nota??0.0, notaMinResultado.toDouble(), notaMaxResultado.toDouble());;
+            notaCapacidad += notaRubro;
+          }
+          notaCapacidad = (capacidadUi.rubricaEvalUiList?.length??0) > 0? notaCapacidad/capacidadUi.rubricaEvalUiList!.length :0.0;
+          evaluacionCompetenciaUi.nota = notaCapacidad;
+        }
+        notaCompetencia = (competenciaUi.capacidadUiList?.length??0) > 0? notaCompetencia/competenciaUi.capacidadUiList!.length :0.0;
+        evaluacionCompetenciaUi.nota;
+      }
+
+    }
+
     return competenciaUiList;
 
+
+  }
+
+
+  @override
+  Future<TipoNotaUi> getGetTipoNotaResultado(int? silaboEventoId) async{
+    AppDataBase SQL = AppDataBase();
+
+
+    var query = SQL.selectSingle(SQL.tipoNotaRubro)..where((tbl) => tbl.silaboEventoId.equals(silaboEventoId));
+    TipoNotaRubroData? tipoNotaRubroData = await query.getSingleOrNull();
+    TipoNotaUi tipoNotaUi = TipoNotaUi();
+    tipoNotaUi.tipoNotaId = tipoNotaRubroData?.tipoNotaId;
+    tipoNotaUi.nombre = tipoNotaRubroData?.nombre;
+    tipoNotaUi.escalanombre = tipoNotaRubroData?.escalanombre;
+    tipoNotaUi.escalavalorMaximo = tipoNotaRubroData?.escalavalorMaximo;
+    tipoNotaUi.escalavalorMinimo = tipoNotaRubroData?.escalavalorMinimo;
+    tipoNotaUi.tiponombre = tipoNotaRubroData?.tiponombre;
+    tipoNotaUi.tipoId = tipoNotaRubroData?.tipoId;
+    tipoNotaUi.intervalo = tipoNotaRubroData?.intervalo;
+
+    switch(tipoNotaRubroData?.tipoId??0){
+      case TN_SELECTOR_ICONOS:
+        tipoNotaUi.tipoNotaTiposUi = TipoNotaTiposUi.SELECTOR_ICONOS;
+        break;
+      case TN_SELECTOR_NUMERICO:
+        tipoNotaUi.tipoNotaTiposUi = TipoNotaTiposUi.SELECTOR_NUMERICO;
+        break;
+      case TN_SELECTOR_VALORES:
+        tipoNotaUi.tipoNotaTiposUi = TipoNotaTiposUi.SELECTOR_VALORES;
+        break;
+      case TN_VALOR_NUMERICO:
+        tipoNotaUi.tipoNotaTiposUi = TipoNotaTiposUi.SELECTOR_ICONOS;
+        break;
+      case TN_VALOR_ASISTENCIA:
+        tipoNotaUi.tipoNotaTiposUi = TipoNotaTiposUi.VALOR_ASISTENCIA;
+        break;
+    }
+
+    List<ValorTipoNotaUi> valorTipoNotaUiList = [];
+    List<ValorTipoNotaRubroData> valorTipoNotaRubroList = await (SQL.select(SQL.valorTipoNotaRubro)..where((tbl) => tbl.tipoNotaId.equals(tipoNotaRubroData?.tipoNotaId))).get();
+    valorTipoNotaRubroList.sort((a, b) => (b.valorNumerico??0).compareTo(a.valorNumerico??0));
+
+    for(ValorTipoNotaRubroData valorTipoNotaRubroData in valorTipoNotaRubroList){
+      ValorTipoNotaUi valorTipoNotaUi = ValorTipoNotaUi();
+      valorTipoNotaUi.valorTipoNotaId = valorTipoNotaRubroData.valorTipoNotaId;
+      valorTipoNotaUi.titulo = valorTipoNotaRubroData.titulo;
+      valorTipoNotaUi.alias = valorTipoNotaRubroData.alias;
+      valorTipoNotaUi.icono = valorTipoNotaRubroData.icono;
+      valorTipoNotaUi.incluidoLInferior = valorTipoNotaRubroData.incluidoLInferior;
+      valorTipoNotaUi.incluidoLSuperior = valorTipoNotaRubroData.incluidoLSuperior;
+      valorTipoNotaUi.tipoNotaUi = tipoNotaUi;
+      valorTipoNotaUi.valorNumerico = valorTipoNotaRubroData.valorNumerico;
+      valorTipoNotaUi.limiteInferior = valorTipoNotaRubroData.limiteInferior;
+      valorTipoNotaUi.limiteSuperior = valorTipoNotaRubroData.limiteSuperior;
+      valorTipoNotaUiList.add(valorTipoNotaUi);
+    }
+
+    tipoNotaUi.valorTipoNotaList = valorTipoNotaUiList;
+
+
+    return tipoNotaUi;
 
   }
 

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/contacto_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/personaUi.dart';
 import 'package:ss_crmeducativo_2/src/domain/repositories/configuracion_repository.dart';
 
 class GetAlumnoCurso extends UseCase<GetAlumnoCursoResponse, GetAlumnoCursoParams>{
@@ -26,7 +27,7 @@ class GetAlumnoCurso extends UseCase<GetAlumnoCursoResponse, GetAlumnoCursoParam
 }
 
 class GetAlumnoCursoResponse{
-  List<ContactoUi> contactoUiList;
+  List<PersonaUi> contactoUiList;
 
   GetAlumnoCursoResponse(this.contactoUiList);
 }

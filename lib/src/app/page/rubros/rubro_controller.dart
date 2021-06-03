@@ -11,6 +11,7 @@ import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_calendario_peri
 import 'package:ss_crmeducativo_2/src/domain/entities/origen_rubro_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/rubrica_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_competencia_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/unidad_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/response/respuesta_crear_rubro.dart';
 
@@ -41,6 +42,8 @@ class RubroController extends Controller{
   List<dynamic> get rowList2 => _rowList2;
   List<List<dynamic>> _cellListList = [];
   List<List<dynamic>> get cellListList => _cellListList;
+  TipoNotaUi? _tipoNotaUi = null;
+  TipoNotaUi? get tipoNotaUi => _tipoNotaUi;
 
   RubroController(this.cursosUi, calendarioPeriodoRepo, configuracionRepo, httpDatosRepo, rubroRepo)
       :this.presenter = RubroPresenter(calendarioPeriodoRepo, configuracionRepo, httpDatosRepo, rubroRepo)
