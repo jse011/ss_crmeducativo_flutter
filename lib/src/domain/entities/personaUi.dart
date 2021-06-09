@@ -7,4 +7,6 @@ class PersonaUi{
   String? apellidoMaterno;
   String? apellidos;
   String? telefono;
+  bool? contratoVigente;
+  bool? soloApareceEvaluacion;
 }

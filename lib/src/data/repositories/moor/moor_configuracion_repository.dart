@@ -22,6 +22,7 @@ class MoorConfiguracionRepository extends ConfiguracionRepository{
 
   static const int ANIO_ACADEMICO_MATRICULA = 192, ANIO_ACADEMICO_ACTIVO = 193, ANIO_ACADEMICO_CERRADO = 194, ANIO_ACADEMICO_CREADO = 195, ANIO_ACADEMICO_ELIMINADO = 196;
   static const int SILABO_ESTADO_CREADO = 243, SILABO_ESTADO_AUTORIZADO = 244, SILABO_ESTADO_PROCESO = 245, SILABO_ESTADO_PUBLICADO = 246, SILABO_ESTADO_ELIMINADO = 397;
+  static const int CONTACTO_DOCENTE = 3, CONTACTO_DIRECTIVO = 4, CONTACTO_ALUMNO = 1, CONTACTO_PADRE = 2, CONTACTO_APODERADO = 5;
 
   @override
   Future<bool> validarUsuario() async{
@@ -843,7 +844,10 @@ class MoorConfiguracionRepository extends ConfiguracionRepository{
     List<PersonaUi> contactoUiList = [];
     print("cargaCursoId: " + cargaCursoId.toString());
     var query = SQL.select(SQL.contactoDocente)..where((tbl) => SQL.contactoDocente.cargaCursoId.equals(cargaCursoId));
-    query.orderBy([(tbl)=> OrderingTerm.desc(tbl.apellidoPaterno)]);
+    query.where((tbl) => tbl.tipo.equals(CONTACTO_ALUMNO));
+    query.orderBy([(tbl)=> OrderingTerm.asc(tbl.apellidoPaterno)]);
+
+
     List<ContactoDocenteData> contactoDocenteList = await query.get();
     for(ContactoDocenteData contactoData  in contactoDocenteList){
         PersonaUi personaUi = new PersonaUi();
@@ -852,11 +856,10 @@ class MoorConfiguracionRepository extends ConfiguracionRepository{
         personaUi.nombreCompleto = '${AppTools.capitalize(contactoData.nombres??"")} ${AppTools.capitalize(contactoData.apellidoPaterno??"")} ${AppTools.capitalize(contactoData.apellidoMaterno??"")}';
         personaUi.nombres = AppTools.capitalize(contactoData.nombres??"");
         personaUi.apellidos  = '${AppTools.capitalize(contactoData.apellidoPaterno??"")} ${AppTools.capitalize(contactoData.apellidoMaterno??"")}';
-
+        personaUi.contratoVigente =  contactoData.contratoVigente;
         personaUi.telefono = contactoData.celular!=null?contactoData.celular: contactoData.telefono??"";
         contactoUiList.add(personaUi);
     }
-    print("getListAlumnoCurso: " + contactoUiList.length.toString());
     return contactoUiList;
   }
 

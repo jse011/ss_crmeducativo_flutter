@@ -111,6 +111,8 @@ class MoorRubroRepository extends RubroRepository{
         //(SQL.delete(SQL.equipoEvaluacion)..where((tbl) => tbl.rubroEvalProcesoId.isInQuery(queryRubro))).go();
 
         batch.insertAll(SQL.rubroEvaluacionProceso, SerializableConvert.converListSerializeRubroEvaluacionProceso(crearRubro["rubroEvaluaciones"]), mode: InsertMode.insertOrReplace );
+        batch.insertAll(SQL.evaluacionProceso, SerializableConvert.converListSerializeEvaluacionProceso(crearRubro["evaluaciones"]), mode: InsertMode.insertOrReplace );
+
 
 
 
@@ -585,8 +587,10 @@ class MoorRubroRepository extends RubroRepository{
     evaluacionUi.personaUi = PersonaUi();
     evaluacionUi.personaUi?.personaId = evaluacionProcesoData.alumnoId;
     evaluacionUi.personaUi?.nombres = evaluacionProcesoData.nombres;
+    evaluacionUi.personaUi?.nombreCompleto = '${AppTools.capitalize(evaluacionProcesoData.nombres??"")} ${AppTools.capitalize(evaluacionProcesoData.apellidoPaterno??"")} ${AppTools.capitalize(evaluacionProcesoData.apellidoMaterno??"")}';
+    evaluacionUi.personaUi?.apellidos  = '${AppTools.capitalize(evaluacionProcesoData.apellidoPaterno??"")} ${AppTools.capitalize(evaluacionProcesoData.apellidoMaterno??"")}';
     evaluacionUi.personaUi?.apellidoPaterno = evaluacionProcesoData.apellidoPaterno;
-    evaluacionUi.personaUi?.apellidoPaterno = evaluacionProcesoData.apellidoPaterno;
+    evaluacionUi.personaUi?.apellidoMaterno = evaluacionProcesoData.apellidoMaterno;
     evaluacionUi.personaUi?.foto = evaluacionProcesoData.foto;
     evaluacionUi.publicado = evaluacionProcesoData.publicado;
     evaluacionUi.equipoId = evaluacionProcesoData.equipoId;
@@ -705,7 +709,7 @@ class MoorRubroRepository extends RubroRepository{
       tipoNotaUiList.add(tipoNotaUi);
     }
 
-   List<PersonaUi> personaUiList = [];
+    print("evaluacionProcesoDataList: ${evaluacionProcesoDataList.length}");
    List<CompetenciaUi> competenciaUiList = await getTemasCriterios(calendarioPeriodoId??0, silaboEventoId??0);
     for(CompetenciaUi competenciaUi in competenciaUiList){
       for(CapacidadUi capacidadUi in competenciaUi.capacidadUiList??[]){
@@ -722,8 +726,6 @@ class MoorRubroRepository extends RubroRepository{
                 ValorTipoNotaUi? valorTipoNotaUi = tipoNotaUi?.valorTipoNotaList?.firstWhereOrNull((element) => element.valorTipoNotaId == evaluacionUi.valorTipoNotaId);
                 evaluacionUi.valorTipoNotaUi = valorTipoNotaUi;
                 rubricaEvaluacionUi.evaluacionUiList?.add(evaluacionUi);
-                PersonaUi? personaUi = personaUiList.firstWhereOrNull((element) => element.personaId == evaluacionUi.alumnoId);
-                if(personaUi==null)personaUiList.add(evaluacionUi.personaUi!);
               }
             }
             capacidadUi.rubricaEvalUiList?.add(rubricaEvaluacionUi);
@@ -732,41 +734,7 @@ class MoorRubroRepository extends RubroRepository{
       }
     }
 
-    TipoNotaUi? tipoNotaUi = await getGetTipoNotaResultado(silaboEventoId);
-    int notaMaxResultado = tipoNotaUi.escalavalorMaximo??0;
-    int notaMinResultado = tipoNotaUi.escalavalorMinimo??0;
-    for(PersonaUi personaUi in personaUiList){
-      for(CompetenciaUi competenciaUi in competenciaUiList){
-        double notaCompetencia = 0;
-        EvaluacionCompetenciaUi evaluacionCompetenciaUi = EvaluacionCompetenciaUi();
-        evaluacionCompetenciaUi.competenciaUi = competenciaUi;
-        evaluacionCompetenciaUi.personaUi = personaUi;
-        evaluacionCompetenciaUi.nota = 0.0;
-        for(CapacidadUi capacidadUi in competenciaUi.capacidadUiList??[]){
-          EvaluacionCapacidadUi evaluacionCapacidadUi = EvaluacionCapacidadUi();
-          evaluacionCompetenciaUi.competenciaUi = competenciaUi;
-          evaluacionCompetenciaUi.personaUi = personaUi;
-          evaluacionCompetenciaUi.nota = 0.0;
-          double notaCapacidad = 0;
-          for(RubricaEvaluacionUi rubricaEvaluacionUi in capacidadUi.rubricaEvalUiList??[]){
-            int notaMaxRubro = rubricaEvaluacionUi.tipoNotaUi?.escalavalorMaximo??0;
-            int notaMinRubro = rubricaEvaluacionUi.tipoNotaUi?.escalavalorMinimo??0;
-            EvaluacionUi? evaluacionUi = rubricaEvaluacionUi.evaluacionUiList?.firstWhereOrNull((element)=> element.alumnoId == personaUi.personaId);
-            double notaRubro = AppTools.transformacionInvariante(notaMinRubro.toDouble(), notaMaxRubro.toDouble(), evaluacionUi?.nota??0.0, notaMinResultado.toDouble(), notaMaxResultado.toDouble());;
-            notaCapacidad += notaRubro;
-          }
-          notaCapacidad = (capacidadUi.rubricaEvalUiList?.length??0) > 0? notaCapacidad/capacidadUi.rubricaEvalUiList!.length :0.0;
-          evaluacionCompetenciaUi.nota = notaCapacidad;
-        }
-        notaCompetencia = (competenciaUi.capacidadUiList?.length??0) > 0? notaCompetencia/competenciaUi.capacidadUiList!.length :0.0;
-        evaluacionCompetenciaUi.nota;
-      }
-
-    }
-
     return competenciaUiList;
-
-
   }
 
 

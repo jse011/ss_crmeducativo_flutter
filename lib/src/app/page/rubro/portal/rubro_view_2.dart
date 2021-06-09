@@ -13,7 +13,7 @@ import 'package:lottie/lottie.dart';
 import 'package:ss_crmeducativo_2/libs/fdottedline/fdottedline.dart';
 import 'package:ss_crmeducativo_2/libs/sticky-headers-table/example/main.dart';
 import 'package:ss_crmeducativo_2/libs/sticky-headers-table/table_sticky_headers.dart';
-import 'package:ss_crmeducativo_2/src/app/page/rubros/rubro_controller.dart';
+import 'package:ss_crmeducativo_2/src/app/page/rubro/portal/rubro_controller.dart';
 import 'package:ss_crmeducativo_2/src/app/routers.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_icon.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_imagen.dart';
@@ -34,9 +34,13 @@ import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_capacidad_ui.da
 import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_competencia_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_calendario_periodo_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/origen_rubro_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/personaUi.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/rubrica_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/sesion_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_tipos_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/unidad_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/valor_tipo_nota_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/response/respuesta_crear_rubro.dart';
 import 'dart:math' as math;
 
@@ -223,7 +227,8 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
                         ),
                       )
                   ),
-                  if(controller.progress)Center(child: CircularProgressIndicator())
+                  if(controller.progress)Center(child: CircularProgressIndicator()),
+                  if(controller.evaluacionCapacidadUiSelect!=null)evaluacionCapacidadDetalle(controller)
                 ],
               );
             }
@@ -750,7 +755,7 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
         },
         rowsTitleBuilder: (i) {
            dynamic o = controller.rowList2[i];
-           if(o is ContactoUi){
+           if(o is PersonaUi){
              return  Container(
                  constraints: BoxConstraints.expand(),
                  child: Row(
@@ -771,7 +776,7 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
                        child: true?
                        CachedNetworkImage(
                          placeholder: (context, url) => CircularProgressIndicator(),
-                         imageUrl: o.personaUi?.foto??"",
+                         imageUrl: o.foto??"",
                          errorWidget: (context, url, error) =>  Icon(Icons.error_outline_rounded, size: 80,),
                          imageBuilder: (context, imageProvider) =>
                              Container(
@@ -803,15 +808,15 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
         },
         contentCellBuilder: (i, j) {
           dynamic o = controller.cellListList[j][i];
-          if(o is ContactoUi){
+          if(o is PersonaUi){
              return Container(
                 constraints: BoxConstraints.expand(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(o.personaUi?.nombreCompleto??"", maxLines: 1, textAlign: TextAlign.center, style: TextStyle(fontSize: 12, color: AppTheme.black),),
-                    Text(o.personaUi?.apellidos??"", maxLines: 1, textAlign: TextAlign.center,overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 10),),
+                    Text(o.nombreCompleto??"", maxLines: 1, textAlign: TextAlign.center, style: TextStyle(fontSize: 12, color: AppTheme.black),),
+                    Text(o.apellidos??"", maxLines: 1, textAlign: TextAlign.center,overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 10),),
                   ],
                 ),
                 decoration: BoxDecoration(
@@ -831,7 +836,8 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
                       right: BorderSide(color:  HexColor(controller.cursosUi.color3)),
                     ),
                     color: AppTheme.white
-                )
+                ),
+              child: _getTipoNota(o.valorTipoNotaUi, o.nota),
             );
           }else if(o is EvaluacionCompetenciaUi){
             return Container(
@@ -842,7 +848,8 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
                       right: BorderSide(color:  HexColor(controller.cursosUi.color3)),
                     ),
                     color: HexColor("#EFEDEE")
-                )
+                ),
+              child: _getTipoNota(o.valorTipoNotaUi, o.nota),
             );
           }else if(o is EvaluacionCalendarioPeriodoUi){
             return Row(
@@ -857,7 +864,8 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
                               right: BorderSide(color:  HexColor(controller.cursosUi.color3)),
                             ),
                             color: AppTheme.greyLighten1
-                        )
+                        ),
+                      child: _getTipoNota(o.valorTipoNotaUi, o.nota),
                     )
                 ),
                 Expanded(
@@ -1899,5 +1907,185 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
     await Future<dynamic>.delayed(const Duration(milliseconds: 1000));
     return true;
   }
+
+  Widget? _getTipoNota(ValorTipoNotaUi? valorTipoNotaUi, double? nota) {
+
+    switch(valorTipoNotaUi?.tipoNotaUi?.tipoNotaTiposUi??TipoNotaTiposUi.VALOR_NUMERICO){
+      case TipoNotaTiposUi.SELECTOR_VALORES:
+        Color color;
+        if (("B" == (valorTipoNotaUi?.titulo??"") || "C" == (valorTipoNotaUi?.titulo??""))) {
+          color = AppTheme.redDarken4;
+        }else if (("AD" == (valorTipoNotaUi?.titulo??"")) || "A" == (valorTipoNotaUi?.titulo??"")) {
+          color = AppTheme.blueDarken4;
+        }else {
+          color = AppTheme.black;
+        }
+        return Center(
+          child: Text(valorTipoNotaUi?.titulo??"",
+              style: TextStyle(
+                fontFamily: AppTheme.fontTTNormsMedium,
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: color,
+              )),
+        );
+      case TipoNotaTiposUi.SELECTOR_ICONOS:
+        return Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                      height: 3.5,
+                      width: 3.5,
+                      decoration: new BoxDecoration(
+                        color: Colors.black,
+                        shape: BoxShape.circle,
+                      )
+                  ),
+                  Padding(padding: EdgeInsets.only(left: 8)),
+                  Text(valorTipoNotaUi?.titulo??"",
+                      style: TextStyle(
+                        fontFamily: AppTheme.fontTTNormsMedium,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black,
+                      )),
+                  CachedNetworkImage(
+                    height: 20,
+                    width: 20,
+                    imageUrl: valorTipoNotaUi?.icono??"",
+                    placeholder: (context, url) => CircularProgressIndicator(),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  ),
+                  Padding(padding: EdgeInsets.only(left: 8)),
+                  Expanded(child: Text(valorTipoNotaUi?.alias??"",))
+                ],
+              ),
+              Padding(padding: EdgeInsets.only(left: 12),
+                child:  Text("Valor numérico: " + (valorTipoNotaUi?.valorNumerico??0.0).toStringAsFixed(1),
+                    style: TextStyle(
+                      fontFamily: AppTheme.fontName,
+                      fontSize: 8,
+                    )
+                ),
+              ),
+            ],
+          ),
+        );
+      case TipoNotaTiposUi.VALOR_ASISTENCIA:
+      case TipoNotaTiposUi.VALOR_NUMERICO:
+      case TipoNotaTiposUi.SELECTOR_NUMERICO:
+        Color color;
+      if ((nota??0) < 10.5) {
+        color = AppTheme.redDarken4;
+      }else if ( (nota??0) >= 10.5) {
+        color = AppTheme.blueDarken4;
+      }else {
+        color = AppTheme.black;
+      }
+
+        return Center(
+          child: Text("${(nota??0).toStringAsFixed(1)}", style: TextStyle(
+            fontFamily: AppTheme.fontTTNormsMedium,
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+            color: color,
+          ),),
+        );
+    }
+  }
+
+  Widget evaluacionCapacidadDetalle(RubroController controller) {
+    return ArsProgressWidget(
+        blur: 2,
+        backgroundColor: Color(0x33000000),
+        animationDuration: Duration(milliseconds: 500),
+        loadingWidget:  Container(
+          margin: EdgeInsets.only(top:32 ,bottom: 32, left: 24, right: 48),
+          height: 140,
+          decoration: BoxDecoration(
+              color: HexColor("#4987F3"),
+              borderRadius: BorderRadius.circular(24) // use instead of BorderRadius.all(Radius.circular(20))
+          ),
+          child: Stack(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 24, right: 36, top: 16, bottom: 16),
+                child:   Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Actualizando sus evaluaciones",
+                            style: TextStyle(
+                              fontFamily: AppTheme.fontTTNormsMedium,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 18,
+                              letterSpacing: 0.5,
+                              color: AppTheme.white,
+                            ),
+                          ),
+                          Padding(padding: EdgeInsets.only(top: 8)),
+                          Text("Congrats! Your progress are growing up",
+                            style: TextStyle(
+                              fontFamily: AppTheme.fontTTNormsLigth,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 12,
+                              letterSpacing: 0.5,
+                              color: AppTheme.white,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(padding: EdgeInsets.only(left: 8)),
+                    Container(
+                      width: 72,
+                      height: 72,
+                      padding: EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: HexColor("#3C7BE9")),
+                      child:Container(
+                        child: Center(
+                          child: Text(controller.progresoSyncronizar.toString() + "%",
+                            style: TextStyle(
+                              fontFamily: AppTheme.fontTTNormsMedium,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 11,
+                              letterSpacing: 0.5,
+                              color: AppTheme.white,
+                            ),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: HexColor("#4987F3")),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Positioned(
+                top: 8,
+                right: -88,
+                child: Container(
+                  width: 280,
+                  child: Lottie.asset('assets/lottie/progress_portal_alumno.json',
+                      fit: BoxFit.fill
+                  ),
+                ),
+              )
+            ],
+          ),
+        )
+    );
+  }
+
 }
+
 
