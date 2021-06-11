@@ -8,5 +8,6 @@ class CompetenciaUi{
   String? descripcion;
   List<CapacidadUi>? capacidadUiList;
   TipoCompetenciaUi? tipoCompetenciaUi;
+  String? url;
 
 }

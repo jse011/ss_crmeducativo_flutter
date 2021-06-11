@@ -4,6 +4,7 @@ import 'package:ss_crmeducativo_2/libs/sticky-headers-table/example/main.dart';
 import 'package:ss_crmeducativo_2/src/app/page/curso/curso_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/home/home_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/login/login_view.dart';
+import 'package:ss_crmeducativo_2/src/app/page/rubro/evaluacion/capacidad/evaluacion_capacidad_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubro/portal/rubro_view_2.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubro/crear/rubro_crear_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/sesiones/lista/sesion_lista_view.dart';
@@ -12,8 +13,10 @@ import 'package:ss_crmeducativo_2/src/app/page/tarea/tarea_view.dart';
 import 'package:ss_crmeducativo_2/src/app/widgets/wrap_widget_demo.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/calendario_periodio_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_capacidad_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/rubrica_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/response/respuesta_crear_rubro.dart';
+import 'package:ss_crmeducativo_2/src/domain/response/respuesta_evaluacion_capaciadad.dart';
 class AppRouter {
   AppRouter._();
 
@@ -24,7 +27,8 @@ class AppRouter {
   static final String SESION_LISTA = 'Curso/Sesion';
   static final String SESION_PORTAL = 'Curso/Sesion/Portal';
   static final String TAREA = 'Curso/Tarea';
-  static final String RUBROCREAR = 'Curso/RubroCrear';
+  static final String RUBROCREAR = 'Curso/Rubro/Crear';
+  static final String EVALUACION_CAPACIDAD = 'Curso/Rubro/EvaluacionCapacidad';
 
   static Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
     LOGIN: (BuildContext context) => LoginView(),
@@ -82,6 +86,18 @@ class AppRouter {
       return MaterialPageRoute(
         builder: (context) {
           return SesionView(cursosUi);
+        },
+      );
+    }else if(settings.name == EVALUACION_CAPACIDAD){
+      final Map arguments = settings.arguments as Map;
+      return MaterialPageRoute(
+        builder: (context) {
+          CursosUi cursosUi = arguments['cursoUi'];
+          EvaluacionCapacidadUi? evaluacionCapacidadUi = null;
+          if(arguments.containsKey('evaluacionCapacidadUi')){
+            evaluacionCapacidadUi  = arguments['evaluacionCapacidadUi'];
+          }
+          return EvaluacionCapacidadView(evaluacionCapacidadUi, cursosUi);
         },
       );
     }
@@ -160,6 +176,18 @@ class AppRouter {
         TAREA,
         arguments: cursosUi
     );
+  }
+
+  static Future<RespuestaEvaluacionCapacidad?> createRouteEvaluacionCapacidad(BuildContext context, CursosUi? cursosUi, EvaluacionCapacidadUi? evaluacionCapacidadUi) async{
+    dynamic? object = await Navigator.pushNamed(context,
+        EVALUACION_CAPACIDAD,
+        arguments: {'cursoUi': cursosUi, 'evaluacionCapacidadUi': evaluacionCapacidadUi, }
+    );
+    RespuestaEvaluacionCapacidad? respuestaEvaluacionCapacidad = null;
+    if(object is RespuestaEvaluacionCapacidad){
+      respuestaEvaluacionCapacidad = object;
+    }
+    return respuestaEvaluacionCapacidad;
   }
 
 

@@ -252,6 +252,7 @@ class MoorRubroRepository extends RubroRepository{
         competenciaUi.competenciaId = criterioData.superCompetenciaId;
         competenciaUi.nombre = criterioData.superCompetenciaNombre;
         competenciaUi.descripcion = criterioData.superCompetenciaDescripcion;
+        competenciaUi.url = criterioData.url;
         switch( criterioData.superCompetenciaTipoId??0){
           case COMPETENCIA_BASE:
             competenciaUi.tipoCompetenciaUi = TipoCompetenciaUi.BASE;
@@ -774,7 +775,11 @@ class MoorRubroRepository extends RubroRepository{
     }
 
     List<ValorTipoNotaUi> valorTipoNotaUiList = [];
-    List<ValorTipoNotaRubroData> valorTipoNotaRubroList = await (SQL.select(SQL.valorTipoNotaRubro)..where((tbl) => tbl.tipoNotaId.equals(tipoNotaRubroData?.tipoNotaId))).get();
+    var queryValorTipoNota =  (SQL.select(SQL.valorTipoNotaRubro)..where((tbl) => tbl.tipoNotaId.equals(tipoNotaRubroData?.tipoNotaId)));
+    queryValorTipoNota.where((tbl) => tbl.silaboEventoId.equals(silaboEventoId));
+    List<ValorTipoNotaRubroData> valorTipoNotaRubroList = await queryValorTipoNota.get();
+
+
     valorTipoNotaRubroList.sort((a, b) => (b.valorNumerico??0).compareTo(a.valorNumerico??0));
 
     for(ValorTipoNotaRubroData valorTipoNotaRubroData in valorTipoNotaRubroList){

@@ -16,6 +16,7 @@ import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/unidad_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/response/respuesta_crear_rubro.dart';
 import 'package:collection/collection.dart';
+import 'package:ss_crmeducativo_2/src/domain/response/respuesta_evaluacion_capaciadad.dart';
 
 class RubroController extends Controller{
   OrigenRubroUi _origenRubroUi = OrigenRubroUi.TODOS;
@@ -273,6 +274,16 @@ class RubroController extends Controller{
         case RespuestaCrearRubro.CERRAR_NO_CAMBIO:
 
           break;
+      }
+    }else{
+
+    }
+  }
+
+  void respuestaEvaluacionCapacidad(RespuestaEvaluacionCapacidad? response) {
+    if(response!=null){
+      switch(response){
+
       }
     }else{
 

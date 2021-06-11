@@ -3,7 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,7 +15,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:lottie/lottie.dart';
 import 'package:ss_crmeducativo_2/libs/fdottedline/fdottedline.dart';
 import 'package:ss_crmeducativo_2/libs/sticky-headers-table/example/main.dart';
-import 'package:ss_crmeducativo_2/libs/sticky-headers-table/table_sticky_headers.dart';
+import 'package:ss_crmeducativo_2/libs/sticky-headers-table/table_sticky_headers_v2.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubro/portal/rubro_controller.dart';
 import 'package:ss_crmeducativo_2/src/app/routers.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_icon.dart';
@@ -43,6 +46,8 @@ import 'package:ss_crmeducativo_2/src/domain/entities/unidad_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/valor_tipo_nota_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/response/respuesta_crear_rubro.dart';
 import 'dart:math' as math;
+
+import 'package:ss_crmeducativo_2/src/domain/response/respuesta_evaluacion_capaciadad.dart';
 
 class RubroView2 extends View {
   CursosUi cursosUi;
@@ -105,6 +110,7 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
       });}
 
     );
+
     super.initState();
   }
 
@@ -546,6 +552,13 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
     controller.respuestaFormularioCrearRubro(response);
   }
 
+  void _evaluacionCapacidadRetornar(BuildContext context, RubroController controller, EvaluacionCapacidadUi evaluacionCapacidadUi) async {
+    // Navigator.push returns a Future that completes after calling
+    // Navigator.pop on the Selection Screen.
+    RespuestaEvaluacionCapacidad? response = await AppRouter.createRouteEvaluacionCapacidad(context, controller.cursosUi, evaluacionCapacidadUi);
+    controller.respuestaEvaluacionCapacidad(response);
+  }
+
   void showDialogButtom(RubroController controller) {
     showCupertinoModalPopup(
       context: context,
@@ -633,8 +646,11 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
     }
   }
   //#region Tab
+
+
   ScrollControllers _scrollControllers = ScrollControllers();
   Widget tabRubCompetencia(RubroController controller) {
+
 
     List<double> tablecolumnWidths = [];
     for(dynamic s in controller.columnList2){
@@ -648,7 +664,7 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
     }
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 0, top: 24),
-      child:  StickyHeadersTable(
+      child:  StickyHeadersTableV2(
         scrollControllers: _scrollControllers,
         cellDimensions: CellDimensions.variableColumnWidth(
             stickyLegendHeight:125,
@@ -828,7 +844,9 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
                 )
             );
           }else if(o is EvaluacionCapacidadUi){
-            return Container(
+            return InkWell(
+              onTap: () => _evaluacionCapacidadRetornar(context, controller, o),
+              child: Container(
                 constraints: BoxConstraints.expand(),
                 decoration: BoxDecoration(
                     border: Border(
@@ -837,7 +855,8 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
                     ),
                     color: AppTheme.white
                 ),
-              child: _getTipoNota(o.valorTipoNotaUi, o.nota),
+                child: _getTipoNota(o.valorTipoNotaUi, o.nota),
+              ),
             );
           }else if(o is EvaluacionCompetenciaUi){
             return Container(
