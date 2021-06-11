@@ -5,6 +5,7 @@ import 'package:ss_crmeducativo_2/src/app/page/curso/curso_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/home/home_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/login/login_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubro/evaluacion/capacidad/evaluacion_capacidad_view.dart';
+import 'package:ss_crmeducativo_2/src/app/page/rubro/evaluacion/rubrica/portal/evaluacion_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubro/portal/rubro_view_2.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubro/crear/rubro_crear_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/sesiones/lista/sesion_lista_view.dart';
@@ -16,6 +17,7 @@ import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_capacidad_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/rubrica_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/response/respuesta_crear_rubro.dart';
+import 'package:ss_crmeducativo_2/src/domain/response/respuesta_evaluacion.dart';
 import 'package:ss_crmeducativo_2/src/domain/response/respuesta_evaluacion_capaciadad.dart';
 class AppRouter {
   AppRouter._();
@@ -29,6 +31,7 @@ class AppRouter {
   static final String TAREA = 'Curso/Tarea';
   static final String RUBROCREAR = 'Curso/Rubro/Crear';
   static final String EVALUACION_CAPACIDAD = 'Curso/Rubro/EvaluacionCapacidad';
+  static final String EVALUACIO = 'Curso/Rubro/Evaluacion';
 
   static Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
     LOGIN: (BuildContext context) => LoginView(),
@@ -98,6 +101,18 @@ class AppRouter {
             evaluacionCapacidadUi  = arguments['evaluacionCapacidadUi'];
           }
           return EvaluacionCapacidadView(evaluacionCapacidadUi, cursosUi);
+        },
+      );
+    }else if(settings.name == EVALUACIO){
+      final Map arguments = settings.arguments as Map;
+      return MaterialPageRoute(
+        builder: (context) {
+          CursosUi cursosUi = arguments['cursoUi'];
+          RubricaEvaluacionUi? rubricaEvaluacionUi = null;
+          if(arguments.containsKey('rubricaEvaluacionUi')){
+            rubricaEvaluacionUi  = arguments['rubricaEvaluacionUi'];
+          }
+          return EvaluacionView(rubricaEvaluacionUi, cursosUi);
         },
       );
     }
@@ -188,6 +203,18 @@ class AppRouter {
       respuestaEvaluacionCapacidad = object;
     }
     return respuestaEvaluacionCapacidad;
+  }
+
+  static Future<RespuestaEvaluacion?> createRouteEvaluacion(BuildContext context, CursosUi? cursosUi, RubricaEvaluacionUi? rubricaEvaluacionUi) async{
+    dynamic? object = await Navigator.pushNamed(context,
+        EVALUACIO,
+        arguments: {'cursoUi': cursosUi, 'rubricaEvaluacionUi': rubricaEvaluacionUi, }
+    );
+    RespuestaEvaluacion? respuestaEvaluacion = null;
+    if(object is RespuestaEvaluacion){
+      respuestaEvaluacion = object;
+    }
+    return respuestaEvaluacion;
   }
 
 

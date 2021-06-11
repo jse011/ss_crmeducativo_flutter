@@ -73,7 +73,7 @@ class _EvaluacionCapacidadViewState extends ViewState<EvaluacionCapacidadView, E
 
     animationController.reset();
 
-    Future.delayed(const Duration(milliseconds: 1000), () {
+    Future.delayed(const Duration(milliseconds: 200), () {
 // Here you can write your code
       setState(() {
         animationController.forward();
@@ -228,28 +228,36 @@ class _EvaluacionCapacidadViewState extends ViewState<EvaluacionCapacidadView, E
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                FDottedLine(
-                                  color: HexColor("#ABABAB"),
-                                  strokeWidth: 1.0,
-                                  dottedLength: 3.0,
-                                  space: 2.0,
-                                  corner: FDottedLineCorner.all(45.0),
-                                  /// add widget
-                                  child: Container(
-                                    padding: EdgeInsets.all(4),
+                                Container(
+                                  height: 75,
+                                  width: 75,
+                                  margin: EdgeInsets.only(right: 4),
+                                  padding: const EdgeInsets.all(2),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
                                     color: HexColor("#EDEDED"),
-                                    alignment: Alignment.center,
-                                    child:  Container(
-                                      height: 65,
-                                      width: 65,
-                                    ),
+                                  ),
+                                  child: CachedNetworkImage(
+                                    placeholder: (context, url) => CircularProgressIndicator(),
+                                    imageUrl: controller.evaluacionCapacidadUi.personaUi?.foto??"",
+                                    errorWidget: (context, url, error) =>  Icon(Icons.error_outline_rounded, size: 80,),
+                                    imageBuilder: (context, imageProvider) =>
+                                        Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(Radius.circular(35)),
+                                              image: DecorationImage(
+                                                image: imageProvider,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            )
+                                        ),
                                   ),
                                 ),
                                 Expanded(
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 24, right: 0, top: 0),
                                     child:  TextFormField(
-                                      initialValue: "TAREA 26 AL 30 DE ABRIL",
+                                      initialValue: controller.evaluacionCapacidadUi.personaUi?.nombreCompleto??"",
                                       textAlign: TextAlign.start,
                                       style: Theme.of(context).textTheme.caption?.copyWith(
                                         fontFamily: AppTheme.fontName,
@@ -259,7 +267,7 @@ class _EvaluacionCapacidadViewState extends ViewState<EvaluacionCapacidadView, E
                                       maxLines: null,
                                       keyboardType: TextInputType.multiline,
                                       decoration: InputDecoration(
-                                        labelText: "Evaluación",
+                                        labelText: "Alumno",
                                         labelStyle: TextStyle(
                                             color:  AppTheme.colorPrimary,
                                             fontFamily: AppTheme.fontTTNormsMedium
@@ -320,8 +328,27 @@ class _EvaluacionCapacidadViewState extends ViewState<EvaluacionCapacidadView, E
                             ),
                             Padding(padding: EdgeInsets.only( top: 16)),
                             Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
+                                FDottedLine(
+                                  color: HexColor("#ABABAB"),
+                                  strokeWidth: 1.0,
+                                  dottedLength: 3.0,
+                                  space: 2.0,
+                                  corner: FDottedLineCorner.all(45.0),
+                                  /// add widget
+                                  child: Container(
+                                    padding: EdgeInsets.all(4),
+                                    color: HexColor("#EDEDED"),
+                                    alignment: Alignment.center,
+                                    child:  Container(
+                                      height: 50,
+                                      width: 50,
+                                      child: _getTipoNota(controller.evaluacionCapacidadUi.valorTipoNotaUi, controller.evaluacionCapacidadUi.nota),
+                                    ),
+                                  ),
+                                ),
+                                Padding(padding: EdgeInsets.only( left: 16)),
                                 Expanded(
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 0, right: 0, top: 0),
@@ -374,6 +401,7 @@ class _EvaluacionCapacidadViewState extends ViewState<EvaluacionCapacidadView, E
                                       },
                                     ),
                                   ),
+                                  flex: 7,
                                 ),
                                 Expanded(
                                   child: Padding(
@@ -427,59 +455,7 @@ class _EvaluacionCapacidadViewState extends ViewState<EvaluacionCapacidadView, E
                                       },
                                     ),
                                   ),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 24, right: 0, top: 0),
-                                    child:  TextFormField(
-                                      initialValue: "3/3",
-                                      textAlign: TextAlign.start,
-                                      style: Theme.of(context).textTheme.caption?.copyWith(
-                                        fontFamily: AppTheme.fontName,
-                                        fontSize: 14,
-                                        color: Colors.black,
-                                      ),
-                                      maxLines: null,
-                                      keyboardType: TextInputType.multiline,
-                                      decoration: InputDecoration(
-                                        labelText: "Puntos",
-                                        labelStyle: TextStyle(
-                                            color:  AppTheme.colorPrimary,
-                                            fontFamily: AppTheme.fontTTNormsMedium
-                                        ),
-                                        contentPadding: EdgeInsets.all(15.0),
-                                        errorStyle: Theme.of(context).textTheme.caption?.copyWith(
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                        disabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(8.0),
-                                          borderSide: BorderSide(
-                                            color: AppTheme.colorPrimary,
-                                          ),
-                                        ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(8.0),
-                                          borderSide: BorderSide(
-                                            color: AppTheme.colorPrimary.withOpacity(0.5),
-                                          ),
-                                        ),
-                                        hintText: "",
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(8.0),
-                                          borderSide: BorderSide(
-                                            color: AppTheme.colorPrimary,
-                                          ),
-                                        ),
-                                        focusColor: AppTheme.colorAccent,
-                                      ),
-                                      onChanged: (str) {
-                                      },
-                                      onSaved: (str) {
-                                        //  To do
-                                      },
-                                    ),
-                                  ),
+                                  flex: 6,
                                 ),
                               ],
                             )
@@ -492,6 +468,11 @@ class _EvaluacionCapacidadViewState extends ViewState<EvaluacionCapacidadView, E
                   sliver:  SliverToBoxAdapter(
                     child: showTableTipoNota(controller),
                   ),
+                ),
+                SliverList(
+                    delegate: SliverChildListDelegate([
+                      Padding(padding: EdgeInsets.only(bottom: 64))
+                    ])
                 )
               ],
             ),
@@ -504,7 +485,12 @@ class _EvaluacionCapacidadViewState extends ViewState<EvaluacionCapacidadView, E
       future: getData(),
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (!snapshot.hasData) {
-          return const SizedBox();
+          return Container(
+            padding: EdgeInsets.only(top: 64),
+           child:  Center(
+               child: CircularProgressIndicator()
+           ),
+          );
         } else {
           return Card(
             shape: RoundedRectangleBorder(
@@ -645,7 +631,7 @@ class _EvaluacionCapacidadViewState extends ViewState<EvaluacionCapacidadView, E
                                 child: Padding(
                                   padding: EdgeInsets.only(left: 8, right: 8),
                                   child: Center(
-                                    child: Text((o.titulo??"") , style: TextStyle(fontSize: 12),),
+                                    child: Text((o.titulo??""), maxLines: 3, overflow: TextOverflow.ellipsis ,style: TextStyle(fontSize: 12),),
                                   ),
                                 ),
                                 decoration: BoxDecoration(
@@ -750,7 +736,7 @@ class _EvaluacionCapacidadViewState extends ViewState<EvaluacionCapacidadView, E
   }
 
   Future<bool> getData() async {
-    await Future<dynamic>.delayed(const Duration(milliseconds: 200));
+    await Future<dynamic>.delayed(const Duration(milliseconds: 1000));
     return true;
   }
 
@@ -782,6 +768,58 @@ class _EvaluacionCapacidadViewState extends ViewState<EvaluacionCapacidadView, E
       default:
         return HexColor("#e0e0e0");
 
+    }
   }
+
+  Widget? _getTipoNota(ValorTipoNotaUi? valorTipoNotaUi, double? nota) {
+
+    switch(valorTipoNotaUi?.tipoNotaUi?.tipoNotaTiposUi??TipoNotaTiposUi.VALOR_NUMERICO){
+      case TipoNotaTiposUi.SELECTOR_VALORES:
+        Color color;
+        if (("B" == (valorTipoNotaUi?.titulo??"") || "C" == (valorTipoNotaUi?.titulo??""))) {
+          color = AppTheme.redDarken4;
+        }else if (("AD" == (valorTipoNotaUi?.titulo??"")) || "A" == (valorTipoNotaUi?.titulo??"")) {
+          color = AppTheme.blueDarken4;
+        }else {
+          color = AppTheme.black;
+        }
+        return Center(
+          child: Text(valorTipoNotaUi?.titulo??"",
+              style: TextStyle(
+                fontFamily: AppTheme.fontTTNormsMedium,
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                color: color,
+              )),
+        );
+      case TipoNotaTiposUi.SELECTOR_ICONOS:
+        return Container(
+          child:  CachedNetworkImage(
+            imageUrl: valorTipoNotaUi?.icono??"",
+            placeholder: (context, url) => CircularProgressIndicator(),
+            errorWidget: (context, url, error) => Icon(Icons.error),
+          ),
+        );
+      case TipoNotaTiposUi.VALOR_ASISTENCIA:
+      case TipoNotaTiposUi.VALOR_NUMERICO:
+      case TipoNotaTiposUi.SELECTOR_NUMERICO:
+        Color color;
+        if ((nota??0) < 10.5) {
+          color = AppTheme.redDarken4;
+        }else if ( (nota??0) >= 10.5) {
+          color = AppTheme.blueDarken4;
+        }else {
+          color = AppTheme.black;
+        }
+
+        return Center(
+          child: Text("${(nota??0).toStringAsFixed(1)}", style: TextStyle(
+            fontFamily: AppTheme.fontTTNormsMedium,
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
+            color: color,
+          ),),
+        );
+    }
   }
 }
