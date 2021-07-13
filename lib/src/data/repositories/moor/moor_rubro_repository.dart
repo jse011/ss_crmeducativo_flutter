@@ -71,12 +71,14 @@ class MoorRubroRepository extends RubroRepository{
       }
 
       if(crearRubro.containsKey("valorTipoNota")){
-        batch.deleteWhere(SQL.valorTipoNotaRubro, (row) => const Constant(true));
+        batch.deleteWhere(SQL.valorTipoNotaRubro, ($ValorTipoNotaRubroTable row) => row.silaboEventoId.equals(silaboEventoId)  );
+        batch.deleteWhere(SQL.valorTipoNotaRubro, ($ValorTipoNotaRubroTable row) => row.silaboEventoId.equals(0)  );
         batch.insertAll(SQL.valorTipoNotaRubro, SerializableConvert.converListSerializeValorTipoNotaRubro(crearRubro["valorTipoNota"]), mode: InsertMode.insertOrReplace );
       }
 
       if(crearRubro.containsKey("tipoNotaEscala")){
-        batch.deleteWhere(SQL.tipoNotaRubro, (row) => const Constant(true));
+        batch.deleteWhere(SQL.tipoNotaRubro, ($TipoNotaRubroTable row) => row.silaboEventoId.equals(silaboEventoId)  );
+        batch.deleteWhere(SQL.tipoNotaRubro, ($TipoNotaRubroTable row) => row.silaboEventoId.equals(0));
         batch.insertAll(SQL.tipoNotaRubro, SerializableConvert.converListSerializeTipoNotaRubro(crearRubro["tipoNotaEscala"]), mode: InsertMode.insertOrReplace );
       }
 
