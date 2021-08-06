@@ -5,7 +5,7 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:ss_crmeducativo_2/libs/fdottedline/fdottedline.dart';
-import 'package:ss_crmeducativo_2/src/app/page/tarea/tarea_controller.dart';
+import 'package:ss_crmeducativo_2/src/app/page/tarea/lista/tarea_controller.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_icon.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_theme.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/hex_color.dart';

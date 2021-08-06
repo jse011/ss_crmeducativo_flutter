@@ -1,4 +1,5 @@
 import 'package:moor_flutter/moor_flutter.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/rubro/rubro_update_servidor.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/tools/estado_sync.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/tools/serializable_convert.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/capacidad_ui.dart';
@@ -626,7 +627,8 @@ class MoorRubroRepository extends RubroRepository{
     SesionUi sesionUi = SesionUi();
     sesionUi.sesionAprendizajeId =  row.read(SQL.criterio.sesionAprendizajeId);
     sesionUi.sesionAprendizajePadreId = row.read(SQL.criterio.sesionAprendizajePadreId);
-    sesionUi.tituloSesion = row.read(SQL.criterio.tituloSesion);
+    sesionUi.tituloUnidad = unidadUi.titulo;
+    sesionUi.nroUnidad = unidadUi.nroUnidad;
     sesionUi.nroSesion = row.read(SQL.criterio.nroSesion);
     sesionUi.titulo = row.read(SQL.criterio.tituloSesion);
     sesionUi.proposito = row.read(SQL.criterio.propositoSesion);
@@ -846,6 +848,23 @@ class MoorRubroRepository extends RubroRepository{
     }
 
     return rubricaEvaluacionUi;
+  }
+
+  @override
+  Future<bool> isUltimedUpdateServerCurso(int? calendarioPeriodoId, int? silaboEventoId) async{
+    AppDataBase SQL = AppDataBase();
+    var query = SQL.select(SQL.rubroUpdateServidor)..where((tbl) => tbl.silaboEventoId.equals(silaboEventoId));
+    query.where((tbl) => tbl.calendarioId.equals(calendarioPeriodoId));
+    RubroUpdateServidorData? rubroUpdateServidorData = await query.getSingleOrNull();
+    return rubroUpdateServidorData!=null;//si existe ya esta actualizado
+  }
+
+  @override
+  Future<void> saveUpdateServerCurso(int? calendarioPeriodoId, int? silaboEventoId) async{
+    AppDataBase SQL = AppDataBase();
+    await SQL.batch((batch) async {
+        batch.insert(SQL.rubroUpdateServidor, RubroUpdateServidorData(calendarioId: calendarioPeriodoId??0, silaboEventoId: silaboEventoId??0), mode: InsertMode.insertOrReplace );
+    });
   }
 
 

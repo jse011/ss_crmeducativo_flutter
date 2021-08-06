@@ -47,7 +47,7 @@ class PortalDocenteController extends Controller{
       _anioAcademicoUiList = anioAcademicoUiList;
       _isLoading = true;
       refreshUI();
-      presenter.getProgramaEducativo();
+      presenter.updateProgramaEducativo();
     };
 
     presenter.getAnioAcadOnError = (e){

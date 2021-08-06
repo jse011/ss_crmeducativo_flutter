@@ -51,7 +51,6 @@ abstract class ChangeAppTheme{
 }
 
 class AppTheme  {
-
   AppTheme._();
 
   static const Color notWhite = Color(0xFFEDF0F2);
@@ -78,6 +77,8 @@ class AppTheme  {
 
   static const Color colorCard = Color(0xFFFAFAFA);
   static const Color colorShimmer = Color(0xFFDFDFDF);
+
+  static const Color colorSesion = Color(0xFF15542F);
 
   static const String fontName = 'Roboto';
   static const String fontGotham = 'Gotham';

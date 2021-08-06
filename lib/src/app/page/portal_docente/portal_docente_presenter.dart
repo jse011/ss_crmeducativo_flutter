@@ -4,7 +4,7 @@ import 'package:ss_crmeducativo_2/src/domain/repositories/configuracion_reposito
 import 'package:ss_crmeducativo_2/src/domain/repositories/http_datos_repository.dart';
 import 'package:ss_crmeducativo_2/src/domain/usecase/get_anio_academico.dart';
 import 'package:ss_crmeducativo_2/src/domain/usecase/get_cursos.dart';
-import 'package:ss_crmeducativo_2/src/domain/usecase/get_programas_educativos.dart';
+import 'package:ss_crmeducativo_2/src/domain/usecase/update_programas_educativos.dart';
 import 'package:ss_crmeducativo_2/src/domain/usecase/get_usuario.dart';
 
 class PortalDocentePresenter extends Presenter{
@@ -12,14 +12,14 @@ class PortalDocentePresenter extends Presenter{
   GetSessionUsuarioCase _getSessionUsuario;
   GetAnioAcademico _getAnioAcademico;
   late Function getAnioAcadOnComplete, getAnioAcadOnError;
-  GetProgramasEducativos _getProgramasEducativos;
+  UpdateProgramasEducativos _updateProgramasEducativos;
   late Function getProgramasEducativosOnComplete, getProgramasEducativosOnError;
   GetCursos _getCursos;
   late Function getCursosOnComplete, getCursosOnError;
 
   PortalDocentePresenter(ConfiguracionRepository configuracionRepo, HttpDatosRepository httpDatosRepo)
       : this._getSessionUsuario = new GetSessionUsuarioCase(configuracionRepo), _getAnioAcademico = new GetAnioAcademico(configuracionRepo),
-        _getProgramasEducativos = new GetProgramasEducativos(configuracionRepo, httpDatosRepo),
+        _updateProgramasEducativos = new UpdateProgramasEducativos(configuracionRepo, httpDatosRepo),
         _getCursos = new GetCursos(configuracionRepo);
 
   @override
@@ -35,8 +35,8 @@ class PortalDocentePresenter extends Presenter{
     _getAnioAcademico.execute(_GetAnioAcademicoCase(this), GetAnioAcademicoParams());
   }
 
-  void getProgramaEducativo(){
-    _getProgramasEducativos.execute(_GetProgramaEducativoCase(this), GetProgramasEducativosParams());
+  void updateProgramaEducativo(){
+    _updateProgramasEducativos.execute(_GetProgramaEducativoCase(this), GetProgramasEducativosParams());
   }
 
   void getCursos(ProgramaEducativoUi programaEducativoUi){

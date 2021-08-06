@@ -5,6 +5,7 @@ import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/agenda_evento
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/agenda_evento/lista_usuario_detalle.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/agenda_evento/relaciones_persona.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/agenda_evento/usuario_evento.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/calendario_periodo_carga_curso.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/rubro/archivo_rubro.dart';
 
 class SerializableConvert{
@@ -530,7 +531,8 @@ class SerializableConvert{
         calendarioAcademicoId: serial.calendarioAcademicoId,
         tipoId: serial.tipoId,
         estadoId: serial.estadoId,
-        diazPlazo: serial.diazPlazo);
+        diazPlazo: serial.diazPlazo,
+        habilitado: serial.habilitado);
   }
 
   static List<CalendarioPeriodoData> converListSerializeCalendarioPeriodo(dynamic model){
@@ -541,55 +543,28 @@ class SerializableConvert{
     }
     return items;
   }
-  static CalendarioPeriodoDetalleData converSerializeCalendarioPeriodoDetalle(Map<String,dynamic> model){
-    CalendarioPeriodoDetalleSerial serial = CalendarioPeriodoDetalleSerial.fromJson(model);
 
-    return CalendarioPeriodoDetalleData(
-      calendarioPeriodoDetId: serial.calendarioPeriodoDetId??0,
-      calendarioPeriodoId: serial.calendarioPeriodoId,
-      tipoId: serial.tipoId,
-      descripcion: serial.descripcion,
-      diasPlazo: serial.diasPlazo,
-      fechaInicio: serial.fechaInicio,
-      fechaFin: serial.fechaFin
-    );
-  }
+  static CalendarioPeriodoCargaCursoData converSerializeCalendarioPeriodoCargaCursos(Map<String,dynamic> model){
+    CalendarioCargaCursoSerial serial = CalendarioCargaCursoSerial.fromJson(model);
 
-  static List<CalendarioPeriodoDetalleData> converListSerializeCalendarioPeriodoDetalle(dynamic model){
-    List<CalendarioPeriodoDetalleData> items = [];
-    Iterable l = model;
-    for(var item in l){
-      items.add(converSerializeCalendarioPeriodoDetalle(item));
-    }
-    return items;
-  }
-
-  static CargaCursoCalendarioPeriodoData converSerializeCargaCursoCalendarioPeriodo(Map<String,dynamic> model){
-    CargaCursoCalendarioPeriodoSerial serial = CargaCursoCalendarioPeriodoSerial.fromJson(model);
-
-    return CargaCursoCalendarioPeriodoData(
-        cargaCursoCalendarioPeriodoId: serial.cargaCursoCalendarioPeriodoId??0,
-        calendarioPeriodoId: serial.calendarioPeriodoId,
-        calendarioPeriodoDetId: serial.calendarioPeriodoDetId,
-        planCursoId: serial.planCursoId,
-        cargaCursoId: serial.cargaCursoId,
+    return CalendarioPeriodoCargaCursoData(
+        calendarioPeriodoId: serial.calendarioPeriodoId??0,
+        cargaCursoId: serial.cargaCursoId??0,
+        fechaInicio:  DateTime.fromMillisecondsSinceEpoch(serial.fechaInicio??0),
+        fechaFin:  DateTime.fromMillisecondsSinceEpoch(serial.fechaFin??0),
+        nombre: serial.nombre,
+        calendarioAcademicoId: serial.calendarioAcademicoId,
         tipoId: serial.tipoId,
-        fechaInicio: serial.fechaInicio,
-        fechaFin: serial.fechaFin,
-        horaInicio: serial.horaInicio,
-        horaFin: serial.horaFin,
         estadoId: serial.estadoId,
-        anioAcademicoId: serial.anioAcademicoId,
-        cargaAcademicaid: serial.cargaAcademicaid,
-        paths: serial.paths
-    );
+        diazPlazo: serial.diazPlazo,
+        habilitado: serial.habilitado);
   }
 
-  static List<CargaCursoCalendarioPeriodoData> converListSerializeCargaCursoCalendarioPeriodo(dynamic model){
-    List<CargaCursoCalendarioPeriodoData> items = [];
+  static List<CalendarioPeriodoCargaCursoData> converListSerializeCalendarioPeriodoCargaCurso(dynamic model){
+    List<CalendarioPeriodoCargaCursoData> items = [];
     Iterable l = model;
     for(var item in l){
-      items.add(converSerializeCargaCursoCalendarioPeriodo(item));
+      items.add(converSerializeCalendarioPeriodoCargaCursos(item));
     }
     return items;
   }
@@ -1465,6 +1440,90 @@ class SerializableConvert{
     Iterable l = model;
     for(var item in l){
       items.add(converSerializeListaRubroEvalRNPFormula(item));
+    }
+    return items;
+  }
+
+
+  static UnidadEventoData converSerializeUnidadEvento(Map<String,dynamic> model){
+    UnidadEventoSerial serial = UnidadEventoSerial.fromJson(model);
+    return UnidadEventoData(
+        unidadAprendizajeId: serial.unidadAprendizajeId??0,
+        titulo: serial.titulo,
+        reto: serial.reto,
+        desafio: serial.desafio,
+        nroHoras: serial.nroHoras,
+        nroSemanas: serial.nroSemanas,
+        nroSesiones: serial.nroSesiones,
+        nroUnidad: serial.nroUnidad,
+        situacionSignificativaComplementaria: serial.situacionSignificativaComplementaria,
+        situacionSignificativa: serial.situacionSignificativa,
+        silaboEventoId: serial.silaboEventoId,
+        estadoId: serial.estadoId,
+    );
+  }
+
+  static List<UnidadEventoData> converListSerializeUnidadEvento(dynamic model){
+    List<UnidadEventoData> items = [];
+    Iterable l = model;
+    for(var item in l){
+      items.add(converSerializeUnidadEvento(item));
+    }
+    return items;
+  }
+
+
+  static RelUnidadEventoData converSerializeRelUnidadEvento(Map<String,dynamic> model){
+    RelUnidadEventoSerial serial = RelUnidadEventoSerial.fromJson(model);
+    return RelUnidadEventoData(
+      unidadaprendizajeId: serial.unidadaprendizajeId??0,
+      tipoid: serial.tipoid??0,
+    );
+  }
+
+  static List<RelUnidadEventoData> converListSerializeRelUnidadEvento(dynamic model){
+    List<RelUnidadEventoData> items = [];
+    Iterable l = model;
+    for(var item in l){
+      items.add(converSerializeRelUnidadEvento(item));
+    }
+    return items;
+  }
+
+  static SesionEventoData converSerializeSesionEvento(Map<String,dynamic> model){
+    SesionEventoSerial serial = SesionEventoSerial.fromJson(model);
+    return SesionEventoData(
+      sesionAprendizajeId: serial.sesionAprendizajeId??0,
+      titulo: serial.titulo,
+      contenido: serial.contenido,
+      docenteid: serial.docenteid,
+      evaluados: serial.evaluados,
+      proposito: serial.proposito,
+      horas: serial.horas,
+      nroSesion: serial.nroSesion,
+       rolId: serial.rolId,
+      estadoEjecucionId: serial.estadoEjecucionId,
+      estadoEvaluacion: serial.estadoEvaluacion,
+      estadoId: serial.estadoId,
+      fechaEjecucion: serial.fechaEjecucion,
+      fechaEjecucionFin: serial.fechaEjecucionFin,
+      fechaRealizada: serial.fechaRealizada,
+      fechaReprogramacion: serial.fechaReprogramacion,
+      fechaPublicacion: serial.fechaPublicacion,
+      unidadAprendizajeId: serial.unidadAprendizajeId,
+      usuarioAccionId: serial.usuarioAccionId,
+      fechaAccion: serial.fechaAccion,
+      usuarioCreacionId: serial.usuarioCreacionId,
+      fechaCreacion: serial.fechaCreacion,
+      parentSesionId: serial.parentSesionId
+    );
+  }
+
+  static List<SesionEventoData> converListSerializeSesionEvento(dynamic model){
+    List<SesionEventoData> items = [];
+    Iterable l = model;
+    for(var item in l){
+      items.add(converSerializeSesionEvento(item));
     }
     return items;
   }

@@ -7,18 +7,18 @@ import 'package:ss_crmeducativo_2/src/domain/repositories/configuracion_reposito
 import 'package:ss_crmeducativo_2/src/domain/repositories/http_datos_repository.dart';
 import 'package:ss_crmeducativo_2/src/domain/repositories/rubro_repository.dart';
 import 'package:ss_crmeducativo_2/src/domain/usecase/get_alumno_curso.dart';
-import 'package:ss_crmeducativo_2/src/domain/usecase/get_calendario_periodo.dart';
+import 'package:ss_crmeducativo_2/src/domain/usecase/update_calendario_periodo.dart';
 import 'package:ss_crmeducativo_2/src/domain/usecase/get_competencia_rubro_eval.dart';
-import 'package:ss_crmeducativo_2/src/domain/usecase/get_datos_crear_rubros.dart';
+import 'package:ss_crmeducativo_2/src/domain/usecase/update_datos_crear_rubros.dart';
 import 'package:ss_crmeducativo_2/src/domain/usecase/get_rubro_evaluacion.dart';
 import 'package:ss_crmeducativo_2/src/domain/usecase/get_tipo_nota_resultado.dart';
 import 'package:ss_crmeducativo_2/src/domain/usecase/get_unidad_rubro_eval.dart';
 
 class RubroPresenter extends Presenter{
-  GetCalendarioPerido _getCalendarioPerido;
+  UpdateCalendarioPerido _getCalendarioPerido;
   late Function getCalendarioPeridoOnComplete, getCalendarioPeridoOnError;
-  GetDatosCrearRubro _getDatosCrearRubro;
-  late Function getDatosCrearRubroOnNext, getDatosCrearRubroOnError;
+  UpdateDatosCrearRubro _getDatosCrearRubro;
+  late Function updateDatosCrearRubroOnNext, updateDatosCrearRubroOnError;
   GetRubroEvaluacion _getRubroEvaluacion;
   late Function getRubroEvaluacionOnNext, getRubroEvaluacionOnError;
 
@@ -32,8 +32,8 @@ class RubroPresenter extends Presenter{
   late Function getTipoNotaResultadoOnNext, getTipoNotaResultadoEvalOnError;
 
   RubroPresenter(CalendarioPeriodoRepository calendarioPeriodoRepo, ConfiguracionRepository configuracionRepo, HttpDatosRepository httpDatosRepo, RubroRepository rubroRepo) :
-                          _getCalendarioPerido = new GetCalendarioPerido(configuracionRepo, calendarioPeriodoRepo),
-                          _getDatosCrearRubro = new GetDatosCrearRubro(httpDatosRepo, configuracionRepo, rubroRepo),
+                          _getCalendarioPerido = new UpdateCalendarioPerido(configuracionRepo, calendarioPeriodoRepo, httpDatosRepo),
+                          _getDatosCrearRubro = new UpdateDatosCrearRubro(httpDatosRepo, configuracionRepo, rubroRepo),
                           _getRubroEvaluacion = GetRubroEvaluacion(rubroRepo),
                           _getUnidadRubroEval = GetUnidadRubroEval(rubroRepo),
                           _getCompetenciaRubroEval = GetCompetenciaRubroEval(rubroRepo, configuracionRepo),
@@ -54,8 +54,8 @@ class RubroPresenter extends Presenter{
       _getTipoNotaResultado.dispose();
   }
 
-  void onActualizarCurso(CalendarioPeriodoUI? calendarioPeriodoUI, CursosUi cursosUi) {
-    _getDatosCrearRubro.execute(_GetDatosCrearRubroCase(this), new GetDatosCrearRubroParams(calendarioPeriodoUI?.id??0, cursosUi.cargaCursoId??0, cursosUi.silaboEventoId??0));
+  void onActualizarCurso(CalendarioPeriodoUI? calendarioPeriodoUI, CursosUi cursosUi, bool forceUpdate) {
+    _getDatosCrearRubro.execute(_GetDatosCrearRubroCase(this), new UpdateDatosCrearRubroParams(calendarioPeriodoUI?.id??0, cursosUi.cargaCursoId??0, cursosUi.silaboEventoId??0, forceUpdate));
   }
 
   void onGetRubricaList(CursosUi? cursosUi, CalendarioPeriodoUI? calendarioPeriodoUI, OrigenRubroUi? origenRubroUi){
@@ -101,7 +101,7 @@ class _GetCalendarioPeriodoCase extends Observer<GetCalendarioPeridoResponse>{
 
 }
 
-class _GetDatosCrearRubroCase extends Observer<GetDatosCrearRubroResponse>{
+class _GetDatosCrearRubroCase extends Observer<UpdateDatosCrearRubroResponse>{
   RubroPresenter presenter;
 
   _GetDatosCrearRubroCase(this.presenter);
@@ -113,14 +113,14 @@ class _GetDatosCrearRubroCase extends Observer<GetDatosCrearRubroResponse>{
 
   @override
   void onError(e) {
-    assert(presenter.getDatosCrearRubroOnError!=null);
-    presenter.getDatosCrearRubroOnError(e);
+    assert(presenter.updateDatosCrearRubroOnError!=null);
+    presenter.updateDatosCrearRubroOnError(e);
   }
 
   @override
-  void onNext(GetDatosCrearRubroResponse? response) {
-    assert(presenter.getDatosCrearRubroOnNext!=null);
-    presenter.getDatosCrearRubroOnNext(response?.errorConexion, response?.errorServidor, response?.stream, response?.total, response?.recibido);
+  void onNext(UpdateDatosCrearRubroResponse? response) {
+    assert(presenter.updateDatosCrearRubroOnNext!=null);
+    presenter.updateDatosCrearRubroOnNext(response?.errorConexion, response?.errorServidor, response?.stream, response?.total, response?.recibido);
   }
 
 }

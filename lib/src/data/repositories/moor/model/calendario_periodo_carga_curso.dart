@@ -1,6 +1,6 @@
 import 'package:moor_flutter/moor_flutter.dart';
 
-class CalendarioPeriodo extends Table{
+class CalendarioPeriodoCargaCurso extends Table{
 
    IntColumn get calendarioPeriodoId => integer()();
    DateTimeColumn get fechaInicio => dateTime().nullable()();
@@ -8,10 +8,12 @@ class CalendarioPeriodo extends Table{
    IntColumn get calendarioAcademicoId => integer().nullable()();
    IntColumn get tipoId => integer().nullable()();
    IntColumn get estadoId => integer().nullable()();
-   BoolColumn get habilitado => boolean().nullable()();
+   BoolColumn get selecionado => boolean().nullable()();
    IntColumn get diazPlazo => integer().nullable()();
-
+   TextColumn get nombre => text().nullable()();
+   IntColumn get habilitado => integer().nullable()();
+   IntColumn get cargaCursoId => integer()();
    @override
-   Set<Column> get primaryKey => {calendarioPeriodoId};
+   Set<Column> get primaryKey => {calendarioPeriodoId, cargaCursoId};
   
 }

@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:ss_crmeducativo_2/libs/fancy_shimer_image/fancy_shimmer_image.dart';
 import 'package:ss_crmeducativo_2/src/app/page/curso/curso_controller.dart';
 import 'package:ss_crmeducativo_2/src/app/routers.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_icon.dart';
@@ -228,22 +229,37 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                               SliverList(
                                   delegate: SliverChildListDelegate(
                                     [
-                                      Padding(padding: EdgeInsets.only( top: 48)),
+                                      Padding(padding: EdgeInsets.only( top: 40)),
                                       Container(
                                         height: 180,
                                         margin: EdgeInsets.only(left: 24, right: 24),
-                                        decoration: BoxDecoration(
-                                            color: HexColor(controller.cursos?.color1),
-                                            borderRadius: BorderRadius.all(Radius.circular(28))
-                                        ),
                                         child: Stack(
                                               children: [
+                                                ClipRRect(
+                                                  borderRadius: BorderRadius.all(Radius.circular(28)),
+                                                  child: controller.cursos?.banner!=null?FancyShimmerImage(
+                                                    boxFit: BoxFit.cover,
+                                                    imageUrl: controller.cursos?.banner??'',
+                                                    width: MediaQuery.of(context!).size.width,
+                                                    errorWidget: Icon(Icons.warning_amber_rounded, color: AppTheme.white, size: 105,),
+                                                  ):
+                                                  Container(),
+                                                ),
+                                                Opacity(
+                                                  opacity: 0.8,
+                                                  child:  Container(
+                                                    decoration: BoxDecoration(
+                                                        color: HexColor(controller.cursos?.color1),
+                                                        borderRadius: BorderRadius.all(Radius.circular(26))
+                                                    ),
+                                                  ),
+                                                ),
                                                 Positioned(
                                                   right: 16,
                                                   top: 0,
                                                   bottom: 0,
                                                   child: Opacity(
-                                                    opacity: 0.9,
+                                                    opacity:1,
                                                     child: SvgPicture.asset(AppIcon.ic_curso_exam, width: 150, height: 150,),
                                                   ),
                                                 ),
@@ -304,7 +320,7 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
 
                                                     ],
                                                   ),
-                                                )
+                                                ),
                                               ],
                                         ),
                                       ),
@@ -354,7 +370,7 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                                       splashColor: HexColor(controller.cursos?.color3), // inkwell color
                                                       child: SizedBox(width: 42, height: 42,
                                                           child: Padding(
-                                                          padding: EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 12),
+                                                          padding: EdgeInsets.only(left: 14, right: 14, top: 14, bottom: 14),
                                                           child: SvgPicture.asset(AppIcon.ic_curso_flecha, color: AppTheme.white,),
                                                         )),
                                                       onTap: () {},
@@ -413,7 +429,7 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                                       splashColor: HexColor(controller.cursos?.color3), // inkwell color
                                                       child: SizedBox(width: 42, height: 42,
                                                           child: Padding(
-                                                            padding: EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 12),
+                                                            padding: EdgeInsets.only(left: 14, right: 14, top: 14, bottom: 14),
                                                             child: SvgPicture.asset(AppIcon.ic_curso_flecha, color: AppTheme.white,),
                                                           )),
                                                       onTap: () {},
@@ -472,7 +488,7 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                                      splashColor: HexColor(controller.cursos?.color3), // inkwell color
                                                      child: SizedBox(width: 42, height: 42,
                                                          child: Padding(
-                                                          padding: EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 12),
+                                                          padding: EdgeInsets.only(left: 14, right: 14, top: 14, bottom: 14),
                                                           child: SvgPicture.asset(AppIcon.ic_curso_flecha, color: AppTheme.white,),
                                                         )),
                                                      onTap: () {},
@@ -525,7 +541,7 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                                     splashColor: HexColor(controller.cursos?.color3), // inkwell color
                                                     child: SizedBox(width: 42, height: 42,
                                                         child: Padding(
-                                                          padding: EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 12),
+                                                          padding: EdgeInsets.only(left: 14, right: 14, top: 14, bottom: 14),
                                                           child: SvgPicture.asset(AppIcon.ic_curso_flecha, color: AppTheme.white,),
                                                         )),
                                                     onTap: () {},
@@ -577,7 +593,7 @@ class _CursoViewState extends ViewState<CursoView, CursoController> with TickerP
                                                     splashColor: HexColor(controller.cursos?.color3), // inkwell color
                                                     child: SizedBox(width: 42, height: 42,
                                                         child: Padding(
-                                                          padding: EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 12),
+                                                          padding: EdgeInsets.only(left: 14, right: 14, top: 14, bottom: 14),
                                                           child: SvgPicture.asset(AppIcon.ic_curso_flecha, color: AppTheme.white,),
                                                         )
                                                     ),

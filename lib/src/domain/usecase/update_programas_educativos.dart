@@ -5,24 +5,24 @@ import 'package:ss_crmeducativo_2/src/domain/entities/programa_educativo_ui.dart
 import 'package:ss_crmeducativo_2/src/domain/repositories/configuracion_repository.dart';
 import 'package:ss_crmeducativo_2/src/domain/repositories/http_datos_repository.dart';
 
-class GetProgramasEducativos extends UseCase<GetProgramasEducativosResponse, GetProgramasEducativosParams> {
+class UpdateProgramasEducativos extends UseCase<GetProgramasEducativosResponse, GetProgramasEducativosParams> {
 
   HttpDatosRepository httpDatosRepo;
   ConfiguracionRepository repository;
 
-  GetProgramasEducativos(this.repository, this.httpDatosRepo);
+  UpdateProgramasEducativos(this.repository, this.httpDatosRepo);
 
   @override
   Future<Stream<GetProgramasEducativosResponse?>> buildUseCaseStream(
       GetProgramasEducativosParams? params) async {
     final controller = StreamController<GetProgramasEducativosResponse>();
-
+    logger.severe('getProgramaEducativo int');
     try {
       int usuarioId = await repository.getSessionUsuarioId();
       int empleadoId = await repository.getSessionEmpleadoId();
       int anioAcademicoIdSelect = await repository.getSessionAnioAcademicoId();
       String urlServidorLocal = await repository.getSessionUsuarioUrlServidor();
-
+      print("getProgramaEducativo datos principales webconfig 1");
 
       Future<void> executeDatos() async {
         bool offlineServidor = false;
@@ -31,18 +31,22 @@ class GetProgramasEducativos extends UseCase<GetProgramasEducativosResponse, Get
         try {
           String urlServidorLocal = await repository
               .getSessionUsuarioUrlServidor();
-          print("GetProgramasEducativosResponse urlServidorLocal " + urlServidorLocal);
-          Map<String, dynamic>? anioAcedemico = await await httpDatosRepo
-              .getDatosAnioAcademico(
-              urlServidorLocal, empleadoId, anioAcademicoIdSelect);
+
+          Map<String, dynamic>? anioAcedemico = await await httpDatosRepo.getDatosAnioAcademico(urlServidorLocal, empleadoId, anioAcademicoIdSelect);
+
           errorServidor = anioAcedemico == null;
+
+          print("getProgramaEducativo datos principales webconfig 2: estado. "+ errorServidor.toString());
           if (!errorServidor) {
             //printTime();
             await repository.saveDatosAnioAcademico(anioAcedemico);
+            print("getProgramaEducativo datos principales webconfig 2: Save. ");
             //printTime();
           }
+
         } catch (e) {
           offlineServidor = true;
+          print("getProgramaEducativo datos principales webconfig 3");
         }
 
         ProgramaEducativoUi? programaEducativoUiSelected = null;
@@ -63,7 +67,7 @@ class GetProgramasEducativos extends UseCase<GetProgramasEducativosResponse, Get
         }
 
         repository.updateSessionProgramaEducativoId(programaEducativoUiSelected?.idPrograma??0);
-
+        print("getProgramaEducativo datos principales webconfig 4");
         controller.add(GetProgramasEducativosResponse(offlineServidor, errorServidor, programaEducativoUiSelected, programaEducativoUiList));
 
         controller.close();
@@ -75,7 +79,7 @@ class GetProgramasEducativos extends UseCase<GetProgramasEducativosResponse, Get
       });
 
     } catch (e) {
-      logger.severe('EventoAgenda unsuccessful: '+e.toString());
+      logger.severe('getProgramaEducativo unsuccessful: '+e.toString());
       controller.addError(e);
     }
 

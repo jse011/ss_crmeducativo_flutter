@@ -13,9 +13,8 @@ import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/anio_academic
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/aula.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/calendario_academico.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/calendario_periodo.dart';
-import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/calendario_periodo_detalle.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/calendario_periodo_carga_curso.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/carga_academica.dart';
-import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/carga_curso_calendario_periodo.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/carga_curso_docente.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/carga_curso_docente_det.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/carga_cursos.dart';
@@ -50,6 +49,7 @@ import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/rubro/rubro_c
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/rubro/rubro_comentario.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/rubro/rubro_eval_rnpformula.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/rubro/rubro_evaluacion_proceso.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/rubro/rubro_update_servidor.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/seccion.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/session_user.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/silabo_evento.dart';
@@ -57,6 +57,9 @@ import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/tipo_evaluaci
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/tipo_nota_rubro.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/tipos.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/tipos_rubro.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/unidad_sesion/rel_unidad_evento_tipo.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/unidad_sesion/sesion_evento.dart';
+import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/unidad_sesion/unidad_evento.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/usuario.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/usuario_rol_georeferencia.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/model/valor_tipo_nota_rubro.dart';
@@ -66,10 +69,10 @@ part 'app_database.g.dart';
 
 @UseMoor(tables:[SessionUser, UsuarioRolGeoreferencia, Rol, Georeferencia, Entidad, Persona, Empleado, AnioAcademico, ParametroConfiguracion, Aula, CargaAcademica,
   CargaCursoDocente, CargaCursoDocenteDet, CargaCurso, Cursos, ParametrosDisenio, NivelAcademico, Periodos, PlanCursos, PlanEstudio, ProgramasEducativo, Seccion, SilaboEvento,
-  CalendarioPeriodo, CalendarioPeriodoDetalle, CargaCursoCalendarioPeriodo, Tipos, Hora, HorarioPrograma, HorarioHora, DetalleHorario, Dia, HorarioDia, CursosDetHorario, Horario,
+  CalendarioPeriodo, Tipos, Hora, HorarioPrograma, HorarioHora, DetalleHorario, Dia, HorarioDia, CursosDetHorario, Horario,
   CalendarioAcademico, Usuario, WebConfigs, Criterio, TipoEvaluacionRubro, TiposRubro, TipoNotaRubro, ValorTipoNotaRubro, RubroEvaluacionProceso, ArchivoRubro, EquipoEvaluacion,
   EvaluacionProceso, RubroCampotematico, RubroComentario, RubroEvalRNPFormula, ContactoDocente, CriterioRubroEvaluacion, Calendario, CalendarioListaUsuario, Evento, EventoPersona,
-  ListaUsuarioDetalle, ListaUsuarios, PersonaEvento, RelacionesEvento, TipoEvento, UsuarioEvento])
+  ListaUsuarioDetalle, ListaUsuarios, PersonaEvento, RelacionesEvento, TipoEvento, UsuarioEvento, UnidadEvento, SesionEvento, RelUnidadEvento, RubroUpdateServidor, CalendarioPeriodoCargaCurso])
 class AppDataBase extends _$AppDataBase {
   @override
   int get schemaVersion => 1;

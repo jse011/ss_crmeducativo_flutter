@@ -39,4 +39,8 @@ class AppIcon {
 
   static const String ic_lista_vacia = "assets/icons/ic_empty_state.svg";
 
+
+  static const String ic_tipo_actividad_conecta = "assets/icons/tipo_actividad/tipoact_ico_1.svg";
+
+
 }

@@ -118,7 +118,7 @@ class DeviceHttpDatosRepositorio extends HttpDatosRepository{
   }
 
   @override
-  Future<HttpStream> getDatosParaCrearRubro(String urlServidorLocal, int anioAcademicoId, int programaEducativoId, int calendarioPeriodoId, int cargaCursoId, int empleadoId, {required HttpStreamListen onListen, onSucces = Function, onError = Function})  async{
+  Future<HttpStream> updateDatosParaCrearRubro(String urlServidorLocal, int anioAcademicoId, int programaEducativoId, int calendarioPeriodoId, int cargaCursoId, int empleadoId, {required HttpStreamListen onListen, onSucces = Function, onError = Function})  async{
     Map<String, dynamic> parameters = Map<String, dynamic>();
     parameters["vint_AnioAcademicoId"] = anioAcademicoId;
     parameters["vint_ProgramaEducativoId"] = programaEducativoId;
@@ -207,6 +207,57 @@ class DeviceHttpDatosRepositorio extends HttpDatosRepository{
       throw Exception('Failed to load agenda 0');
     }
 
+  }
+
+  @override
+  Future<Map<String, dynamic>?> getUnidadSesion(String urlServidorLocal, int usuarioId, int calendarioId, int silaboEventoId, int rolId) async {
+
+    Map<String, dynamic> parameters = Map<String, dynamic>();
+    parameters["vint_UsuarioId"] = usuarioId;
+    parameters["vint_CalendarioPeriodoId"] = calendarioId;
+    parameters["vint_SilaboEventoId"] = silaboEventoId;
+    parameters["vint_rolId"] = rolId;
+    final response = await http.post(Uri.parse(urlServidorLocal), body: getBody("getUnidadSesionDocenteFlutter",parameters));
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      Map<String,dynamic> body = json.decode(response.body);
+      if(body.containsKey("Successful")&&body.containsKey("Value")){
+        return body["Value"];
+      }else{
+        return null;
+      }
+
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load agenda 0');
+    }
+
+  }
+
+  @override
+  Future<List<dynamic>?> getCalendarioPeriodoCursoFlutter(String urlServidorLocal, int anioAcademicoId, int programaEducativoId, int cargaCursoId) async{
+    Map<String, dynamic> parameters = Map<String, dynamic>();
+    parameters["vint_AnioAcademicoId"] = anioAcademicoId;
+    parameters["vint_ProgramaEducativoId"] = programaEducativoId;
+    parameters["vint_CargaCursoId"] = cargaCursoId;
+    final response = await http.post(Uri.parse(urlServidorLocal), body: getBody("getCalendarioPeriodoCursoFlutter",parameters));
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      Map<String,dynamic> body = json.decode(response.body);
+      if(body.containsKey("Successful")&&body.containsKey("Value")){
+        return body["Value"];
+      }else{
+        return null;
+      }
+
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load agenda 0');
+    }
   }
 
 

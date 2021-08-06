@@ -68,11 +68,16 @@ class Login extends UseCase<LoginResponse,LoginParams>{
 
             var datosInicio = await repository.getDatosInicioDocente(urlServidorLocal, usuarioId);
             if(datosInicio!=null){
+              print("Aqui 1");
               UsuarioUi usuarioUi = await datosrepository.saveDatosIniciales(datosInicio);
+              print("Aqui 2");
               var datosAnioAcademico = await repository.getDatosAnioAcademico(urlServidorLocal, usuarioUi.empleadoId??0, usuarioUi.anioAcademicoIdSelected??0);
+              print("Aqui 3");
               anioAcademicoId = usuarioUi.anioAcademicoIdSelected??0;
               if(datosAnioAcademico!=null){
+                print("Aqui 4");
                 await datosrepository.saveDatosAnioAcademico(datosAnioAcademico);
+                print("Aqui 4");
               }else{
                 errorServidor = true;
               }

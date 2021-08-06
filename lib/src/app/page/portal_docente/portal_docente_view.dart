@@ -126,8 +126,7 @@ class _PortalDocenteViewState extends ViewState<PortalDocenteView, PortalDocente
                             ),
                             Padding(
                               padding: EdgeInsets.only(
-                                  left: 48,
-                                  right: 16,
+                                  left: 32,
                                   top: 16 - 8.0 * topBarOpacity,
                                   bottom: 12 - 8.0 * topBarOpacity),
                               child:  Row(
@@ -177,125 +176,139 @@ class _PortalDocenteViewState extends ViewState<PortalDocenteView, PortalDocente
   List<int> list = [1,2,3,4,5];
   int countView = 11;
   Widget getMainListViewUI() {
-    return Container(
-        padding: EdgeInsets.only(
-          /*top: AppBar().preferredSize.height +
+    return  AnimatedBuilder(
+      animation: widget.animationController,
+      builder: (BuildContext? context, Widget? child) {
+        return FadeTransition(
+          opacity: topBarAnimation,
+          child: Transform(
+              transform: Matrix4.translationValues(
+                  0.0, 30 * (1.0 - topBarAnimation.value), 0.0),
+              child: Container(
+                  padding: EdgeInsets.only(
+                    /*top: AppBar().preferredSize.height +
               MediaQuery.of(context).padding.top +
               0,*/
-            top: AppBar().preferredSize.height - 10
-        ),
-        child: ControlledWidgetBuilder<PortalDocenteController>(
-            builder: (context, controller) {
-              return Stack(
-                children: [
-                  CustomScrollView(
-                    controller: scrollController,
-                    slivers: <Widget>[
-                      SliverList(
-                          delegate: SliverChildListDelegate(
-                            [
-                              Container(
-                                //height: 120 + 40 - 40 * topBarOpacity,
-                                //margin: EdgeInsets.only(left: 24, top: AppBar().preferredSize.height-8),
-                                  margin: EdgeInsets.only(left: 24, right: 24),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child:  Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                              children: [
-                                                Text("Año Acad. " + (controller.anioAcademicoUi!=null?controller.anioAcademicoUi?.nombre??"": ""),
-                                                    textAlign: TextAlign.left,
-                                                    overflow: TextOverflow.ellipsis,
-                                                    maxLines: 3,
-                                                    style: TextStyle(
-                                                      fontFamily: AppTheme.fontTTNormsMedium,
-                                                      fontWeight: FontWeight.w700,
-                                                      fontSize: 16 + 6 - 6 * topBarOpacity,
-                                                      //letterSpacing: 1.2,
-                                                      color: AppTheme.black,)
-                                                )
-                                              ],
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.only(top: 18, left: 24),
-                                              child:  Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                children: [
-                                                  InkWell(
-                                                    onTap: ()=>showDialogButtom(controller),
-                                                    child: Text(controller.programaEducativoUi!=null?(controller.programaEducativoUi?.nombrePrograma??""):"",
-                                                        textAlign: TextAlign.left,
-                                                        overflow: TextOverflow.ellipsis,
-                                                        maxLines: 1,
-                                                        style: TextStyle(
-                                                          fontFamily: AppTheme.fontTTNorms,
-                                                          fontWeight: FontWeight.w500,
-                                                          fontSize: 8 + 6 - 6 * topBarOpacity,
-                                                          color: HexColor("#35377A"),
-                                                        )
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding: EdgeInsets.only(right: 8),
-                                                  ),
-                                                  controller.programaEducativoUi!=null?
-                                                  InkWell(
-                                                    onTap: ()=>showDialogButtom(controller),
-                                                    child:  Icon(Icons.keyboard_arrow_down_rounded,
-                                                      color: HexColor("#35377A"),
-                                                      size: 14 + 4 - 4 * topBarOpacity,),
-                                                  ):
-                                                  Container()
-                                                ],
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.only(top: 32),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      /*Image.asset(
-                                    "assets/images/fondo_programa.png",)*/
-                                    ],
-                                  )
-                              ),
-                              Padding(padding: EdgeInsets.only(top: 0)),
-                            ],
-                          )
-                      ),
-                      SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                                  (BuildContext context, int index){
-                                CursosUi cursoUi = controller.cursosUiList[index];
-                                ProgramaEducativoUi? programaEducativoUi = controller.programaEducativoUi;
-                                return getCuros(cursoUi, programaEducativoUi);
-                              },
-                              childCount: controller.cursosUiList.length
-                          )
-                      ),
-                      SliverList(
-                          delegate: SliverChildListDelegate(
-                            [
-                              Padding(padding: EdgeInsets.only( bottom: 62))
-                            ],
-                          )
-                      ),
-                    ],
+                      top: AppBar().preferredSize.height - 8
                   ),
-                  controller.isLoading ?  Container(child: Center(
-                    child: CircularProgressIndicator(),
-                  )): Container(),
-                ],
-              );
-            })
+                  child: ControlledWidgetBuilder<PortalDocenteController>(
+                      builder: (context, controller) {
+                        return Stack(
+                          children: [
+                            CustomScrollView(
+                              controller: scrollController,
+                              slivers: <Widget>[
+                                SliverList(
+                                    delegate: SliverChildListDelegate(
+                                      [
+                                        Container(
+                                          //height: 120 + 40 - 40 * topBarOpacity,
+                                          //margin: EdgeInsets.only(left: 24, top: AppBar().preferredSize.height-8),
+                                            margin: EdgeInsets.only(left: 24, right: 24),
+                                            child: Row(
+                                              children: [
+                                                Expanded(
+                                                  child:  Column(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    children: [
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.start,
+                                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                                        children: [
+                                                          Padding(padding: EdgeInsets.only(left: 38)),
+                                                          Text("Año Acad. " + (controller.anioAcademicoUi!=null?controller.anioAcademicoUi?.nombre??"": ""),
+                                                              textAlign: TextAlign.left,
+                                                              overflow: TextOverflow.ellipsis,
+                                                              maxLines: 3,
+                                                              style: TextStyle(
+                                                                fontFamily: AppTheme.fontName,
+                                                                fontWeight: FontWeight.w700,
+                                                                fontSize: 22 + 6 - 6 * topBarOpacity,
+                                                                letterSpacing: 1.2,
+                                                                color: AppTheme.darkerText,
+                                                              )
+                                                          )
+                                                        ],
+                                                      ),
+                                                      Padding(
+                                                        padding: EdgeInsets.only(top: 18, left: 24),
+                                                        child:  Row(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                          children: [
+                                                            InkWell(
+                                                              onTap: ()=>showDialogButtom(controller),
+                                                              child: Text(controller.programaEducativoUi!=null?(controller.programaEducativoUi?.nombrePrograma??""):"",
+                                                                  textAlign: TextAlign.left,
+                                                                  overflow: TextOverflow.ellipsis,
+                                                                  maxLines: 1,
+                                                                  style: TextStyle(
+                                                                    fontFamily: AppTheme.fontTTNorms,
+                                                                    fontWeight: FontWeight.w500,
+                                                                    fontSize: 12 + 6 - 6 * topBarOpacity,
+                                                                    color: HexColor("#35377A"),
+                                                                  )
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding: EdgeInsets.only(right: 8),
+                                                            ),
+                                                            controller.programaEducativoUi!=null?
+                                                            InkWell(
+                                                              onTap: ()=>showDialogButtom(controller),
+                                                              child:  Icon(Icons.keyboard_arrow_down_rounded,
+                                                                color: HexColor("#35377A"),
+                                                                size: 14 + 4 - 4 * topBarOpacity,),
+                                                            ):
+                                                            Container()
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding: EdgeInsets.only(top: 24),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                /*Image.asset(
+                                    "assets/images/fondo_programa.png",)*/
+                                              ],
+                                            )
+                                        ),
+                                        Padding(padding: EdgeInsets.only(top: 0)),
+                                      ],
+                                    )
+                                ),
+                                SliverList(
+                                    delegate: SliverChildBuilderDelegate(
+                                            (BuildContext context, int index){
+                                          CursosUi cursoUi = controller.cursosUiList[index];
+                                          ProgramaEducativoUi? programaEducativoUi = controller.programaEducativoUi;
+                                          return getCuros(cursoUi, programaEducativoUi);
+                                        },
+                                        childCount: controller.cursosUiList.length
+                                    )
+                                ),
+                                SliverList(
+                                    delegate: SliverChildListDelegate(
+                                      [
+                                        Padding(padding: EdgeInsets.only( bottom: 62))
+                                      ],
+                                    )
+                                ),
+                              ],
+                            ),
+                            controller.isLoading ?  Container(child: Center(
+                              child: CircularProgressIndicator(),
+                            )): Container(),
+                          ],
+                        );
+                      })
+              )
+          ),
+        );
+      },
     );
     /*ListView.builder(
       controller: scrollController,
@@ -318,31 +331,34 @@ class _PortalDocenteViewState extends ViewState<PortalDocenteView, PortalDocente
   Widget getCuros(CursosUi cursoUi, ProgramaEducativoUi? programaEducativoUi){
     return GestureDetector(
       onTap: () {
+        cursoUi.nivelAcademico = programaEducativoUi?.nivelAcademico;
         AppRouter.createRouteCursosRouter(context, cursoUi);
       },
       child:  Padding(
         padding: const EdgeInsets.only(
-            left: 24, right: 24, top: 0, bottom: 24),
+            left: 12, right: 12, top: 0, bottom: 12),
         child: Container(
           height: 150,
-          decoration: BoxDecoration(
-              color:  cursoUi.color1!=null&&cursoUi.color1!.isNotEmpty?
-              HexColor(cursoUi.color1):AppTheme.nearlyDarkBlue,
-              borderRadius: BorderRadius.all(Radius.circular(24))),
           child: Stack(
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(24)),
-                child: Opacity(
-                  opacity: 0.4,
-                  child: cursoUi.banner!=null?FancyShimmerImage(
-                    boxFit: BoxFit.cover,
-                    imageUrl: cursoUi.banner??'',
-                    width: MediaQuery.of(context).size.width,
-                    errorWidget: Icon(Icons.warning_amber_rounded, color: AppTheme.white, size: 105,),
-                  ):
-                  Container(),
-                ),
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                child: cursoUi.banner!=null?FancyShimmerImage(
+                  boxFit: BoxFit.cover,
+                  imageUrl: cursoUi.banner??'',
+                  width: MediaQuery.of(context).size.width,
+                  errorWidget: Icon(Icons.warning_amber_rounded, color: AppTheme.white, size: 105,),
+                ):
+                Container(),
+              ),
+              Opacity(
+                  opacity: 0.8,
+                  child:  Container(
+                      decoration: BoxDecoration(
+                          color:  cursoUi.color1!=null&&cursoUi.color1!.isNotEmpty?
+                          HexColor(cursoUi.color1):AppTheme.nearlyDarkBlue,
+                          borderRadius: BorderRadius.all(Radius.circular(8)))
+                  ),
               ),
               Padding(
                 padding: const EdgeInsets.all(24.0),
@@ -415,11 +431,11 @@ class _PortalDocenteViewState extends ViewState<PortalDocenteView, PortalDocente
       context: context,
       builder: (BuildContext context) {
         return CupertinoActionSheet(
-            title: const Text('Programa educativo'),
-            message: const Text('Por favor seleccione un programa educativo de las opciones a continuación'),
+            title:  Text('Programa educativo', style: TextStyle(color: HexColor("#35377A"))),
+            message:  Text('Por favor seleccione un programa educativo de las opciones a continuación', style: TextStyle(color: HexColor("#35377A"))),
             actions: list,
             cancelButton: CupertinoActionSheetAction(
-              child: Text('Cancelar'),
+              child: Text('Cancelar', style: TextStyle(color: HexColor("#35377A"))),
               onPressed: () {
                 Navigator.pop(context);
               },

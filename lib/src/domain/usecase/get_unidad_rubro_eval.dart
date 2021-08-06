@@ -15,15 +15,6 @@ class GetUnidadRubroEval extends UseCase<GetUnidadRubroEvalResponse, GetUnidadRu
     final controller = StreamController<GetUnidadRubroEvalResponse>();
     try{
       List<UnidadUi> unidadUiList = await repository.getUnidadAprendizaje(params?.silaboEventoId, params?.calendarioPeriodoId);
-      for(UnidadUi unidadUi in unidadUiList){
-        for(SesionUi sesionUi in unidadUi.sesionUiList??[]){
-          int cantidadRubros = sesionUi.rubricaEvaluacionUiList?.length??0;
-          print("cantidadRubros: "+cantidadRubros.toString());
-          if(cantidadRubros>3){
-            sesionUi.cantRubrosVisibles = 4;
-          }
-        }
-      }
       controller.add(GetUnidadRubroEvalResponse(unidadUiList));
 
 

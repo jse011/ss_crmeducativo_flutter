@@ -12,6 +12,7 @@ class CursosUi{
   EstadoSilabo estadoSilabo = EstadoSilabo.NO_AUTORIZADO;
   int? cantidadPersonas;
   bool? tutor;
+  String? nivelAcademico;
 
 }
 

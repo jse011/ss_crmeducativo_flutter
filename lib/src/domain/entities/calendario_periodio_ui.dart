@@ -5,5 +5,7 @@ class CalendarioPeriodoUI{
   DateTime? fechaInicio;
   DateTime? fechaFin;
   int? estadoId;
+  int? tipoId;
+  int? habilitado;
 
 }

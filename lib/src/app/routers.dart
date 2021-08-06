@@ -10,12 +10,13 @@ import 'package:ss_crmeducativo_2/src/app/page/rubro/portal/rubro_view_2.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubro/crear/rubro_crear_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/sesiones/lista/sesion_lista_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/sesiones/portal/sesion_view.dart';
-import 'package:ss_crmeducativo_2/src/app/page/tarea/tarea_view.dart';
+import 'package:ss_crmeducativo_2/src/app/page/tarea/lista/tarea_view.dart';
 import 'package:ss_crmeducativo_2/src/app/widgets/wrap_widget_demo.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/calendario_periodio_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_capacidad_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/rubrica_evaluacion_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/sesion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/response/respuesta_crear_rubro.dart';
 import 'package:ss_crmeducativo_2/src/domain/response/respuesta_evaluacion.dart';
 import 'package:ss_crmeducativo_2/src/domain/response/respuesta_evaluacion_capaciadad.dart';
@@ -85,10 +86,12 @@ class AppRouter {
         },
       );
     }else if(settings.name == SESION_PORTAL){
-      final CursosUi cursosUi = settings.arguments as CursosUi;
+      final Map arguments = settings.arguments as Map;
       return MaterialPageRoute(
         builder: (context) {
-          return SesionView(cursosUi);
+          CursosUi cursosUi = arguments['cursoUi'];
+          SesionUi sesionUi = arguments['sesionUi'];
+          return SesionView(cursosUi, sesionUi);
         },
       );
     }else if(settings.name == EVALUACION_CAPACIDAD){
@@ -162,10 +165,10 @@ class AppRouter {
         arguments: cursosUi
     );
   }
-  static void createRouteSesionPortalRouter(BuildContext context, CursosUi cursosUi) {
+  static void createRouteSesionPortalRouter(BuildContext context, CursosUi cursosUi, SesionUi sesionUi) {
     Navigator.pushNamed(context,
         SESION_PORTAL,
-        arguments: cursosUi
+        arguments:  {'cursoUi': cursosUi, 'sesionUi':sesionUi}
     );
   }
   static Future<RespuestaCrearRubro?> createRouteRubroCrearRouter(BuildContext context, CursosUi? cursosUi,CalendarioPeriodoUI? calendarioPeriodoUI, RubricaEvaluacionUi? rubroUi) async{

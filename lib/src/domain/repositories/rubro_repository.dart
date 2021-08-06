@@ -32,4 +32,8 @@ abstract class RubroRepository{
 
   Future<RubricaEvaluacionUi> getEvaluacionRubrica(String? rubroEvaluacionId);
 
+  Future<bool> isUltimedUpdateServerCurso(int? calendarioPeriodoId, int? silaboEventoId);
+
+  Future<void> saveUpdateServerCurso(int? calendarioPeriodoId, int? silaboEventoId);
+
 }

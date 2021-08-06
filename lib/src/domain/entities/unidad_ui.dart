@@ -5,5 +5,5 @@ class UnidadUi{
   String? titulo;
   List<SesionUi>? sesionUiList;
   int? nroUnidad;
-
+  int? cantSesionesVisibles;
 }

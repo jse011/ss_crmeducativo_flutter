@@ -11,6 +11,7 @@ import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_calendario_peri
 import 'package:ss_crmeducativo_2/src/domain/entities/origen_rubro_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/personaUi.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/rubrica_evaluacion_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/sesion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_competencia_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/unidad_ui.dart';
@@ -32,10 +33,11 @@ class RubroController extends Controller{
   RubroPresenter presenter;
   int _progresoSyncronizar = 0;
   int get progresoSyncronizar => _progresoSyncronizar;
-  List<RubricaEvaluacionUi> _rubricaEvaluacionUiList = [];
-  List<RubricaEvaluacionUi> get rubricaEvaluacionUiList => _rubricaEvaluacionUiList;
+  List<dynamic>? _rubricaEvaluacionUiList = null;
+  List<dynamic>? get rubricaEvaluacionUiList => _rubricaEvaluacionUiList;
   List<UnidadUi> _unidadUiList = [];
   List<UnidadUi> get unidadUiList => _unidadUiList;
+  Map<SesionUi, List<dynamic>> mapSesionRubroList = new Map();
   String? _msgToast = null;
   String? get msgToast => _msgToast;
   bool _progress = false;
@@ -61,19 +63,24 @@ class RubroController extends Controller{
       _calendarioPeriodoList = calendarioPeridoList??[];
       _calendarioPeriodoUI = calendarioPeriodoUI;
       _origenRubroUi = OrigenRubroUi.TODOS;
-      presenter.onGetRubricaList(cursosUi, calendarioPeriodoUI, _origenRubroUi);
-      presenter.onGetUnidadRubroEval(cursosUi, calendarioPeriodoUI);
-      presenter.onGetCompetenciaRubroEval(cursosUi, calendarioPeriodoUI);
+      _progress = true;
+      refreshUI();
+      //presenter.onGetRubricaList(cursosUi, calendarioPeriodoUI, _origenRubroUi);
+      //presenter.onGetUnidadRubroEval(cursosUi, calendarioPeriodoUI);
+      //presenter.onGetCompetenciaRubroEval(cursosUi, calendarioPeriodoUI);
+
+      presenter.onActualizarCurso(calendarioPeriodoUI, cursosUi, false);
     };
 
     presenter.getCalendarioPeridoOnError = (e){
       _calendarioPeriodoList = [];
       _calendarioPeriodoUI = null;
       _origenRubroUi = OrigenRubroUi.TODOS;
+      _progress = false;
       refreshUI();
     };
 
-    presenter.getDatosCrearRubroOnNext = (bool? errorConexion, bool? errorServidor, bool? stream, int? total, int? recibido){
+    presenter.updateDatosCrearRubroOnNext = (bool? errorConexion, bool? errorServidor, bool? stream, int? total, int? recibido){
       _contenedorSyncronizar = (stream??false);
       int progreso = (((recibido??0)/(total??1))*100).toInt();
 
@@ -82,6 +89,7 @@ class RubroController extends Controller{
       if(stream??false){
 
       }else{
+        print("Una solavez");
         presenter.onGetRubricaList(cursosUi, calendarioPeriodoUI, _origenRubroUi);
         presenter.onGetUnidadRubroEval(cursosUi, calendarioPeriodoUI);
         presenter.onGetCompetenciaRubroEval(cursosUi, calendarioPeriodoUI);
@@ -94,12 +102,17 @@ class RubroController extends Controller{
       refreshUI();
     };
 
-    presenter.getDatosCrearRubroOnError = (e){
+    presenter.updateDatosCrearRubroOnError = (e){
       _progresoSyncronizar = 0;
     };
 
     presenter.getRubroEvaluacionOnNext = (List<RubricaEvaluacionUi> rubricaEvalUiList){
-      _rubricaEvaluacionUiList = rubricaEvalUiList;
+      _rubricaEvaluacionUiList = [];
+      if(calendarioPeriodoUI!=null&&(calendarioPeriodoUI?.habilitado??0)==1){
+        _rubricaEvaluacionUiList?.add("add");
+      }
+      _rubricaEvaluacionUiList?.addAll(rubricaEvalUiList);
+
       _progress = false;
       refreshUI();
     };
@@ -112,6 +125,26 @@ class RubroController extends Controller{
 
     presenter.getUnidadRubroEvalOnNext = (List<UnidadUi> unidadUiList){
       _unidadUiList = unidadUiList;
+      mapSesionRubroList.clear();
+      for(UnidadUi unidadUi in unidadUiList){
+        for(SesionUi sesionUi in unidadUi.sesionUiList??[]){
+          mapSesionRubroList[sesionUi] = [];
+          if(calendarioPeriodoUI!=null&&(calendarioPeriodoUI?.habilitado??0)==1){
+            mapSesionRubroList[sesionUi]!.add("add");
+          }
+          mapSesionRubroList[sesionUi]!.addAll(sesionUi.rubricaEvaluacionUiList??[]);
+          int maxCantidad = 4;
+          if(mapSesionRubroList[sesionUi]!.length >= maxCantidad){
+            List<dynamic> list =[];
+            for(int i =0; i < maxCantidad - 1; i++){
+              list.add(mapSesionRubroList[sesionUi]![i]);
+            }
+            list.add("ver_mas");
+            mapSesionRubroList[sesionUi] = list;
+          }
+
+        }
+      }
       refreshUI();
     };
 
@@ -232,7 +265,11 @@ class RubroController extends Controller{
 
   @override
   void onInitState() {
-    presenter.getCalendarioPerido(cursosUi);
+    Future.delayed(const Duration(milliseconds: 1500), () {
+      _progress = true;
+      presenter.getCalendarioPerido(cursosUi);
+    });
+
     super.onInitState();
   }
 
@@ -243,18 +280,23 @@ class RubroController extends Controller{
     }
     calendarioPeriodoUI?.selected = true;
     _origenRubroUi = OrigenRubroUi.TODOS;
-    //showProgress();
+    _progress = true;
     //presenter.getEvaluacion(calendarioPeriodoUi);
     refreshUI();
-    presenter.onGetRubricaList(cursosUi, calendarioPeriodoUI, _origenRubroUi);
-    presenter.onGetUnidadRubroEval(cursosUi, calendarioPeriodoUI);
-    presenter.onGetCompetenciaRubroEval(cursosUi, calendarioPeriodoUI);
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      presenter.onActualizarCurso(calendarioPeriodoUI, cursosUi, false);
+    });
+
+
+    //presenter.onGetRubricaList(cursosUi, calendarioPeriodoUI, _origenRubroUi);
+    //presenter.onGetUnidadRubroEval(cursosUi, calendarioPeriodoUI);
+    //presenter.onGetCompetenciaRubroEval(cursosUi, calendarioPeriodoUI);
   }
 
   void onSyncronizarCurso() {
     if(!_contenedorSyncronizar){
       _contenedorSyncronizar = true;
-      presenter.onActualizarCurso(calendarioPeriodoUI, cursosUi);
+      presenter.onActualizarCurso(calendarioPeriodoUI, cursosUi, true);
       refreshUI();
     }
 
@@ -304,12 +346,25 @@ class RubroController extends Controller{
 
   void clicMostrarSolo(OrigenRubroUi origenRubroUi) {
     _origenRubroUi = origenRubroUi;
-    presenter.onGetRubricaList(cursosUi, calendarioPeriodoUI, _origenRubroUi);
+    _progress = true;
     refreshUI();
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      presenter.onGetRubricaList(cursosUi, calendarioPeriodoUI, _origenRubroUi);
+    });
+
   }
 
   void successMsg() {
     _msgToast = null;
+  }
+
+  List<dynamic> getRubrosSesionDialog(SesionUi sesionUi) {
+    List<dynamic> list = [];
+    if(calendarioPeriodoUI!=null&&(calendarioPeriodoUI?.habilitado??0)==1){
+      list.add("add");
+    }
+    list.addAll(sesionUi.rubricaEvaluacionUiList??[]);
+    return list;
   }
 
 }

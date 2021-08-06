@@ -12,6 +12,7 @@ import 'package:ss_crmeducativo_2/src/domain/entities/login_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/personaUi.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/programa_educativo_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_eventoUi.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/unidad_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/usuario_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/repositories/configuracion_repository.dart';
 import 'package:ss_crmeducativo_2/src/domain/tools/app_tools.dart';
@@ -384,18 +385,8 @@ class MoorConfiguracionRepository extends ConfiguracionRepository{
         }
 
         if(datosAnioAcademico.containsKey("calendarioPeriodos")){
-          batch.deleteWhere(SQL.calendarioPeriodo, (row) => const Constant(true));
-          batch.insertAll(SQL.calendarioPeriodo, SerializableConvert.converListSerializeCalendarioPeriodo(datosAnioAcademico["calendarioPeriodos"]), mode: InsertMode.insertOrReplace);
-        }
-
-        if(datosAnioAcademico.containsKey("calendarioPeriodoDetalles")){
-          batch.deleteWhere(SQL.calendarioPeriodoDetalle, (row) => const Constant(true));
-          batch.insertAll(SQL.calendarioPeriodoDetalle, SerializableConvert.converListSerializeCalendarioPeriodoDetalle(datosAnioAcademico["calendarioPeriodoDetalles"]), mode: InsertMode.insertOrReplace);
-        }
-
-        if(datosAnioAcademico.containsKey("cargaCursoCalendarioPeriodo")){
-          batch.deleteWhere(SQL.cargaCursoCalendarioPeriodo, (row) => const Constant(true));
-          batch.insertAll(SQL.cargaCursoCalendarioPeriodo, SerializableConvert.converListSerializeCargaCursoCalendarioPeriodo(datosAnioAcademico["cargaCursoCalendarioPeriodo"]), mode: InsertMode.insertOrReplace);
+          //batch.deleteWhere(SQL.calendarioPeriodo, (row) => const Constant(true));
+          //batch.insertAll(SQL.calendarioPeriodo, SerializableConvert.converListSerializeCalendarioPeriodo(datosAnioAcademico["calendarioPeriodos"]), mode: InsertMode.insertOrReplace);
         }
 
         if(datosAnioAcademico.containsKey("tipos")){
@@ -862,15 +853,5 @@ class MoorConfiguracionRepository extends ConfiguracionRepository{
     }
     return contactoUiList;
   }
-
-
-
-
-
-
-
-
-
-
 
 }
