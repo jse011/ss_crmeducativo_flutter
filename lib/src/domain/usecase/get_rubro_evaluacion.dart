@@ -1,46 +1,70 @@
 import 'dart:async';
 
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
-import 'package:ss_crmeducativo_2/src/domain/entities/competencia_ui.dart';
-import 'package:ss_crmeducativo_2/src/domain/entities/origen_rubro_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/personaUi.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/rubrica_evaluacion_ui.dart';
-import 'package:ss_crmeducativo_2/src/domain/entities/tema_criterio_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/repositories/configuracion_repository.dart';
 import 'package:ss_crmeducativo_2/src/domain/repositories/rubro_repository.dart';
+import 'package:collection/collection.dart';
 
 class GetRubroEvaluacion extends UseCase<GetRubroEvaluacionResponse, GetRubroEvaluacionParms>{
 
   RubroRepository repository;
+  ConfiguracionRepository configuracionRepository;
 
-  GetRubroEvaluacion(this.repository);
+  GetRubroEvaluacion(this.repository, this.configuracionRepository);
 
   @override
   Future<Stream<GetRubroEvaluacionResponse?>> buildUseCaseStream(GetRubroEvaluacionParms? params) async{
     final controller = StreamController<GetRubroEvaluacionResponse>();
     try{
 
-      controller.add(GetRubroEvaluacionResponse(await repository.getRubroEvaluacion(params?.calendarioPeriodoId??0, params?.silaboEventoId??0, params?.origenRubroUi??OrigenRubroUi.TODOS)));
+      RubricaEvaluacionUi rubricaEvaluacionUi =  await repository.getRubroEvaluacion(params?.rubroEvaluacionId);
+      /*Obtner alumnos*/
+      List<PersonaUi> alumnoCursoList = await configuracionRepository.getListAlumnoCurso(params?.cargaCursoId??0);
+
+      List<PersonaUi> personaUiList = [];
+      for(EvaluacionUi evaluacionUi in rubricaEvaluacionUi.evaluacionUiList??[]){
+        PersonaUi? personaUi = personaUiList.firstWhereOrNull((element) => element.personaId == evaluacionUi.alumnoId);
+        if(personaUi==null)personaUiList.add(evaluacionUi.personaUi!);
+      }
+
+      for(RubricaEvaluacionUi rubricaEvaluacionUi in rubricaEvaluacionUi.rubrosDetalleList??[]){
+        for(EvaluacionUi evaluacionUi in rubricaEvaluacionUi.evaluacionUiList??[]){
+          PersonaUi? personaUi = personaUiList.firstWhereOrNull((element) => element.personaId == evaluacionUi.alumnoId);
+          if(personaUi==null)personaUiList.add(evaluacionUi.personaUi!);
+        }
+      }
+
+      for(PersonaUi personaUi in personaUiList){
+        PersonaUi? alumnoCurso = alumnoCursoList.firstWhereOrNull((element) => element.personaId == personaUi.personaId);
+        if(alumnoCurso==null){
+          personaUi.soloApareceEvaluacion = true;
+          alumnoCursoList.add(personaUi);
+        }
+      }
+
+      controller.add(GetRubroEvaluacionResponse(rubricaEvaluacionUi, alumnoCursoList));
       controller.close();
     } catch (e) {
-      logger.severe('GetTemaCriterios unsuccessful: '+e.toString());
+      logger.severe('GetRubroEvaluacion unsuccessful: '+e.toString());
       controller.addError(e);
     }
     return controller.stream;
   }
-
-
 }
 
 class GetRubroEvaluacionParms{
-    int? calendarioPeriodoId;
-    int? silaboEventoId;
-    OrigenRubroUi? origenRubroUi;
+  String? rubroEvaluacionId;
+  int? cargaCursoId;
 
-    GetRubroEvaluacionParms(this.calendarioPeriodoId, this.silaboEventoId, this.origenRubroUi);
+  GetRubroEvaluacionParms(this.rubroEvaluacionId, this.cargaCursoId);
 }
 
 class GetRubroEvaluacionResponse{
-  List<RubricaEvaluacionUi> rubricaEvaluacionList;
+ RubricaEvaluacionUi rubricaEvaluacionUi;
+ List<PersonaUi> alumnoCursoList;
 
-  GetRubroEvaluacionResponse(this.rubricaEvaluacionList);
+  GetRubroEvaluacionResponse(this.rubricaEvaluacionUi, this.alumnoCursoList);
 }

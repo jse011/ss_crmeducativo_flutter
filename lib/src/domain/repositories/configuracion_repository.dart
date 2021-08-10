@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:ss_crmeducativo_2/src/domain/entities/anio_acemico_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/contacto_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';

@@ -10,7 +10,7 @@ import 'package:ss_crmeducativo_2/src/domain/usecase/get_alumno_curso.dart';
 import 'package:ss_crmeducativo_2/src/domain/usecase/update_calendario_periodo.dart';
 import 'package:ss_crmeducativo_2/src/domain/usecase/get_competencia_rubro_eval.dart';
 import 'package:ss_crmeducativo_2/src/domain/usecase/update_datos_crear_rubros.dart';
-import 'package:ss_crmeducativo_2/src/domain/usecase/get_rubro_evaluacion.dart';
+import 'package:ss_crmeducativo_2/src/domain/usecase/get_rubro_evaluacion_list.dart';
 import 'package:ss_crmeducativo_2/src/domain/usecase/get_tipo_nota_resultado.dart';
 import 'package:ss_crmeducativo_2/src/domain/usecase/get_unidad_rubro_eval.dart';
 
@@ -19,7 +19,7 @@ class RubroPresenter extends Presenter{
   late Function getCalendarioPeridoOnComplete, getCalendarioPeridoOnError;
   UpdateDatosCrearRubro _getDatosCrearRubro;
   late Function updateDatosCrearRubroOnNext, updateDatosCrearRubroOnError;
-  GetRubroEvaluacion _getRubroEvaluacion;
+  GetRubroEvaluacionList _getRubroEvaluacion;
   late Function getRubroEvaluacionOnNext, getRubroEvaluacionOnError;
 
   GetUnidadRubroEval _getUnidadRubroEval;
@@ -34,7 +34,7 @@ class RubroPresenter extends Presenter{
   RubroPresenter(CalendarioPeriodoRepository calendarioPeriodoRepo, ConfiguracionRepository configuracionRepo, HttpDatosRepository httpDatosRepo, RubroRepository rubroRepo) :
                           _getCalendarioPerido = new UpdateCalendarioPerido(configuracionRepo, calendarioPeriodoRepo, httpDatosRepo),
                           _getDatosCrearRubro = new UpdateDatosCrearRubro(httpDatosRepo, configuracionRepo, rubroRepo),
-                          _getRubroEvaluacion = GetRubroEvaluacion(rubroRepo),
+                          _getRubroEvaluacion = GetRubroEvaluacionList(rubroRepo),
                           _getUnidadRubroEval = GetUnidadRubroEval(rubroRepo),
                           _getCompetenciaRubroEval = GetCompetenciaRubroEval(rubroRepo, configuracionRepo),
                           _getTipoNotaResultado = GetTipoNotaResultado(rubroRepo);
@@ -59,7 +59,7 @@ class RubroPresenter extends Presenter{
   }
 
   void onGetRubricaList(CursosUi? cursosUi, CalendarioPeriodoUI? calendarioPeriodoUI, OrigenRubroUi? origenRubroUi){
-    _getRubroEvaluacion.execute(_GetRubroEvaluacionCase(this), GetRubroEvaluacionParms(calendarioPeriodoUI?.id, cursosUi?.silaboEventoId, origenRubroUi));
+    _getRubroEvaluacion.execute(_GetRubroEvaluacionCase(this), GetRubroEvaluacionListParms(calendarioPeriodoUI?.id, cursosUi?.silaboEventoId, origenRubroUi));
   }
 
   void onGetUnidadRubroEval(CursosUi? cursosUi, CalendarioPeriodoUI? calendarioPeriodoUI){
@@ -125,7 +125,7 @@ class _GetDatosCrearRubroCase extends Observer<UpdateDatosCrearRubroResponse>{
 
 }
 
-class _GetRubroEvaluacionCase extends Observer<GetRubroEvaluacionResponse>{
+class _GetRubroEvaluacionCase extends Observer<GetRubroEvaluacionListResponse>{
   RubroPresenter presenter;
 
   _GetRubroEvaluacionCase(this.presenter);
@@ -142,7 +142,7 @@ class _GetRubroEvaluacionCase extends Observer<GetRubroEvaluacionResponse>{
   }
 
   @override
-  void onNext(GetRubroEvaluacionResponse? response) {
+  void onNext(GetRubroEvaluacionListResponse? response) {
     assert(presenter.getRubroEvaluacionOnNext!=null);
     presenter.getRubroEvaluacionOnNext(response?.rubricaEvaluacionList);
   }

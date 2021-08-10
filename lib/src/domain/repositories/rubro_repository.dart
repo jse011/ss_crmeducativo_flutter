@@ -22,7 +22,7 @@ abstract class RubroRepository{
 
   Future<void> saveRubroEvaluacion(String? rubroEvaluacionId, String? titulo, int? formaEvaluacionId, int? tipoEvaluacionId, String? promedioLogroId, int? calendarioPeriodoId, int? silaboEventoId, int? cargaCursoId, int? sesionAprendizajeId, String? tareaId, int? usuarioId, List<CriterioPesoUi>? criterioPesoUiList, List<CriterioValorTipoNotaUi>? criterioValorTipoNotaUiList, TipoNotaUi? tipoNotaUi);
 
-  Future<List<RubricaEvaluacionUi>> getRubroEvaluacion(int calendarioPeriodoId, int silaboEventoId, OrigenRubroUi origenRubroUi);
+  Future<List<RubricaEvaluacionUi>> getRubroEvaluacionList(int calendarioPeriodoId, int silaboEventoId, OrigenRubroUi origenRubroUi);
 
   Future<List<UnidadUi>> getUnidadAprendizaje(int? silaboEventoId, int? calendarioPeriodoId);
 
@@ -30,10 +30,10 @@ abstract class RubroRepository{
 
   Future<TipoNotaUi> getGetTipoNotaResultado(int? silaboEventoId);
 
-  Future<RubricaEvaluacionUi> getEvaluacionRubrica(String? rubroEvaluacionId);
-
   Future<bool> isUltimedUpdateServerCurso(int? calendarioPeriodoId, int? silaboEventoId);
 
   Future<void> saveUpdateServerCurso(int? calendarioPeriodoId, int? silaboEventoId);
+
+  Future<RubricaEvaluacionUi> getRubroEvaluacion(String? rubroEvaluacionId);
 
 }

@@ -16,7 +16,6 @@ import 'package:lottie/lottie.dart';
 import 'package:ss_crmeducativo_2/libs/fdottedline/fdottedline.dart';
 import 'package:ss_crmeducativo_2/libs/sticky-headers-table/example/main.dart';
 import 'package:ss_crmeducativo_2/libs/sticky-headers-table/table_sticky_headers_v2.dart';
-import 'package:ss_crmeducativo_2/src/app/page/rubro/evaluacion/rubrica/portal/evaluacion_controller.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubro/portal/rubro_controller.dart';
 import 'package:ss_crmeducativo_2/src/app/routers.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_icon.dart';
@@ -45,6 +44,7 @@ import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_tipos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/unidad_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/valor_tipo_nota_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/response/respuesta_crear_rubro.dart';
 import 'package:ss_crmeducativo_2/src/domain/response/respuesta_crear_rubro.dart';
 import 'package:ss_crmeducativo_2/src/domain/response/respuesta_evaluacion.dart';
 import 'dart:math' as math;
@@ -560,10 +560,15 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
     controller.respuestaEvaluacionCapacidad(response);
   }
 
-  void _evaluacionRetornar(BuildContext context, RubroController controller, RubricaEvaluacionUi rubricaEvaluacionUi) async {
+  void _evaluacionMultipleRetornar(BuildContext context, RubroController controller, RubricaEvaluacionUi rubricaEvaluacionUi) async {
     // Navigator.push returns a Future that completes after calling
     // Navigator.pop on the Selection Screen.
-    RespuestaEvaluacion? response = await AppRouter.createRouteEvaluacion(context, controller.cursosUi, rubricaEvaluacionUi);
+    RespuestaEvaluacion? response = await AppRouter.createRouteEvaluacionMultiple(context, controller.cursosUi, rubricaEvaluacionUi.rubricaId);
+    controller.respuestaEvaluacion(response);
+  }
+
+  void _evaluacionSimpleRetornar(BuildContext context, RubroController controller, RubricaEvaluacionUi rubricaEvaluacionUi) async{
+    RespuestaEvaluacion? response = await AppRouter.createRouteEvaluacionSimple(context, controller.cursosUi, rubricaEvaluacionUi.rubricaId);
     controller.respuestaEvaluacion(response);
   }
 
@@ -1922,7 +1927,11 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
 
     return InkWell(
       onTap: (){
-        _evaluacionRetornar(context, controller, rubricaEvalProcesoUi);
+        if((rubricaEvalProcesoUi.cantidadRubroDetalle??0) > 1){
+          _evaluacionMultipleRetornar(context, controller, rubricaEvalProcesoUi);
+        }else{
+          _evaluacionSimpleRetornar(context, controller, rubricaEvalProcesoUi);
+        }
       },
       child:  Container(
         decoration: BoxDecoration(
@@ -2073,15 +2082,94 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
 
                     ],
                   ),
+                  _getListRubricaDetalle(rubricaEvalProcesoUi, controller)
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
     );
   }
 
+  Widget _getListRubricaDetalle(RubricaEvaluacionUi rubricaEvaluacionUi, RubroController controller){
+    return Positioned(
+        bottom: 10,
+        right: 34,
+        left: 8,
+        child: Row(
+          children: [
+            if((rubricaEvaluacionUi.cantidadRubroDetalle??0) >= 0)
+            Container(
+              height: 16,
+              width: 16,
+              decoration: new BoxDecoration(
+                color: HexColor(controller.cursosUi.color2).withOpacity(0.7),
+                shape: BoxShape.circle,
+              ),
+              margin: EdgeInsets.only(right: 4),
+              child: Center(
+                child: Text("1", textAlign: TextAlign.center,style: TextStyle(fontSize: 10, color: AppTheme.white),),
+              ),
+            ),
+            if((rubricaEvaluacionUi.cantidadRubroDetalle??0) > 1)
+            Container(
+              height: 16,
+              width: 16,
+              decoration: new BoxDecoration(
+                color: HexColor(controller.cursosUi.color2).withOpacity(0.7),
+                shape: BoxShape.circle,
+              ),
+              margin: EdgeInsets.only(right: 4),
+              child: Center(
+                child: Text("2", textAlign: TextAlign.center,style: TextStyle(fontSize: 10, color: AppTheme.white),),
+              ),
+            ),
+            if((rubricaEvaluacionUi.cantidadRubroDetalle??0) > 2)
+            Container(
+              height: 16,
+              width: 16,
+              decoration: new BoxDecoration(
+                color: HexColor(controller.cursosUi.color2).withOpacity(0.7),
+                shape: BoxShape.circle,
+              ),
+              margin: EdgeInsets.only(right: 4),
+              child: Center(
+                child: Text("3", textAlign: TextAlign.center,style: TextStyle(fontSize: 10, color: AppTheme.white),),
+              ),
+            ),
+            if((rubricaEvaluacionUi.cantidadRubroDetalle??0) > 3)
+            Container(
+              height: 16,
+              width: 16,
+              decoration: new BoxDecoration(
+                color: HexColor(controller.cursosUi.color2).withOpacity(0.7),
+                shape: BoxShape.circle,
+              ),
+              margin: EdgeInsets.only(right: 4),
+              child: Center(
+                child: Text("4", textAlign: TextAlign.center,style: TextStyle(fontSize: 10, color: AppTheme.white),),
+              ),
+            ),
+            if((rubricaEvaluacionUi.cantidadRubroDetalle??0) > 4)
+            Container(
+              height: 16,
+              width: 16,
+              decoration: new BoxDecoration(
+                color: HexColor(controller.cursosUi.color2).withOpacity(0.7),
+                shape: BoxShape.circle,
+              ),
+              margin: EdgeInsets.only(right: 4),
+              child: Center(
+                child: Text("+5", textAlign: TextAlign.center,style: TextStyle(fontSize: 10, color: AppTheme.white),),
+              ),
+            ),
+          ],
+        )
+    );
+  }
 }
+
+
 
 

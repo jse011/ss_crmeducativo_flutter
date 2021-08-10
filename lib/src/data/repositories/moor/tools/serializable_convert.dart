@@ -865,9 +865,7 @@ class SerializableConvert{
   static TipoNotaRubroData converSerializeTipoNotaRubro(Map<String,dynamic> model){
     TipoNotaRubroSerial serial = TipoNotaRubroSerial.fromJson(model);
     return TipoNotaRubroData(
-        key: serial.key??'',
-        silaboEventoId: serial.silaboEventoId??0,
-        tipoNotaId: serial.tipoNotaId,
+        tipoNotaId: serial.tipoNotaId??"",
         nombre: serial.nombre,
         tipoId: serial.tipoId,
         tiponombre: serial.tiponombre,
@@ -905,9 +903,7 @@ class SerializableConvert{
   static ValorTipoNotaRubroData converSerializeValorTipoNotaRubro(Map<String,dynamic> model){
     ValorTipoNotaRubroSerial serial = ValorTipoNotaRubroSerial.fromJson(model);
     return ValorTipoNotaRubroData(
-        key: serial.key??'',
-        silaboEventoId: serial.silaboEventoId??0,
-        valorTipoNotaId: serial.valorTipoNotaId,
+        valorTipoNotaId: serial.valorTipoNotaId??"",
         tipoNotaId: serial.tipoNotaId,
         titulo: serial.titulo,
         alias: serial.alias,
@@ -938,6 +934,84 @@ class SerializableConvert{
     Iterable l = model;
     for(var item in l){
       items.add(converSerializeValorTipoNotaRubro(item));
+    }
+    return items;
+  }
+
+  static TipoNotaResultadoData converSerializeTipoNotaResultado(Map<String,dynamic> model){
+    TipoNotaRubroSerial serial = TipoNotaRubroSerial.fromJson(model);
+    return TipoNotaResultadoData(
+        silaboEventoId: serial.silaboEventoId??0,
+        tipoNotaId: serial.tipoNotaId??"",
+        nombre: serial.nombre,
+        tipoId: serial.tipoId,
+        tiponombre: serial.tiponombre,
+        valorDefecto: serial.valorDefecto,
+        longitudPaso: serial.longitudPaso,
+        intervalo: serial.intervalo,
+        estatico: serial.estatico,
+        entidadId: serial.entidadId,
+        georeferenciaId: serial.georeferenciaId,
+        organigramaId: serial.organigramaId,
+        estadoId: serial.estadoId,
+        tipoFuenteId: serial.tipoFuenteId,
+        valorMinimo: serial.valorMinimo,
+        valorMaximo: serial.valorMaximo,
+        escalaEvaluacionId: serial.escalaEvaluacionId,
+        escalanombre: serial.escalanombre,
+        escalavalorMinimo: serial.escalavalorMinimo,
+        escalavalorMaximo: serial.escalavalorMaximo,
+        escalaestado: serial.escalaestado,
+        escaladefecto: serial.escaladefecto,
+        escalaentidadId: serial.escalaentidadId,
+        programaEducativoId: serial.programaEducativoId
+    );
+  }
+
+  static List<TipoNotaResultadoData> converListSerializeTipoNotaResultado(dynamic model){
+    List<TipoNotaResultadoData> items = [];
+    Iterable l = model;
+    for(var item in l){
+      items.add(converSerializeTipoNotaResultado(item));
+    }
+    return items;
+  }
+
+  static ValorTipoNotaResultadoData converSerializeValorTipoNotaResultado(Map<String,dynamic> model){
+    ValorTipoNotaRubroSerial serial = ValorTipoNotaRubroSerial.fromJson(model);
+    return ValorTipoNotaResultadoData(
+        silaboEventoId: serial.silaboEventoId??0,
+        valorTipoNotaId: serial.valorTipoNotaId??"",
+        tipoNotaId: serial.tipoNotaId,
+        titulo: serial.titulo,
+        alias: serial.alias,
+        limiteInferior: serial.limiteInferior,
+        limiteSuperior: serial.limiteSuperior,
+        valorNumerico: serial.valorNumerico,
+        icono: serial.icono,
+        estadoId: serial.estadoId,
+        incluidoLInferior: serial.incluidoLInferior,
+        incluidoLSuperior: serial.incluidoLSuperior,
+        tipoId: serial.tipoId,
+        usuarioCreacionId: serial.usuarioCreacionId,
+        usuarioCreadorId: serial.usuarioCreadorId,
+        fechaCreacion: serial.fechaCreacion,
+        usuarioAccionId: serial.usuarioAccionId,
+        fechaAccion: serial.fechaAccion,
+        fechaEnvio: serial.fechaEnvio,
+        fechaEntrega: serial.fechaEntrega,
+        fechaRecibido: serial.fechaRecibido,
+        fechaVisto: serial.fechaVisto,
+        fechaRespuesta: serial.fechaRespuesta,
+        getSTime: serial.getSTime
+    );
+  }
+
+  static List<ValorTipoNotaResultadoData> converListSerializeValorTipoNotaResultado(dynamic model){
+    List<ValorTipoNotaResultadoData> items = [];
+    Iterable l = model;
+    for(var item in l){
+      items.add(converSerializeValorTipoNotaResultado(item));
     }
     return items;
   }

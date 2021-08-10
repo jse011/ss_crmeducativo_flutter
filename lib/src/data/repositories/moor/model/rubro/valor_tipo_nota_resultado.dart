@@ -1,9 +1,8 @@
 import 'package:moor_flutter/moor_flutter.dart';
 
-class ValorTipoNotaRubro extends Table{
-  TextColumn get key => text()();
+class ValorTipoNotaResultado extends Table{
   IntColumn get silaboEventoId => integer()();
-  TextColumn get valorTipoNotaId => text().nullable()();
+  TextColumn get valorTipoNotaId => text()();
   TextColumn get tipoNotaId => text().nullable()();
   TextColumn get titulo => text().nullable()();
   TextColumn get alias => text().nullable()();
@@ -29,5 +28,5 @@ class ValorTipoNotaRubro extends Table{
   TextColumn get getSTime => text().nullable()();
 
   @override
-  Set<Column> get primaryKey => {key, silaboEventoId};
+  Set<Column> get primaryKey => {valorTipoNotaId, silaboEventoId};
 }

@@ -30,7 +30,7 @@ class MoorConfiguracionRepository extends ConfiguracionRepository{
     AppDataBase SQL = AppDataBase();
     try{
 
-      SessionUserData sessionUserData = await (SQL.select(SQL.sessionUser)).getSingle();//El ORM genera error si hay dos registros
+      SessionUserData sessionUserData = await (SQL.selectSingle(SQL.sessionUser)).getSingle();//El ORM genera error si hay dos registros
 
       //Solo deve haber una registro de session user data
       return sessionUserData!=null?sessionUserData.complete??false:false;

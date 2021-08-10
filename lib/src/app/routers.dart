@@ -5,7 +5,8 @@ import 'package:ss_crmeducativo_2/src/app/page/curso/curso_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/home/home_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/login/login_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubro/evaluacion/capacidad/evaluacion_capacidad_view.dart';
-import 'package:ss_crmeducativo_2/src/app/page/rubro/evaluacion/rubrica/portal/evaluacion_view.dart';
+import 'package:ss_crmeducativo_2/src/app/page/rubro/evaluacion/indicador/individual/evaluacion_indicador_view.dart';
+import 'package:ss_crmeducativo_2/src/app/page/rubro/evaluacion/indicador/multiple/evaluacion_indicador_multiple_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubro/portal/rubro_view_2.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubro/crear/rubro_crear_view.dart';
 import 'package:ss_crmeducativo_2/src/app/page/sesiones/lista/sesion_lista_view.dart';
@@ -32,7 +33,8 @@ class AppRouter {
   static final String TAREA = 'Curso/Tarea';
   static final String RUBROCREAR = 'Curso/Rubro/Crear';
   static final String EVALUACION_CAPACIDAD = 'Curso/Rubro/EvaluacionCapacidad';
-  static final String EVALUACIO = 'Curso/Rubro/Evaluacion';
+  static final String EVALUACION_MULTIPLE = 'Curso/Rubro/EvaluacionMultiple';
+  static final String EVALUACION_SIMPLE = 'Curso/Rubro/EvaluacionSimple';
 
   static Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
     LOGIN: (BuildContext context) => LoginView(),
@@ -106,16 +108,28 @@ class AppRouter {
           return EvaluacionCapacidadView(evaluacionCapacidadUi, cursosUi);
         },
       );
-    }else if(settings.name == EVALUACIO){
+    }else if(settings.name == EVALUACION_MULTIPLE){
       final Map arguments = settings.arguments as Map;
       return MaterialPageRoute(
         builder: (context) {
           CursosUi cursosUi = arguments['cursoUi'];
-          RubricaEvaluacionUi? rubricaEvaluacionUi = null;
-          if(arguments.containsKey('rubricaEvaluacionUi')){
-            rubricaEvaluacionUi  = arguments['rubricaEvaluacionUi'];
+          String? rubroEvaluacionId = null;
+          if(arguments.containsKey('rubroEvaluacionId')){
+            rubroEvaluacionId  = arguments['rubroEvaluacionId'];
           }
-          return EvaluacionView(rubricaEvaluacionUi, cursosUi);
+          return EvaluacionIndicadorMultipleView(rubroEvaluacionId, cursosUi);
+        },
+      );
+    }else if(settings.name == EVALUACION_SIMPLE){
+      final Map arguments = settings.arguments as Map;
+      return MaterialPageRoute(
+        builder: (context) {
+          CursosUi cursosUi = arguments['cursoUi'];
+          String? rubroEvaluacionId = null;
+          if(arguments.containsKey('rubroEvaluacionId')){
+            rubroEvaluacionId  = arguments['rubroEvaluacionId'];
+          }
+          return EvaluacionIndicadorView(rubroEvaluacionId, cursosUi);
         },
       );
     }
@@ -208,10 +222,22 @@ class AppRouter {
     return respuestaEvaluacionCapacidad;
   }
 
-  static Future<RespuestaEvaluacion?> createRouteEvaluacion(BuildContext context, CursosUi? cursosUi, RubricaEvaluacionUi? rubricaEvaluacionUi) async{
+  static Future<RespuestaEvaluacion?> createRouteEvaluacionMultiple(BuildContext context, CursosUi? cursosUi, String? rubroEvaluacionId) async{
     dynamic? object = await Navigator.pushNamed(context,
-        EVALUACIO,
-        arguments: {'cursoUi': cursosUi, 'rubricaEvaluacionUi': rubricaEvaluacionUi, }
+        EVALUACION_MULTIPLE,
+        arguments: {'cursoUi': cursosUi, 'rubroEvaluacionId': rubroEvaluacionId, }
+    );
+    RespuestaEvaluacion? respuestaEvaluacion = null;
+    if(object is RespuestaEvaluacion){
+      respuestaEvaluacion = object;
+    }
+    return respuestaEvaluacion;
+  }
+
+  static createRouteEvaluacionSimple(BuildContext context, CursosUi? cursosUi, String? rubroEvaluacionId) async{
+    dynamic? object = await Navigator.pushNamed(context,
+        EVALUACION_SIMPLE,
+        arguments: {'cursoUi': cursosUi, 'rubroEvaluacionId': rubroEvaluacionId, }
     );
     RespuestaEvaluacion? respuestaEvaluacion = null;
     if(object is RespuestaEvaluacion){

@@ -17,4 +17,6 @@ class RubricaEvaluacionUi{
   List<EvaluacionUi>? evaluacionUiList;
   String? tipoNotaId;
   TipoNotaUi? tipoNotaUi;
+  int? cantidadRubroDetalle;
+  List<RubricaEvaluacionUi>? rubrosDetalleList;
 }
