@@ -22,7 +22,8 @@ class EvaluacionIndicadorController extends Controller{
   List<dynamic> get rowList2 => _rowList2;
   List<List<dynamic>> _cellListList = [];
   List<List<dynamic>> get cellListList => _cellListList;
-
+  bool _precision = false;
+  bool get precision => _precision;
 
   EvaluacionIndicadorController(this.rubroEvaluacionId, this.cursosUi, rubroRepo, configuracionRepo): presenter = EvaluacionIndicadorPresenter(rubroRepo, configuracionRepo);
 
@@ -68,7 +69,7 @@ class EvaluacionIndicadorController extends Controller{
       _columnList2.add(EvaluacionUi());//Notas de tipo Numerico
     }
 
-   _columnList2.add("publicar");
+   _columnList2.add(false);
    _columnList2.add("comentario");
    _columnList2.add("");// espacio
 
@@ -101,7 +102,7 @@ class EvaluacionIndicadorController extends Controller{
         }else {
           cellList.add(evaluacionUi);//Notas de tipo Numerico
         }
-        cellList.add("publicar");
+        cellList.add(false);//
         cellList.add("comentario");
 
       }else{
@@ -134,7 +135,48 @@ class EvaluacionIndicadorController extends Controller{
     }
 
     evaluacionRubricaValorTipoNotaUi.toggle = !(evaluacionRubricaValorTipoNotaUi.toggle??false);
+    evaluacionRubricaValorTipoNotaUi.evaluacionUi?.nota = evaluacionRubricaValorTipoNotaUi.valorTipoNotaUi?.valorNumerico;
     refreshUI();
+  }
+
+  onClicPrecision() {
+      this._precision = !_precision;
+      refreshUI();
+  }
+
+  onClicEvaluacionAll(ValorTipoNotaUi valorTipoNotaUi) {
+    for(List cellList in cellListList){
+      for(var cell in cellList){
+        if(cell is EvaluacionRubricaValorTipoNotaUi){
+          if(cell.valorTipoNotaUi?.valorTipoNotaId == valorTipoNotaUi.valorTipoNotaId){
+             if(!(cell.toggle??false))cell.evaluacionUi?.nota = cell.valorTipoNotaUi?.valorNumerico;//actualizar la nota solo cuando no esta selecionado
+              cell.toggle = true;
+          }else{
+            cell.toggle = false;
+          }
+        }
+      }
+    }
+    refreshUI();
+  }
+
+  String getRangoNota(ValorTipoNotaUi? valorTipoNotaUi){
+    String rango =  "";
+
+    if(valorTipoNotaUi?.incluidoLSuperior??false){
+      rango += "[ ";
+    }else {
+      rango += "< ";
+    }
+    rango += "${(valorTipoNotaUi?.limiteSuperior??0).toStringAsFixed(1)}";
+    rango += " - ";
+    rango += "${(valorTipoNotaUi?.limiteInferior??0).toStringAsFixed(1)}";
+    if(valorTipoNotaUi?.incluidoLInferior??false){
+      rango += " ]";
+    }else {
+      rango += " >";
+    }
+    return rango;
   }
 
 }

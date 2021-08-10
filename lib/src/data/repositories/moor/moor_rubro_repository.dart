@@ -865,9 +865,11 @@ class MoorRubroRepository extends RubroRepository{
       valorTipoNotaUi.valorNumerico = valorTipoNotaRubroData.valorNumerico;
       valorTipoNotaUi.limiteInferior = valorTipoNotaRubroData.limiteInferior;
       valorTipoNotaUi.limiteSuperior = valorTipoNotaRubroData.limiteSuperior;
+
+
       valorTipoNotaUiList.add(valorTipoNotaUi);
     }
-    print("valorTipoNotaList: " + (valorTipoNotaUiList.length).toString());
+
     tipoNotaUi.valorTipoNotaList = valorTipoNotaUiList;
     return tipoNotaUi;
   }
