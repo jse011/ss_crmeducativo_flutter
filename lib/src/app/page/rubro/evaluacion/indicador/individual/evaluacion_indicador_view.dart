@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:ss_crmeducativo_2/libs/fdottedline/fdottedline.dart';
 import 'package:ss_crmeducativo_2/libs/sticky-headers-table/table_sticky_headers_not_expanded_custom.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubro/evaluacion/indicador/individual/evaluacion_indicador_controller.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_icon.dart';
@@ -220,67 +221,96 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
                   sliver: SliverList(
                       delegate: SliverChildListDelegate(
                         [
-                          Padding(padding: EdgeInsets.only( top: 16)),
-                          Center(
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.all(8),
-                                  constraints: BoxConstraints(minWidth: 100, maxWidth: 150),
-                                  decoration: BoxDecoration(
+                          Padding(
+                              padding: EdgeInsets.only( top: 48, left: 16, right: 16),
+                            child: Center(
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                      child: Container(
+                                        padding: EdgeInsets.all(8),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                                          color: AppTheme.colorAccent
+                                        ),
+                                        alignment: Alignment.center,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Icon(Ionicons.apps, color: AppTheme.white, size: 20, ),
+                                            Padding(padding: EdgeInsets.all(2),),
+                                            FittedBox(
+                                              fit: BoxFit.scaleDown,
+                                              child: Text("Precisión",
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.bold,
+                                                      letterSpacing: 0.5,
+                                                      color: AppTheme.white,
+                                                      fontSize: 12
+                                                  )),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                  ),
+                                  Expanded(
+                                      child: Container(
+                                        padding: EdgeInsets.all(8),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Icon(Ionicons.trash, color: AppTheme.colorAccent, size: 20,),
+                                            Padding(padding: EdgeInsets.all(2),),
+                                            FittedBox(
+                                              fit: BoxFit.scaleDown,
+                                              child: Text("Eliminar",
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.bold,
+                                                    letterSpacing: 0.5,
+                                                    color: AppTheme.colorPrimary,
+                                                      fontSize: 12
+                                                  )),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                  ),
+                                  Expanded(
+                                      child:  Container(
+                                        padding: EdgeInsets.all(8),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Icon(Ionicons.help_circle, color: AppTheme.colorAccent, size: 20,),
+                                            Padding(padding: EdgeInsets.all(2),),
+                                            FittedBox(
+                                              fit: BoxFit.scaleDown,
+                                              child: Text("Ayuda",
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    letterSpacing: 0.5,
+                                                      fontWeight: FontWeight.bold,
+                                                    color: AppTheme.colorPrimary,
+                                                      fontSize: 12
+                                                  )),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                  ),
 
-                                    borderRadius: BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
-                                    border: Border.all(
-                                      color: AppTheme.colorPrimaryDark,
-                                    ),
-                                    color: AppTheme.colorPrimary,
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Icon(Ionicons.apps, color: AppTheme.white,),
-                                      Text("Precisión", style: TextStyle(color: AppTheme.white),)
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.all(8),
-                                  constraints: BoxConstraints(minWidth: 100, maxWidth: 150),
-                                  decoration: BoxDecoration(
-                                    border: Border(
-                                      bottom: BorderSide(color: AppTheme.colorPrimary,),
-                                      top: BorderSide(color: AppTheme.colorPrimary,),
-                                    ),
-                                    color: AppTheme.greyLighten3,
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Icon(Ionicons.trash, color: AppTheme.colorPrimary),
-                                      Text("Borrar")
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.all(8),
-                                  constraints: BoxConstraints(minWidth: 100, maxWidth: 180),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10)),
-                                    border: Border.all(
-                                      color: AppTheme.colorPrimary,
-                                    ),
-                                    color: AppTheme.greyLighten3,
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Icon(Ionicons.help_circle, color: AppTheme.colorPrimary),
-                                      Text("Ayuda")
-                                    ],
-                                  ),
-                                ),
 
-                              ],
+                                ],
+                              ),
                             ),
                           ),
+
+
                         ],
                       )
                   ),
@@ -300,7 +330,11 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
       if(s is ContactoUi){
         tablecolumnWidths.add(95.0);
       } else if(s is EvaluacionUi){
-        tablecolumnWidths.add(50);
+        tablecolumnWidths.add(65);
+      } else if(s == "comentario"){
+        tablecolumnWidths.add(55);
+      } else if(s == "publicar"){
+        tablecolumnWidths.add(60);
       }else{
         tablecolumnWidths.add(70.0);
       }
@@ -313,7 +347,7 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
           return const SizedBox();
         } else {
           return  Padding(
-            padding: const EdgeInsets.only( top: 10, left: 8, ),
+            padding: const EdgeInsets.only( top: 24, left: 16, ),
             child: SingleChildScrollView(
               child: StickyHeadersTableNotExpandedCustom(
                 cellDimensions: CellDimensions.variableColumnWidth(
@@ -369,6 +403,10 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
                         ],
                       ),
                     );
+                  }else if(o == "publicar"){
+                    return Container(
+                      child: Icon(Ionicons.globe_outline, size: 38, color: AppTheme.colorAccent,),
+                    );
                   }else
                     return Container();
                 },
@@ -413,10 +451,15 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
                           ],
                         ),
                         decoration: BoxDecoration(
-                            border: Border(
+                            border: (controller.cellListList.length-4) <= i ? Border(
                               top: BorderSide(color: AppTheme.greyLighten2),
-                              right: BorderSide(color: AppTheme.greyLighten2),
-                              left: BorderSide(color: AppTheme.greyLighten2),
+                              right: BorderSide(color:  AppTheme.greyLighten2),
+                              left: BorderSide(color:  AppTheme.greyLighten2),
+                              bottom:  BorderSide(color:  AppTheme.greyLighten2),
+                            ):Border(
+                              top: BorderSide(color: AppTheme.greyLighten2),
+                              right: BorderSide(color:  AppTheme.greyLighten2),
+                              left: BorderSide(color:  AppTheme.greyLighten2),
                             ),
                             color: AppTheme.white
                         )
@@ -439,7 +482,11 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
                           ],
                         ),
                         decoration: BoxDecoration(
-                            border: Border(
+                            border: (controller.cellListList.length-4) <= j ? Border(
+                              top: BorderSide(color: AppTheme.greyLighten2),
+                              right: BorderSide(color:  AppTheme.greyLighten2),
+                              bottom:  BorderSide(color:  AppTheme.greyLighten2),
+                            ):Border(
                               top: BorderSide(color: AppTheme.greyLighten2),
                               right: BorderSide(color:  AppTheme.greyLighten2),
                             ),
@@ -451,7 +498,7 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
                       onTap: () => controller.onClicEvaluar(o),
                       child: Stack(
                         children: [
-                          _getTipoNota(o, i),
+                          _getTipoNota(o, controller,i, j),
                           Positioned(
                               bottom: 4,
                               right: 4,
@@ -484,7 +531,15 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
                         ],
                       ),
                     );
-                  }else{
+                  }else if(o == "comentario"){
+                    return Container(
+                      child: Icon(Ionicons.chatbox_ellipses_outline, size: 30, color: AppTheme.tealDarken4,),
+                    );
+                  }else if(o == "publicar"){
+                    return Container(
+                      child: Icon(Ionicons.globe_outline, size: 30, color: AppTheme.colorAccent,),
+                    );
+                  }else {
                     return Container();
                   }
 
@@ -608,13 +663,13 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
     );
   }
 
-  Widget _getTipoNota(EvaluacionRubricaValorTipoNotaUi evaluacionRubricaValorTipoNotaUi, int position) {
+  Widget _getTipoNota(EvaluacionRubricaValorTipoNotaUi evaluacionRubricaValorTipoNotaUi, EvaluacionIndicadorController controller, int positionX, int positionY) {
     Widget? widget = null;
     Color color_fondo;
     Color? color_texto;
     Color color_borde;
 
-    if(position == 1){
+    if(positionX == 1){
       if(evaluacionRubricaValorTipoNotaUi.toggle??false){
         color_fondo = HexColor("#1976d2");
         color_texto = AppTheme.white;
@@ -624,7 +679,7 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
         color_texto = HexColor("#1976d2");
         color_borde = AppTheme.greyLighten2;
       }
-    }else if(position == 2){
+    }else if(positionX == 2){
       if(evaluacionRubricaValorTipoNotaUi.toggle??false){
         color_fondo = HexColor("#388e3c");
         color_texto = AppTheme.white;
@@ -634,7 +689,7 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
         color_texto =  HexColor("#388e3c");
         color_borde = AppTheme.greyLighten2;
       }
-    }else if(position == 3){
+    }else if(positionX == 3){
       if(evaluacionRubricaValorTipoNotaUi.toggle??false){
         color_fondo = HexColor("#FF6D00");
         color_texto = AppTheme.white;
@@ -644,7 +699,7 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
         color_texto =  HexColor("#FF6D00");
         color_borde = AppTheme.greyLighten2;
       }
-    }else if(position == 4){
+    }else if(positionX == 4){
       if(evaluacionRubricaValorTipoNotaUi.toggle??false){
         color_fondo = HexColor("#D32F2F");
         color_texto = AppTheme.white;
@@ -703,7 +758,11 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
     return Container(
       constraints: BoxConstraints.expand(),
       decoration: BoxDecoration(
-          border: Border(
+          border: (controller.cellListList.length-4) <= positionY ? Border(
+            top: BorderSide(color: AppTheme.greyLighten2),
+            right: BorderSide(color:  color_borde),
+            bottom:  BorderSide(color:  AppTheme.greyLighten2),
+          ):Border(
             top: BorderSide(color: AppTheme.greyLighten2),
             right: BorderSide(color:  color_borde),
           ),

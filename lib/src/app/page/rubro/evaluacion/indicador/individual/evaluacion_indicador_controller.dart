@@ -68,7 +68,9 @@ class EvaluacionIndicadorController extends Controller{
       _columnList2.add(EvaluacionUi());//Notas de tipo Numerico
     }
 
-    _columnList2.add("");// espacio
+   _columnList2.add("publicar");
+   _columnList2.add("comentario");
+   _columnList2.add("");// espacio
 
     for(dynamic row in _rowList2){
       List<dynamic>  cellList = [];
@@ -99,6 +101,8 @@ class EvaluacionIndicadorController extends Controller{
         }else {
           cellList.add(evaluacionUi);//Notas de tipo Numerico
         }
+        cellList.add("publicar");
+        cellList.add("comentario");
 
       }else{
         if(rubroEvaluacionUi?.tipoNotaUi?.tipoNotaTiposUi == TipoNotaTiposUi.SELECTOR_ICONOS||rubroEvaluacionUi?.tipoNotaUi?.tipoNotaTiposUi == TipoNotaTiposUi.SELECTOR_VALORES){
@@ -108,9 +112,9 @@ class EvaluacionIndicadorController extends Controller{
         }else {
           cellList.add("");//Espacio
         }
-
+        cellList.add("");//Espacio
+        cellList.add("");//Espacio
       }
-
       cellList.add("");// espacio
       _cellListList.add(cellList);
     }
