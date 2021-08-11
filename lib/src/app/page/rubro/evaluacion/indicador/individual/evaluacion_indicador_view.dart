@@ -15,6 +15,7 @@ import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_configuracion_
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_rubro_repository.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/contacto_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_publicado_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_rubrica_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/personaUi.dart';
@@ -337,7 +338,7 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
         tablecolumnWidths.add(65);
       } else if(s == "comentario"){
         tablecolumnWidths.add(55);
-      } else if(s is bool){
+      } else if(s is EvaluacionPublicadoUi){
         tablecolumnWidths.add(60);
       }else{
         tablecolumnWidths.add(70.0);
@@ -407,9 +408,14 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
                         ],
                       ),
                     );
-                  }else if(o is bool){
-                    return Container(
-                      child: Icon(Ionicons.globe_outline, size: 38, color: o? AppTheme.colorAccent:AppTheme.grey,),
+                  }else if(o is EvaluacionPublicadoUi){
+                    return InkWell(
+                      onTap: (){
+                        controller.onClicPublicarAll(o);
+                      },
+                      child: Container(
+                        child: Icon(Ionicons.globe_outline, size: 38, color: o.publicado? AppTheme.colorAccent:AppTheme.grey,),
+                      ),
                     );
                   }else
                     return Container();
@@ -543,13 +549,19 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
                     );
                   }else if(o == "comentario"){
                     return InkWell(
+                      onTap: (){},
                       child: Container(
                         child: Icon(Ionicons.chatbox_ellipses_outline, size: 30, color: AppTheme.tealDarken4,),
                       ),
                     );
-                  }else if(o is bool){//publicado
-                    return Container(
-                      child: Icon(Ionicons.globe_outline, size: 30, color:o? AppTheme.colorAccent:AppTheme.grey ),
+                  }else if(o is EvaluacionPublicadoUi){//publicado
+                    return InkWell(
+                      onTap: (){
+                        controller.onClicPublicado(o);
+                      },
+                      child: Container(
+                        child: Icon(Ionicons.globe_outline, size: 30, color:o.publicado? AppTheme.colorAccent:AppTheme.grey ),
+                      ),
                     );
                   }else {
                     return Container();
@@ -1080,5 +1092,6 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
       if(statetDialogPresion!=null)controller.removeListener(statetDialogPresion!), statetDialogPresion = null
     });
   }
+
 
 }

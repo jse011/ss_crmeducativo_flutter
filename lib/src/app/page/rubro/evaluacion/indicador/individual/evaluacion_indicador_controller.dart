@@ -2,6 +2,7 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubro/evaluacion/indicador/individual/evaluacion_indicador_presenter.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/contacto_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_publicado_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_rubrica_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/personaUi.dart';
@@ -69,7 +70,7 @@ class EvaluacionIndicadorController extends Controller{
       _columnList2.add(EvaluacionUi());//Notas de tipo Numerico
     }
 
-   _columnList2.add(false);
+   _columnList2.add(EvaluacionPublicadoUi(EvaluacionUi()));
    _columnList2.add("comentario");
    _columnList2.add("");// espacio
 
@@ -102,7 +103,7 @@ class EvaluacionIndicadorController extends Controller{
         }else {
           cellList.add(evaluacionUi);//Notas de tipo Numerico
         }
-        cellList.add(false);//
+        cellList.add(EvaluacionPublicadoUi(evaluacionUi));//
         cellList.add("comentario");
 
       }else{
@@ -178,5 +179,40 @@ class EvaluacionIndicadorController extends Controller{
     }
     return rango;
   }
+
+  void onClicPublicado(EvaluacionPublicadoUi evaluacionPublicadoUi) {
+      evaluacionPublicadoUi.publicado = !evaluacionPublicadoUi.publicado;
+      bool todosPublicados = true;
+      for(List cellList in cellListList){
+        for(var cell in cellList){
+          if(cell is EvaluacionPublicadoUi){
+            if(cell.evaluacionUi?.alumnoId == evaluacionPublicadoUi.evaluacionUi?.alumnoId){
+              if(!cell.publicado)todosPublicados = false;
+            }
+          }
+        }
+      }
+
+      for(var column in columnList2){
+        if(column is EvaluacionPublicadoUi){
+          column.publicado = todosPublicados;
+        }
+      }
+      refreshUI();
+  }
+
+  void onClicPublicarAll(EvaluacionPublicadoUi evaluacionPublicadoUi) {
+    evaluacionPublicadoUi.publicado = !evaluacionPublicadoUi.publicado;
+    for(List cellList in cellListList){
+      for(var cell in cellList){
+        if(cell is EvaluacionPublicadoUi){
+            cell.publicado = evaluacionPublicadoUi.publicado;
+        }
+      }
+    }
+    refreshUI();
+  }
+
+
 
 }
