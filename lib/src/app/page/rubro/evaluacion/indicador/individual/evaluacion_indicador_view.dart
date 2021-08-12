@@ -1,16 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:lottie/lottie.dart';
 import 'package:ss_crmeducativo_2/libs/fdottedline/fdottedline.dart';
 import 'package:ss_crmeducativo_2/libs/sticky-headers-table/table_sticky_headers_not_expanded_custom.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubro/evaluacion/indicador/individual/evaluacion_indicador_controller.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_icon.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_theme.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/hex_color.dart';
+import 'package:ss_crmeducativo_2/src/app/widgets/ars_progress.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_configuracion_repository.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_rubro_repository.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/contacto_ui.dart';
@@ -103,6 +106,104 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
         children: <Widget>[
           getMainTab(),
           getAppBarUI(),
+          ControlledWidgetBuilder<EvaluacionIndicadorController>(
+              builder: (context, controller) {
+                if(controller.showDialogEliminar){
+                  return  ArsProgressWidget(
+                    blur: 2,
+                    backgroundColor: Color(0x33000000),
+                    animationDuration: Duration(milliseconds: 500),
+                    loadingWidget: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16), // if you need this
+                        side: BorderSide(
+                          color: Colors.grey.withOpacity(0.2),
+                          width: 1,
+                        ),
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.all(16),
+                        constraints: BoxConstraints(minWidth: 100, maxWidth: 400),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: 50,
+                                  height: 50,
+                                  child: Icon(Ionicons.trash, size: 35, color: AppTheme.white,),
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: AppTheme.colorAccent),
+                                ),
+                                Padding(padding: EdgeInsets.all(8)),
+                                Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(padding: EdgeInsets.all(4),),
+                                        Text("Eliminar evaluación", style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w700,
+                                            fontFamily: AppTheme.fontTTNormsMedium
+                                        ),),
+                                        Padding(padding: EdgeInsets.all(4),),
+                                        Text("¿Esta seguro de eliminar la evaluación?. Recuerde que si elimina se borrará permanentemente las calificaciones.",
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              height: 1.5
+                                          ),),
+                                        Padding(padding: EdgeInsets.all(4),),
+                                      ],
+                                    )
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                    child: OutlinedButton(
+                                      onPressed: () {
+                                        controller.onClickCancelarEliminar();
+                                      },
+                                      child: Text('Cancelar'),
+                                      style: OutlinedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                      ),
+                                    )
+                                ),
+                                Padding(padding: EdgeInsets.all(8)),
+                                Expanded(child: ElevatedButton(
+                                  onPressed: () {
+                                    controller.onClickCancelarEliminar();
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.red,
+                                    onPrimary: Colors.white,
+                                    elevation: 0,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                  ),
+                                  child: Text('Eliminar evaluación'),
+                                )),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      )
+                  );
+                }else{
+                  return Container();
+                }
+              }
+          )
         ],
       ),
     ),
@@ -261,26 +362,31 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
                                       ),
                                   ),
                                   Expanded(
-                                      child: Container(
-                                        padding: EdgeInsets.all(8),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          children: [
-                                            Icon(Ionicons.trash, color: AppTheme.colorAccent, size: 20,),
-                                            Padding(padding: EdgeInsets.all(2),),
-                                            FittedBox(
-                                              fit: BoxFit.scaleDown,
-                                              child: Text("Eliminar",
-                                                  overflow: TextOverflow.ellipsis,
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
-                                                    letterSpacing: 0.5,
-                                                    color: AppTheme.colorPrimary,
-                                                      fontSize: 12
-                                                  )),
-                                            ),
-                                          ],
+                                      child: InkWell(
+                                        onTap: (){
+                                          controller.onClickEliminar();
+                                        },
+                                        child: Container(
+                                          padding: EdgeInsets.all(8),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              Icon(Ionicons.trash, color: AppTheme.colorAccent, size: 20,),
+                                              Padding(padding: EdgeInsets.all(2),),
+                                              FittedBox(
+                                                fit: BoxFit.scaleDown,
+                                                child: Text("Eliminar",
+                                                    overflow: TextOverflow.ellipsis,
+                                                    style: TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                        letterSpacing: 0.5,
+                                                        color: AppTheme.colorPrimary,
+                                                        fontSize: 12
+                                                    )),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       )
                                   ),

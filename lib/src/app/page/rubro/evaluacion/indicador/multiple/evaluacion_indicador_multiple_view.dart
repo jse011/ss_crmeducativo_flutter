@@ -16,8 +16,11 @@ import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_rubro_reposito
 import 'package:ss_crmeducativo_2/src/domain/entities/contacto_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_capacidad_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_publicado_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_rubrica_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/personaUi.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/rubrica_evaluacion_peso_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/rubrica_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_tipos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/valor_tipo_nota_ui.dart';
@@ -35,12 +38,11 @@ class EvaluacionIndicadorMultipleView extends View{
 
 class _EvaluacionIndicadorMultiplePortalState extends ViewState<EvaluacionIndicadorMultipleView, EvaluacionIndicadorMultipleController> with TickerProviderStateMixin{
   ScrollControllers crollController = ScrollControllers();
-  late final ScrollControllers crollControllers = ScrollControllers();
+  late final ScrollControllers scrollControllers = ScrollControllers();
 
   _EvaluacionIndicadorMultiplePortalState(rubroEvaluacionId, cursosUi) : super(EvaluacionIndicadorMultipleController(rubroEvaluacionId, cursosUi, MoorRubroRepository(), MoorConfiguracionRepository()));
   late Animation<double> topBarAnimation;
   late final ScrollController scrollController = ScrollController();
-
 
   late double topBarOpacity = 0.0;
   late AnimationController animationController;
@@ -151,12 +153,16 @@ class _EvaluacionIndicadorMultiplePortalState extends ViewState<EvaluacionIndica
                                     child:  IconButton(
                                       icon: Icon(Ionicons.arrow_back, color: AppTheme.nearlyBlack, size: 22 + 6 - 6 * topBarOpacity,),
                                       onPressed: () {
-                                        animationController.reverse().then<dynamic>((data) {
-                                          if (!mounted) {
-                                            return;
-                                          }
-                                          Navigator.of(context).pop();
-                                        });
+                                        if(!controller.tipoMatriz){
+                                          controller.onClicVolverMatriz();
+                                        }else{
+                                          animationController.reverse().then<dynamic>((data) {
+                                            if (!mounted) {
+                                              return;
+                                            }
+                                            Navigator.of(context).pop();
+                                          });
+                                        }
                                       },
                                     )
                                 ),
@@ -208,6 +214,7 @@ class _EvaluacionIndicadorMultiplePortalState extends ViewState<EvaluacionIndica
   Widget getMainTab() {
     return ControlledWidgetBuilder<EvaluacionIndicadorMultipleController>(
         builder: (context, controller) {
+
           return Container(
             padding: EdgeInsets.only(
                 top: AppBar().preferredSize.height +
@@ -227,8 +234,163 @@ class _EvaluacionIndicadorMultiplePortalState extends ViewState<EvaluacionIndica
                         )
                     ),
                 ),
+                controller.tipoMatriz?
                 SliverToBoxAdapter(
                   child: showTableRubrica(controller),
+                ): SliverPadding(
+                  padding: EdgeInsets.only(left: 32, right: 32, top: 16),
+                  sliver: SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index){
+                            PersonaUi personaUi = controller.alumnoCursoList[index];
+                            return Container(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      CachedNetworkImage(
+                                        placeholder: (context, url) => CircularProgressIndicator(),
+                                        imageUrl: personaUi.foto??"",
+                                        errorWidget: (context, url, error) =>  Icon(Icons.error_outline_rounded, size: 80,),
+                                        imageBuilder: (context, imageProvider) =>
+                                            Container(
+                                                width: 50,
+                                                height: 50,
+                                                margin: EdgeInsets.only(right: 16, left: 0, top: 0, bottom: 8),
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                                                  image: DecorationImage(
+                                                    image: imageProvider,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                )
+                                            ),
+                                      ),
+                                      Expanded(
+                                          child: Text((personaUi.nombreCompleto??"").toUpperCase(),
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontFamily: AppTheme.fontTTNorms,
+                                                fontWeight: FontWeight.w800,
+                                                fontSize: 14,
+                                                letterSpacing: 0.8,
+                                                color: AppTheme.darkerText,
+                                              ))
+                                      ),
+                                    ],
+                                  ),
+                                  Padding(
+                                      padding: EdgeInsets.only(top: 16)
+                                  ),
+                                  showTableRubroDetalle(controller, personaUi),
+                                  Padding(
+                                      padding: EdgeInsets.only(top: 28)
+                                  ),
+                                  Text("Comentarios privados(Sólo lo ve el padre)",
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      color: AppTheme.colorPrimary
+                                    )
+                                  ),
+                                  Padding(
+                                      padding: EdgeInsets.only(top: 8)
+                                  ),
+                                 Row(
+                                   children: [
+                                     CachedNetworkImage(
+                                       placeholder: (context, url) => CircularProgressIndicator(),
+                                       imageUrl: personaUi.foto??"",
+                                       errorWidget: (context, url, error) =>  Icon(Icons.error_outline_rounded, size: 80,),
+                                       imageBuilder: (context, imageProvider) =>
+                                           Container(
+                                               width: 50,
+                                               height: 50,
+                                               margin: EdgeInsets.only(right: 16, left: 0, top: 0, bottom: 8),
+                                               decoration: BoxDecoration(
+                                                 borderRadius: BorderRadius.all(Radius.circular(25)),
+                                                 image: DecorationImage(
+                                                   image: imageProvider,
+                                                   fit: BoxFit.cover,
+                                                 ),
+                                               )
+                                           ),
+                                     ),
+                                     Expanded(
+                                       child: Row(
+                                         children: [
+                                          Expanded(
+                                              child:  Container(
+                                                padding: EdgeInsets.only(left: 8, right: 8),
+                                                decoration: BoxDecoration(
+                                                  color: AppTheme.greyLighten3,
+                                                  borderRadius: BorderRadius.circular(8.0),
+                                                  border: Border.all(color: AppTheme.greyLighten1),
+                                                ),
+                                                child: TextField(
+                                                  keyboardType: TextInputType.multiline,
+                                                  maxLines: null,
+                                                  decoration: InputDecoration(
+                                                      hintText: "",
+                                                      hintStyle: TextStyle( color: Colors.blueAccent),
+                                                      border: InputBorder.none),
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              )
+                                          ),
+                                           IconButton(
+                                             onPressed: () {
+                                               // You enter here what you want the button to do once the user interacts with it
+                                             },
+                                             icon: Icon(
+                                               Icons.send,
+                                               color: AppTheme.greyDarken1,
+                                             ),
+                                             iconSize: 20.0,
+                                           )
+                                         ],
+                                       ),
+                                     )
+                                   ],
+                                 ),
+                                  Padding(
+                                      padding: EdgeInsets.only(top: 16)
+                                  ),
+                                  Text("Evidencias (Sólo lo ve el padre)",
+                                      style: TextStyle(
+                                          fontSize: 10,
+                                          color: AppTheme.colorPrimary
+                                      )
+                                  ),
+                                  Padding(
+                                      padding: EdgeInsets.only(top: 8)
+                                  ),
+                                  Row(
+                                    children: [
+                                      FloatingActionButton(
+                                        heroTag: "btn_${personaUi.personaId??""}",
+                                        onPressed: () {},
+                                        elevation: 0,
+                                        child: Icon(Icons.add,),
+                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
+                                      )
+                                    ],
+                                  ),
+                                  Padding(
+                                      padding: EdgeInsets.only(top: 48)
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        childCount: controller.alumnoCursoList.length
+                      )
+                  ),
                 ),
               ],
             ),
@@ -265,7 +427,7 @@ class _EvaluacionIndicadorMultiplePortalState extends ViewState<EvaluacionIndica
                       columnWidths: tablecolumnWidths
                   ),
                   //cellAlignments: CellAlignments.,
-                  scrollControllers: crollControllers,
+                  scrollControllers: scrollControllers,
                   columnsLength: controller.columnList2.length,
                   rowsLength: controller.rowList2.length,
                   columnsTitleBuilder: (i) {
@@ -302,7 +464,7 @@ class _EvaluacionIndicadorMultiplePortalState extends ViewState<EvaluacionIndica
                               color: AppTheme.white
                           )
                       );
-                    }if(o is RubricaEvaluacionUi){
+                    }else if(o is RubricaEvaluacionUi){
                       return Container(
                           constraints: BoxConstraints.expand(),
                           padding: EdgeInsets.all(8),
@@ -319,6 +481,15 @@ class _EvaluacionIndicadorMultiplePortalState extends ViewState<EvaluacionIndica
                               ),
                               color: AppTheme.white
                           )
+                      );
+                    }else if(o is EvaluacionPublicadoUi){
+                      return InkWell(
+                        onTap: (){
+                          controller.onClicPublicadoAll(o);
+                        },
+                        child: Container(
+                          child: Icon(Ionicons.globe_outline, size: 30, color:o.publicado? AppTheme.colorAccent:AppTheme.grey ),
+                        ),
                       );
                     }else
                       return Container();
@@ -399,7 +570,10 @@ class _EvaluacionIndicadorMultiplePortalState extends ViewState<EvaluacionIndica
                       );
                     }else if(o is EvaluacionUi){
                       return InkWell(
-                        //onTap: () => _evaluacionCapacidadRetornar(context, controller, o),
+                        onTap: () {
+                          scrollController.jumpTo(0.0);
+                          controller.onClicEvaluacionRubrica(o);
+                        },
                         child: Stack(
                           children: [
                             Container(
@@ -419,6 +593,15 @@ class _EvaluacionIndicadorMultiplePortalState extends ViewState<EvaluacionIndica
                                 child: Icon(Icons.block, color: AppTheme.redLighten1.withOpacity(0.8), size: 14,)
                             ),
                           ],
+                        ),
+                      );
+                    }else if(o is EvaluacionPublicadoUi){
+                      return InkWell(
+                        onTap: (){
+                          controller.onClicPublicado(o);
+                        },
+                        child: Container(
+                          child: Icon(Ionicons.globe_outline, size: 30, color:o.publicado? AppTheme.colorAccent:AppTheme.grey ),
                         ),
                       );
                     }else{
@@ -453,6 +636,250 @@ class _EvaluacionIndicadorMultiplePortalState extends ViewState<EvaluacionIndica
           );
         }
       },
+    );
+  }
+
+  Widget showTableRubroDetalle(EvaluacionIndicadorMultipleController controller, PersonaUi personaUi) {
+    List<double> tablecolumnWidths = [];
+    for(dynamic s in controller.mapColumnList[personaUi]??[]){
+      if(s is ValorTipoNotaUi){
+        tablecolumnWidths.add(45.0);
+      } else if(s is RubricaEvaluacionUi){
+        tablecolumnWidths.add(85);
+      } else if(s is EvaluacionUi){
+        tablecolumnWidths.add(45);
+      }else if(s is RubricaEvaluacionPesoUi){
+        tablecolumnWidths.add(45);
+      }else{
+        tablecolumnWidths.add(50.0);
+      }
+    }
+    return SingleChildScrollView(
+      child: StickyHeadersTableNotExpandedCustom(
+        cellDimensions: CellDimensions.variableColumnWidth(
+            stickyLegendHeight:45,
+            stickyLegendWidth: 25,
+            contentCellHeight: 45,
+            columnWidths: tablecolumnWidths
+        ),
+        //cellAlignments: CellAlignments.,
+        scrollControllers:  scrollControllers,
+        columnsLength: controller.mapColumnList[personaUi]?.length??0,
+        rowsLength: controller.mapRowList[personaUi]?.length??0,
+        columnsTitleBuilder: (i) {
+          dynamic o = controller.mapColumnList[personaUi]![i];
+          if(o is EvaluacionUi){
+            return Container(
+                constraints: BoxConstraints.expand(),
+                padding: EdgeInsets.all(8),
+                child: Center(
+                  child:  RotatedBox(
+                    quarterTurns: -1,
+                    child: Text(" ", textAlign: TextAlign.center, maxLines: 4, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 11,color: AppTheme.darkText ),),
+                  ),
+                ),
+                decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(color: AppTheme.greyLighten2),
+                      right: BorderSide(color: AppTheme.greyLighten2),
+                    ),
+                    color: AppTheme.red
+                )
+            );
+          }else if(o is ValorTipoNotaUi){
+            return InkWell(
+              //onTap: () =>  controller.onClicEvaluacionAll(o),
+              child: Stack(
+                children: [
+                  _getTipoNotaCabeceraV2(o, controller,i)
+                ],
+              ),
+            );
+          }else if(o is RubricaEvaluacionUi){
+            return Container(
+                constraints: BoxConstraints.expand(),
+                padding: EdgeInsets.all(0),
+                child: Center(
+                  child: Text("Indicadores",
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        fontSize: 11,
+                        color:  AppTheme.white
+                    ),
+                  ),
+                ),
+                decoration: BoxDecoration(
+                  border: Border(
+                    top: BorderSide(color: AppTheme.colorPrimary),
+                    right: BorderSide(color: AppTheme.colorPrimary),
+                  ),
+                  color: AppTheme.colorPrimary,
+                )
+            );
+          }else if(o is RubricaEvaluacionPesoUi){
+            return Stack(
+              children: [
+                Container(
+                    decoration: BoxDecoration(
+                        color: AppTheme.greyLighten2.withOpacity(0.5),
+                        borderRadius: BorderRadius.only(topRight: Radius.circular(8))
+                    )
+                ),
+                Container(
+                    child: Center(
+                      child: Text('%', style: TextStyle(color: AppTheme.darkerText, fontSize: 14),),
+                    ),
+                    decoration: BoxDecoration(
+                      border: Border(
+                        left: BorderSide(color: AppTheme.greyLighten2),
+                      ),
+                    )
+                ),
+
+              ],
+            );
+          }else
+            return Container();
+        },
+        rowsTitleBuilder: (i) {
+          return  Container(
+              constraints: BoxConstraints.expand(),
+              child: Center(
+                child: Text((i+1).toString() + ".", style: TextStyle(color: AppTheme.greyDarken1, fontSize: 12)),
+              ),
+              decoration: BoxDecoration(
+                  border: Border(
+                    top: BorderSide(color: AppTheme.greyLighten2),
+                    right: BorderSide(color: AppTheme.greyLighten2),
+                    left: BorderSide(color: AppTheme.greyLighten2),
+                  ),
+                  color: AppTheme.white
+              )
+          );
+        },
+        contentCellBuilder: (i, j){
+          dynamic o = controller.mapCellListList[personaUi]![j][i];
+          if(o is RubricaEvaluacionUi){
+            return Container(
+                constraints: BoxConstraints.expand(),
+                padding: EdgeInsets.only(left: 4, right: 4),
+                child: Center(
+                    child: Text(o.titulo??"",
+                      textAlign: TextAlign.start,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          fontSize: 10,
+                          color:  AppTheme.colorAccent,
+                          height: 1.2
+                      ),
+                    )
+                ),
+                decoration: BoxDecoration(
+                  border: (controller.cellListList.length-4) <= j ? Border(
+                    top: BorderSide(color: AppTheme.greyLighten2),
+                    right: BorderSide(color:  AppTheme.greyLighten2),
+                    bottom:  BorderSide(color:  AppTheme.greyLighten2),
+                  ):Border(
+                    top: BorderSide(color: AppTheme.greyLighten2),
+                    right: BorderSide(color:  AppTheme.greyLighten2),
+                  ),
+                )
+            );
+          }else if(o is EvaluacionRubricaValorTipoNotaUi){
+            return InkWell(
+              onTap: () {
+
+              },
+              child: Stack(
+                children: [
+                  _getTipoNotaV2(o, controller,i, j),
+                  Positioned(
+                      bottom: 4,
+                      right: 4,
+                      child: Icon(Icons.block, color: AppTheme.redLighten1.withOpacity(0.8), size: 14,)
+                  ),
+                ],
+              ),
+            );
+          }else if(o is EvaluacionUi){
+            return InkWell(
+              //onTap: () => _evaluacionCapacidadRetornar(context, controller, o),
+              child: Stack(
+                children: [
+                  Container(
+                    constraints: BoxConstraints.expand(),
+                    decoration: BoxDecoration(
+                        border: Border(
+                          top: BorderSide(color: AppTheme.greyLighten2),
+                          right: BorderSide(color:  AppTheme.greyLighten2),
+                        ),
+                        color: _getColorAlumnoBloqueados(o.personaUi, 0)
+                    ),
+                    //child: _getTipoNota(o.valorTipoNotaUi, o.nota, i),
+                  ),
+                  Positioned(
+                      bottom: 4,
+                      right: 4,
+                      child: Icon(Icons.block, color: AppTheme.redLighten1.withOpacity(0.8), size: 14,)
+                  ),
+                ],
+              ),
+            );
+          }else if(o is RubricaEvaluacionPesoUi){
+            return InkWell(
+              //onTap: () => _evaluacionCapacidadRetornar(context, controller, o),
+              child: Stack(
+                children: [
+                  Container(
+                    constraints: BoxConstraints.expand(),
+                    decoration: BoxDecoration(
+                        border: Border(
+                          top: BorderSide(color: AppTheme.greyLighten2),
+                          right: BorderSide(color:  AppTheme.greyLighten2),
+                        ),
+                        color: AppTheme.white
+                    ),
+                    child: Center(
+                      child: Text("${o.peso.toStringAsFixed(1)}", textAlign: TextAlign.center, maxLines: 4, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 14,color:  AppTheme.greyDarken1 ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                      bottom: 4,
+                      right: 4,
+                      child: Icon(Icons.block, color: AppTheme.redLighten1.withOpacity(0.8), size: 14,)
+                  ),
+                ],
+              ),
+            );
+          }else
+            return Container();
+        },
+        legendCell: Stack(
+          children: [
+            Container(
+                decoration: BoxDecoration(
+                    color: AppTheme.colorPrimary,
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(8))
+                )
+            ),
+            Container(
+                child: Center(
+                  child: Text('N°', style: TextStyle(color: AppTheme.white, fontSize: 11),),
+                ),
+                decoration: BoxDecoration(
+                  border: Border(
+                    right: BorderSide(color: AppTheme.colorPrimary),
+                  ),
+                )
+            ),
+
+          ],
+        ),
+      ),
     );
   }
 
@@ -529,4 +956,203 @@ class _EvaluacionIndicadorMultiplePortalState extends ViewState<EvaluacionIndica
     return true;
   }
 
+  Widget _getTipoNotaV2(EvaluacionRubricaValorTipoNotaUi evaluacionRubricaValorTipoNotaUi, EvaluacionIndicadorMultipleController controller, int positionX, int positionY) {
+    Widget? widget = null;
+    Color color_fondo;
+    Color? color_texto;
+    Color color_borde;
+
+    if(positionX == 1){
+      if(evaluacionRubricaValorTipoNotaUi.toggle??false){
+        color_fondo = HexColor("#1976d2");
+        color_texto = AppTheme.white;
+        color_borde = HexColor("#1976d2");
+      }else{
+        color_fondo = AppTheme.white;
+        color_texto = HexColor("#1976d2");
+        color_borde = AppTheme.greyLighten2;
+      }
+    }else if(positionX == 2){
+      if(evaluacionRubricaValorTipoNotaUi.toggle??false){
+        color_fondo = HexColor("#388e3c");
+        color_texto = AppTheme.white;
+        color_borde = HexColor("#388e3c");
+      }else{
+        color_fondo = AppTheme.white;
+        color_texto =  HexColor("#388e3c");
+        color_borde = AppTheme.greyLighten2;
+      }
+    }else if(positionX == 3){
+      if(evaluacionRubricaValorTipoNotaUi.toggle??false){
+        color_fondo = HexColor("#FF6D00");
+        color_texto = AppTheme.white;
+        color_borde = HexColor("#FF6D00");
+      }else{
+        color_fondo = AppTheme.white;
+        color_texto =  HexColor("#FF6D00");
+        color_borde = AppTheme.greyLighten2;
+      }
+    }else if(positionX == 4){
+      if(evaluacionRubricaValorTipoNotaUi.toggle??false){
+        color_fondo = HexColor("#D32F2F");
+        color_texto = AppTheme.white;
+        color_borde = HexColor("#D32F2F");
+      }else {
+        color_fondo = AppTheme.white;
+        color_texto =  HexColor("#D32F2F");
+        color_borde = AppTheme.greyLighten2;
+      }
+    }else{
+      if(evaluacionRubricaValorTipoNotaUi.toggle??false){
+        color_fondo = AppTheme.white;
+        color_texto =  null;
+        color_borde = AppTheme.greyLighten2;
+      }else{
+        color_fondo = AppTheme.greyLighten2;
+        color_texto = null;
+        color_borde = AppTheme.greyLighten2;
+      }
+    }
+
+    color_fondo = color_fondo.withOpacity(0.8);
+    color_borde = AppTheme.greyLighten2.withOpacity(0.8);
+
+    var tipo =TipoNotaTiposUi.VALOR_NUMERICO;
+    if(!controller.precision) tipo = evaluacionRubricaValorTipoNotaUi.valorTipoNotaUi?.tipoNotaUi?.tipoNotaTiposUi??TipoNotaTiposUi.VALOR_NUMERICO;
+    switch(tipo){
+      case TipoNotaTiposUi.SELECTOR_VALORES:
+        widget = Center(
+          child: Text(evaluacionRubricaValorTipoNotaUi.valorTipoNotaUi?.titulo??"",
+              style: TextStyle(
+                  fontFamily: AppTheme.fontTTNormsMedium,
+                  fontSize: 14,
+                  color: color_texto
+              )),
+        );
+        break;
+      case TipoNotaTiposUi.SELECTOR_ICONOS:
+        widget = Opacity(
+          opacity: (evaluacionRubricaValorTipoNotaUi.toggle??false)? 1 : 0.5,
+          child: Container(
+            padding: EdgeInsets.all(4),
+            child:  CachedNetworkImage(
+              imageUrl: evaluacionRubricaValorTipoNotaUi.valorTipoNotaUi?.icono??"",
+              placeholder: (context, url) => CircularProgressIndicator(),
+              errorWidget: (context, url, error) => Icon(Icons.error),
+            ),
+          ),
+        );
+        break;
+      case TipoNotaTiposUi.VALOR_ASISTENCIA:
+      case TipoNotaTiposUi.VALOR_NUMERICO:
+      case TipoNotaTiposUi.SELECTOR_NUMERICO:
+        var nota = 0.0;
+        if(evaluacionRubricaValorTipoNotaUi.toggle??false)nota = evaluacionRubricaValorTipoNotaUi.evaluacionUi?.nota??0;
+        else nota = evaluacionRubricaValorTipoNotaUi.valorTipoNotaUi?.valorNumerico??0;
+        widget = Center(
+          child: Text("${nota.toStringAsFixed(1)}", style: TextStyle(
+              fontFamily: AppTheme.fontTTNormsMedium,
+              fontSize: 14,
+              color: color_texto
+          ),),
+        );;
+        break;
+    }
+
+    return Container(
+      constraints: BoxConstraints.expand(),
+      decoration: BoxDecoration(
+          border: (controller.cellListList.length-4) <= positionY ? Border(
+            top: BorderSide(color: AppTheme.greyLighten2),
+            right: BorderSide(color:  color_borde),
+            bottom:  BorderSide(color:  AppTheme.greyLighten2),
+          ):Border(
+            top: BorderSide(color: AppTheme.greyLighten2),
+            right: BorderSide(color:  color_borde),
+          ),
+          color: (evaluacionRubricaValorTipoNotaUi.toggle??false)?color_fondo:_getColorAlumnoBloqueados(evaluacionRubricaValorTipoNotaUi.evaluacionUi?.personaUi, 0)
+      ),
+      child: widget,
+    );
+
+  }
+  Widget _getTipoNotaCabeceraV2(ValorTipoNotaUi? valorTipoNotaUi,EvaluacionIndicadorMultipleController controller, int position) {
+    Widget? nota = null;
+    Color color_fondo;
+    Color? color_texto;
+    if(position == 1){
+      color_fondo = HexColor("#1976d2");
+      color_texto = AppTheme.white;
+    }else if(position == 2){
+      color_fondo =  HexColor("#388e3c");
+      color_texto = AppTheme.white;
+    }else if(position == 3){
+      color_fondo =  HexColor("#FF6D00");
+      color_texto = AppTheme.white;
+    }else if(position == 4){
+      color_fondo =  HexColor("#D32F2F");
+      color_texto = AppTheme.white;
+    }else{
+      color_fondo =  AppTheme.greyLighten2;
+      color_texto = null;//defaul
+    }
+
+    var ver_detalle = false;
+    //if(valorTipoNotaUi?.tipoNotaUi?.intervalo??false)
+    ver_detalle = controller.precision;
+
+    switch(valorTipoNotaUi?.tipoNotaUi?.tipoNotaTiposUi??TipoNotaTiposUi.VALOR_NUMERICO) {
+      case TipoNotaTiposUi.SELECTOR_VALORES:
+        nota = Container(
+          child: Center(
+            child: Text(valorTipoNotaUi?.titulo ?? "",
+                style: TextStyle(
+                    fontFamily: AppTheme.fontTTNormsMedium,
+                    fontSize: 16,
+                    color: color_texto
+                )),
+          ),
+        );
+        break;
+      case TipoNotaTiposUi.SELECTOR_ICONOS:
+        nota = Container(
+          width: ver_detalle?35:45,
+          height: ver_detalle?35:45,
+          child: CachedNetworkImage(
+            imageUrl: valorTipoNotaUi?.icono ?? "",
+            placeholder: (context, url) => CircularProgressIndicator(),
+            errorWidget: (context, url, error) => Icon(Icons.error),
+          ),
+        );
+        break;
+      default:
+        break;
+    }
+
+    return Container(
+      constraints: BoxConstraints.expand(),
+      decoration: BoxDecoration(
+        border: Border(
+          top: BorderSide(color: color_fondo),
+          right: BorderSide(color:  color_fondo),
+        ),
+        color: color_fondo,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          nota??Container(),
+          if(ver_detalle)
+            Container(
+              margin: EdgeInsets.only(top: 4),
+              child: Text("${(valorTipoNotaUi?.valorNumerico??0).toStringAsFixed(1)}", style: TextStyle(
+                  fontFamily: AppTheme.fontTTNormsMedium,
+                  fontSize: 12,
+                  color: color_texto
+              ),),
+            )
+        ],
+      ),
+    );
+  }
 }

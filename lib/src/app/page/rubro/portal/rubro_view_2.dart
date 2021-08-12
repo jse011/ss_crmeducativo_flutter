@@ -2152,18 +2152,18 @@ class RubroViewState extends ViewState<RubroView2, RubroController> with TickerP
               ),
             ),
             if((rubricaEvaluacionUi.cantidadRubroDetalle??0) > 4)
-            Container(
-              height: 16,
-              width: 16,
-              decoration: new BoxDecoration(
-                color: HexColor(controller.cursosUi.color2).withOpacity(0.7),
-                shape: BoxShape.circle,
+              Container(
+                height: 16,
+                width: 16,
+                decoration: new BoxDecoration(
+                  color: HexColor(controller.cursosUi.color2).withOpacity(0.7),
+                  shape: BoxShape.circle,
+                ),
+                margin: EdgeInsets.only(right: 4),
+                child: Center(
+                  child: Text(((rubricaEvaluacionUi.cantidadRubroDetalle??0)>5?"+":"")+ "5", textAlign: TextAlign.center,style: TextStyle(fontSize: 10, color: AppTheme.white),),
+                ),
               ),
-              margin: EdgeInsets.only(right: 4),
-              child: Center(
-                child: Text("+5", textAlign: TextAlign.center,style: TextStyle(fontSize: 10, color: AppTheme.white),),
-              ),
-            ),
           ],
         )
     );

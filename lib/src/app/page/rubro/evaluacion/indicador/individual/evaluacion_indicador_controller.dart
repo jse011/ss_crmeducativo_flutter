@@ -18,6 +18,8 @@ class EvaluacionIndicadorController extends Controller{
   RubricaEvaluacionUi? rubroEvaluacionUi;
   EvaluacionIndicadorPresenter presenter;
   List<dynamic> _columnList2 = [];
+  bool _showDialogEliminar = false;
+  bool get showDialogEliminar => _showDialogEliminar;
   List<dynamic> get columnList2 => _columnList2;
   List<dynamic> _rowList2 = [];
   List<dynamic> get rowList2 => _rowList2;
@@ -186,9 +188,7 @@ class EvaluacionIndicadorController extends Controller{
       for(List cellList in cellListList){
         for(var cell in cellList){
           if(cell is EvaluacionPublicadoUi){
-            if(cell.evaluacionUi?.alumnoId == evaluacionPublicadoUi.evaluacionUi?.alumnoId){
-              if(!cell.publicado)todosPublicados = false;
-            }
+            if(!cell.publicado)todosPublicados = false;
           }
         }
       }
@@ -210,6 +210,16 @@ class EvaluacionIndicadorController extends Controller{
         }
       }
     }
+    refreshUI();
+  }
+
+  void onClickCancelarEliminar() {
+    _showDialogEliminar = false;
+    refreshUI();
+  }
+
+  void onClickEliminar() {
+    _showDialogEliminar = true;
     refreshUI();
   }
 

@@ -113,11 +113,10 @@ class AppRouter {
       return MaterialPageRoute(
         builder: (context) {
           CursosUi cursosUi = arguments['cursoUi'];
-          String? rubroEvaluacionId = null;
-          if(arguments.containsKey('rubroEvaluacionId')){
-            rubroEvaluacionId  = arguments['rubroEvaluacionId'];
-          }
-          return EvaluacionIndicadorMultipleView(rubroEvaluacionId, cursosUi);
+          String rubroEvaluacionId  = arguments['rubroEvaluacionId'];
+          String fotoDocente = arguments['fotoDocente'];
+          CalendarioPeriodoUI calendarioPeriodoUI = arguments['calendarioPeriodoUI'];
+          return EvaluacionIndicadorMultipleView(rubroEvaluacionId, cursosUi, fotoDocente, calendarioPeriodoUI);
         },
       );
     }else if(settings.name == EVALUACION_SIMPLE){
@@ -222,10 +221,10 @@ class AppRouter {
     return respuestaEvaluacionCapacidad;
   }
 
-  static Future<RespuestaEvaluacion?> createRouteEvaluacionMultiple(BuildContext context, CursosUi? cursosUi, String? rubroEvaluacionId) async{
+  static Future<RespuestaEvaluacion?> createRouteEvaluacionMultiple(BuildContext context, String fotoDocente, CalendarioPeriodoUI calendarioPeriodoUI ,CursosUi? cursosUi, String? rubroEvaluacionId) async{
     dynamic? object = await Navigator.pushNamed(context,
         EVALUACION_MULTIPLE,
-        arguments: {'cursoUi': cursosUi, 'rubroEvaluacionId': rubroEvaluacionId, }
+        arguments: {'cursoUi': cursosUi, 'rubroEvaluacionId': rubroEvaluacionId, 'fotoDocente': fotoDocente, 'calendarioPeriodoUI': calendarioPeriodoUI}
     );
     RespuestaEvaluacion? respuestaEvaluacion = null;
     if(object is RespuestaEvaluacion){

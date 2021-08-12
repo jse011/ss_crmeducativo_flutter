@@ -19,4 +19,5 @@ class RubricaEvaluacionUi{
   TipoNotaUi? tipoNotaUi;
   int? cantidadRubroDetalle;
   List<RubricaEvaluacionUi>? rubrosDetalleList;
+  double? peso;
 }
