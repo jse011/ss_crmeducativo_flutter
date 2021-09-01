@@ -20,4 +20,6 @@ class RubricaEvaluacionUi{
   int? cantidadRubroDetalle;
   List<RubricaEvaluacionUi>? rubrosDetalleList;
   double? peso;
+  bool? guardadoLocal;
+  int? calendarioPeriodoId;
 }

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_theme.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_configuracion_repository.dart';
@@ -29,16 +28,6 @@ class _LoginViewState extends ViewState<LoginView, LoginController>{
       color: AppTheme.nearlyWhite,
     child: ControlledWidgetBuilder<LoginController>(
         builder: (context, controller) {
-
-          if(controller.mensaje!=null&&controller.mensaje!.isNotEmpty){
-            Fluttertoast.showToast(
-              msg: controller.mensaje??"",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-            );
-            controller.successMsg();
-          }
 
           if(controller.dismis){
             SchedulerBinding.instance?.addPostFrameCallback((_) {

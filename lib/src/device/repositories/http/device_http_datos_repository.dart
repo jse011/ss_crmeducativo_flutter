@@ -99,7 +99,8 @@ class DeviceHttpDatosRepositorio extends HttpDatosRepository{
     Map<String, dynamic> parameters = Map<String, dynamic>();
     parameters["vint_EmpleadoId"] = empleadoId;
     parameters["vint_AnioAcademicoId"] = anioAcademicoId;
-    final response = await http.post(Uri.parse(urlServidorLocal), body: getBody("flst_getDatosAnioAcademico",parameters));
+    final response = await http.post(Uri.parse(urlServidorLocal), body: getBody("flst_getDatosAnioAcademico",parameters))
+        .timeout(Duration(seconds: 15), onTimeout: (){throw Exception('Failed to load getEventoAgenda');});
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
@@ -118,43 +119,29 @@ class DeviceHttpDatosRepositorio extends HttpDatosRepository{
   }
 
   @override
-  Future<HttpStream> updateDatosParaCrearRubro(String urlServidorLocal, int anioAcademicoId, int programaEducativoId, int calendarioPeriodoId, int cargaCursoId, int empleadoId, {required HttpStreamListen onListen, onSucces = Function, onError = Function})  async{
+  Future<Map<String, dynamic>?> updateDatosParaCrearRubro(String urlServidorLocal, int anioAcademicoId, int programaEducativoId, int calendarioPeriodoId, int silaboEventoId, int empleadoId)  async{
     Map<String, dynamic> parameters = Map<String, dynamic>();
     parameters["vint_AnioAcademicoId"] = anioAcademicoId;
     parameters["vint_ProgramaEducativoId"] = programaEducativoId;
     parameters["vint_CalendarioPeriodoId"] = calendarioPeriodoId;
-    parameters["vint_CargaCursoId"] = cargaCursoId;
+    parameters["vint_SilaboEventoId"] = silaboEventoId;
     parameters["vint_EmpleadoId"] = empleadoId;
-    //Uri.parse(urlServidorLocal), body: getBody("getDatosParaCrearRubro",parameters)
-    print(TAG + " "+urlServidorLocal);
-    var request = http.Request('POST', Uri.parse(urlServidorLocal));
-    request.body = getBody("getDatosParaCrearRubro",parameters);
-    var response = await http.Client().send(request);
-    int? _total = response.contentLength;
-
-    var listen = response.stream.listen((value) {
-      /* setState(() {
-        _bytes.addAll(value);
-        _received += value.length;
-      });*/
-      onListen(value, _total);
-    });
-
-    listen.onDone(() {
-      //_image = utf8.decode(_bytes);
-
-      /*setState(() {
-        _image = file;
-      });*/
-      onSucces();
-    });
-
-    listen.onError((Object error){
-      print(error.toString());
-      onError();
-    });
-    //listen?.cancel();
-    return _DeviceHttpStream(listen);
+    final response = await http.post(Uri.parse(urlServidorLocal), body: getBody("getDatosParaCrearRubro",parameters))
+        .timeout(Duration(seconds: 20), onTimeout: (){throw Exception('Failed to load getEventoAgenda');});;
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      Map<String,dynamic> body = json.decode(response.body);
+      if(body.containsKey("Successful")&&body.containsKey("Value")){
+        return body["Value"];
+      }else{
+        return null;
+      }
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load usuario 0');
+    }
   }
 
   @override
@@ -162,7 +149,8 @@ class DeviceHttpDatosRepositorio extends HttpDatosRepository{
     Map<String, dynamic> parameters = Map<String, dynamic>();
     parameters["vint_EmpleadoId"] = empleadoId;
     parameters["vint_AnioAcademicoId"] = anioAcademicoId;
-    final response = await http.post(Uri.parse(urlServidorLocal), body: getBody("getContactoDocenteFlutter",parameters));
+    final response = await http.post(Uri.parse(urlServidorLocal), body: getBody("getContactoDocenteFlutter",parameters))
+        .timeout(Duration(seconds: 15), onTimeout: (){throw Exception('Failed to load getEventoAgenda');});
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
@@ -190,7 +178,8 @@ class DeviceHttpDatosRepositorio extends HttpDatosRepository{
     parameters["vint_UsuarioId"] = usuarioId;
     parameters["vint_GeoreferenciaId"] = georeferenciaId;
     parameters["vint_tipoEventoId"] = tipoEventoId;
-    final response = await http.post(Uri.parse(urlServidorLocal), body: getBody("getCalendarioEventoDocenteFlutter",parameters));
+    final response = await http.post(Uri.parse(urlServidorLocal), body: getBody("getCalendarioEventoDocenteFlutter",parameters))
+        .timeout(Duration(seconds: 15), onTimeout: (){throw Exception('Failed to load getEventoAgenda');});
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
@@ -217,7 +206,8 @@ class DeviceHttpDatosRepositorio extends HttpDatosRepository{
     parameters["vint_CalendarioPeriodoId"] = calendarioId;
     parameters["vint_SilaboEventoId"] = silaboEventoId;
     parameters["vint_rolId"] = rolId;
-    final response = await http.post(Uri.parse(urlServidorLocal), body: getBody("getUnidadSesionDocenteFlutter",parameters));
+    final response = await http.post(Uri.parse(urlServidorLocal), body: getBody("getUnidadSesionDocenteFlutter",parameters))
+        .timeout(Duration(seconds: 15), onTimeout: (){throw Exception('Failed to load getUnidadSesion');});
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
@@ -242,7 +232,8 @@ class DeviceHttpDatosRepositorio extends HttpDatosRepository{
     parameters["vint_AnioAcademicoId"] = anioAcademicoId;
     parameters["vint_ProgramaEducativoId"] = programaEducativoId;
     parameters["vint_CargaCursoId"] = cargaCursoId;
-    final response = await http.post(Uri.parse(urlServidorLocal), body: getBody("getCalendarioPeriodoCursoFlutter",parameters));
+    final response = await http.post(Uri.parse(urlServidorLocal), body: getBody("getCalendarioPeriodoCursoFlutter",parameters))
+        .timeout(Duration(seconds: 10), onTimeout: (){throw Exception('Failed to load getUnidadSesion');});
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
@@ -257,6 +248,95 @@ class DeviceHttpDatosRepositorio extends HttpDatosRepository{
       // If the server did not return a 200 OK response,
       // then throw an exception.
       throw Exception('Failed to load agenda 0');
+    }
+  }
+
+  @override
+  Future<Map<String, dynamic>?> getDatosRubroFlutter(String urlServidorLocal, int calendarioPeriodoId, int silaboEventoId, int georeferenciaId, int usuarioId, List<dynamic> rubrosNoEnviados) async{
+    Map<String, dynamic> parameters = Map<String, dynamic>();
+    parameters["vint_CalendarioPeriodoId"] = calendarioPeriodoId;
+    parameters["vint_SilaboEventoId"] = silaboEventoId;
+    parameters["vint_GeoreferenciaId"] = georeferenciaId;
+    parameters["vint_UsuarioId"] = usuarioId;
+    parameters["vlst_RubroEvalEnvioSimple"] = rubrosNoEnviados;
+    final response = await http.post(Uri.parse(urlServidorLocal), body: getBody("getDatosRubroFlutter",parameters))
+        .timeout(Duration(seconds: 60), onTimeout: (){throw Exception('Failed to load getDatosRubroFlutter');});
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      Map<String,dynamic> body = json.decode(response.body);
+      print(body.toString());
+      if(body.containsKey("Successful")&&body.containsKey("Value")){
+
+        return body["Value"];
+      }else{
+        return null;
+      }
+
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load rubro eval');
+    }
+  }
+
+
+  @override
+  Future<bool?> crearRubroEvaluacion(String urlServidorLocal, int calendarioPeriodoId, int silaboEventoId, int georeferenciaId, int usuarioId, Map<String, dynamic> data) async{
+    Map<String, dynamic> parameters = Map<String, dynamic>();
+    parameters["vint_CalendarioPeriodoId"] = calendarioPeriodoId;
+    parameters["vint_SilaboEventoId"] = silaboEventoId;
+    parameters["vint_GeoreferenciaId"] = georeferenciaId;
+    parameters["vint_UsuarioId"] = usuarioId;
+    parameters["bERubroEvalEnvio"] = data;
+    final response = await http.post(Uri.parse(urlServidorLocal), body: getBody("crearRubroEvaluacion", parameters))
+        .timeout(Duration(seconds: 15), onTimeout: (){throw Exception('Failed to load rubro eval');});
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      Map<String,dynamic> body = json.decode(response.body);
+      print(body.toString());
+      if(body.containsKey("Successful")&&body.containsKey("Value")){
+        return body["Value"];
+      }else{
+        return false;
+      }
+
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load rubro eval');
+    }
+  }
+
+  @override
+  Future<bool?> updateEvaluacionRubroFlutter(String urlServidorLocal, int calendarioPeriodoId, int silaboEventoId, int georeferenciaId, int usuarioId, Map<String, dynamic> data) async{
+    Map<String, dynamic> parameters = Map<String, dynamic>();
+    parameters["vint_CalendarioPeriodoId"] = calendarioPeriodoId;
+    parameters["vint_SilaboEventoId"] = silaboEventoId;
+    parameters["vint_GeoreferenciaId"] = georeferenciaId;
+    parameters["vint_UsuarioId"] = usuarioId;
+    parameters["bERubroEvalEnvio"] = data;
+    final response = await http.post(Uri.parse(urlServidorLocal), body: getBody("crearRubroEvaluacion", parameters))
+        .timeout(Duration(seconds: 15), onTimeout: (){throw Exception('Failed to load rubro eval');});
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      Map<String,dynamic> body = json.decode(response.body);
+      print(body.toString());
+      if(body.containsKey("Successful")&&body.containsKey("Value")){
+        return body["Value"];
+      }else{
+        return false;
+      }
+
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load rubro eval');
     }
   }
 

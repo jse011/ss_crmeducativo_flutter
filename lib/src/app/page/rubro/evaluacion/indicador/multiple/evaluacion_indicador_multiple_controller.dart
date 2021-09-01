@@ -1,5 +1,6 @@
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubro/evaluacion/indicador/multiple/evaluacion_indicador_multiple_presenter.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/calendario_periodio_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/contacto_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_publicado_ui.dart';
@@ -10,18 +11,25 @@ import 'package:ss_crmeducativo_2/src/domain/entities/rubrica_evaluacion_peso_ui
 import 'package:ss_crmeducativo_2/src/domain/entities/rubrica_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_tipos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_ui.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/usuario_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/valor_tipo_nota_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/repositories/configuracion_repository.dart';
 import 'package:ss_crmeducativo_2/src/domain/repositories/rubro_repository.dart';
+import 'package:ss_crmeducativo_2/src/domain/tools/app_tools.dart';
 import 'package:ss_crmeducativo_2/src/domain/tools/transformar_valor_tipo_nota.dart';
 import 'package:collection/collection.dart';
 
 class EvaluacionIndicadorMultipleController extends Controller {
   String rubroEvaluacionId;
   CursosUi cursosUi;
+  CalendarioPeriodoUI? calendarioPeriodoUI;
   EvaluacionIndicadorMultiplePresenter presenter;
   RubricaEvaluacionUi? rubroEvaluacionUi;
   List<dynamic> _columnList2 = [];
+
+  UsuarioUi? _usuarioUi = null;
+
+  UsuarioUi? get usuarioUi  => _usuarioUi;
   List<dynamic> get columnList2 => _columnList2;
   List<dynamic> _rowList2 = [];
   List<dynamic> get rowList2 => _rowList2;
@@ -44,14 +52,26 @@ class EvaluacionIndicadorMultipleController extends Controller {
   bool _precision = false;
   bool get precision => _precision;
 
-  EvaluacionIndicadorMultipleController(this.rubroEvaluacionId, this.cursosUi,
+  bool _showDialogEliminar = false;
+  bool get showDialogEliminar => _showDialogEliminar;
+
+
+  EvaluacionIndicadorMultipleController(this.rubroEvaluacionId, this.cursosUi, this.calendarioPeriodoUI,
       RubroRepository rubroRepo, ConfiguracionRepository configuracionRepo) :
         presenter = EvaluacionIndicadorMultiplePresenter(
             rubroRepo, configuracionRepo);
 
   @override
   void initListeners() {
-    presenter.getRubroEvaluacionOnError = (e) {
+    presenter.getRubroEvaluacionOnError = (e){
+
+    };
+
+    presenter.getSessionUsuarioOnNext = (UsuarioUi usuarioUi){
+      _usuarioUi = usuarioUi;
+    };
+
+    presenter.getSessionUsuarioOnError = (e) {
       this.rubroEvaluacionUi = null;
     };
 
@@ -68,6 +88,7 @@ class EvaluacionIndicadorMultipleController extends Controller {
   @override
   void onInitState() {
     super.onInitState();
+    presenter.getSessionUsuario();
     presenter.getRubroEvaluacion(rubroEvaluacionId, cursosUi);
   }
 
@@ -84,13 +105,14 @@ class EvaluacionIndicadorMultipleController extends Controller {
 
     _columnList2.add(ContactoUi()); //Titulo alumno
     _columnList2.add(EvaluacionUi()); //Titulo Nota Final
-    _columnList2.addAll(rubricaEvaluacionUi?.rubrosDetalleList??[]);
     _columnList2.add(EvaluacionPublicadoUi(EvaluacionUi()));
+    _columnList2.addAll(rubricaEvaluacionUi?.rubrosDetalleList??[]);
+
     _columnList2.add(""); // espacio
 
     for (dynamic row in _rowList2) {
       List<dynamic> cellList = [];
-      EvaluacionPublicadoUi? evaluacionPublicadoUi = null;
+
       cellList.add(row);
 
       //#obtner Nota Tatal
@@ -98,10 +120,10 @@ class EvaluacionIndicadorMultipleController extends Controller {
         EvaluacionUi? evaluacionUi = rubricaEvaluacionUi?.evaluacionUiList?.firstWhereOrNull((element) => element.alumnoId == row.personaId);
         if (evaluacionUi == null) evaluacionUi = EvaluacionUi(); //Una evaluacion vasia significa que el alumno no tiene evaluacion
         evaluacionUi.personaUi = row; //se remplasa la persona con la lista de alumno del curso por que contiene informacion de vigencia
-        evaluacionUi.valorTipoNotaUi = null; // se elimina el obj tipo nota para que solo muestre la nota numerica
-        evaluacionPublicadoUi = EvaluacionPublicadoUi(evaluacionUi);
         cellList.add(evaluacionUi);
+        cellList.add(EvaluacionPublicadoUi(evaluacionUi));
       } else {
+        cellList.add(""); //Espacio
         cellList.add(""); //Espacio
       }
 
@@ -118,7 +140,7 @@ class EvaluacionIndicadorMultipleController extends Controller {
       }
 
       //#obtner Validar si todos los rubros detalles esta publicados
-      cellList.add(evaluacionPublicadoUi);
+
       cellList.add("");
 
       print("length: f "+cellList.length.toString());
@@ -197,6 +219,7 @@ class EvaluacionIndicadorMultipleController extends Controller {
             evaluacionRubricaValorTipoNotaUi.valorTipoNotaUi = valorTipoNotaUi;
             evaluacionRubricaValorTipoNotaUi.evaluacionUi = evaluacionUi;
             evaluacionRubricaValorTipoNotaUi.toggle = (evaluacionUi.evaluacionId??"").isNotEmpty && valorTipoNotaUi.valorTipoNotaId == evaluacionUi.valorTipoNotaId;
+            evaluacionRubricaValorTipoNotaUi.rubricaEvaluacionUi = row;
             cellList.add(evaluacionRubricaValorTipoNotaUi);
           }
         }else{
@@ -219,7 +242,6 @@ class EvaluacionIndicadorMultipleController extends Controller {
 
     _alumnoCursoListDesordenado.remove(evaluacionUi.personaUi);
     _alumnoCursoListDesordenado.insert(0,evaluacionUi.personaUi??PersonaUi());
-
     _tipoMatriz = false;
     refreshUI();
   }
@@ -228,6 +250,157 @@ class EvaluacionIndicadorMultipleController extends Controller {
     _tipoMatriz = true;
     refreshUI();
   }
+
+  void onClicPrecision() {
+    this._precision = !_precision;
+    refreshUI();
+  }
+
+  void onClickCancelarEliminar() {
+    _showDialogEliminar = false;
+    refreshUI();
+  }
+
+  void onClickEliminar() {
+    _showDialogEliminar = true;
+    refreshUI();
+  }
+
+  void onClicEvaluar(EvaluacionRubricaValorTipoNotaUi evaluacionRubricaValorTipoNotaUi, PersonaUi personaUi) {
+    if(evaluacionRubricaValorTipoNotaUi.evaluacionUi?.evaluacionId!=null) {
+      for (List cellList in mapCellListList[personaUi] ?? []) {
+        for (var cell in cellList) {
+          if (cell is EvaluacionRubricaValorTipoNotaUi) {
+            if (cell.evaluacionUi?.alumnoId == evaluacionRubricaValorTipoNotaUi.evaluacionUi?.alumnoId
+                && cell.evaluacionUi?.rubroEvaluacionUi?.rubricaId == evaluacionRubricaValorTipoNotaUi.rubricaEvaluacionUi?.rubricaId
+                && cell != evaluacionRubricaValorTipoNotaUi) {
+              cell.toggle = false;
+            }
+          }
+        }
+      }
+
+      evaluacionRubricaValorTipoNotaUi.toggle = !(evaluacionRubricaValorTipoNotaUi.toggle ?? false);
+      if(evaluacionRubricaValorTipoNotaUi.toggle??false){
+        evaluacionRubricaValorTipoNotaUi.evaluacionUi?.nota = evaluacionRubricaValorTipoNotaUi.valorTipoNotaUi?.valorNumerico;
+        evaluacionRubricaValorTipoNotaUi.evaluacionUi?.valorTipoNotaId = evaluacionRubricaValorTipoNotaUi.valorTipoNotaUi?.valorTipoNotaId;
+        evaluacionRubricaValorTipoNotaUi.evaluacionUi?.valorTipoNotaUi = evaluacionRubricaValorTipoNotaUi.valorTipoNotaUi;
+      }else{
+        evaluacionRubricaValorTipoNotaUi.evaluacionUi?.nota = 0.0;
+        evaluacionRubricaValorTipoNotaUi.evaluacionUi?.valorTipoNotaId = null;
+        evaluacionRubricaValorTipoNotaUi.evaluacionUi?.valorTipoNotaUi = null;
+      }
+
+      _actualizarCabecera(personaUi);
+
+      refreshUI();
+    }
+  }
+
+  String getRangoNota(ValorTipoNotaUi? valorTipoNotaUi){
+    String rango =  "";
+
+    if(valorTipoNotaUi?.incluidoLSuperior??false){
+      rango += "[ ";
+    }else {
+      rango += "< ";
+    }
+    rango += "${(valorTipoNotaUi?.limiteSuperior??0).toStringAsFixed(1)}";
+    rango += " - ";
+    rango += "${(valorTipoNotaUi?.limiteInferior??0).toStringAsFixed(1)}";
+    if(valorTipoNotaUi?.incluidoLInferior??false){
+      rango += " ]";
+    }else {
+      rango += " >";
+    }
+    return rango;
+  }
+
+  onClicEvaluacionAll(ValorTipoNotaUi valorTipoNotaUi, PersonaUi personaUi) {
+
+    for(List cellList in mapCellListList[personaUi]??[]){
+      for(var cell in cellList){
+        if(cell is EvaluacionRubricaValorTipoNotaUi){
+          if(cell.evaluacionUi?.evaluacionId!=null){
+            if(cell.valorTipoNotaUi?.valorTipoNotaId == valorTipoNotaUi.valorTipoNotaId){
+              cell.toggle = true;
+                cell.evaluacionUi?.nota = valorTipoNotaUi.valorNumerico;//actualizar la nota solo cuando no esta selecionado
+                cell.evaluacionUi?.valorTipoNotaId = valorTipoNotaUi.valorTipoNotaId;
+                cell.evaluacionUi?.valorTipoNotaUi = valorTipoNotaUi;
+            }else{
+              cell.toggle = false;
+            }
+          }
+
+        }
+      }
+    }
+    _actualizarCabecera(personaUi);
+    refreshUI();
+  }
+
+  void _actualizarCabecera(PersonaUi personaUi) {
+    EvaluacionUi? evaluacionUi = getEvaluacionGeneralPersona(personaUi);
+
+    List<EvaluacionUi> evaluacionUiList = [];
+    for(RubricaEvaluacionUi rubroEvaluacionUi in rubroEvaluacionUi?.rubrosDetalleList??[]){
+      for(EvaluacionUi item in rubroEvaluacionUi.evaluacionUiList??[]){
+        if(item.personaUi?.personaId == personaUi.personaId){
+          evaluacionUiList.add(item);
+        }
+      }
+    }
+
+    double notaDetalle = 0.0;
+    int notaMaxRubro = 0;
+    int notaMinRubro = 0;
+    int countSelecionado = 0;
+    for(EvaluacionUi evaluacionUi in evaluacionUiList){
+      notaDetalle += AppTools.roundDouble((evaluacionUi.nota??0.0)*(evaluacionUi.rubroEvaluacionUi?.peso??1),2);//Para evitar calcular con muchos decimasles se redonde a dos
+      notaMaxRubro = evaluacionUi.rubroEvaluacionUi?.tipoNotaUi?.escalavalorMaximo??0;
+      notaMinRubro = evaluacionUi.rubroEvaluacionUi?.tipoNotaUi?.escalavalorMinimo??0;
+      if(evaluacionUi.valorTipoNotaId!=null)countSelecionado++;
+    }
+
+    if(countSelecionado>0){
+      TransformarValoTipoNotaResponse response = TransformarValoTipoNota.execute(TransformarValoTipoNotaParams(notaDetalle, notaMinRubro, notaMaxRubro, rubroEvaluacionUi?.tipoNotaUi));
+      evaluacionUi?.valorTipoNotaId = response.valorTipoNotaUi?.valorTipoNotaId;
+      evaluacionUi?.valorTipoNotaUi = response.valorTipoNotaUi;
+      evaluacionUi?.nota = AppTools.roundDouble(response.nota??0.0, 2);// Se redondea a dos diguitos pero se muesta solo un digito para mostar al usuario
+    }else{
+      evaluacionUi?.valorTipoNotaId = null;
+      evaluacionUi?.valorTipoNotaUi = null;
+      evaluacionUi?.nota = 0.0;// Se redondea a dos diguitos pero se muesta solo un digito para mostar al usuario
+    }
+    refreshUI();
+  }
+
+  EvaluacionUi? getEvaluacionGeneralPersona(PersonaUi personaUi) {
+    EvaluacionUi? evaluacionUi = null;
+    for(EvaluacionUi item in rubroEvaluacionUi?.evaluacionUiList??[]){
+      if(item.personaUi?.personaId == personaUi.personaId){
+        evaluacionUi = item;
+      }
+    }
+    return evaluacionUi;
+  }
+
+  onClicClearEvaluacionAll(ValorTipoNotaUi valorTipoNotaUi, PersonaUi personaUi) {
+    for(List cellList in mapCellListList[personaUi]??[]){
+      for(var cell in cellList){
+        if(cell is EvaluacionRubricaValorTipoNotaUi){
+          if(cell.evaluacionUi?.evaluacionId!=null){
+              cell.toggle = false;
+              cell.evaluacionUi?.nota = 0.0;
+              cell.evaluacionUi?.valorTipoNotaId = null;
+              cell.evaluacionUi?.valorTipoNotaUi = null;
+          }
+        }
+      }
+    }
+    refreshUI();
+  }
+
 
 
 }

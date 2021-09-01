@@ -19,61 +19,37 @@ class UpdateDatosCrearRubro extends UseCase<UpdateDatosCrearRubroResponse, Updat
   @override
   Future<Stream<UpdateDatosCrearRubroResponse?>> buildUseCaseStream(UpdateDatosCrearRubroParams? params) async{
     final controller = StreamController<UpdateDatosCrearRubroResponse>();
+    bool offlineServidor = false;
+    bool errorServidor = false;
+
+    int usuarioId = await repository.getSessionUsuarioId();
+    int georeferenciaId = await repository.getGeoreferenciaId();
+    int empleadoId = await repository.getSessionEmpleadoId();
+    int anioAcademicoId = await repository.getSessionAnioAcademicoId();
+    int programaEducativoId = await repository.getSessionProgramaEducativoId();
+    String urlServidorLocal = await repository.getSessionUsuarioUrlServidor();
+
     try{
-
-      bool update = await rubroRepository.isUltimedUpdateServerCurso(params?.calendarioPeriodoId, params?.silaboEventoId);
-
-      if(!update || (params?.forceUpdate??false)){
-
-        int _total = 0, _received = 0;
-        String? _image;
-        List<int> _bytes = [];
-
-        int usuarioId = await repository.getSessionUsuarioId();
-        int empleadoId = await repository.getSessionEmpleadoId();
-        int anioAcademicoId = await repository.getSessionAnioAcademicoId();
-        int programaEducativoId = await repository.getSessionProgramaEducativoId();
-        String urlServidorLocal = await repository.getSessionUsuarioUrlServidor();
-
-
-        httpDatosRepository.updateDatosParaCrearRubro(urlServidorLocal, anioAcademicoId, programaEducativoId, params?.calendarioPeriodoId??0, params?.cargaCursoId??0, empleadoId,
-            onListen: (bytes, total) {
-              _bytes.addAll(bytes);
-              _total = total??0;
-              _received += bytes.length;
-              /* setState(() {
-              _bytes.addAll(value);
-              _received += value.length;
-            });*/
-
-              controller.add(UpdateDatosCrearRubroResponse(false, false, true, _total, _received));
-            },onSucces: (){
-              Map<String,dynamic> body = json.decode(utf8.decode(_bytes));
-              if(body.containsKey("Successful")&&body.containsKey("Value")&&body["Value"]!=null){
-
-                rubroRepository.saveDatosCrearRubros(body["Value"], params?.silaboEventoId??0, params?.calendarioPeriodoId??0);
-                rubroRepository.saveUpdateServerCurso(params?.calendarioPeriodoId, params?.silaboEventoId);
-                controller.add(UpdateDatosCrearRubroResponse(false, false, false, _total, _received));
-              }else{
-                controller.add(UpdateDatosCrearRubroResponse(false, true, false, _total, _received));
-              }
-
-              controller.close();
-            },onError: (){
-              logger.severe('UpdateDatosCrearRubro error');
-              controller.add(UpdateDatosCrearRubroResponse(true, false, false, -_total, _received));
-              controller.close();
-            });
-
-      }else{
-        controller.add(UpdateDatosCrearRubroResponse(false, false, false, 100, 100));//Sucess
-        controller.close();
+      Map<String, dynamic>? datosCrearRubro = await httpDatosRepository.updateDatosParaCrearRubro(urlServidorLocal, anioAcademicoId, programaEducativoId, params?.calendarioPeriodoId??0, params?.silaboEventoId??0, empleadoId);
+      errorServidor = datosCrearRubro == null;
+      if (!errorServidor) {
+        rubroRepository.saveDatosCrearRubros(datosCrearRubro, params?.silaboEventoId??0, params?.calendarioPeriodoId??0);
+        List<dynamic> rubrosNoEnviados = await rubroRepository.getRubroEvalNoEnviadosServidorSerial(params?.silaboEventoId??0, params?.calendarioPeriodoId??0);
+        Map<String, dynamic>? datosRubro = await httpDatosRepository.getDatosRubroFlutter(urlServidorLocal, params?.calendarioPeriodoId??0, params?.silaboEventoId??0, georeferenciaId, usuarioId, rubrosNoEnviados);
+        errorServidor = datosRubro == null;
+        if (!errorServidor) {
+          rubroRepository.saveDatosRubrosEval(datosRubro, params?.silaboEventoId??0, params?.calendarioPeriodoId??0);
+        }
       }
 
-    } catch (e) {
-    logger.severe('UpdateDatosCrearRubro unsuccessful: '+e.toString());
-    controller.addError(e);
+    }catch(e){
+      offlineServidor = true;
+      logger.severe('UpdateDatosCrearRubro unsuccessful: '+e.toString());
     }
+
+    controller.add(UpdateDatosCrearRubroResponse(offlineServidor, errorServidor));
+    controller.close();
+
     return controller.stream;
 
   }
@@ -81,21 +57,15 @@ class UpdateDatosCrearRubro extends UseCase<UpdateDatosCrearRubroResponse, Updat
 }
 class UpdateDatosCrearRubroParams{
   int calendarioPeriodoId;
-  int cargaCursoId;
   int silaboEventoId;
-  bool forceUpdate;
 
-  UpdateDatosCrearRubroParams(this.calendarioPeriodoId, this.cargaCursoId, this.silaboEventoId, this.forceUpdate);
+  UpdateDatosCrearRubroParams(this.calendarioPeriodoId, this.silaboEventoId);
 
 }
 class UpdateDatosCrearRubroResponse{
   bool errorConexion;
   bool errorServidor;
-  bool stream;
-  int total;
-  int recibido;
 
-  UpdateDatosCrearRubroResponse(this.errorConexion, this.errorServidor,
-      this.stream, this.total, this.recibido);
+  UpdateDatosCrearRubroResponse(this.errorConexion, this.errorServidor);
 }
 

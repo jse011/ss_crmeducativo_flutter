@@ -47,13 +47,14 @@ class GetCompetenciaRubroEval extends UseCase<GetCompetenciaRubroResponse, GetCo
         }
       }
 
-      for(PersonaUi personaUi in personaUiList){
-        PersonaUi? alumnoCurso = alumnoCursoList.firstWhereOrNull((element) => element.personaId == personaUi.personaId);
-        if(alumnoCurso==null){
-          personaUi.soloApareceEvaluacion = true;
-          alumnoCursoList.add(personaUi);
+      for(PersonaUi alumnoCurso in alumnoCursoList){
+        PersonaUi? personaUi = personaUiList.firstWhereOrNull((element) => element.personaId == alumnoCurso.personaId);
+        if(personaUi==null){
+          alumnoCurso.soloApareceEnElCurso = true;
+          alumnoCursoList.add(alumnoCurso);
         }
       }
+
       List<EvaluacionCompetenciaUi> evaluacionCompetenciaUiList = [];
       TipoNotaUi? tipoNotaUi = await rubroRepository.getGetTipoNotaResultado(params?.silaboEventoId);
       int notaMaxResultado = tipoNotaUi.escalavalorMaximo??0;

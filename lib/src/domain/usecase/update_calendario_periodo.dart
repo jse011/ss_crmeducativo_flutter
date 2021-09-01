@@ -37,7 +37,7 @@ class UpdateCalendarioPerido extends UseCase<GetCalendarioPeridoResponse, GetCal
         } catch (e) {
           offlineServidor = true;
         }
-        await getCalendarioPerido(controller, anioAcademicoIdSelect, programaEducativoIdSelect, params?.cargaCursoId??0);
+        await getCalendarioPerido(controller, anioAcademicoIdSelect, programaEducativoIdSelect, params?.cargaCursoId??0, errorServidor, offlineServidor);
         controller.close();
         logger.finest('GetCalendarioPeridoResponse successful. ');
       }
@@ -59,7 +59,7 @@ class UpdateCalendarioPerido extends UseCase<GetCalendarioPeridoResponse, GetCal
     return controller.stream;
   }
 
-  Future<void> getCalendarioPerido(StreamController<GetCalendarioPeridoResponse> controller,int anioAcademicoId, int programaEducativoId, int cargaCursoId) async{
+  Future<void> getCalendarioPerido(StreamController<GetCalendarioPeridoResponse> controller,int anioAcademicoId, int programaEducativoId, int cargaCursoId,bool errorServidor, bool offlineServidor) async{
     CalendarioPeriodoUI? calendarioPeriodoUI = null;
 
     final List<CalendarioPeriodoUI> calendarioPeriodoList = await repository.getCalendarioPerios(programaEducativoId, cargaCursoId, anioAcademicoId);
@@ -73,16 +73,18 @@ class UpdateCalendarioPerido extends UseCase<GetCalendarioPeridoResponse, GetCal
 
     calendarioPeriodoUI?.selected = true;
 
-    controller.add(GetCalendarioPeridoResponse(calendarioPeriodoList, calendarioPeriodoUI));
+    controller.add(GetCalendarioPeridoResponse(calendarioPeriodoList, calendarioPeriodoUI, offlineServidor, errorServidor));
   }
 
 }
 class GetCalendarioPeridoResponse{
   List<CalendarioPeriodoUI> calendarioPeriodoList;
   CalendarioPeriodoUI? calendarioPeriodoUI;
+  bool offlineServidor;
+  bool errorServidor;
 
-  GetCalendarioPeridoResponse(
-      this.calendarioPeriodoList, this.calendarioPeriodoUI);
+  GetCalendarioPeridoResponse(this.calendarioPeriodoList,
+      this.calendarioPeriodoUI, this.offlineServidor, this.errorServidor);
 }
 class GetCalendarioPeridoParams{
   int cargaCursoId;

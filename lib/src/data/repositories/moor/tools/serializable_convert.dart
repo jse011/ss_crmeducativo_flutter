@@ -1377,7 +1377,8 @@ class SerializableConvert{
         tareaId: serial.tareaId,
         resultadoTipoNotaId: serial.resultadoTipoNotaId,
         instrumentoEvalId: serial.instrumentoEvalId,
-        preguntaEvalId: serial.preguntaEvalId
+        preguntaEvalId: serial.preguntaEvalId,
+        error_guardar:serial.error_guardar
     );
   }
 
@@ -1413,6 +1414,7 @@ class SerializableConvert{
         nota: serial.nota,
         sesionAprendizajeId: serial.sesionAprendizajeId,
         publicado: serial.publicado,
+        syncFlag: serial.syncFlag
 
     );
   }

@@ -8,5 +8,5 @@ class PersonaUi{
   String? apellidos;
   String? telefono;
   bool? contratoVigente;
-  bool? soloApareceEvaluacion;
+  bool? soloApareceEnElCurso;
 }

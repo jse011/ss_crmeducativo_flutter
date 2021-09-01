@@ -1167,7 +1167,9 @@ class RubroEvaluacionProcesoSerial {
   String? instrumentoEvalId;
   String? preguntaEvalId;
 
-  RubroEvaluacionProcesoSerial(
+  int? error_guardar;
+
+  RubroEvaluacionProcesoSerial({
       this.rubroEvalProcesoId,
       this.titulo,
       this.subtitulo,
@@ -1208,7 +1210,8 @@ class RubroEvaluacionProcesoSerial {
       this.fechaAccion,
       this.key,
       this.instrumentoEvalId,
-      this.preguntaEvalId);
+      this.preguntaEvalId,
+      this.error_guardar});
 
   factory RubroEvaluacionProcesoSerial.fromJson(Map<String, dynamic> json) => _$RubroEvaluacionProcesoSerialFromJson(json);
 
@@ -1242,32 +1245,34 @@ class EvaluacionProcesoSerial {
   int? usuarioAccionId;
   int?fechaAccion;
   String? key;
+  int? syncFlag;
 
-
-  EvaluacionProcesoSerial(
-      this.evaluacionProcesoId,
-      this.evaluacionResultadoId,
-      this.nota,
-      this.escala,
-      this.rubroEvalProcesoId,
-      this.sesionAprendizajeId,
-      this.valorTipoNotaId,
-      this.equipoId,
-      this.alumnoId,
-      this.calendarioPeriodoId,
-      this.formulaSinc,
-      this.msje,
-      this.publicado,
-      this.visto,
-      this.nombres,
-      this.apellidoPaterno,
-      this.apellidoMaterno,
-      this.foto,
-      this.usuarioCreacionId,
-      this.fechaCreacion,
-      this.usuarioAccionId,
-      this.fechaAccion,
-      this.key);
+  EvaluacionProcesoSerial({
+    this.evaluacionProcesoId,
+    this.evaluacionResultadoId,
+    this.nota,
+    this.escala,
+    this.rubroEvalProcesoId,
+    this.sesionAprendizajeId,
+    this.valorTipoNotaId,
+    this.equipoId,
+    this.alumnoId,
+    this.calendarioPeriodoId,
+    this.formulaSinc,
+    this.msje,
+    this.publicado,
+    this.visto,
+    this.nombres,
+    this.apellidoPaterno,
+    this.apellidoMaterno,
+    this.foto,
+    this.usuarioCreacionId,
+    this.fechaCreacion,
+    this.usuarioAccionId,
+    this.fechaAccion,
+    this.key,
+    this.syncFlag
+});
 
   factory EvaluacionProcesoSerial.fromJson(Map<String, dynamic> json) => _$EvaluacionProcesoSerialFromJson(json);
 
@@ -1286,13 +1291,15 @@ class RubroEvaluacionProcesoCampotematicoSerial{
 
 
   RubroEvaluacionProcesoCampotematicoSerial(
-      this.rubroEvalProcesoId,
-      this.campoTematicoId,
-      this.usuarioCreacionId,
-      this.fechaCreacion,
-      this.usuarioAccionId,
-      this.fechaAccion,
-      this.key);
+  {
+    this.rubroEvalProcesoId,
+    this.campoTematicoId,
+    this.usuarioCreacionId,
+    this.fechaCreacion,
+    this.usuarioAccionId,
+    this.fechaAccion,
+    this.key
+});
 
   factory RubroEvaluacionProcesoCampotematicoSerial.fromJson(Map<String, dynamic> json) => _$RubroEvaluacionProcesoCampotematicoSerialFromJson(json);
 
@@ -1314,17 +1321,18 @@ class RubroEvaluacionProcesoComentarioSerial {
   String? key;
 
 
-  RubroEvaluacionProcesoComentarioSerial(
-      this.evaluacionProcesoComentarioId,
-      this.evaluacionProcesoId,
-      this.comentarioId,
-      this.descripcion,
-      this.delete,
-      this.usuarioCreacionId,
-      this.fechaCreacion,
-      this.usuarioAccionId,
-      this.fechaAccion,
-      this.key);
+  RubroEvaluacionProcesoComentarioSerial({
+    this.evaluacionProcesoComentarioId,
+    this.evaluacionProcesoId,
+    this.comentarioId,
+    this.descripcion,
+    this.delete,
+    this.usuarioCreacionId,
+    this.fechaCreacion,
+    this.usuarioAccionId,
+    this.fechaAccion,
+    this.key
+});
 
   factory RubroEvaluacionProcesoComentarioSerial.fromJson(Map<String, dynamic> json) => _$RubroEvaluacionProcesoComentarioSerialFromJson(json);
 
@@ -1345,18 +1353,19 @@ class ArchivosRubroProcesoSerial {
   int?fechaAccion;
   String? key;
 
-  ArchivosRubroProcesoSerial(
-      this.archivoRubroId,
-      this.url,
-      this.tipoArchivoId,
-      this.evaluacionProcesoId,
-      this.localpath,
-      this.delete,
-      this.usuarioCreacionId,
-      this.fechaCreacion,
-      this.usuarioAccionId,
-      this.fechaAccion,
-      this.key);
+  ArchivosRubroProcesoSerial({
+    this.archivoRubroId,
+    this.url,
+    this.tipoArchivoId,
+    this.evaluacionProcesoId,
+    this.localpath,
+    this.delete,
+    this.usuarioCreacionId,
+    this.fechaCreacion,
+    this.usuarioAccionId,
+    this.fechaAccion,
+    this.key
+});
 
   factory ArchivosRubroProcesoSerial.fromJson(Map<String, dynamic> json) => _$ArchivosRubroProcesoSerialFromJson(json);
 
@@ -1377,15 +1386,17 @@ class RubroEvalRNPFormulaSerial {
   String? key;
 
   RubroEvalRNPFormulaSerial(
-      this.rubroFormulaId,
-      this.rubroEvaluacionPrimId,
-      this.rubroEvaluacionSecId,
-      this.peso,
-      this.usuarioCreacionId,
-      this.fechaCreacion,
-      this.usuarioAccionId,
-      this.fechaAccion,
-      this.key);
+      {
+        this.rubroFormulaId,
+        this.rubroEvaluacionPrimId,
+        this.rubroEvaluacionSecId,
+        this.peso,
+        this.usuarioCreacionId,
+        this.fechaCreacion,
+        this.usuarioAccionId,
+        this.fechaAccion,
+        this.key
+      });
 
   factory RubroEvalRNPFormulaSerial.fromJson(Map<String, dynamic> json) => _$RubroEvalRNPFormulaSerialFromJson(json);
 

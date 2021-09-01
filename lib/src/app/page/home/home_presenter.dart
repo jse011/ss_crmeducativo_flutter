@@ -85,7 +85,7 @@ class _GetSessionUsuarioCase extends Observer<GetSessionUsuarioCaseResponse>{
   @override
   void onNext(GetSessionUsuarioCaseResponse? response) {
     assert(presenter.getUserOnNext != null);
-    presenter.getUserOnNext(response?.usurio);
+    presenter.getUserOnNext(response?.usuario);
   }
 
 }

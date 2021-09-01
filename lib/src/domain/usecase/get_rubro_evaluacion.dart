@@ -23,7 +23,7 @@ class GetRubroEvaluacion extends UseCase<GetRubroEvaluacionResponse, GetRubroEva
       RubricaEvaluacionUi rubricaEvaluacionUi =  await repository.getRubroEvaluacion(params?.rubroEvaluacionId);
       /*Obtner alumnos*/
       List<PersonaUi> alumnoCursoList = await configuracionRepository.getListAlumnoCurso(params?.cargaCursoId??0);
-
+/*
       List<PersonaUi> personaUiList = [];
       for(EvaluacionUi evaluacionUi in rubricaEvaluacionUi.evaluacionUiList??[]){
         PersonaUi? personaUi = personaUiList.firstWhereOrNull((element) => element.personaId == evaluacionUi.alumnoId);
@@ -37,13 +37,12 @@ class GetRubroEvaluacion extends UseCase<GetRubroEvaluacionResponse, GetRubroEva
         }
       }
 
-      for(PersonaUi personaUi in personaUiList){
-        PersonaUi? alumnoCurso = alumnoCursoList.firstWhereOrNull((element) => element.personaId == personaUi.personaId);
-        if(alumnoCurso==null){
-          personaUi.soloApareceEvaluacion = true;
-          alumnoCursoList.add(personaUi);
+      for(PersonaUi alumnoCurso in alumnoCursoList){
+        PersonaUi? personaUi = personaUiList.firstWhereOrNull((element) => element.personaId == alumnoCurso.personaId);
+        if(personaUi==null){
+          alumnoCurso.soloApareceEnElCurso = true;
         }
-      }
+      }*/
 
       controller.add(GetRubroEvaluacionResponse(rubricaEvaluacionUi, alumnoCursoList));
       controller.close();

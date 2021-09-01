@@ -456,7 +456,7 @@ class MoorConfiguracionRepository extends ConfiguracionRepository{
     UsuarioUi usuarioUi = UsuarioUi();
     usuarioUi.personaId = personaData.personaId;
     usuarioUi.nombre = '${AppTools.capitalize(personaData.nombres??"")} ${AppTools.capitalize(personaData.apellidoPaterno??"")} ${AppTools.capitalize(personaData.apellidoMaterno??"")}';
-    usuarioUi.foto = '${AppTools.capitalize(personaData.foto??"")}';
+    usuarioUi.foto = '${personaData.foto??""}';
     usuarioUi.correo = personaData.correo??"";
     usuarioUi.celular = personaData.celular??personaData.telefono??"";
     usuarioUi.fechaNacimiento = fechaNacimiento;

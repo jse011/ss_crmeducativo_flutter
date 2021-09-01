@@ -39,6 +39,6 @@ class GetSessionUsuarioCaseParams {
 
 /// Wrapping response inside an object makes it easier to change later
 class GetSessionUsuarioCaseResponse {
-  final UsuarioUi usurio;
-  GetSessionUsuarioCaseResponse(this.usurio);
+  final UsuarioUi usuario;
+  GetSessionUsuarioCaseResponse(this.usuario);
 }

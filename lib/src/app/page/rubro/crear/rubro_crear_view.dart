@@ -20,6 +20,7 @@ import 'package:ss_crmeducativo_2/src/app/widgets/ars_progress.dart';
 import 'package:ss_crmeducativo_2/src/app/widgets/dropdown_formfield_2.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_configuracion_repository.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_rubro_repository.dart';
+import 'package:ss_crmeducativo_2/src/device/repositories/http/device_http_datos_repository.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/calendario_periodio_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/capacidad_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/competencia_ui.dart';
@@ -35,7 +36,7 @@ import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_tipos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/valor_tipo_nota_ui.dart';
-import 'package:ss_crmeducativo_2/src/domain/response/respuesta_crear_rubro.dart';
+import 'package:ss_crmeducativo_2/src/domain/repositories/http_datos_repository.dart';
 
 class RubroCrearView extends View{
   CursosUi cursosUi;
@@ -56,9 +57,7 @@ class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController
   late double topBarOpacity = 0.0;
   late AnimationController animationController;
 
-
-  String? _myActivity = null;
-  RubroCrearViewState(cursosUi, calendarioPeriodoUI, rubroUi) : super(RubroCrearController(cursosUi, calendarioPeriodoUI, rubroUi, MoorRubroRepository(), MoorConfiguracionRepository()));
+  RubroCrearViewState(cursosUi, calendarioPeriodoUI, rubroUi) : super(RubroCrearController(cursosUi, calendarioPeriodoUI, rubroUi, MoorRubroRepository(), MoorConfiguracionRepository(), DeviceHttpDatosRepositorio()));
   var _tiuloRubricacontroller = TextEditingController();
   var _tiuloCriteriocontroller = TextEditingController();
 
@@ -127,150 +126,36 @@ class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController
   }
 
   @override
-  Widget get view =>
-      Container(
-        color: AppTheme.background,
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          body: Stack(
-            children: <Widget>[
-              getMainTab(),
-              getAppBarUI(),
-              ControlledWidgetBuilder<RubroCrearController>(
-                  builder: (context, controller) {
-                    return controller.showDialog?ArsProgressWidget(
+  Widget get view => WillPopScope(
+    onWillPop: () async {
+
+      bool? respuesta = await _showMaterialDialog(context);
+      return respuesta??false;
+    },
+    child:  Container(
+      color: AppTheme.background,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Stack(
+          children: <Widget>[
+            getMainTab(),
+            getAppBarUI(),
+            ControlledWidgetBuilder<RubroCrearController>(
+                builder: (context, controller) {
+                  if(controller.showDialog){
+                    return  ArsProgressWidget(
                         blur: 2,
                         backgroundColor: Color(0x33000000),
-                        animationDuration: Duration(milliseconds: 500),
-                        loadingWidget:  Container(
-                          margin: EdgeInsets.only(bottom: 32),
-                          height: 160,
-                          decoration: BoxDecoration(
-                              color: HexColor("#4987F3"),
-                              borderRadius: BorderRadius.circular(24) // use instead of BorderRadius.all(Radius.circular(20))
-                          ),
-                          child: Stack(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(left: 24, right: 36, top: 24, bottom: 16),
-                                child:   Row(
-                                  children: [
-                                    Expanded(
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text("Enviando su evaluación",
-                                            style: TextStyle(
-                                              fontFamily: AppTheme.fontTTNormsMedium,
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 18,
-                                              letterSpacing: 0.5,
-                                              color: AppTheme.white,
-                                            ),
-                                          ),
-                                          Padding(padding: EdgeInsets.only(top: 8)),
-                                          Text("Congrats! Your progress are growing up",
-                                            style: TextStyle(
-                                              fontFamily: AppTheme.fontTTNormsLigth,
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 12,
-                                              letterSpacing: 0.5,
-                                              color: AppTheme.white,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(padding: EdgeInsets.only(left: 8)),
-                                    Container(
-                                      width: 72,
-                                      height: 72,
-                                      padding: EdgeInsets.all(16),
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: HexColor("#3C7BE9")),
-                                      child:Container(
-                                        child: Center(
-                                          child: Text("0%",
-                                            style: TextStyle(
-                                              fontFamily: AppTheme.fontTTNormsMedium,
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 11,
-                                              letterSpacing: 0.5,
-                                              color: AppTheme.white,
-                                            ),
-                                          ),
-                                        ),
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: HexColor("#4987F3")),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Positioned(
-                                top: 24,
-                                right: -90,
-                                child: Container(
-                                  width: 280,
-                                  child: Lottie.asset('assets/lottie/progress_portal_alumno.json',
-                                      fit: BoxFit.fill
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                bottom: 24,
-                                left: 24,
-                                child: Row(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 16),
-                                      child: Material(
-                                        color: AppTheme.white,
-                                        borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                                        child: InkWell(
-                                          focusColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                                          splashColor: AppTheme.colorPrimary.withOpacity(0.4),
-                                          onTap: () {
-                                             controller.enviarMastardeRubrica();
-                                          },
-                                          child:
-                                          Container(
-                                              padding: const EdgeInsets.only(top: 10, left: 8, bottom: 8, right: 8),
-                                              child: Row(
-                                                children: [
-                                                  Text("ENVIAR MÁS TARDE",
-                                                    style: TextStyle(
-                                                      fontFamily: AppTheme.fontTTNormsLigth,
-                                                      fontWeight: FontWeight.w700,
-                                                      fontSize: 12,
-                                                      letterSpacing: 0.5,
-                                                      color: AppTheme.darkText,
-                                                    ),)
-                                                ],
-                                              )
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                    ):Container();
+                        animationDuration: Duration(milliseconds: 500));
+                  }else{
+                    return Container();
                   }
-              )
-            ],
-          ),
+                })
+          ],
         ),
-      );
+      ),
+    ),
+  );
 
   Widget getAppBarUI() {
     return Column(
@@ -313,13 +198,11 @@ class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController
                           children: <Widget>[
                             IconButton(
                               icon: Icon(Icons.arrow_back, color: AppTheme.nearlyBlack, size: 22 + 6 - 6 * topBarOpacity,),
-                              onPressed: () {
-                                animationController.reverse().then<dynamic>((data) {
-                                  if (!mounted) {
-                                    return;
-                                  }
-                                  AppRouter.cerrarCreateRouteRubroCrearRouter(context, RespuestaCrearRubro.CERRAR_NO_CAMBIO);
-                                });
+                              onPressed: () async {
+                                bool? respuesta = await _showMaterialDialog(context);
+                                if(respuesta??false){
+                                  Navigator.of(context).pop(true);
+                                }
                               },
                             ),
                             Expanded(
@@ -342,7 +225,6 @@ class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController
                             ),
                             ControlledWidgetBuilder<RubroCrearController>(
                               builder: (context, controller) {
-
                                 if(controller.mensaje!=null&&controller.mensaje!.isNotEmpty){
                                   Fluttertoast.showToast(
                                     msg: controller.mensaje!,
@@ -362,11 +244,22 @@ class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController
                                     hoverColor: Colors.transparent,
                                     borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                                     splashColor: AppTheme.colorPrimary.withOpacity(0.4),
-                                    onTap: () {
-                                      //if(widget.cabecera){
-                                      //Navigator.pop(context, true);
-                                      //}
-                                      controller.onSave();
+                                    onTap: () async {
+                                        print("guardar");
+                                        int success = await controller.onSave();
+                                        if(success != 0){
+                                          Navigator.of(context).pop(true);
+                                        }
+
+
+                                        /*if(success == 1|| success == -2){
+
+                                        }else if(success == -1){
+                                          bool? respuesta = await _showDialogErroGuardar(context, success);
+                                          if(respuesta??false){
+                                            Navigator.of(context).pop(true);
+                                          }
+                                        }*/
                                     },
                                     child:
                                     Container(
@@ -408,10 +301,6 @@ class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController
 
     return ControlledWidgetBuilder<RubroCrearController>(
         builder: (context, controller) {
-          if(controller.respuestaCrearRubro!=null) {
-             AppRouter.cerrarCreateRouteRubroCrearRouter(context, controller.respuestaCrearRubro);
-            return Container();
-          }
           return Container(
               padding: EdgeInsets.only(
                 top: AppBar().preferredSize.height +
@@ -1855,6 +1744,219 @@ class RubroCrearViewState extends ViewState<RubroCrearView, RubroCrearController
         });
   }
 
+  Future<bool?> _showMaterialDialog(BuildContext context) async {
+    RubroCrearController controller =
+    FlutterCleanArchitecture.getController<RubroCrearController>(context, listen: false);
+    return await showGeneralDialog(
+        context: context,
+        pageBuilder: (BuildContext buildContext,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation) {
+          return ArsProgressWidget(
+              blur: 2,
+              backgroundColor: Color(0x33000000),
+              animationDuration: Duration(milliseconds: 500),
+              loadingWidget: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16), // if you need this
+                  side: BorderSide(
+                    color: Colors.grey.withOpacity(0.2),
+                    width: 1,
+                  ),
+                ),
+                child: Container(
+                  padding: EdgeInsets.all(16),
+                  constraints: BoxConstraints(minWidth: 100, maxWidth: 400),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 50,
+                            height: 50,
+                            child: Icon(Ionicons.close, size: 35, color: AppTheme.white,),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: AppTheme.colorAccent),
+                          ),
+                          Padding(padding: EdgeInsets.all(8)),
+                          Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(padding: EdgeInsets.all(4),),
+                                  Text("Salir sin guardar", style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700,
+                                      fontFamily: AppTheme.fontTTNormsMedium
+                                  ),),
+                                  Padding(padding: EdgeInsets.all(8),),
+                                  Text("¿Esta seguro que quiere salir?",
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        height: 1.5
+                                    ),),
+                                  Padding(padding: EdgeInsets.all(16),),
+                                ],
+                              )
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                              child: OutlinedButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop(false);
+                                },
+                                child: Text('Cancelar'),
+                                style: OutlinedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                ),
+                              )
+                          ),
+                          Padding(padding: EdgeInsets.all(8)),
+                          Expanded(child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).pop(true);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: AppTheme.red,
+                              onPrimary: Colors.white,
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
+                            child: Text('Salir sin guardar'),
+                          )),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              )
+          );
+        },
+        barrierDismissible: true,
+        barrierLabel: MaterialLocalizations.of(context)
+            .modalBarrierDismissLabel,
+        barrierColor: Colors.transparent,
+        transitionDuration:
+        const Duration(milliseconds: 150));
+  }
 
+  Future<bool?> _showDialogErroGuardar(BuildContext context, int tipoError) async {
+    RubroCrearController controller =
+    FlutterCleanArchitecture.getController<RubroCrearController>(context, listen: false);
+    return await showGeneralDialog(
+        context: context,
+        pageBuilder: (BuildContext buildContext,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation) {
+          return ArsProgressWidget(
+              blur: 2,
+              backgroundColor: Color(0x33000000),
+              animationDuration: Duration(milliseconds: 500),
+              loadingWidget: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16), // if you need this
+                  side: BorderSide(
+                    color: Colors.grey.withOpacity(0.2),
+                    width: 1,
+                  ),
+                ),
+                child: Container(
+                  padding: EdgeInsets.all(16),
+                  constraints: BoxConstraints(minWidth: 100, maxWidth: 400),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 50,
+                            height: 50,
+                            child: Icon(Ionicons.cellular_outline, size: 35, color: AppTheme.white,),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: AppTheme.yellowDarken3),
+                          ),
+                          Padding(padding: EdgeInsets.all(8)),
+                          Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(padding: EdgeInsets.all(4),),
+                                  Text(
+                                  "Su conexión a internet esta lenta o nuestros servidores no responden.", style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700,
+                                      fontFamily: AppTheme.fontTTNormsMedium
+                                  ),),
+                                  Padding(padding: EdgeInsets.all(4),),
+                                  Text("No pudimos guardar su nueva evaluación. Si desea puede guardar una copia de la evaluación en su dispositivo y seguir trabajando.",
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        height: 1.5
+                                    ),),
+                                  Padding(padding: EdgeInsets.all(8),),
+                                ],
+                              )
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                              child: OutlinedButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop(false);
+                                },
+                                child: Text('Atras'),
+                                style: OutlinedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                ),
+                              )
+                          ),
+                          Padding(padding: EdgeInsets.all(8)),
+                          Expanded(child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).pop(true);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: AppTheme.red,
+                              onPrimary: Colors.white,
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
+                            child: Padding(padding: EdgeInsets.all(4), child: Text('Guardar más tarde y trabajar con una copia'),),
+                          )),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              )
+          );
+        },
+        barrierDismissible: true,
+        barrierLabel: MaterialLocalizations.of(context)
+            .modalBarrierDismissLabel,
+        barrierColor: Colors.transparent,
+        transitionDuration:
+        const Duration(milliseconds: 150));
+  }
 
 }

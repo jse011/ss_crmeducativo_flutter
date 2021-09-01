@@ -14,19 +14,17 @@ import 'package:ss_crmeducativo_2/src/domain/entities/tipo_competencia_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/tipo_nota_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/valor_tipo_nota_ui.dart';
-import 'package:ss_crmeducativo_2/src/domain/response/respuesta_crear_rubro.dart';
+import 'package:ss_crmeducativo_2/src/domain/usecase/crear_server_rubro_evaluacion.dart';
 
 class RubroCrearController extends Controller{
 
   RubroCrearPresenter presenter;
-  RespuestaCrearRubro? _respuestaCrearRubro = null;//si hay respuesta cerrar el formulario
-  RespuestaCrearRubro? get respuestaCrearRubro => _respuestaCrearRubro;
   CursosUi? cursosUi;
   CalendarioPeriodoUI? calendarioPeriodoUI;
   RubricaEvaluacionUi? rubroUi;
+  String? _mensaje = null;
   bool _showDialog = false;
   bool get showDialog => _showDialog;
-  String? _mensaje = null;
   String? get mensaje => _mensaje;
   String?  _tituloRubrica = null;
   String? get tituloRubrica => _tituloRubrica;
@@ -65,7 +63,7 @@ class RubroCrearController extends Controller{
   String? get tituloCriterio => _tituloCriterio;
   List<TemaCriterioUi> _temaCriterioEditList = [];
   List<TemaCriterioUi> get temaCriterioEditList => _temaCriterioEditList;
-  RubroCrearController(this.cursosUi, this.calendarioPeriodoUI, this.rubroUi, rubroRepo, usuarioRepo): presenter = new RubroCrearPresenter(rubroRepo,usuarioRepo);
+  RubroCrearController(this.cursosUi, this.calendarioPeriodoUI, this.rubroUi, rubroRepo, usuarioRepo, httpDatosRepo): presenter = new RubroCrearPresenter(rubroRepo,usuarioRepo, httpDatosRepo);
 
   @override
   void initListeners() {
@@ -126,13 +124,6 @@ class RubroCrearController extends Controller{
       refreshUI();
     };
 
-    presenter.saveRubroEvaluacionOnNext = (){
-      refreshUI();
-    };
-
-    presenter.saveRubroEvaluacionOnError = (e){
-      refreshUI();
-    };
   }
 
 
@@ -219,36 +210,35 @@ class RubroCrearController extends Controller{
     _mensaje = null;
   }
 
-  void onSave() {
-
+  Future<int> onSave()async {
     if((_tituloRubrica??"").isEmpty){
       _mensaje = "Ingrese el título de la rúbrica";
       refreshUI();
-      return;
+      return 0;
     }
 
     if(_formaEvaluacionUi==null){
       _mensaje = "Forma evaluación vacío";
       refreshUI();
-      return;
+      return 0;
     }
 
     if(_tipoEvaluacionUi==null){
       _mensaje = "Tipo evaluación vacío";
       refreshUI();
-      return;
+      return 0;
     }
 
     if(_tipoEvaluacionUi==null) {
       _mensaje = "Promedio de logro vacío";
       refreshUI();
-      return;
+      return 0;
     }
 
    if(_criterioUiList.isEmpty){
      _mensaje = "No ha seleccionado criterios";
      refreshUI();
-     return;
+     return 0;
    }
    /*Vasta que un indicador este selecionado para guardar*/
     /*Esta validacion puede cambiar privio analisis*/
@@ -260,12 +250,13 @@ class RubroCrearController extends Controller{
     if(!camposTemaSelecionado){
       _mensaje = "No ha seleccionado campo Acción";
       refreshUI();
-      return;
+      return 0;
     }
 
     if(!validarPeso(_tableTipoNotaCells)){
       _mensaje = "El peso de los inidicadores erroneos";
       refreshUI();
+      return 0;
     }
 
     List<CriterioValorTipoNotaUi> criterioValorTipoNotaUiList = [];
@@ -280,13 +271,19 @@ class RubroCrearController extends Controller{
        }
     }
 
-    if(!_showDialog){
-      presenter.save(cursosUi, calendarioPeriodoUI, tituloRubrica, formaEvaluacionUi, tipoEvaluacionUi, tipoNotaUi, criterioPesoUiList, criterioValorTipoNotaUiList);
-    }
     _showDialog = true;
     refreshUI();
+    SaveRubroEvaluacionResponse? response = await presenter.save(cursosUi, calendarioPeriodoUI, tituloRubrica, formaEvaluacionUi, tipoEvaluacionUi, tipoNotaUi, criterioPesoUiList, criterioValorTipoNotaUiList);
+    _showDialog = false;
+    refreshUI();
 
-
+    if(response.success??false){
+      return 1;
+    }else if(response.offline){
+      return -2;
+    }else{
+      return -1;
+    }
   }
 
   void clearTitulo() {
@@ -451,10 +448,6 @@ class RubroCrearController extends Controller{
 
   }
 
-  void enviarMastardeRubrica() {
-      _respuestaCrearRubro = RespuestaCrearRubro.CERRAR_ENVIO_MAS_TARDE;
-      refreshUI();
-  }
 
 
 }

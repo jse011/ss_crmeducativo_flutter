@@ -39,6 +39,7 @@ class RubroEvaluacionProceso extends BaseSync{
   TextColumn get resultadoTipoNotaId => text().nullable()();
   TextColumn get instrumentoEvalId => text().nullable()();
   TextColumn get preguntaEvalId => text().nullable()();
+  IntColumn get error_guardar => integer().nullable()();
 
   @override
   Set<Column> get primaryKey => {rubroEvalProcesoId};

@@ -18,9 +18,6 @@ import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_capacidad_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/rubrica_evaluacion_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/sesion_ui.dart';
-import 'package:ss_crmeducativo_2/src/domain/response/respuesta_crear_rubro.dart';
-import 'package:ss_crmeducativo_2/src/domain/response/respuesta_evaluacion.dart';
-import 'package:ss_crmeducativo_2/src/domain/response/respuesta_evaluacion_capaciadad.dart';
 class AppRouter {
   AppRouter._();
 
@@ -54,6 +51,7 @@ class AppRouter {
       final CursosUi cursosUi = settings.arguments as CursosUi;
       return MaterialPageRoute(
         builder: (context) {
+          //return RubroView2(cursosUi);
           return RubroView2(cursosUi);
         },
       );
@@ -114,9 +112,8 @@ class AppRouter {
         builder: (context) {
           CursosUi cursosUi = arguments['cursoUi'];
           String rubroEvaluacionId  = arguments['rubroEvaluacionId'];
-          String fotoDocente = arguments['fotoDocente'];
           CalendarioPeriodoUI calendarioPeriodoUI = arguments['calendarioPeriodoUI'];
-          return EvaluacionIndicadorMultipleView(rubroEvaluacionId, cursosUi, fotoDocente, calendarioPeriodoUI);
+          return EvaluacionIndicadorMultipleView(rubroEvaluacionId, cursosUi, calendarioPeriodoUI);
         },
       );
     }else if(settings.name == EVALUACION_SIMPLE){
@@ -128,7 +125,8 @@ class AppRouter {
           if(arguments.containsKey('rubroEvaluacionId')){
             rubroEvaluacionId  = arguments['rubroEvaluacionId'];
           }
-          return EvaluacionIndicadorView(rubroEvaluacionId, cursosUi);
+          CalendarioPeriodoUI calendarioPeriodoUI = arguments['calendarioPeriodoUI'];
+          return EvaluacionIndicadorView(rubroEvaluacionId, cursosUi, calendarioPeriodoUI);
         },
       );
     }
@@ -184,22 +182,11 @@ class AppRouter {
         arguments:  {'cursoUi': cursosUi, 'sesionUi':sesionUi}
     );
   }
-  static Future<RespuestaCrearRubro?> createRouteRubroCrearRouter(BuildContext context, CursosUi? cursosUi,CalendarioPeriodoUI? calendarioPeriodoUI, RubricaEvaluacionUi? rubroUi) async{
-    dynamic? object = await Navigator.pushNamed(context,
+  static Future<void> createRouteRubroCrearRouter(BuildContext context, CursosUi? cursosUi,CalendarioPeriodoUI? calendarioPeriodoUI, RubricaEvaluacionUi? rubroUi) async{
+   await Navigator.pushNamed(context,
         RUBROCREAR,
         arguments: {'cursoUi': cursosUi, 'calendarioPeriodoUI':calendarioPeriodoUI ,'rubroUi': rubroUi}
     );
-    RespuestaCrearRubro? respuestaCrearRubro = null;
-    if(object is RespuestaCrearRubro){
-      respuestaCrearRubro = object;
-    }
-    return respuestaCrearRubro;
-  }
-
-  static void cerrarCreateRouteRubroCrearRouter(BuildContext context, RespuestaCrearRubro? respuestaCrearRubro) {
-    Future.delayed(const Duration(milliseconds: 300), () {
-      Navigator.pop(context, respuestaCrearRubro);
-    });
   }
 
   static createRouteTareaRouter(BuildContext context, CursosUi cursosUi) {
@@ -209,45 +196,31 @@ class AppRouter {
     );
   }
 
-  static Future<RespuestaEvaluacionCapacidad?> createRouteEvaluacionCapacidad(BuildContext context, CursosUi? cursosUi, EvaluacionCapacidadUi? evaluacionCapacidadUi) async{
+  static createRouteEvaluacionCapacidad(BuildContext context, CursosUi? cursosUi, EvaluacionCapacidadUi? evaluacionCapacidadUi) async{
     dynamic? object = await Navigator.pushNamed(context,
         EVALUACION_CAPACIDAD,
         arguments: {'cursoUi': cursosUi, 'evaluacionCapacidadUi': evaluacionCapacidadUi, }
     );
-    RespuestaEvaluacionCapacidad? respuestaEvaluacionCapacidad = null;
-    if(object is RespuestaEvaluacionCapacidad){
-      respuestaEvaluacionCapacidad = object;
-    }
-    return respuestaEvaluacionCapacidad;
   }
 
-  static Future<RespuestaEvaluacion?> createRouteEvaluacionMultiple(BuildContext context, String fotoDocente, CalendarioPeriodoUI calendarioPeriodoUI ,CursosUi? cursosUi, String? rubroEvaluacionId) async{
+  static createRouteEvaluacionMultiple(BuildContext context, CalendarioPeriodoUI? calendarioPeriodoUI ,CursosUi? cursosUi, String? rubroEvaluacionId) async{
     dynamic? object = await Navigator.pushNamed(context,
         EVALUACION_MULTIPLE,
-        arguments: {'cursoUi': cursosUi, 'rubroEvaluacionId': rubroEvaluacionId, 'fotoDocente': fotoDocente, 'calendarioPeriodoUI': calendarioPeriodoUI}
+        arguments: {'cursoUi': cursosUi, 'rubroEvaluacionId': rubroEvaluacionId, 'calendarioPeriodoUI': calendarioPeriodoUI}
     );
-    RespuestaEvaluacion? respuestaEvaluacion = null;
-    if(object is RespuestaEvaluacion){
-      respuestaEvaluacion = object;
-    }
-    return respuestaEvaluacion;
   }
 
-  static createRouteEvaluacionSimple(BuildContext context, CursosUi? cursosUi, String? rubroEvaluacionId) async{
+  static createRouteEvaluacionSimple(BuildContext context, CursosUi? cursosUi, String? rubroEvaluacionId, CalendarioPeriodoUI? calendarioPeriodoUI) async{
     dynamic? object = await Navigator.pushNamed(context,
         EVALUACION_SIMPLE,
-        arguments: {'cursoUi': cursosUi, 'rubroEvaluacionId': rubroEvaluacionId, }
+        arguments: {'cursoUi': cursosUi, 'rubroEvaluacionId': rubroEvaluacionId, 'calendarioPeriodoUI':  calendarioPeriodoUI}
     );
-    RespuestaEvaluacion? respuestaEvaluacion = null;
-    if(object is RespuestaEvaluacion){
-      respuestaEvaluacion = object;
-    }
-    return respuestaEvaluacion;
   }
 
 
 
 
 }
+
 
 

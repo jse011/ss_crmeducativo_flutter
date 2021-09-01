@@ -12,6 +12,8 @@ import 'package:ss_crmeducativo_2/src/domain/entities/unidad_ui.dart';
 abstract class RubroRepository{
   void saveDatosCrearRubros(Map<String, dynamic> crearRubro, int silaboEventoId, int calendarioPeriodoId);
 
+  void saveDatosRubrosEval(Map<String, dynamic> rubro, int silaboEventoId, int calendarioPeriodoId);
+
   Future<List<FormaEvaluacionUi>> getGetFormaEvaluacion();
 
   Future<List<TipoEvaluacionUi>> getGetTipoEvaluacion();
@@ -20,7 +22,7 @@ abstract class RubroRepository{
 
   Future<List<CompetenciaUi>> getTemasCriterios(int calendarioPeriodoId, int silaboEventoId);
 
-  Future<void> saveRubroEvaluacion(String? rubroEvaluacionId, String? titulo, int? formaEvaluacionId, int? tipoEvaluacionId, String? promedioLogroId, int? calendarioPeriodoId, int? silaboEventoId, int? cargaCursoId, int? sesionAprendizajeId, String? tareaId, int? usuarioId, List<CriterioPesoUi>? criterioPesoUiList, List<CriterioValorTipoNotaUi>? criterioValorTipoNotaUiList, TipoNotaUi? tipoNotaUi);
+  Future<String?> saveRubroEvaluacion(String? titulo, int? formaEvaluacionId, int? tipoEvaluacionId, String? promedioLogroId, int? calendarioPeriodoId, int? silaboEventoId, int? cargaCursoId, int? sesionAprendizajeId, String? tareaId, int? usuarioId, List<CriterioPesoUi>? criterioPesoUiList, List<CriterioValorTipoNotaUi>? criterioValorTipoNotaUiList, TipoNotaUi? tipoNotaUi);
 
   Future<List<RubricaEvaluacionUi>> getRubroEvaluacionList(int calendarioPeriodoId, int silaboEventoId, OrigenRubroUi origenRubroUi);
 
@@ -30,10 +32,16 @@ abstract class RubroRepository{
 
   Future<TipoNotaUi> getGetTipoNotaResultado(int? silaboEventoId);
 
-  Future<bool> isUltimedUpdateServerCurso(int? calendarioPeriodoId, int? silaboEventoId);
-
-  Future<void> saveUpdateServerCurso(int? calendarioPeriodoId, int? silaboEventoId);
-
   Future<RubricaEvaluacionUi> getRubroEvaluacion(String? rubroEvaluacionId);
+
+  Future<Map<String, dynamic>?> getRubroEvaluacionSerial(String rubroEvaluacionId);
+
+  cambiarEstadoActualizado(String rubroEvaluacionId);
+
+  Future<List<Map<String,dynamic>>> getRubroEvalNoEnviadosServidorSerial(int? silaboEventoId, int? calendarioPeriodoId);
+
+  Future<void> updateEvaluacion(RubricaEvaluacionUi? rubricaEvaluacionUi,int? alumnoId, int? usuarioId);
+
+  Future<void> eliminarEvaluacion(RubricaEvaluacionUi? rubricaEvaluacionUi, int usuarioId);
 
 }

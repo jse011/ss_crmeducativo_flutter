@@ -1,3 +1,4 @@
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,12 +11,16 @@ import 'package:lottie/lottie.dart';
 import 'package:ss_crmeducativo_2/libs/fdottedline/fdottedline.dart';
 import 'package:ss_crmeducativo_2/libs/sticky-headers-table/table_sticky_headers_not_expanded_custom.dart';
 import 'package:ss_crmeducativo_2/src/app/page/rubro/evaluacion/indicador/individual/evaluacion_indicador_controller.dart';
+import 'package:ss_crmeducativo_2/src/app/page/rubro/evaluacion/presicion/precision_view.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_icon.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/app_theme.dart';
 import 'package:ss_crmeducativo_2/src/app/utils/hex_color.dart';
 import 'package:ss_crmeducativo_2/src/app/widgets/ars_progress.dart';
+import 'package:ss_crmeducativo_2/src/app/widgets/keyboard_presicion.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_configuracion_repository.dart';
 import 'package:ss_crmeducativo_2/src/data/repositories/moor/moor_rubro_repository.dart';
+import 'package:ss_crmeducativo_2/src/device/repositories/http/device_http_datos_repository.dart';
+import 'package:ss_crmeducativo_2/src/domain/entities/calendario_periodio_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/contacto_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/cursos_ui.dart';
 import 'package:ss_crmeducativo_2/src/domain/entities/evaluacion_publicado_ui.dart';
@@ -30,17 +35,18 @@ import 'package:ss_crmeducativo_2/libs/flutter-sized-context/sized_context.dart'
 class EvaluacionIndicadorView extends View{
   String? rubroEvaluacionId;
   CursosUi? cursosUi;
+  CalendarioPeriodoUI? calendarioPeriodoUI;
 
-  EvaluacionIndicadorView(this.rubroEvaluacionId, this.cursosUi);
+  EvaluacionIndicadorView(this.rubroEvaluacionId, this.cursosUi, this.calendarioPeriodoUI);
 
   @override
-  EvaluacionIndicadorState createState() => EvaluacionIndicadorState(rubroEvaluacionId, cursosUi);
+  EvaluacionIndicadorState createState() => EvaluacionIndicadorState(rubroEvaluacionId, cursosUi, calendarioPeriodoUI);
 
 }
 
 class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, EvaluacionIndicadorController> with TickerProviderStateMixin{
 
-  EvaluacionIndicadorState(rubroEvaluacionId, cursosUi) : super(EvaluacionIndicadorController(rubroEvaluacionId, cursosUi, MoorRubroRepository(), MoorConfiguracionRepository()));
+  EvaluacionIndicadorState(rubroEvaluacionId, cursosUi, CalendarioPeriodoUI? calendarioPeriodoUI) : super(EvaluacionIndicadorController(rubroEvaluacionId, cursosUi, calendarioPeriodoUI, MoorRubroRepository(), MoorConfiguracionRepository(), DeviceHttpDatosRepositorio()));
 
   late Animation<double> topBarAnimation;
   late final ScrollController scrollController = ScrollController();
@@ -98,118 +104,220 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
   }
 
   @override
-  Widget get view => Container(
-    color: AppTheme.white,
-    child: Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Stack(
-        children: <Widget>[
-          getMainTab(),
-          getAppBarUI(),
-          ControlledWidgetBuilder<EvaluacionIndicadorController>(
-              builder: (context, controller) {
-                if(controller.showDialogEliminar){
-                  return  ArsProgressWidget(
-                    blur: 2,
-                    backgroundColor: Color(0x33000000),
-                    animationDuration: Duration(milliseconds: 500),
-                    loadingWidget: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16), // if you need this
-                        side: BorderSide(
-                          color: Colors.grey.withOpacity(0.2),
-                          width: 1,
-                        ),
-                      ),
-                      child: Container(
-                        padding: EdgeInsets.all(16),
-                        constraints: BoxConstraints(minWidth: 100, maxWidth: 400),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+  Widget get view => ControlledWidgetBuilder<EvaluacionIndicadorController>(
+      builder: (context, controller) {
+        return WillPopScope(
+          onWillPop: () async {
+            bool?  respuesta = await controller.onSave();
+            return true;
+          },
+          child: Container(
+            color: AppTheme.white,
+            child: Scaffold(
+              backgroundColor: Colors.transparent,
+              body: Stack(
+                children: <Widget>[
+                  getMainTab(controller),
+                  getAppBarUI(controller),
+                  if(controller.showDialog)
+                    ArsProgressWidget(
+                        blur: 2,
+                        backgroundColor: Color(0x33000000),
+                        animationDuration: Duration(milliseconds: 500)),
+                  if(controller.showDialogEliminar)
+                    ArsProgressWidget(
+                        blur: 2,
+                        backgroundColor: Color(0x33000000),
+                        animationDuration: Duration(milliseconds: 500),
+                        loadingWidget: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16), // if you need this
+                            side: BorderSide(
+                              color: Colors.grey.withOpacity(0.2),
+                              width: 1,
+                            ),
+                          ),
+                          child: Container(
+                            padding: EdgeInsets.all(16),
+                            constraints: BoxConstraints(minWidth: 100, maxWidth: 400),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
                               children: [
-                                Container(
-                                  width: 50,
-                                  height: 50,
-                                  child: Icon(Ionicons.trash, size: 35, color: AppTheme.white,),
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: AppTheme.colorAccent),
-                                ),
-                                Padding(padding: EdgeInsets.all(8)),
-                                Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(padding: EdgeInsets.all(4),),
-                                        Text("Eliminar evaluación", style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w700,
-                                            fontFamily: AppTheme.fontTTNormsMedium
-                                        ),),
-                                        Padding(padding: EdgeInsets.all(4),),
-                                        Text("¿Esta seguro de eliminar la evaluación?. Recuerde que si elimina se borrará permanentemente las calificaciones.",
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              height: 1.5
-                                          ),),
-                                        Padding(padding: EdgeInsets.all(4),),
-                                      ],
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: 50,
+                                      height: 50,
+                                      child: Icon(Ionicons.trash, size: 35, color: AppTheme.white,),
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: AppTheme.colorAccent),
+                                    ),
+                                    Padding(padding: EdgeInsets.all(8)),
+                                    Expanded(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(padding: EdgeInsets.all(8),
+                                              child: Text("Eliminar evaluación", style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w700,
+                                                  fontFamily: AppTheme.fontTTNormsMedium
+                                              ),),
+                                            ),
+                                            Padding(padding: EdgeInsets.all(4),),
+                                            Text("¿Esta seguro de eliminar la evaluación?. Recuerde que si elimina se borrará permanentemente las calificaciones.",
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  height: 1.5
+                                              ),),
+                                            Padding(padding: EdgeInsets.all(4),),
+                                          ],
+                                        )
                                     )
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                        child: OutlinedButton(
+                                          onPressed: () {
+                                            controller.onClickCancelarEliminar();
+                                          },
+                                          child: Text('Cancelar'),
+                                          style: OutlinedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(8),
+                                            ),
+                                          ),
+                                        )
+                                    ),
+                                    Padding(padding: EdgeInsets.all(8)),
+                                    Expanded(child: ElevatedButton(
+                                      onPressed: () async {
+                                        await controller.onClickAceptarEliminar();
+                                        Navigator.of(context).pop(true);
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Colors.red,
+                                        onPrimary: Colors.white,
+                                        elevation: 0,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(8.0),
+                                        ),
+                                      ),
+                                      child: Padding(padding: EdgeInsets.all(4), child: Text('Eliminar'),),
+                                    )),
+                                  ],
                                 )
                               ],
                             ),
-                            Row(
+                          ),
+                        )
+                    ),
+                  if(controller.showDialogClearEvaluacion)
+                    ArsProgressWidget(
+                        blur: 2,
+                        backgroundColor: Color(0x33000000),
+                        animationDuration: Duration(milliseconds: 500),
+                        loadingWidget: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16), // if you need this
+                            side: BorderSide(
+                              color: Colors.grey.withOpacity(0.2),
+                              width: 1,
+                            ),
+                          ),
+                          child: Container(
+                            padding: EdgeInsets.all(16),
+                            constraints: BoxConstraints(minWidth: 100, maxWidth: 400),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
                               children: [
-                                Expanded(
-                                    child: OutlinedButton(
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: 50,
+                                      height: 50,
+                                      child: Icon(Icons.cleaning_services_rounded, size: 35, color: AppTheme.white,),
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: AppTheme.colorAccent),
+                                    ),
+                                    Padding(padding: EdgeInsets.all(8)),
+                                    Expanded(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(padding: EdgeInsets.all(4),),
+                                            Text("Borrar todo y evaluar de nuevo", style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w700,
+                                                fontFamily: AppTheme.fontTTNormsMedium
+                                            ),),
+                                            Padding(padding: EdgeInsets.all(4),),
+                                            Text("¿Está seguro de volver a evaluar todo de nuevo?",
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  height: 1.5
+                                              ),),
+                                            Padding(padding: EdgeInsets.all(4),),
+                                          ],
+                                        )
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                        child: OutlinedButton(
+                                          onPressed: () {
+                                            controller.onClickCancelarClearEvaluacion();
+                                          },
+                                          child: Text('Cancelar'),
+                                          style: OutlinedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(8),
+                                            ),
+                                          ),
+                                        )
+                                    ),
+                                    Padding(padding: EdgeInsets.all(8)),
+                                    Expanded(child: ElevatedButton(
                                       onPressed: () {
-                                        controller.onClickCancelarEliminar();
+                                        controller.onClicClearEvaluacionAll();
                                       },
-                                      child: Text('Cancelar'),
-                                      style: OutlinedButton.styleFrom(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Colors.red,
+                                        onPrimary: Colors.white,
+                                        elevation: 0,
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(8),
+                                          borderRadius: BorderRadius.circular(8.0),
                                         ),
                                       ),
-                                    )
-                                ),
-                                Padding(padding: EdgeInsets.all(8)),
-                                Expanded(child: ElevatedButton(
-                                  onPressed: () {
-                                    controller.onClickCancelarEliminar();
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    primary: Colors.red,
-                                    onPrimary: Colors.white,
-                                    elevation: 0,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                  ),
-                                  child: Text('Eliminar evaluación'),
-                                )),
+                                      child: Text('Borrar todo'),
+                                    )),
+                                  ],
+                                )
                               ],
-                            )
-                          ],
-                        ),
-                      ),
-                      )
-                  );
-                }else{
-                  return Container();
-                }
-              }
-          )
-        ],
-      ),
-    ),
+                            ),
+                          ),
+                        )
+                    )
+
+                ],
+              ),
+            ),
+          ),
+        );
+      }
   );
 
-  Widget getAppBarUI() {
+  Widget getAppBarUI(EvaluacionIndicadorController controller) {
     return Column(
       children: <Widget>[
         AnimatedBuilder(
@@ -245,55 +353,80 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
                             right: 8,
                             top: 16 - 8.0 * topBarOpacity,
                             bottom: 12 - 8.0 * topBarOpacity),
-                        child:   ControlledWidgetBuilder<EvaluacionIndicadorController>(
-                          builder: (context, controller) {
-                            return Stack(
-                              children: <Widget>[
-                                Positioned(
-                                    child:  IconButton(
-                                      icon: Icon(Ionicons.arrow_back, color: AppTheme.nearlyBlack, size: 22 + 6 - 6 * topBarOpacity,),
-                                      onPressed: () {
-                                        animationController.reverse().then<dynamic>((data) {
-                                          if (!mounted) {
-                                            return;
-                                          }
-                                          Navigator.of(context).pop();
-                                        });
-                                      },
-                                    )
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 8, bottom: 8, left: 54, right: 32),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      SvgPicture.asset(AppIcon.ic_curso_evaluacion, height: 25 +  6 - 8 * topBarOpacity, width: 35 +  6 - 8 * topBarOpacity,),
-                                      Padding(padding: EdgeInsets.only(left: 16)),
-                                      Expanded(
-                                        child: Container(
-                                          padding: EdgeInsets.only(top: 4),
-                                          child: Text(
-                                            controller.rubroEvaluacionUi?.titulo??"",
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 2,
-                                            style: TextStyle(
-                                              fontFamily: AppTheme.fontTTNorms,
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 12 + 6 - 6 * topBarOpacity,
-                                              letterSpacing: 0.8,
-                                              color: AppTheme.darkerText,
-                                            ),
-                                          ),
+                        child: Stack(
+                          children: <Widget>[
+                            Positioned(
+                                child:  IconButton(
+                                  icon: Icon(Ionicons.arrow_back, color: AppTheme.nearlyBlack, size: 22 + 6 - 6 * topBarOpacity,),
+                                  onPressed: () async {
+                                    bool? respuesta = await controller.onSave();
+                                    if(respuesta??false){
+                                      Navigator.of(context).pop(true);
+                                    }
+                                  },
+                                )
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 8, bottom: 8, left: 54, right: 16),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SvgPicture.asset(AppIcon.ic_curso_evaluacion, height: 25 +  6 - 8 * topBarOpacity, width: 35 +  6 - 8 * topBarOpacity,),
+                                  Padding(padding: EdgeInsets.only(left: 16)),
+                                  Expanded(
+                                    child: Container(
+                                      padding: EdgeInsets.only(top: 4),
+                                      child: Text(
+                                        controller.rubricaEvaluacionUiCebecera?.titulo??"",
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 2,
+                                        style: TextStyle(
+                                          fontFamily: AppTheme.fontTTNorms,
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 8 + 6 - 6 * topBarOpacity,
+                                          letterSpacing: 0.8,
+                                          color: AppTheme.darkerText,
                                         ),
                                       ),
-                                    ],
+                                    ),
                                   ),
-                                ),
+                                  Padding(padding: EdgeInsets.all(4)),
+                                  /*Material(
+                                        color: AppTheme.colorPrimary.withOpacity(0.1),
+                                        borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                                        child: InkWell(
+                                          focusColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                                          splashColor: AppTheme.colorPrimary.withOpacity(0.4),
+                                          onTap: () async {
+                                            print("guardar");
+                                            controller.onSave();
+                                          },
+                                          child:
+                                          Container(
+                                              padding: const EdgeInsets.only(top: 10, left: 8, bottom: 8, right: 8),
+                                              child: Row(
+                                                children: [
+                                                  Text("GUARDAR",
+                                                    style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: AppTheme.colorPrimary,
+                                                      fontWeight: FontWeight.w600,
+                                                      fontFamily: AppTheme.fontName,
+                                                    ),),
+                                                ],
+                                              )
+                                          ),
+                                        ),
+                                      )*/
+                                ],
+                              ),
+                            ),
 
-                              ],
-                            );
-                          },
+                          ],
                         ),
                       )
                     ],
@@ -307,147 +440,176 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
     );
   }
 
-  Widget getMainTab() {
-    return ControlledWidgetBuilder<EvaluacionIndicadorController>(
-        builder: (context, controller) {
-          return Container(
-            padding: EdgeInsets.only(
-              top: AppBar().preferredSize.height +
-                  MediaQuery.of(context).padding.top +
-                  0,
-            ),
-            child: CustomScrollView(
-              controller: scrollController,
-              slivers: [
-                SliverPadding(
-                  padding: EdgeInsets.only(left: 8, right: 8),
-                  sliver: SliverList(
-                      delegate: SliverChildListDelegate(
-                        [
-                          Padding(
-                              padding: EdgeInsets.only( top: 48, left: 16, right: 16),
-                            child: Center(
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                      child: InkWell(
-                                        onTap: ()=> controller.onClicPrecision(),
-                                        child: Container(
-                                          padding: EdgeInsets.all(8),
-                                          decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.all(Radius.circular(10)),
-                                              color: controller.precision?AppTheme.colorAccent:null
-                                          ),
-                                          alignment: Alignment.center,
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              Icon(Ionicons.apps, color:controller.precision?AppTheme.white:AppTheme.colorAccent, size: 20, ),
-                                              Padding(padding: EdgeInsets.all(2),),
-                                              FittedBox(
-                                                fit: BoxFit.scaleDown,
-                                                child: Text("Precisión",
-                                                    overflow: TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                        fontWeight: FontWeight.bold,
-                                                        letterSpacing: 0.5,
-                                                        color:  controller.precision?AppTheme.white:AppTheme.colorPrimary,
-                                                        fontSize: 12
-                                                    )),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                  ),
-                                  Expanded(
-                                      child: InkWell(
-                                        onTap: (){
-                                          controller.onClickEliminar();
-                                        },
-                                        child: Container(
-                                          padding: EdgeInsets.all(8),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              Icon(Ionicons.trash, color: AppTheme.colorAccent, size: 20,),
-                                              Padding(padding: EdgeInsets.all(2),),
-                                              FittedBox(
-                                                fit: BoxFit.scaleDown,
-                                                child: Text("Eliminar",
-                                                    overflow: TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                        fontWeight: FontWeight.bold,
-                                                        letterSpacing: 0.5,
-                                                        color: AppTheme.colorPrimary,
-                                                        fontSize: 12
-                                                    )),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      )
-                                  ),
-                                  Expanded(
-                                      child:  Container(
-                                        padding: EdgeInsets.all(8),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          children: [
-                                            Icon(Ionicons.help_circle, color: AppTheme.colorAccent, size: 20,),
-                                            Padding(padding: EdgeInsets.all(2),),
-                                            FittedBox(
-                                              fit: BoxFit.scaleDown,
-                                              child: Text("Ayuda",
-                                                  overflow: TextOverflow.ellipsis,
-                                                  style: TextStyle(
-                                                    letterSpacing: 0.5,
-                                                      fontWeight: FontWeight.bold,
-                                                    color: AppTheme.colorPrimary,
-                                                      fontSize: 12
-                                                  )),
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                  ),
-
-
-                                ],
+  Widget getMainTab(EvaluacionIndicadorController controller) {
+    return Container(
+      padding: EdgeInsets.only(
+        top: AppBar().preferredSize.height +
+            MediaQuery.of(context).padding.top +
+            0,
+      ),
+      child: CustomScrollView(
+        controller: scrollController,
+        slivers: [
+          SliverPadding(
+            padding: EdgeInsets.only(left: 8, right: 8),
+            sliver: SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    Padding(
+                      padding: EdgeInsets.only( top: 8, left: 16, right: 16),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 2,
+                                child: Container(),
                               ),
-                            ),
+                              Expanded(
+                                  flex: 1,
+                                  child:  Container(
+                                    padding: EdgeInsets.all(8),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(Ionicons.help_circle, color: AppTheme.colorAccent, size: 20,),
+                                        Padding(padding: EdgeInsets.all(2),),
+                                        FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: Text("Ayuda",
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                  letterSpacing: 0.5,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: AppTheme.colorPrimary,
+                                                  fontSize: 12
+                                              )),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                              ),
+                            ],
                           ),
-
-
+                          Padding(padding: EdgeInsets.all(4)),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: InkWell(
+                                  onTap: ()=> controller.onClicPrecision(),
+                                  child: Container(
+                                    padding: EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                                        color: controller.precision?AppTheme.colorAccent:null
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(Ionicons.apps, color:controller.precision?AppTheme.white:AppTheme.colorAccent, size: 20, ),
+                                        Padding(padding: EdgeInsets.all(2),),
+                                        FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: Text("Precisión",
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  letterSpacing: 0.5,
+                                                  color:  controller.precision?AppTheme.white:AppTheme.colorPrimary,
+                                                  fontSize: 12
+                                              )),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child:  Container(
+                                    padding: EdgeInsets.all(8),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(Ionicons.pencil, color: AppTheme.colorAccent, size: 20,),
+                                        Padding(padding: EdgeInsets.all(2),),
+                                        FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: Text("Modificar",
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                  letterSpacing: 0.5,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: AppTheme.colorPrimary,
+                                                  fontSize: 12
+                                              )),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                              ),
+                              Expanded(
+                                  child: InkWell(
+                                    onTap: (){
+                                      controller.onClickEliminar();
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.all(8),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Icon(Ionicons.trash, color: AppTheme.colorAccent, size: 20,),
+                                          Padding(padding: EdgeInsets.all(2),),
+                                          FittedBox(
+                                            fit: BoxFit.scaleDown,
+                                            child: Text("Eliminar",
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    letterSpacing: 0.5,
+                                                    color: AppTheme.colorPrimary,
+                                                    fontSize: 12
+                                                )),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                              ),
+                            ],
+                          )
                         ],
-                      )
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: showTableRubrica(controller),
-                ),
-              ],
+                      ),
+                    ),
+                  ],
+                )
             ),
-          );
-        });
+          ),
+          SliverToBoxAdapter(
+            child: showTableRubrica(controller),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget showTableRubrica(EvaluacionIndicadorController controller) {
     List<double> tablecolumnWidths = [];
     for(dynamic s in controller.columnList2){
       if(s is ContactoUi){
-        tablecolumnWidths.add(95.0);
+        tablecolumnWidths.add(90.0);
       } else if(s is EvaluacionUi){
         tablecolumnWidths.add(65);
       } else if(s == "comentario"){
         tablecolumnWidths.add(55);
       } else if(s is EvaluacionPublicadoUi){
-        tablecolumnWidths.add(60);
+        tablecolumnWidths.add(55);
       }else{
-        tablecolumnWidths.add(70.0);
+        tablecolumnWidths.add(55.0);
       }
     }
 
@@ -458,7 +620,7 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
           return const SizedBox();
         } else {
           return  Padding(
-            padding: const EdgeInsets.only( top: 24, left: 16, ),
+            padding: const EdgeInsets.only( top: 24, left: 12, ),
             child: SingleChildScrollView(
               child: StickyHeadersTableNotExpandedCustom(
                 cellDimensions: CellDimensions.variableColumnWidth(
@@ -507,7 +669,8 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
                     );
                   }if(o is ValorTipoNotaUi){
                     return InkWell(
-                      onTap: () =>  controller.onClicEvaluacionAll(o),
+                      onDoubleTap: () =>  controller.onClikShowDialogClearEvaluacion(),
+                      onLongPress: () => controller.onClicEvaluacionAll(o),
                       child: Stack(
                         children: [
                           _getTipoNotaCabecera(o, controller,i)
@@ -593,8 +756,8 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(o.nombreCompleto??"", maxLines: 1, textAlign: TextAlign.center, style: TextStyle(fontSize: 12, color: AppTheme.black),),
-                            Text(o.apellidos??"", maxLines: 1, textAlign: TextAlign.center,overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 10),),
+                            Text(o.apellidos??"", maxLines: 1, textAlign: TextAlign.center,overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 10, color: AppTheme.black),),
+                            Text(o.nombreCompleto??"", maxLines: 1, textAlign: TextAlign.center,overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 8),),
                           ],
                         ),
                         decoration: BoxDecoration(
@@ -612,11 +775,15 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
                   }else if(o is EvaluacionRubricaValorTipoNotaUi){
                     return InkWell(
                       onTap: () {
-                        if(controller.precision && (o.valorTipoNotaUi?.tipoNotaUi?.intervalo??false))
-                          showDialogPresion(context, o, i);
-                        else
-                        controller.onClicEvaluar(o);
 
+                        if((o.evaluacionUi?.personaUi?.contratoVigente == true)){
+                          if(controller.precision && (o.valorTipoNotaUi?.tipoNotaUi?.intervalo??false))
+                            showDialogPresion(context, o, i);
+                          else
+                            controller.onClicEvaluar(o);
+                        }else{
+                          _showControNoVigente(context, o.evaluacionUi?.personaUi);
+                        }
                       },
                       child: Stack(
                         children: [
@@ -663,9 +830,15 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
                   }else if(o is EvaluacionPublicadoUi){//publicado
                     return InkWell(
                       onTap: (){
-                        controller.onClicPublicado(o);
+                        if(o.evaluacionUi?.personaUi?.contratoVigente??true){
+                          controller.onClicPublicado(o);
+                        }else{
+                          _showControNoVigente(context, o.evaluacionUi?.personaUi);
+                        }
+
                       },
                       child: Container(
+                        color: _getColorAlumnoBloqueados(o.evaluacionUi?.personaUi, 0),
                         child: Icon(Ionicons.globe_outline, size: 30, color:o.publicado? AppTheme.colorAccent:AppTheme.grey ),
                       ),
                     );
@@ -716,7 +889,7 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
       }else{
         return AppTheme.redLighten4;
       }
-    }else if((personaUi?.soloApareceEvaluacion??false)){
+    }else if((personaUi?.soloApareceEnElCurso??false)){
       print("soloApareceEvaluacion true");
       if(intenciadad == 0){
         return AppTheme.deepOrangeLighten4;
@@ -790,7 +963,13 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
           height: ver_detalle?35:45,
           child: CachedNetworkImage(
             imageUrl: valorTipoNotaUi?.icono ?? "",
-            placeholder: (context, url) => CircularProgressIndicator(),
+            placeholder: (context, url) => Stack(
+              children: [
+                CircularProgressIndicator(
+                  color: color_texto,
+                )
+              ],
+            ),
             errorWidget: (context, url, error) => Icon(Icons.error),
           ),
         );
@@ -907,7 +1086,13 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
             padding: EdgeInsets.all(4),
             child:  CachedNetworkImage(
               imageUrl: evaluacionRubricaValorTipoNotaUi.valorTipoNotaUi?.icono??"",
-              placeholder: (context, url) => CircularProgressIndicator(),
+              placeholder: (context, url) => Stack(
+                children: [
+                  CircularProgressIndicator(
+                    color: color_texto,
+                  )
+                ],
+              ),
               errorWidget: (context, url, error) => Icon(Icons.error),
             ),
           ),
@@ -969,13 +1154,12 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
     }else{
 
     }
-
+    List<int> presicionList = controller.getPrecionValorTipoNota(evaluacionRubricaValorTipoNotaUi.valorTipoNotaUi);
 
     showModalBottomSheet(
         shape:  RoundedRectangleBorder(
             borderRadius: BorderRadius.only(topLeft: Radius.circular(24), topRight: Radius.circular(24))),
         context: context,
-        isScrollControlled: true,
         backgroundColor: Colors.transparent,
         builder: (ctx) {
 
@@ -988,209 +1172,8 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
               };
               controller.addListener(statetDialogPresion!);
               bool isLandscape = context.isLandscape;
-              return Container(
-                height: MediaQuery.of(context).size.height * (isLandscape?1:0.7),
-                child: Container(
-                  padding: EdgeInsets.all(0),
-                  decoration: new BoxDecoration(
-                    color: AppTheme.white,
-                    borderRadius: new BorderRadius.only(
-                      topLeft: const Radius.circular(25.0),
-                      topRight: const Radius.circular(25.0),
-                    ),
-                  ),
-                  child: Container(
-                    child: Stack(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: MediaQuery.of(this.context).padding.top,
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(
-                                  left: 8,
-                                  right: 8,
-                                  top: 16 - 8.0,
-                                  bottom: 12 - 8.0),
-                              child:   Stack(
-                                children: <Widget>[
-                                  Container(
-                                    margin: const EdgeInsets.only(top: 0, bottom: 0, left: 8, right: 70),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        CachedNetworkImage(
-                                          placeholder: (context, url) => CircularProgressIndicator(),
-                                          imageUrl: evaluacionRubricaValorTipoNotaUi.evaluacionUi?.personaUi?.foto??"",
-                                          errorWidget: (context, url, error) =>  Icon(Icons.error_outline_rounded, size: 80,),
-                                          imageBuilder: (context, imageProvider) =>
-                                              Container(
-                                                  width: 50,
-                                                  height: 50,
-                                                  margin: EdgeInsets.only(right: 16, left: 24, top: 0, bottom: 8),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.all(Radius.circular(16)),
-                                                    image: DecorationImage(
-                                                      image: imageProvider,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  )
-                                              ),
-                                        ),
-                                       Expanded(
-                                           child: Text((evaluacionRubricaValorTipoNotaUi.evaluacionUi?.personaUi?.nombreCompleto??"").toUpperCase(),
-                                               maxLines: 2,
-                                               overflow: TextOverflow.ellipsis,
-                                               style: TextStyle(
-                                                 fontFamily: AppTheme.fontTTNorms,
-                                                 fontWeight: FontWeight.w800,
-                                                 fontSize: 14,
-                                                 letterSpacing: 0.8,
-                                                 color: AppTheme.darkerText,
-                                               ))
-                                       ),
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 0,
-                                    right: 10,
-                                    child: ClipOval(
-                                      child: Material(
-                                        color: AppTheme.colorPrimary.withOpacity(0.1), // button color
-                                        child: InkWell(
-                                          splashColor: AppTheme.colorPrimary, // inkwell color
-                                          child: SizedBox(width: 43 + 6, height: 43 + 6,
-                                            child: Icon(Ionicons.close, size: 24 + 6,color: AppTheme.colorPrimary, ),
-                                          ),
-                                          onTap: () {
 
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 8, bottom: 8),
-                              child: Row(
-                                children: [
-                                 Expanded(
-                                     child:  Row(
-                                       mainAxisAlignment: MainAxisAlignment.center,
-                                       children: [
-                                         Container(
-                                           width: 60,
-                                           height: 60,
-                                           child: _getTipoNotaCabecera(evaluacionRubricaValorTipoNotaUi.valorTipoNotaUi, controller, position),
-                                         ),
-                                       ],
-                                     )
-                                 ),
-                                  Expanded(
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(titulo,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w800,
-                                                fontSize: 16,
-                                                letterSpacing: 0.8,
-                                                color: AppTheme.darkerText,
-                                              )
-                                          ),
-                                          Padding(padding: EdgeInsets.all(4)),
-                                          if(evaluacionRubricaValorTipoNotaUi.valorTipoNotaUi?.tipoNotaUi?.intervalo??false)
-                                          Text(controller.getRangoNota(evaluacionRubricaValorTipoNotaUi.valorTipoNotaUi))
-                                        ],
-                                      )
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                                child: DefaultTabController(
-                                  length: 2,
-                                  child: SizedBox(
-                                    child: Column(
-                                      children: <Widget>[
-                                        TabBar(
-                                          //physics: AlwaysScrollableScrollPhysics(),
-                                          labelColor: getPosition(position),
-                                          unselectedLabelColor: AppTheme.dark_grey,
-                                          indicatorSize: TabBarIndicatorSize.tab,
-                                          indicatorColor: getPosition(position),
-                                          tabs: [
-                                            Tab(
-                                              child: Align(
-                                                alignment: Alignment.center,
-                                                child: Text("LISTA"),
-                                              ),
-                                            ),
-                                            Tab(
-                                              child: Align(
-                                                alignment: Alignment.center,
-                                                child: Text("TECLADO"),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Expanded(
-                                          child: Container(
-                                            color: AppTheme.colorShimmer,
-                                            child: TabBarView(
-                                              children: [
-                                                CustomScrollView(
-                                                    scrollDirection: Axis.vertical,
-                                                    slivers: <Widget>[
-                                                      SliverPadding(
-                                                        padding: EdgeInsets.only(left: 48, right: 48, top: 16, bottom: 16),
-                                                        sliver: SliverList(
-                                                            delegate: SliverChildListDelegate([
-
-                                                            ])
-                                                        ),
-                                                      ),
-                                                    ]
-                                                ),
-                                                CustomScrollView(
-                                                    scrollDirection: Axis.vertical,
-                                                    slivers: <Widget>[
-                                                      SliverPadding(
-                                                        padding: EdgeInsets.only(left: 48, right: 48, top: 16, bottom: 16),
-                                                        sliver: SliverList(
-                                                            delegate: SliverChildListDelegate([
-
-                                                            ])
-                                                        ),
-                                                      ),
-                                                    ]
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                )
-                            ),
-                          ],
-                        ),
-                        if(false)
-                          Center(
-                            child: CircularProgressIndicator(),
-                          )
-                      ],
-                    ),
-                  ),
-                ),
-              );
+              return PresicionView(evaluacionRubricaValorTipoNotaUi.valorTipoNotaUi, evaluacionRubricaValorTipoNotaUi.evaluacionUi?.personaUi, getPosition(position));
             },
           );
         })
@@ -1199,5 +1182,256 @@ class EvaluacionIndicadorState extends ViewState<EvaluacionIndicadorView, Evalua
     });
   }
 
+  Expanded buildRowOne() {
+    return Expanded(
+      child: Row(
+        children: [
+          Container(
+
+          )
+        ],
+      ),
+    );
+  }
+
+
+
+  Future<bool?> _showMaterialDialog(BuildContext context) async {
+    return await showGeneralDialog(
+        context: context,
+        pageBuilder: (BuildContext buildContext,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation) {
+          return ArsProgressWidget(
+              blur: 2,
+              backgroundColor: Color(0x33000000),
+              animationDuration: Duration(milliseconds: 500),
+              loadingWidget: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16), // if you need this
+                  side: BorderSide(
+                    color: Colors.grey.withOpacity(0.2),
+                    width: 1,
+                  ),
+                ),
+                child: Container(
+                  padding: EdgeInsets.all(16),
+                  constraints: BoxConstraints(minWidth: 100, maxWidth: 400),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 50,
+                            height: 50,
+                            child: Icon(Ionicons.close, size: 35, color: AppTheme.white,),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: AppTheme.colorAccent),
+                          ),
+                          Padding(padding: EdgeInsets.all(8)),
+                          Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(padding: EdgeInsets.all(4),),
+                                  Text("Salir sin guardar", style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700,
+                                      fontFamily: AppTheme.fontTTNormsMedium
+                                  ),),
+                                  Padding(padding: EdgeInsets.all(8),),
+                                  Text("¿Esta seguro que quiere salir?",
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        height: 1.5
+                                    ),),
+                                  Padding(padding: EdgeInsets.all(16),),
+                                ],
+                              )
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                              child: OutlinedButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop(false);
+                                },
+                                child: Text('Cancelar'),
+                                style: OutlinedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                ),
+                              )
+                          ),
+                          Padding(padding: EdgeInsets.all(8)),
+                          Expanded(child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).pop(true);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: AppTheme.red,
+                              onPrimary: Colors.white,
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
+                            child: Text('Salir sin guardar'),
+                          )),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              )
+          );
+        },
+        barrierDismissible: true,
+        barrierLabel: MaterialLocalizations.of(context)
+            .modalBarrierDismissLabel,
+        barrierColor: Colors.transparent,
+        transitionDuration:
+        const Duration(milliseconds: 150));
+  }
+
+  Future<bool?> _showControNoVigente(BuildContext context, PersonaUi? personaUi) async {
+    return await showGeneralDialog(
+        context: context,
+        pageBuilder: (BuildContext buildContext,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation) {
+          return ArsProgressWidget(
+              blur: 2,
+              backgroundColor: Color(0x33000000),
+              animationDuration: Duration(milliseconds: 500),
+              loadingWidget: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16), // if you need this
+                  side: BorderSide(
+                    color: Colors.grey.withOpacity(0.2),
+                    width: 1,
+                  ),
+                ),
+                child: Container(
+                  padding: EdgeInsets.all(16),
+                  constraints: BoxConstraints(minWidth: 100, maxWidth: 400),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 50,
+                            height: 50,
+                            child: Icon(Icons.supervised_user_circle, size: 35, color: AppTheme.white,),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: AppTheme.colorAccent),
+                          ),
+                          Padding(padding: EdgeInsets.all(8)),
+                          Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(padding: EdgeInsets.all(4),),
+                                  Text("Contrato no vigente", style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700,
+                                      fontFamily: AppTheme.fontTTNormsMedium
+                                  ),),
+                                  Padding(padding: EdgeInsets.all(8),),
+                                  Text("El Contrato de ${personaUi?.nombreCompleto??""} no esta vigente.",
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        height: 1.5
+                                    ),),
+                                  Padding(padding: EdgeInsets.all(16),),
+                                ],
+                              )
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                              child: Container()
+                          ),
+                          Padding(padding: EdgeInsets.all(8)),
+                          Expanded(child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).pop(true);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: AppTheme.colorAccent,
+                              onPrimary: Colors.white,
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
+                            child: Text('Salir'),
+                          )),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              )
+          );
+        },
+        barrierDismissible: true,
+        barrierLabel: MaterialLocalizations.of(context)
+            .modalBarrierDismissLabel,
+        barrierColor: Colors.transparent,
+        transitionDuration:
+        const Duration(milliseconds: 150));
+  }
+
+  Widget chipNotaPresicion(int nota, Color color, Function onClick) {
+
+
+    return Container(
+      //margin: const EdgeInsets.only(top: 0, left: 8, right: 8, bottom: 0),
+      height: 60,
+      width: 60,
+      decoration: BoxDecoration(
+          color: color,
+          shape: BoxShape.circle
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          focusColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          borderRadius: const BorderRadius.all(Radius.circular(25)),
+          splashColor: AppTheme.greyDarken4.withOpacity(0.8),
+          onTap: () {
+            onClick(nota);
+          },
+          child: Column(
+            //alignment: AlignmentDirectional.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(bottom: 4,left: 8, right: 8),
+                child: Text("${nota}", textAlign: TextAlign.center , style: TextStyle(color: AppTheme.white, fontSize: 16, fontWeight: FontWeight.bold, fontFamily: AppTheme.fontGotham)),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
 }

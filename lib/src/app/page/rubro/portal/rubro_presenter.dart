@@ -54,8 +54,8 @@ class RubroPresenter extends Presenter{
       _getTipoNotaResultado.dispose();
   }
 
-  void onActualizarCurso(CalendarioPeriodoUI? calendarioPeriodoUI, CursosUi cursosUi, bool forceUpdate) {
-    _getDatosCrearRubro.execute(_GetDatosCrearRubroCase(this), new UpdateDatosCrearRubroParams(calendarioPeriodoUI?.id??0, cursosUi.cargaCursoId??0, cursosUi.silaboEventoId??0, forceUpdate));
+  void onActualizarCurso(CalendarioPeriodoUI? calendarioPeriodoUI, CursosUi cursosUi) {
+    _getDatosCrearRubro.execute(_GetDatosCrearRubroCase(this), new UpdateDatosCrearRubroParams(calendarioPeriodoUI?.id??0, cursosUi.silaboEventoId??0));
   }
 
   void onGetRubricaList(CursosUi? cursosUi, CalendarioPeriodoUI? calendarioPeriodoUI, OrigenRubroUi? origenRubroUi){
@@ -96,7 +96,7 @@ class _GetCalendarioPeriodoCase extends Observer<GetCalendarioPeridoResponse>{
   void onNext(GetCalendarioPeridoResponse? response) {
     print("getCalendarioPeridoOnComplete");
     assert(presenter.getCalendarioPeridoOnComplete!=null);
-    presenter.getCalendarioPeridoOnComplete(response?.calendarioPeriodoList, response?.calendarioPeriodoUI);
+    presenter.getCalendarioPeridoOnComplete(response?.calendarioPeriodoList, response?.calendarioPeriodoUI, response?.errorServidor, response?.offlineServidor);
   }
 
 }
@@ -120,7 +120,7 @@ class _GetDatosCrearRubroCase extends Observer<UpdateDatosCrearRubroResponse>{
   @override
   void onNext(UpdateDatosCrearRubroResponse? response) {
     assert(presenter.updateDatosCrearRubroOnNext!=null);
-    presenter.updateDatosCrearRubroOnNext(response?.errorConexion, response?.errorServidor, response?.stream, response?.total, response?.recibido);
+    presenter.updateDatosCrearRubroOnNext(response?.errorConexion, response?.errorServidor);
   }
 
 }

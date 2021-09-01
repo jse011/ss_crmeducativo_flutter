@@ -30,7 +30,7 @@ class UpdateContactoDocente extends UseCase<UpdateContactoDocenteResponse, Updat
 
         try {
 
-          Map<String, dynamic>? contactoDocente = await await httpDatosRepo.getContactoDocente(urlServidorLocal, empleadoId, anioAcademicoIdSelect);
+          Map<String, dynamic>? contactoDocente = await httpDatosRepo.getContactoDocente(urlServidorLocal, empleadoId, anioAcademicoIdSelect);
           errorServidor = contactoDocente == null;
 
           if (!errorServidor) {
